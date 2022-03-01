@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// Classe qui contient les fonctions à exécuter lors des
@@ -16,6 +17,12 @@ public class MeteoEvents : MonoBehaviour {
     /// météo.
     /// </summary>
     public GameObject meteoPanel;
+
+    /// <summary>
+    /// Permet au code de désactiver la scrollView lorsque le
+    /// panel de météo est caché.
+    /// </summary>
+    public GameObject meteoScrollView;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
@@ -46,6 +53,16 @@ public class MeteoEvents : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 01/03/2022.
     /// </summary>
     private void toogleMeteoPanel() {
-        meteoPanel.SetActive(meteoPanel.GetComponent<Canvas>().enabled);
+        var meteoPanelGroup = meteoPanel.GetComponent<CanvasGroup>();
+        if(meteoPanelGroup.alpha == 0) {
+            meteoPanelGroup.alpha = 1;
+            meteoPanelGroup.interactable = true;
+            meteoScrollView.GetComponent<ScrollRect>().enabled = true;
+        } else {
+            meteoPanelGroup.alpha = 0;
+            meteoPanelGroup.interactable = false;
+            meteoScrollView.GetComponent<ScrollRect>().enabled = false;
+        }
+        
     }
 }
