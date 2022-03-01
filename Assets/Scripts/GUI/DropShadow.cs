@@ -9,11 +9,15 @@
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace UnityEngine.UI
-{
+/// <summary>
+/// Code libre de droit pris sur Internet afin de simuler
+/// l'ombre derrière les éléments de l'interface.
+/// 
+/// Intégré par EL MONTASER Osmane le 28/02/2022. 
+/// </summary>
+namespace UnityEngine.UI {
     [AddComponentMenu("UI/Effects/DropShadow", 14)]
-    public class DropShadow : BaseMeshEffect
-    {
+    public class DropShadow : BaseMeshEffect {
         [SerializeField]
         private Color shadowColor = new Color(0f, 0f, 0f, 0.5f);
 
@@ -29,52 +33,43 @@ namespace UnityEngine.UI
         {}
 
 #if UNITY_EDITOR
-        protected override void OnValidate()
-        {
+        protected override void OnValidate() {
             EffectDistance = shadowDistance;
             base.OnValidate();
         }
 
 #endif
 
-        public Color effectColor
-        {
+        public Color effectColor {
             get { return shadowColor; }
-            set
-            {
+            set {
                 shadowColor = value;
                 if (graphic != null)
                     graphic.SetVerticesDirty();
             }
         }
 
-        public Vector2 ShadowSpread
-        {
+        public Vector2 ShadowSpread {
             get { return shadowSpread; }
-            set
-            {
+            set {
                 shadowSpread = value;
                 if (graphic != null)
                     graphic.SetVerticesDirty();
             }
         }
 
-        public int Iterations
-        {
+        public int Iterations {
             get { return iterations; }
-            set
-            {
+            set {
                 iterations = value;
                 if (graphic != null)
                     graphic.SetVerticesDirty();
             }
         }
 
-        public Vector2 EffectDistance
-        {
+        public Vector2 EffectDistance {
             get { return shadowDistance; }
-            set
-            {
+            set {
                 shadowDistance = value;
 
                 if (graphic != null)
@@ -82,11 +77,9 @@ namespace UnityEngine.UI
             }
         }
 
-        public bool useGraphicAlpha
-        {
+        public bool useGraphicAlpha {
             get { return m_UseGraphicAlpha; }
-            set
-            {
+            set {
                 m_UseGraphicAlpha = value;
                 if (graphic != null)
                     graphic.SetVerticesDirty();
@@ -94,18 +87,15 @@ namespace UnityEngine.UI
         }
 
 
-        void DropShadowEffect(List<UIVertex> verts)
-        {
+        void DropShadowEffect(List<UIVertex> verts) {
             UIVertex vt;
             int count = verts.Count;
 
             List<UIVertex> vertsCopy = new List<UIVertex>(verts);
             verts.Clear();
 
-            for(int i=0; i<iterations; i++)
-            {
-                for(int v=0; v<count; v++)
-                {
+            for(int i=0; i<iterations; i++) {
+                for(int v=0; v<count; v++) {
                     vt = vertsCopy[v];
                     Vector3 position = vt.position;
                     float fac = (float)i/(float)iterations;
@@ -121,14 +111,12 @@ namespace UnityEngine.UI
                 }
             }
 
-            for(int i=0; i<vertsCopy.Count; i++)
-            {
+            for(int i=0; i<vertsCopy.Count; i++) {
                 verts.Add(vertsCopy[i]);
             }
         }
 
-        public override void ModifyMesh(VertexHelper vh)
-        {
+        public override void ModifyMesh(VertexHelper vh) {
             if (!IsActive())
                 return;
         

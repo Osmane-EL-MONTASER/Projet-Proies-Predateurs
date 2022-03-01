@@ -1011,6 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &80830388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &139799678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,6 +4789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &554625004
 GameObject:
   m_ObjectHideFlags: 0
@@ -7453,6 +7456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &774079418
 GameObject:
   m_ObjectHideFlags: 0
@@ -7601,6 +7605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &780295624
 GameObject:
   m_ObjectHideFlags: 0
@@ -8736,6 +8741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &931787569
 GameObject:
   m_ObjectHideFlags: 0
@@ -9190,7 +9196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
-  playerBody: {fileID: 0}
+  playerBody: {fileID: 595895187}
   cameraSpeed: 100
 --- !u!1 &966602437
 GameObject:
@@ -12487,6 +12493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &1215230546
 GameObject:
   m_ObjectHideFlags: 0
@@ -12899,6 +12906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &1257655131
 GameObject:
   m_ObjectHideFlags: 0
@@ -16942,6 +16950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &1720031123
 GameObject:
   m_ObjectHideFlags: 0
@@ -17090,6 +17099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &1757639054
 GameObject:
   m_ObjectHideFlags: 0
@@ -18674,6 +18684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &1928799775
 GameObject:
   m_ObjectHideFlags: 0
@@ -20007,6 +20018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &2067259349
 GameObject:
   m_ObjectHideFlags: 0
@@ -20143,6 +20155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  MainCamera: {fileID: 963194225}
 --- !u!1 &2068016504
 GameObject:
   m_ObjectHideFlags: 0
