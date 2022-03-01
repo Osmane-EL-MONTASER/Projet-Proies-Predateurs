@@ -6,8 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Classe codée par Pierre AVERTY pour la transition entre les scènes. 
 /// </summary>
-public class MenuTransition : MonoBehaviour
-{
+public class MenuTransition : MonoBehaviour {
     /// <summary>
     /// Objet parent du boutton cliqué.
     /// </summary>
@@ -15,6 +14,8 @@ public class MenuTransition : MonoBehaviour
     
     /// <summary>
     /// Constructeur de la classe.
+    /// 
+    /// Fait par Pierre AVERTY le 28/02/2022
     /// </summary>
     public MenuTransition() {
         
@@ -24,6 +25,7 @@ public class MenuTransition : MonoBehaviour
     /// Fonction qui cache et qui affiche un menu au clique.
     /// 
     /// Fait par Pierre AVERTY le 28/02/2022
+    /// <param name="newScene">Nouvelle scène qui sera affichée</param>
     /// </summary>
     public void OnClick(GameObject newScene) {
         parent = gameObject.transform.parent.gameObject;
