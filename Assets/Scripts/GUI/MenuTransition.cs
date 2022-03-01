@@ -42,7 +42,7 @@ public class MenuTransition : MonoBehaviour {
         parent.SetActive(false);
         newScene.SetActive(true);
 
-        if(newScene.name == "Terrain")
+        if(newScene.name == SceneNames.SIMULATION_SCENE)
             toogleCamera(true);
         else
             toogleCamera(false);
