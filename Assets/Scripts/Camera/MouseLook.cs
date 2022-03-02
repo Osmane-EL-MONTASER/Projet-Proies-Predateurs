@@ -12,23 +12,23 @@ public class MouseLook : MonoBehaviour {
     /// La sensibilité de la souris qui affectera à quelle vitesse
     /// la caméra pivote.
     /// </summary>
-    public float mouseSensitivity = 100f;
+    public float MouseSensitivity = 100f;
 
     /// <summary>
     /// L'objet de type Capsule Collider à bouger afin de pouvoir 
     /// détecter les collisions et bien orienter la caméra.
     /// </summary>
-    public Transform playerBody;
+    public Transform PlayerBody;
     
     /// <summary>
     /// La valeur de rotation actuelle de la caméra sur l'axe x.
     /// </summary>
-    private float xRotation = 0f;
+    private float _xRotation = 0f;
 
     /// <summary>
     /// La vitesse de déplacement de la caméra à chaque tick.
     /// </summary>
-    public float cameraSpeed = 100f;
+    public float CameraSpeed = 100f;
 
     /// <summary>
     /// La fonction exécutée au démarrage.
@@ -46,8 +46,8 @@ public class MouseLook : MonoBehaviour {
     /// Fait par Osmane EL MONTASER le 27/02/2022.
     /// </summary>
     void Update() {
-        handleMouseControl();
-        handleKeyControl();
+        HandleMouseControl();
+        HandleKeyControl();
     }
 
     /// <summary>
@@ -57,28 +57,28 @@ public class MouseLook : MonoBehaviour {
     /// 
     /// Fait par Osmane EL MONTASER le 13/02/2022.
     /// </summary>
-    private void handleKeyControl() {
+    private void HandleKeyControl() {
         if(Input.GetKey(KeyCode.LeftControl))
-            cameraSpeed = 600f;
+            CameraSpeed = 600f;
         else
-            cameraSpeed = 100f;
+            CameraSpeed = 100f;
 
         if(Input.GetKey("space"))
-            playerBody.Translate(Vector3.up * Time.deltaTime * cameraSpeed, Space.World);
+            PlayerBody.Translate(Vector3.up * Time.deltaTime * CameraSpeed, Space.World);
         if(Input.GetKey(KeyCode.LeftShift))
-            playerBody.Translate(Vector3.down * Time.deltaTime * cameraSpeed, Space.World);
+            PlayerBody.Translate(Vector3.down * Time.deltaTime * CameraSpeed, Space.World);
 
         if(Input.GetKey(KeyCode.Q))
-            playerBody.Translate(Vector3.left * Time.deltaTime * cameraSpeed, playerBody);
+            PlayerBody.Translate(Vector3.left * Time.deltaTime * CameraSpeed, PlayerBody);
 
         if(Input.GetKey(KeyCode.D))
-            playerBody.Translate(Vector3.right * Time.deltaTime * cameraSpeed, playerBody);
+            PlayerBody.Translate(Vector3.right * Time.deltaTime * CameraSpeed, PlayerBody);
         
         if(Input.GetKey(KeyCode.S))
-            playerBody.Translate(Vector3.back * Time.deltaTime * cameraSpeed, playerBody);
+            PlayerBody.Translate(Vector3.back * Time.deltaTime * CameraSpeed, PlayerBody);
 
         if(Input.GetKey(KeyCode.Z))
-            playerBody.Translate(Vector3.forward * Time.deltaTime * cameraSpeed, playerBody);
+            PlayerBody.Translate(Vector3.forward * Time.deltaTime * CameraSpeed, PlayerBody);
     }
 
     /// <summary>
@@ -88,14 +88,14 @@ public class MouseLook : MonoBehaviour {
     /// Insipirée de la vidéo de Brackeys :
     /// https://www.youtube.com/watch?v=_QajrabyTJc.
     /// </summary>
-    private void handleMouseControl() {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+    private void HandleMouseControl() {
+        float mouseX = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        _xRotation -= mouseY;
+        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        PlayerBody.Rotate(Vector3.up * mouseX);
     }
 }

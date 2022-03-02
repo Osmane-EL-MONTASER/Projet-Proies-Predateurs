@@ -10,13 +10,13 @@ using UnityEngine;
 /// Intégrée par EL MONTASER Osmane le 01/03/2022.
 /// </summary>
 public class LightningManager : MonoBehaviour {
-    [SerializeField] private Light directionalLight;
-    [SerializeField] private LightningPresets preset;
+    [SerializeField] private Light _directionalLight;
+    [SerializeField] private LightningPresets _preset;
 
     /// <summary>
     /// L'heure actuelle dans le monde de la simulation.
     /// </summary>
-    [SerializeField, Range(0, 24)] private float timeOfDay;
+    [SerializeField, Range(0, 24)] private float _timeOfDay;
 
     /// <summary>
     /// Pour faire avancer le temps dans le cycle jour /
@@ -25,15 +25,15 @@ public class LightningManager : MonoBehaviour {
     /// Intégrée par EL MONTASER Osmane le 01/03/2022. 
     /// </summary>
     public void Update() {
-        if(preset == null)
+        if(_preset == null)
             return;
 
         if(Application.isPlaying) {
-            timeOfDay += Time.deltaTime;
-            timeOfDay %= 24;
-            updateLightning(timeOfDay / 24f);
+            _timeOfDay += Time.deltaTime;
+            _timeOfDay %= 24;
+            UpdateLightning(_timeOfDay / 24f);
         } else
-            updateLightning(timeOfDay / 24f);
+            UpdateLightning(_timeOfDay / 24f);
     }
 
     /// <summary>
@@ -45,31 +45,31 @@ public class LightningManager : MonoBehaviour {
     /// </summary>
     /// <param name="timePercent">Le pourcentage du temps actuel 
     /// par rapport à 24h.</param>
-    private void updateLightning(float timePercent) {
-        RenderSettings.ambientLight = preset.AmbientColor.Evaluate(timePercent);
-        RenderSettings.fogColor = preset.FogColor.Evaluate(timePercent);
+    private void UpdateLightning(float timePercent) {
+        RenderSettings.ambientLight = _preset.AmbientColor.Evaluate(timePercent);
+        RenderSettings.fogColor = _preset.FogColor.Evaluate(timePercent);
 
-        if(directionalLight != null) {
-            directionalLight.color = preset.DirectionalColor.Evaluate(timePercent);
-            directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, -170f, 0f));
+        if(_directionalLight != null) {
+            _directionalLight.color = _preset.DirectionalColor.Evaluate(timePercent);
+            _directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, -170f, 0f));
         }
     }
 
     /// <summary>
-    /// Récupérer le premier DirectionalLightning sur lequel
+    /// Récupérer le premier _directionalLightning sur lequel
     /// travailler avec le cycle jour / nuit.
     /// </summary>
-    private void onValidate() {
-        if(directionalLight != null)
+    private void OnValidate() {
+        if(_directionalLight != null)
             return;
         
         if(RenderSettings.sun != null)
-            directionalLight = RenderSettings.sun;
+            _directionalLight = RenderSettings.sun;
         else {
             Light[] lights = GameObject.FindObjectsOfType<Light>();
             foreach(Light light in lights) {
                 if(light.type == LightType.Directional) {
-                    directionalLight = light;
+                    _directionalLight = light;
                     return;
                 }
             }

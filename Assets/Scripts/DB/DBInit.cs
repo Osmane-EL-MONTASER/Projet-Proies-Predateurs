@@ -18,19 +18,19 @@ public class DBInit {
     /// données SQLite.
     /// "URI=file:./Assets/Scripts/DB/database.db"
     /// </summary>
-    private string dbFilePath { get; set; }
+    private string _dbFilePath { get; set; }
 
     /// <summary>
     /// Le chemin vers le fichier de création des
     /// tables de la base de données.
     /// "./Assets/Scripts/DB/tables_creation.sql"
     /// </summary>
-    private string dbCreationScriptPath { get; set; }
+    private string _dbCreationScriptPath { get; set; }
 
     /// <summary>
     /// La connexion à la base de données SQLite.
     /// </summary>
-    private IDbConnection dbConnection;
+    private IDbConnection _dbConnection;
 
     /// <summary>
     /// Fonction lancée à la création de la classe, elle 
@@ -46,15 +46,15 @@ public class DBInit {
     /// <param name="dbCreationScriptPath">Le chemin vers le
     /// fichier de création des tables.</param>
     public DBInit(string dbFilePath, string dbCreationScriptPath) {
-        this.dbFilePath = dbFilePath;
-        this.dbCreationScriptPath = dbCreationScriptPath;
+        _dbFilePath = dbFilePath;
+        _dbCreationScriptPath = dbCreationScriptPath;
 
-		dbConnection = new SqliteConnection(dbFilePath);
-        dbConnection.Open();
+		_dbConnection = new SqliteConnection(_dbFilePath);
+        _dbConnection.Open();
 
-        createDB();
+        CreateDB();
 
-        dbConnection.Close();
+        _dbConnection.Close();
     }
 
     /// <summary>
@@ -65,9 +65,10 @@ public class DBInit {
     /// 
     /// Fait par EL MONTASER Osmane le 02/03/2022.
     /// </summary>
-    private void createDB() {
-        IDbCommand dbCreationCommand = dbConnection.CreateCommand();
-        dbCreationCommand.CommandText = System.IO.File.ReadAllText(dbCreationScriptPath);
+    private void CreateDB() {
+        IDbCommand dbCreationCommand = _dbConnection.CreateCommand();
+        
+        dbCreationCommand.CommandText = System.IO.File.ReadAllText(_dbCreationScriptPath);
         dbCreationCommand.ExecuteReader();
     }
 }
