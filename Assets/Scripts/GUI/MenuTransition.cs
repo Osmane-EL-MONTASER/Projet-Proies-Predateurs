@@ -34,8 +34,9 @@ public class MenuTransition : MonoBehaviour {
     /// 
     /// Fait par Pierre AVERTY le 28/02/2022.
     /// Révisée par EL MONTASER Osmane le 01/03/2022.
-    /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     /// </summary>
+    /// 
+    /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     public void OnClick(GameObject newScene) {
         parent = gameObject.transform.parent.gameObject;
 
@@ -53,9 +54,10 @@ public class MenuTransition : MonoBehaviour {
     /// Utile lorsque l'on passe des menus à la simulation.
     /// 
     /// Fait par EL MONTASER Osmane le 01/03/2022.
+    /// </summary>
+    /// 
     /// <param name="newValue">Nouvelle valeur qui influera sur
     /// l'activation ou non du script de contrôle de la caméra.</param>
-    /// </summary>
     public void toogleCamera(bool newValue) {
         if(MainCamera.GetComponent<MouseLook>().enabled != newValue)
             MainCamera.GetComponent<MouseLook>().enabled = newValue;
