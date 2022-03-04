@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -7116,7 +7116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _directionalLight: {fileID: 705507994}
-  _preset: {fileID: 0}
+  _preset: {fileID: 11400000, guid: bb252bb77e5d31a4dbbb1d769ff3769c, type: 2}
   _timeOfDay: 0
 --- !u!1 &596817805
 GameObject:
@@ -11818,7 +11818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseSensitivity: 100
-  PlayerBody: {fileID: 0}
+  PlayerBody: {fileID: 595895187}
   CameraSpeed: 100
 --- !u!1 &966602437
 GameObject:
