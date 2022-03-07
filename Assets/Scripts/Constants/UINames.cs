@@ -11,4 +11,5 @@ using UnityEngine;
 public static class UINames {
     //Boutons
     public const string OPEN_METEO_BUTTON = "meteoButton";
+    public const string OPEN_PROIE_BUTTON = "proieButton";
 }
