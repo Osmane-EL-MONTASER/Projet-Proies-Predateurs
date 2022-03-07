@@ -12,4 +12,6 @@ public static class UINames {
     //Boutons
     public const string OPEN_METEO_BUTTON = "meteoButton";
     public const string OPEN_PROIE_BUTTON = "proieButton";
+    public const string OPEN_PREDATEUR_BUTTON = "predateurButton";
+    public const string OPEN_AUTOTROPHE_BUTTON = "autotropheButton";
 }

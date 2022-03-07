@@ -6,33 +6,33 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Classe qui contient les fonctions à exécuter lors des
-/// interactions avec l'interface des proies.
+/// interactions avec l'interface des autotrophes.
 /// 
 /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
 /// </summary>
-public class ProieEvents : MonoBehaviour {
+public class AutotropheEvents : MonoBehaviour {
 
     /// <summary>
     /// Le panel qui s'affiche lors du clique sur le bouton
-    /// proie.
+    /// autotrophe.
     /// </summary>
-    public GameObject proiePanel;
+    public GameObject autotrophePanel;
 
     /// <summary>
     /// Permet au code de désactiver la scrollView lorsque le
-    /// panel de proie est caché.
+    /// panel de autotrophe est caché.
     /// </summary>
-    public GameObject proieScrollView;
+    public GameObject autotropheScrollView;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
-    /// panel de proie.
+    /// panel de autotrophe.
     /// 
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
     void Start() {
-        if(this.name == UINames.OPEN_PROIE_BUTTON)
-            toogleProiePanel();
+        if(this.name == UINames.OPEN_AUTOTROPHE_BUTTON)
+            toogleAutotrophePanel();
     }
 
     /// <summary>
@@ -42,26 +42,26 @@ public class ProieEvents : MonoBehaviour {
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
     public void onClick() {
-        if(this.name == UINames.OPEN_PROIE_BUTTON)
-            toogleProiePanel();
+        if(this.name == UINames.OPEN_AUTOTROPHE_BUTTON)
+            toogleAutotrophePanel();
     }
 
     /// <summary>
     /// Fonction permettant d'afficher ou de cacher le panel
-    /// proie avec toutes les proies que l'on peut ajouter.
+    /// autotrophe avec toutes les autotrophes que l'on peut ajouter.
     /// 
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
-    private void toogleProiePanel() {
-        var proiePanelGroup = proiePanel.GetComponent<CanvasGroup>();
-        if(proiePanelGroup.alpha == 0) {
-            proiePanelGroup.alpha = 1;
-            proiePanelGroup.interactable = true;
-            proieScrollView.GetComponent<ScrollRect>().enabled = true;
+    private void toogleAutotrophePanel() {
+        var autotrophePanelGroup = autotrophePanel.GetComponent<CanvasGroup>();
+        if(autotrophePanelGroup.alpha == 0) {
+            autotrophePanelGroup.alpha = 1;
+            autotrophePanelGroup.interactable = true;
+            autotropheScrollView.GetComponent<ScrollRect>().enabled = true;
         } else {
-            proiePanelGroup.alpha = 0;
-            proiePanelGroup.interactable = false;
-            proieScrollView.GetComponent<ScrollRect>().enabled = false;
+            autotrophePanelGroup.alpha = 0;
+            autotrophePanelGroup.interactable = false;
+            autotropheScrollView.GetComponent<ScrollRect>().enabled = false;
         }
         
     }

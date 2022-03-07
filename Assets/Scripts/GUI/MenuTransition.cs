@@ -38,7 +38,7 @@ public class MenuTransition : MonoBehaviour {
     /// 
     /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     public void OnClick(GameObject newScene) {
-        parent = gameObject.transform.parent.gameObject;
+        var parent = gameObject.transform.parent.gameObject;
 
         parent.SetActive(false);
         newScene.SetActive(true);

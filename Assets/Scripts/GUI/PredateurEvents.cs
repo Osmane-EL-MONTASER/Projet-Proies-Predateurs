@@ -6,33 +6,33 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Classe qui contient les fonctions à exécuter lors des
-/// interactions avec l'interface des proies.
+/// interactions avec l'interface des predateurs.
 /// 
 /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
 /// </summary>
-public class ProieEvents : MonoBehaviour {
+public class PredateurEvents : MonoBehaviour {
 
     /// <summary>
     /// Le panel qui s'affiche lors du clique sur le bouton
-    /// proie.
+    /// predateur.
     /// </summary>
-    public GameObject proiePanel;
+    public GameObject predateurPanel;
 
     /// <summary>
     /// Permet au code de désactiver la scrollView lorsque le
-    /// panel de proie est caché.
+    /// panel de predateur est caché.
     /// </summary>
-    public GameObject proieScrollView;
+    public GameObject predateurScrollView;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
-    /// panel de proie.
+    /// panel de predateur.
     /// 
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
     void Start() {
-        if(this.name == UINames.OPEN_PROIE_BUTTON)
-            toogleProiePanel();
+        if(this.name == UINames.OPEN_PREDATEUR_BUTTON)
+            tooglePredateurPanel();
     }
 
     /// <summary>
@@ -42,26 +42,26 @@ public class ProieEvents : MonoBehaviour {
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
     public void onClick() {
-        if(this.name == UINames.OPEN_PROIE_BUTTON)
-            toogleProiePanel();
+        if(this.name == UINames.OPEN_PREDATEUR_BUTTON)
+            tooglePredateurPanel();
     }
 
     /// <summary>
     /// Fonction permettant d'afficher ou de cacher le panel
-    /// proie avec toutes les proies que l'on peut ajouter.
+    /// predateur avec toutes les predateurs que l'on peut ajouter.
     /// 
     /// Fait par AVERTY Pierre le 07/03/2022 inspirée par celle de EL MONTASER Osmane.
     /// </summary>
-    private void toogleProiePanel() {
-        var proiePanelGroup = proiePanel.GetComponent<CanvasGroup>();
-        if(proiePanelGroup.alpha == 0) {
-            proiePanelGroup.alpha = 1;
-            proiePanelGroup.interactable = true;
-            proieScrollView.GetComponent<ScrollRect>().enabled = true;
+    private void tooglePredateurPanel() {
+        var predateurPanelGroup = predateurPanel.GetComponent<CanvasGroup>();
+        if(predateurPanelGroup.alpha == 0) {
+            predateurPanelGroup.alpha = 1;
+            predateurPanelGroup.interactable = true;
+            predateurScrollView.GetComponent<ScrollRect>().enabled = true;
         } else {
-            proiePanelGroup.alpha = 0;
-            proiePanelGroup.interactable = false;
-            proieScrollView.GetComponent<ScrollRect>().enabled = false;
+            predateurPanelGroup.alpha = 0;
+            predateurPanelGroup.interactable = false;
+            predateurScrollView.GetComponent<ScrollRect>().enabled = false;
         }
         
     }
