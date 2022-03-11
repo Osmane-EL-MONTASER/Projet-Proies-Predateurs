@@ -11,14 +11,19 @@ using UnityEngine;
 /// </summary>
 public class AfficherMenu : MonoBehaviour
 {
-
-    // Varaible de type GameObject sui permettra de gerer le menu options
+    /// <summary>
+    /// Variable de type GameObject sui permettra de gerer le menu options
+    /// </summary>
     public GameObject MenuOptions;
 
-    //âr defaut on va mettre panel pas visble
+    /// <summary>
+    ///Variable de type bool qui est par defaut false
+    /// </summary>
     bool visible = false;
 
-    //pour setecter touche
+    /// <summary>
+    ///Methode pour detecter touche
+    /// </summary>
     void Update()
     {
 
