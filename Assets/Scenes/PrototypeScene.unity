@@ -13888,7 +13888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridSize: 25
-  GridMaterial: {fileID: 2100000, guid: f813a5e0c20a41644a2351488dc080d7, type: 2}
+  TerrainToEdit: {fileID: 416648216}
+  GridMaterial: {fileID: 2100000, guid: 48dc73524bfc9a144bd4bd510cc6e4fd, type: 2}
 --- !u!1 &966602437
 GameObject:
   m_ObjectHideFlags: 0

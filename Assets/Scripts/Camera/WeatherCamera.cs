@@ -35,7 +35,7 @@ public class WeatherCamera : MonoBehaviour {
     /// Mac OS. Plus d'informations sur la documentation Unity :
     /// https://docs.unity3d.com/ScriptReference/Input-mouseScrollDelta.html
     /// </summary>
-    public float ScrollScale = 75f;
+    public float ScrollScale = 25f;
 
     /// <summary>
     /// Savoir si la transition vers la nouvelle caméra est
@@ -78,6 +78,11 @@ public class WeatherCamera : MonoBehaviour {
     private float _oldHeight;
 
     /// <summary>
+    /// La météo qui a été sélectionnée dans le panel.
+    /// </summary>
+    private string _selectedWeather;
+
+    /// <summary>
     /// La fonction exécutée au démarrage.
     /// 
     /// Fait par Osmane EL MONTASER le 12/03/2022.
@@ -111,8 +116,8 @@ public class WeatherCamera : MonoBehaviour {
     public void ExitWeatherLook() {
         _isExitTransitionFinished = false;
         _transitionType = false;
+        Camera.GetComponent<EditorGrid>().HideGrid();
         Camera.GetComponent<Camera>().orthographic = false;
-        Camera.GetComponent<EditorGrid>().ClearGrid();
         Camera.GetComponent<EditorGrid>().enabled = false;
 
         _cameraRotationScript = new SmoothCameraRotation(startRotation: transform.eulerAngles.x, targetRotation: _oldEulerAngle, rotationSpeed: 100f);
@@ -125,14 +130,14 @@ public class WeatherCamera : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
-    public void EnterWeatherLook() {
+    public void EnterWeatherLook(string selectedWeather) {
+        _selectedWeather = selectedWeather;
         Camera.GetComponent<BasicCamera>().enabled = false;
         this.enabled = true;
         _isTransitionFinished = false;
         _transitionType = true;
 
         Camera.GetComponent<EditorGrid>().enabled = true;
-        Camera.GetComponent<EditorGrid>().CreateGrid();
 
         _oldEulerAngle = transform.eulerAngles.x;
         _oldHeight = transform.position.y;
@@ -147,6 +152,9 @@ public class WeatherCamera : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
+    /// <param name="weather">
+    /// La météo qui a été sélectionnée dans le panel.
+    /// </param>
     private void makeTransition() {
         float nextRotation = _cameraRotationScript.GetNextRotation();
         float nextTranslation = _cameraTranslationScript.GetNextTranslation();
@@ -163,6 +171,7 @@ public class WeatherCamera : MonoBehaviour {
                 _isTransitionFinished = true;
                 Camera.GetComponent<Camera>().orthographic = true;
                 Camera.GetComponent<Camera>().orthographicSize = 400f;
+                Camera.GetComponent<EditorGrid>().CreateGrid(_selectedWeather);
             }
             else
                 _isExitTransitionFinished = true;
@@ -193,15 +202,11 @@ public class WeatherCamera : MonoBehaviour {
     }
 
     /// <summary>
-    /// Gestion du mouvement vertical / horizontal de 
-    /// la caméra avec la souris.
+    /// Gestion du zoom dans la vue d'édition.
     /// 
     /// Ajoutée par Osmane EL MONTASER le 12/03/2022.
     /// </summary>
     private void HandleMouseControl() {
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime;
-
         Camera.GetComponent<Camera>().orthographicSize -= Input.mouseScrollDelta.y * ScrollScale;
     }
 }

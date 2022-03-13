@@ -31,6 +31,13 @@ public class WeatherEvents : MonoBehaviour {
     public GameObject Camera;
 
     /// <summary>
+    /// Permet de changer d'effet météorologique si l'utilisateur
+    /// se trouve dans l'éditeur météo.
+    /// Sinon la vue change entre vue de base et édition météo.
+    /// </summary>
+    private string _oldPressedButton;
+
+    /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
     /// panel de météo.
     /// 
@@ -51,7 +58,9 @@ public class WeatherEvents : MonoBehaviour {
         if(this.name == UINames.OPEN_WEATHER_BUTTON)
             toogleWeatherPanel();
         else if(this.name == UINames.WIND_WEATHER_BUTTON)
-            toogleWeatherZoning();
+            toogleWeatherZoning(WeatherNames.WIND_WEATHER);
+        else if(this.name == UINames.THUNDERSTORM_WEATHER_BUTTON)
+            toogleWeatherZoning(WeatherNames.THUNDERSTORM_WEATHER);
     }
 
     /// <summary>
@@ -64,9 +73,9 @@ public class WeatherEvents : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 11/03/2022.
     /// </summary>
-    private void toogleWeatherZoning() {
+    private void toogleWeatherZoning(string selectedWeather) {
         if(Camera.GetComponent<BasicCamera>().enabled == true)
-            Camera.GetComponent<WeatherCamera>().EnterWeatherLook();
+            Camera.GetComponent<WeatherCamera>().EnterWeatherLook(selectedWeather);
         else
             Camera.GetComponent<WeatherCamera>().ExitWeatherLook();
     }
