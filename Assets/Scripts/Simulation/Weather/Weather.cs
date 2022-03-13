@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weather : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+/// <summary>
+/// Classe représentant un effet météorologique
+/// tel que :
+/// Pluie, Tempête, Vent, Orage, Sécheresse.
+/// 
+/// Fait par EL MONTASER Osmane le 11/03/2022.
+/// </summary>
+public class Weather {
+    
 }

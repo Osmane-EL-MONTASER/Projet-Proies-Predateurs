@@ -25,6 +25,12 @@ public class WeatherEvents : MonoBehaviour {
     public GameObject weatherScrollView;
 
     /// <summary>
+    /// Référence à la caméra afin de changer la vue basique
+    /// en la vue d'édition météorologique.
+    /// </summary>
+    public GameObject Camera;
+
+    /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
     /// panel de météo.
     /// 
@@ -59,7 +65,10 @@ public class WeatherEvents : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 11/03/2022.
     /// </summary>
     private void toogleWeatherZoning() {
-
+        if(Camera.GetComponent<BasicCamera>().enabled == true)
+            Camera.GetComponent<WeatherCamera>().EnterWeatherLook();
+        else
+            Camera.GetComponent<WeatherCamera>().ExitWeatherLook();
     }
 
     /// <summary>
