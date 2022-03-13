@@ -126,8 +126,12 @@ public class Agent : MonoBehaviour
 
         if (EnVie) // si l'agent est en vie, on peut lui appliquer des comportements.
         {
+            if (_tempsRestantDigestion > 0.0) // si l'agent est en digestion
+                _tempsRestantDigestion-=0.2; 
+
             _besoinHydrique+=0.15; // on augmente les besoins hydriques et énergétiques de l'agent.
             _besoinEnergie+=0.1;
+            Age+=0.05; // on augmente l'âge de l'agent.
 
             affecterComportement();
             effectuerComportement();
@@ -170,7 +174,7 @@ public class Agent : MonoBehaviour
         else if (_aSoif)
             Boire();
         else if (_aFaim)
-            Manger();
+            chercherAManger();
         
     }
 
@@ -217,23 +221,97 @@ public class Agent : MonoBehaviour
     }
 
     /// <summary>
-    /// Manger : l'agent cherche à se nourrir. Ici on doit distinguer les agents qui chassent de ceux qui se nourrissent d'autotrophes. à écrire
+    /// chercherAManger : l'agent cherche à se nourrir. Ici on doit distinguer les agents qui chassent de ceux qui se nourrissent d'autotrophes. à écrire.
+    /// s'inspirer de la fonction chasser() pour les prédateurs
+    /// Fait par Greg Demirdjian le 13/03/2022.
+    /// </summary> 
+    void chercherAManger()
+    {
+        
+    }
+
+    /// <summary>
+    /// Manger : L'agent mange la proie passée en paramètre; influe sur la digestion et les besoin énergétiques.
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    void Manger()
+    IEnumerator Manger(Agent proie)
     {
+        Agent.isStopped = true;//l'agent s'arrête pour manger.
+        /*Animation.SetBool("Walk", false);
+        Animation.SetBool("Run", false);
+        Animation.SetBool("Eat", true);*/
+
+        if (_besoinEnergie - proie.ApportEnergieCarcasse < 0) // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
+        {
+            _besoinEnergie = 0.0; // l'agent récupère les apports jusqu'à ne plus avoir de besoins.
+            proie.ApportEnergieCarcasse -= _besoinEnergie;
+        }
+        else // la carcasse est trop faible en apports pour rassasier complètement l'agent.
+        {
+            _besoinEnergie -= proie.ApportEnergieCarcasse; // l'agent finit la carcasse.
+            proie.ApportEnergieCarcasse = 0.0;
+        }
+
+        if (_besoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
+            _aFaim = false; // il n'a plus faim.
+
+        _tempsRestantDigestion = TempsDigestion;
+
+        yield return new WaitForSeconds(TempsConsoProie);//le prédateur consomme sa proie pendant un certain temps.
+
+
+        //Animation.SetBool("Eat", false);
+        //Animation.SetBool("Walk", true);
+
+        // modifier _besoinEnergie en conséquence
+
+        Agent.isStopped = false;// le prédateur n'est plus à l'arrêt.
 
     }
 
     /// <summary>
     /// Boire : l'agent cherche à boire. à écrire 
+    /// Inspirée de la fonction Boire du projet de l'an dernier et modifiée.
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    void Boire()
+    IEnumerator  Boire()
     {
+        GameObject eauP = null; //Variable permettant de représenter le point d'eau le plus proche.
+        double distance; //variable permettant de stocker la distance entre l'agent et un point d'eau.
+        double distanceMin = double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
+        GameObject[] eaux = GameObject.FindGameObjectsWithTag("pointEau"); // On stocke tous les points d'eau du terrain dans un tableau.
 
+        for (int i = 0; i < eaux.Length.; i++) //On recherche le point d'eau le plus proche.
+        {
+            distance = Vector3.Distance(agent.transform.position, eaux[i].transform.position);
+            if (distance < distanceMin)
+            {
+                eauP = eaux[i];
+                distanceMin = distance;
+            }
+        }
+
+        Agent.SetDestination(eauP.transform.position); //L'agent se déplace vers le point d'eau le plus proche.
+
+        if (eauP != null && Vector3.Distance(Agent.transform.position, eauP.transform.position) < 1f) //Si l'agent est assez proche du point d'eau...
+        {
+            Agent.isStopped = true; //Il s'arrête
+            //Animation.SetBool("Walk", false);
+            //Animation.SetBool("Eat", true);
+            
+            yield return new WaitForSeconds(_besoinHydrique/10.0); //Il boit pendant un certain temps.
+
+            _besoinHydrique = 0.0;
+
+            _aSoif = false;
+
+            //Animation.SetBool("Eat", false);
+            //Animation.SetBool("Walk", true);
+
+            Agent.isStopped = false;
+        }
     }
 
 }
