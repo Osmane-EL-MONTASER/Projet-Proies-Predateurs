@@ -70,6 +70,18 @@ class EditorGrid : MonoBehaviour {
     }
 
     /// <summary>
+    /// Pouvoir changer la météo sélectionnée dans le panel.
+    /// 
+    /// Fait par EL MONTASER Osmane le 13/03/2022.
+    /// </summary>
+    /// <param name="selectedWeather">
+    /// La nouvelle météo sélectionnée.
+    /// </param>
+    public void ChangeSquareColor(string selectedWeather) {
+        _selectedSquareMaterial.color = getSquareColorFromWeather(selectedWeather);
+    }
+
+    /// <summary>
     /// Fonction qui permet de générer la grille d'édition.
     /// Si la grille a déjà été créee, elle réaffichera les
     /// cases de la grille.
@@ -79,9 +91,10 @@ class EditorGrid : MonoBehaviour {
     public void CreateGrid(string selectedWeather) {
         if(_grid != null && _grid.Count() > 0) {
             ShowGrid();
-            _selectedSquareMaterial.color = getSquareColorFromWeather(selectedWeather);
             return;
         }
+
+        _selectedSquareMaterial.color = getSquareColorFromWeather(selectedWeather);
 
         float x = TerrainToEdit.terrainData.size.x;
         float y = TerrainToEdit.terrainData.size.y;
@@ -89,18 +102,14 @@ class EditorGrid : MonoBehaviour {
 
         _grid = new List<GameObject>();
 
-        int k = 0;
         for(int i = 0; i < z; i += GridSize) {
             for(int j = 0; j < x; j += GridSize) {
-                if(i == 25 && j == 0)
-                    Debug.Log(k);
                 _grid.Add(new GameObject("Grid"));
                 MeshFilter mf = _grid.Last().AddComponent(typeof(MeshFilter)) as MeshFilter;
                 MeshRenderer mr = _grid.Last().AddComponent(typeof(MeshRenderer)) as MeshRenderer;
                 mr.material = GridMaterial;
                 mf.mesh = getPlaneMesh();
                 _grid.Last().transform.position = new Vector3(j, y, i);
-                k++;
             }
         }
     }

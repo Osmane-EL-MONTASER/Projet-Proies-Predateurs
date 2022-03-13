@@ -35,7 +35,7 @@ public class WeatherEvents : MonoBehaviour {
     /// se trouve dans l'éditeur météo.
     /// Sinon la vue change entre vue de base et édition météo.
     /// </summary>
-    private string _oldPressedButton;
+    private static string _oldSelectedWeather;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
@@ -46,6 +46,7 @@ public class WeatherEvents : MonoBehaviour {
     void Start() {
         if(this.name == UINames.OPEN_WEATHER_BUTTON)
             toogleWeatherPanel();
+        _oldSelectedWeather = new string("");
     }
 
     /// <summary>
@@ -61,6 +62,12 @@ public class WeatherEvents : MonoBehaviour {
             toogleWeatherZoning(WeatherNames.WIND_WEATHER);
         else if(this.name == UINames.THUNDERSTORM_WEATHER_BUTTON)
             toogleWeatherZoning(WeatherNames.THUNDERSTORM_WEATHER);
+        else if(this.name == UINames.STORM_WEATHER_BUTTON)
+            toogleWeatherZoning(WeatherNames.STORM_WEATHER);
+        else if(this.name == UINames.DROUGHT_WEATHER_BUTTON)
+            toogleWeatherZoning(WeatherNames.DROUGHT_WEATHER);
+        else if(this.name == UINames.RAIN_WEATHER_BUTTON)
+            toogleWeatherZoning(WeatherNames.RAIN_WEATHER);
     }
 
     /// <summary>
@@ -74,10 +81,18 @@ public class WeatherEvents : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 11/03/2022.
     /// </summary>
     private void toogleWeatherZoning(string selectedWeather) {
-        if(Camera.GetComponent<BasicCamera>().enabled == true)
+        if(_oldSelectedWeather == "") {
             Camera.GetComponent<WeatherCamera>().EnterWeatherLook(selectedWeather);
-        else
+            _oldSelectedWeather = "";
+            _oldSelectedWeather += selectedWeather;
+        } else if(_oldSelectedWeather == selectedWeather) {
             Camera.GetComponent<WeatherCamera>().ExitWeatherLook();
+            _oldSelectedWeather = "";
+        } else {
+            Camera.GetComponent<WeatherCamera>().ChangeSelectedWeather(selectedWeather);
+            _oldSelectedWeather = "";
+            _oldSelectedWeather += selectedWeather;
+        }
     }
 
     /// <summary>

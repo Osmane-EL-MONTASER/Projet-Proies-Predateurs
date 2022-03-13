@@ -80,7 +80,7 @@ public class WeatherCamera : MonoBehaviour {
     /// <summary>
     /// La météo qui a été sélectionnée dans le panel.
     /// </summary>
-    private string _selectedWeather;
+    public string _selectedWeather {get; set;}
 
     /// <summary>
     /// La fonction exécutée au démarrage.
@@ -108,12 +108,28 @@ public class WeatherCamera : MonoBehaviour {
     }
 
     /// <summary>
+    /// Pour pouvoir changer la météo sélectionnée dans le 
+    /// panel.
+    /// 
+    /// Fait par EL MONTASER Osmane le 13/03/2022.
+    /// </summary>
+    /// <param name="newWeather">
+    /// La nouvelle météo sélectionnée.
+    /// </param>
+    public void ChangeSelectedWeather(string newWeather) {
+        _selectedWeather = "";
+        _selectedWeather += newWeather;
+        Camera.GetComponent<EditorGrid>().ChangeSquareColor(_selectedWeather);
+    }
+
+    /// <summary>
     /// Sortir de la vue d'édition météo pour revenir à la
     /// vue de base.
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
     public void ExitWeatherLook() {
+        _selectedWeather = "";
         _isExitTransitionFinished = false;
         _transitionType = false;
         Camera.GetComponent<EditorGrid>().HideGrid();
@@ -131,9 +147,10 @@ public class WeatherCamera : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
     public void EnterWeatherLook(string selectedWeather) {
-        _selectedWeather = selectedWeather;
         Camera.GetComponent<BasicCamera>().enabled = false;
         this.enabled = true;
+        _selectedWeather = "";
+        _selectedWeather += selectedWeather;
         _isTransitionFinished = false;
         _transitionType = true;
 
@@ -172,6 +189,7 @@ public class WeatherCamera : MonoBehaviour {
                 Camera.GetComponent<Camera>().orthographic = true;
                 Camera.GetComponent<Camera>().orthographicSize = 400f;
                 Camera.GetComponent<EditorGrid>().CreateGrid(_selectedWeather);
+                Camera.GetComponent<EditorGrid>().ChangeSquareColor(_selectedWeather);
             }
             else
                 _isExitTransitionFinished = true;
