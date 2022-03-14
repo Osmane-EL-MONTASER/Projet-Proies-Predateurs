@@ -31,7 +31,7 @@ public class AgentEvents : MonoBehaviour {
     ///
     /// Fait par AVERTY Pierre le 13/03/2022.
     /// </summary>
-    void Start() {
+    public void Start() {
         preysPanel.SetActive(true);
         autotrophsPanel.SetActive(false);
         predatorsPanel.SetActive(false);
