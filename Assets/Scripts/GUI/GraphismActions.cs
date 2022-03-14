@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GraphismActions : MonoBehaviour {
 /// <summary>
 /// Classe qui gère tous les paramètres graphiques
 /// 
 /// Fait par AVERTY Pierre le 13/03/2022.
 /// </summary>
+public class GraphismActions : MonoBehaviour {
+    /// <summary>
+    /// Menu déroulant qui gère la résolution.
+    /// </summary>
+    public Dropdown dropdownResolution;
+    /// <summary>
+    /// Menu déroulant qui gère l'affichage de l'écran.
+    /// </summary>
+    public Dropdown dropdownFullScreen;
 
     /// <summary>
-    /// 
+    /// Methode qui modifie la résolution de l'écran.
     ///
     /// Fait par AVERTY Pierre le 13/03/2022.
     /// </summary>
-
-    public Dropdown dropdownResolution;
-    public Dropdown dropdownFullScreen;
-
     public void resolutionHandler(){
         switch(dropdownResolution.value){
             case 0:
@@ -33,6 +37,11 @@ public class GraphismActions : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Methode qui modifie le mode d'affichage de l'écran.
+    ///
+    /// Fait par AVERTY Pierre le 13/03/2022.
+    /// </summary>
     public void fullScreenHandler(){
         switch(dropdownFullScreen.value){
             case 0:
