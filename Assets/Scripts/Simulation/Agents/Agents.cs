@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class Agent : MonoBehaviour
 {
 
-    public NavMeshAgent Agent;
+    public NavMeshAgent AgentMesh;
 
     public Terrain Ter;
 
@@ -102,7 +102,7 @@ public class Agent : MonoBehaviour
         _enFuite = false;
         _tempsRestantDigestion = 0.0;
 
-        Agent.speed = _vitesse;
+        AgentMesh.speed = (float)_vitesse;
     }
 
     /// <summary>
@@ -237,7 +237,7 @@ public class Agent : MonoBehaviour
     /// </summary> 
     IEnumerator Manger(Agent proie)
     {
-        Agent.isStopped = true;//l'agent s'arrête pour manger.
+        AgentMesh.isStopped = true;//l'agent s'arrête pour manger.
         /*Animation.SetBool("Walk", false);
         Animation.SetBool("Run", false);
         Animation.SetBool("Eat", true);*/
@@ -258,7 +258,7 @@ public class Agent : MonoBehaviour
 
         _tempsRestantDigestion = TempsDigestion;
 
-        yield return new WaitForSeconds(TempsConsoProie);//le prédateur consomme sa proie pendant un certain temps.
+        yield return new WaitForSeconds((float)TempsConsoProie);//le prédateur consomme sa proie pendant un certain temps.
 
 
         //Animation.SetBool("Eat", false);
@@ -266,7 +266,7 @@ public class Agent : MonoBehaviour
 
         // modifier _besoinEnergie en conséquence
 
-        Agent.isStopped = false;// le prédateur n'est plus à l'arrêt.
+        AgentMesh.isStopped = false;// le prédateur n'est plus à l'arrêt.
 
     }
 
@@ -283,9 +283,9 @@ public class Agent : MonoBehaviour
         double distanceMin = double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
         GameObject[] eaux = GameObject.FindGameObjectsWithTag("pointEau"); // On stocke tous les points d'eau du terrain dans un tableau.
 
-        for (int i = 0; i < eaux.Length.; i++) //On recherche le point d'eau le plus proche.
+        for (int i = 0; i < eaux.Length; i++) //On recherche le point d'eau le plus proche.
         {
-            distance = Vector3.Distance(agent.transform.position, eaux[i].transform.position);
+            distance = Vector3.Distance(AgentMesh.transform.position, eaux[i].transform.position);
             if (distance < distanceMin)
             {
                 eauP = eaux[i];
@@ -293,15 +293,15 @@ public class Agent : MonoBehaviour
             }
         }
 
-        Agent.SetDestination(eauP.transform.position); //L'agent se déplace vers le point d'eau le plus proche.
+        AgentMesh.SetDestination(eauP.transform.position); //L'agent se déplace vers le point d'eau le plus proche.
 
-        if (eauP != null && Vector3.Distance(Agent.transform.position, eauP.transform.position) < 1f) //Si l'agent est assez proche du point d'eau...
+        if (eauP != null && Vector3.Distance(AgentMesh.transform.position, eauP.transform.position) < 1f) //Si l'agent est assez proche du point d'eau...
         {
-            Agent.isStopped = true; //Il s'arrête
+            AgentMesh.isStopped = true; //Il s'arrête
             //Animation.SetBool("Walk", false);
             //Animation.SetBool("Eat", true);
             
-            yield return new WaitForSeconds(_besoinHydrique/10.0); //Il boit pendant un certain temps.
+            yield return new WaitForSeconds((float)_besoinHydrique/10.0f); //Il boit pendant un certain temps.
 
             _besoinHydrique = 0.0;
 
@@ -310,7 +310,7 @@ public class Agent : MonoBehaviour
             //Animation.SetBool("Eat", false);
             //Animation.SetBool("Walk", true);
 
-            Agent.isStopped = false;
+            AgentMesh.isStopped = false;
         }
     }
 
