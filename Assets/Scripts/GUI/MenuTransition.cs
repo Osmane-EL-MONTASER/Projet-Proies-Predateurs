@@ -15,7 +15,7 @@ public class MenuTransition : MonoBehaviour {
     /// <summary>
     /// La caméra qui affiche les interfaces ainsi que la simulation.
     /// </summary>
-    public GameObject MainCamera;
+    private GameObject MainCamera;
 
     /// <summary>
     /// Le menu d'ajout d'agents en simulation.
@@ -30,6 +30,10 @@ public class MenuTransition : MonoBehaviour {
     /// Script pour le menu d'ajout d'effets environnementaux en simulation.
     /// </summary>
      public AgentEvents MenuScript;
+
+    void Start() {
+        MainCamera = ConfigCamera.Instance.CurrentCamera;
+    }
     
     /// <summary>
     /// Fonction qui cache et qui affiche un menu au clique.

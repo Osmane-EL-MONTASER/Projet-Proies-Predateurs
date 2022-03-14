@@ -33,6 +33,7 @@ public class AgentEvents : MonoBehaviour {
     /// </summary>
     public void Start() {
         preysPanel.SetActive(true);
+        preysPanel.GetComponent<CanvasGroup>().alpha = 0;
         autotrophsPanel.SetActive(false);
         predatorsPanel.SetActive(false);
     }
@@ -50,21 +51,41 @@ public class AgentEvents : MonoBehaviour {
     /// <summary>
     /// Fonction permettant d'afficher ou de cacher les panels
     ///
-    /// Fait par AVERTY Pierre le 13/03/2022.
+    /// Fait par AVERTY Pierre le 13/03/2022 et modifiée le 14/03/2022.
     /// </summary>
     private void tooglePannels() {
         switch (this.name){
             case UINames.OPEN_PROIE_BUTTON:
-                preysPanel.SetActive(true);
+                if(!preysPanel.active ^ preysPanel.GetComponent<CanvasGroup>().alpha == 0){
+                    preysPanel.GetComponent<CanvasGroup>().alpha = 1;
+                    preysPanel.SetActive(true);
+                }
+                else
+                    preysPanel.GetComponent<CanvasGroup>().alpha = 0;
+
                 autotrophsPanel.SetActive(false);
                 predatorsPanel.SetActive(false);
                 break;
             case UINames.OPEN_PREDATEUR_BUTTON:
+                if(!predatorsPanel.active ^ predatorsPanel.GetComponent<CanvasGroup>().alpha == 0){
+                    predatorsPanel.GetComponent<CanvasGroup>().alpha = 1;
+                    predatorsPanel.SetActive(true);
+                }
+                else
+                    predatorsPanel.GetComponent<CanvasGroup>().alpha = 0;
+
                 preysPanel.SetActive(false);
                 autotrophsPanel.SetActive(false);
                 predatorsPanel.SetActive(true);
                 break;
             case UINames.OPEN_AUTOTROPHE_BUTTON:
+                if(!autotrophsPanel.active  ^ autotrophsPanel.GetComponent<CanvasGroup>().alpha == 0){
+                    autotrophsPanel.GetComponent<CanvasGroup>().alpha = 1;
+                    autotrophsPanel.SetActive(true);
+                }
+                else
+                    autotrophsPanel.GetComponent<CanvasGroup>().alpha = 0;
+
                 preysPanel.SetActive(false);
                 autotrophsPanel.SetActive(true);
                 predatorsPanel.SetActive(false);
