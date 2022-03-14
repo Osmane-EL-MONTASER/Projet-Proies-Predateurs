@@ -65,12 +65,12 @@ public class MenuTransition : MonoBehaviour {
     /// <param name="newValue">Nouvelle valeur qui influera sur
     /// l'activation ou non du script de contrôle de la caméra.</param>
     public void toogleCamera(bool newValue) {
-        if(MainCamera.GetComponent<BasicCamera>().enabled != newValue){
+        if(MainCamera.GetComponent<BasicCamera>().enabled != newValue) {
             MainCamera.GetComponent<BasicCamera>().enabled = newValue;
 
             AgentSimulationPanel.SetActive(true);
             MeteoSimulationPanel.SetActive(true);
-            MenuScript.onClick();
+            //MenuScript.onClick();
         }
     }
 }
