@@ -2984,6 +2984,7 @@ GameObject:
   - component: {fileID: 205517553}
   - component: {fileID: 205517555}
   - component: {fileID: 205517552}
+  - component: {fileID: 205517556}
   m_Layer: 5
   m_Name: weatherButton
   m_TagString: Untagged
@@ -3119,6 +3120,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weatherPanel: {fileID: 330484310}
   weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
+--- !u!114 &205517556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205517550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5a7dc0ed6d64945ae5e6436fc95c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SquareSize: 25
+  TerrainToEdit: {fileID: 416648216}
 --- !u!1 &215436032
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,8 +5365,9 @@ GameObject:
   - component: {fileID: 385828295}
   - component: {fileID: 385828294}
   - component: {fileID: 385828293}
+  - component: {fileID: 385828296}
   m_Layer: 5
-  m_Name: Storm
+  m_Name: stormButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5420,7 +5437,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 385828294}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 385828296}
+        m_TargetAssemblyTypeName: WeatherEvents, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &385828294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5459,6 +5488,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385828291}
   m_CullTransparentMesh: 1
+--- !u!114 &385828296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385828291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb15abf7c3dc904eb1b250e03a8b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weatherPanel: {fileID: 330484310}
+  weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
 --- !u!1 &385939101
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,7 +6047,7 @@ Terrain:
   m_DetailObjectDistance: 80
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
+  m_SplatMapDistance: 5000
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
@@ -8648,8 +8692,9 @@ GameObject:
   - component: {fileID: 616832224}
   - component: {fileID: 616832223}
   - component: {fileID: 616832222}
+  - component: {fileID: 616832225}
   m_Layer: 5
-  m_Name: Rain
+  m_Name: rainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8719,7 +8764,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 616832223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 616832225}
+        m_TargetAssemblyTypeName: WeatherEvents, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &616832223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8758,6 +8815,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616832220}
   m_CullTransparentMesh: 1
+--- !u!114 &616832225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616832220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb15abf7c3dc904eb1b250e03a8b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weatherPanel: {fileID: 330484310}
+  weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
 --- !u!1 &620763652
 GameObject:
   m_ObjectHideFlags: 0
@@ -13712,6 +13784,8 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -13751,7 +13825,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -13777,15 +13851,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3975711, y: -0, z: -0, w: 0.91757137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 595895187}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 46.853, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd7cbc4ecd72aa49ae1c61c75030bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouseSensitivity: 160
+  PlayerBody: {fileID: 595895187}
+  CameraSpeed: 100
+--- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13794,12 +13883,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b3cf5da934d45842b7843d75531172a, type: 3}
+  m_Script: {fileID: 11500000, guid: ae66b9fdacaace44891bb385cfcd0736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MouseSensitivity: 100
-  PlayerBody: {fileID: 0}
-  CameraSpeed: 100
+  PlayerBody: {fileID: 595895187}
+  CameraSpeed: 600
+  Camera: {fileID: 963194225}
+  ScrollScale: 25
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9805a71dadd5d4899960bb9362e57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridSize: 25
+  TerrainToEdit: {fileID: 416648216}
+  GridMaterial: {fileID: 2100000, guid: 48dc73524bfc9a144bd4bd510cc6e4fd, type: 2}
 --- !u!1 &966602437
 GameObject:
   m_ObjectHideFlags: 0
@@ -17756,8 +17861,9 @@ GameObject:
   - component: {fileID: 1185770996}
   - component: {fileID: 1185770995}
   - component: {fileID: 1185770994}
+  - component: {fileID: 1185770997}
   m_Layer: 5
-  m_Name: Drought
+  m_Name: droughtButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17827,7 +17933,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1185770995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1185770997}
+        m_TargetAssemblyTypeName: WeatherEvents, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1185770995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17866,6 +17984,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185770992}
   m_CullTransparentMesh: 1
+--- !u!114 &1185770997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185770992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb15abf7c3dc904eb1b250e03a8b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weatherPanel: {fileID: 330484310}
+  weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
 --- !u!1 &1190714143
 GameObject:
   m_ObjectHideFlags: 0
@@ -28299,8 +28432,9 @@ GameObject:
   - component: {fileID: 2001264687}
   - component: {fileID: 2001264686}
   - component: {fileID: 2001264685}
+  - component: {fileID: 2001264688}
   m_Layer: 5
-  m_Name: Wind
+  m_Name: windButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28370,7 +28504,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2001264686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2001264688}
+        m_TargetAssemblyTypeName: WeatherEvents, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2001264686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28409,6 +28555,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001264683}
   m_CullTransparentMesh: 1
+--- !u!114 &2001264688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001264683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb15abf7c3dc904eb1b250e03a8b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weatherPanel: {fileID: 330484310}
+  weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
 --- !u!1 &2001390046
 GameObject:
   m_ObjectHideFlags: 0
@@ -30647,8 +30808,9 @@ GameObject:
   - component: {fileID: 2132689154}
   - component: {fileID: 2132689153}
   - component: {fileID: 2132689152}
+  - component: {fileID: 2132689155}
   m_Layer: 5
-  m_Name: Thunderstorm
+  m_Name: thunderstormButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30718,7 +30880,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2132689153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2132689155}
+        m_TargetAssemblyTypeName: WeatherEvents, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2132689153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30757,6 +30931,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132689150}
   m_CullTransparentMesh: 1
+--- !u!114 &2132689155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132689150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb15abf7c3dc904eb1b250e03a8b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weatherPanel: {fileID: 330484310}
+  weatherScrollView: {fileID: 1123809277}
+  Camera: {fileID: 963194225}
 --- !u!1 &2139479590
 GameObject:
   m_ObjectHideFlags: 0

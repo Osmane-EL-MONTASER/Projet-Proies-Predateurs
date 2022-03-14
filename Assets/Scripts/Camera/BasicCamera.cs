@@ -7,7 +7,7 @@ using UnityEngine;
 /// est insiprée d'une vidéo qui explique comment contrôler la
 /// caméra. Brackeys, https://www.youtube.com/watch?v=_QajrabyTJc.
 /// </summary>
-public class MouseLook : MonoBehaviour {
+public class BasicCamera : MonoBehaviour {
     /// <summary>
     /// La sensibilité de la souris qui affectera à quelle vitesse
     /// la caméra pivote.
@@ -36,8 +36,8 @@ public class MouseLook : MonoBehaviour {
     /// Fait par Osmane EL MONTASER le 27/02/2022.
     /// </summary>
     void Start() {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     /// <summary>
@@ -89,13 +89,21 @@ public class MouseLook : MonoBehaviour {
     /// https://www.youtube.com/watch?v=_QajrabyTJc.
     /// </summary>
     private void HandleMouseControl() {
-        float mouseX = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
+        if(Input.GetMouseButton(1)) {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
-        _xRotation -= mouseY;
-        _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+            float mouseX = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
 
-        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        PlayerBody.Rotate(Vector3.up * mouseX);
+            _xRotation -= mouseY;
+            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+
+            transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+            PlayerBody.Rotate(Vector3.up * mouseX);
+        } else if(Input.GetMouseButtonUp(1)) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }
