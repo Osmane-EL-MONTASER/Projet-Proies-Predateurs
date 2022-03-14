@@ -13,24 +13,22 @@ using UnityEngine.UI;
 public class AgentEvents : MonoBehaviour {
 
     /// <summary>
-    /// Le panel qui s'affiche lors du clique sur le bouton
-    /// predateur.
+    /// Le panel qui contient les agents de type "prédateurs".
     /// </summary>
     public GameObject predatorsPanel;
 
     /// <summary>
-    /// Le panel qui contient les agents de type "proie".
+    /// Le panel qui contient les agents de type "proies".
     /// </summary>
     public GameObject preysPanel;
     /// <summary>
-    /// Le panel qui contient les animaux de type "proie".
+    /// Le panel qui contient les animaux de type "autotrophes".
     /// </summary>
     public GameObject autotrophsPanel;
 
     /// <summary>
-    /// Exécutée au début afin de cacher par défaut tout le
-    /// panel de predateur.
-    /// 
+    /// Exécutée au début afin de cacher par défaut tous les panels
+    ///
     /// Fait par AVERTY Pierre le 13/03/2022.
     /// </summary>
     void Start() {
@@ -51,6 +49,7 @@ public class AgentEvents : MonoBehaviour {
 
     /// <summary>
     /// Fonction permettant d'afficher ou de cacher les panels
+    ///
     /// Fait par AVERTY Pierre le 13/03/2022.
     /// </summary>
     private void tooglePannels() {
