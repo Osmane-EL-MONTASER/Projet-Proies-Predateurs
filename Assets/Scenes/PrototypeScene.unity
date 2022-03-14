@@ -2984,6 +2984,7 @@ GameObject:
   - component: {fileID: 205517553}
   - component: {fileID: 205517555}
   - component: {fileID: 205517552}
+  - component: {fileID: 205517556}
   m_Layer: 5
   m_Name: weatherButton
   m_TagString: Untagged
@@ -3120,6 +3121,20 @@ MonoBehaviour:
   weatherPanel: {fileID: 330484310}
   weatherScrollView: {fileID: 1123809277}
   Camera: {fileID: 963194225}
+--- !u!114 &205517556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205517550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5a7dc0ed6d64945ae5e6436fc95c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SquareSize: 25
+  TerrainToEdit: {fileID: 416648216}
 --- !u!1 &215436032
 GameObject:
   m_ObjectHideFlags: 0
@@ -13872,9 +13887,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerBody: {fileID: 595895187}
-  CameraSpeed: 100
+  CameraSpeed: 600
   Camera: {fileID: 963194225}
-  ScrollScale: 10
+  ScrollScale: 25
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23426,7 +23441,6 @@ GameObject:
   - component: {fileID: 1552251451}
   - component: {fileID: 1552251450}
   - component: {fileID: 1552251449}
-  - component: {fileID: 1552251452}
   m_Layer: 5
   m_Name: "M\xE9t\xE9o Simulation"
   m_TagString: Untagged
@@ -23520,19 +23534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552251447}
   m_CullTransparentMesh: 1
---- !u!114 &1552251452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552251447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5a7dc0ed6d64945ae5e6436fc95c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Terrain: {fileID: 416648214}
 --- !u!1 &1568812947
 GameObject:
   m_ObjectHideFlags: 0

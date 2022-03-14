@@ -154,11 +154,30 @@ class EditorGrid : MonoBehaviour {
             int zHoveredSquare = (int)Math.Floor(worldMousePosition.z / GridSize);
             int hoveredSquareIndex = xHoveredSquare + (zHoveredSquare * (int)(TerrainToEdit.terrainData.size.x / GridSize));
 
+            //Si la case est dans la grille et qu'elle n'a pas été déjà coloriée.
             if(hoveredSquareIndex >= 0 && hoveredSquareIndex < _grid.Count()) {
-                _grid[hoveredSquareIndex].GetComponent<Renderer>().material = _selectedSquareMaterial;
-                _lastHoveredSquare = _grid[hoveredSquareIndex];
+                if(Input.GetMouseButton(0)) {
+                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.color = _selectedSquareMaterial.color;
+                    _lastHoveredSquare = null;
+                } else if(_grid[hoveredSquareIndex].GetComponent<Renderer>().material.color == GridMaterial.color) {
+                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material = _selectedSquareMaterial;
+                    _lastHoveredSquare = _grid[hoveredSquareIndex];
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// Fonction qui permet de colorier la case de la grille
+    /// passée en paramètre.
+    /// 
+    /// Fait par EL MONTASER Osmane le 14/03/2022.
+    /// </summary>
+    /// <param name="square">
+    /// La case à colorier.
+    /// </param>
+    private void paintSquare(GameObject square) {
+        square.GetComponent<Renderer>().material = _selectedSquareMaterial;
     }
 
     /// <summary>
