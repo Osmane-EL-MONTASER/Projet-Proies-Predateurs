@@ -159,6 +159,9 @@ class EditorGrid : MonoBehaviour {
                 if(Input.GetMouseButton(0)) {
                     _grid[hoveredSquareIndex].GetComponent<Renderer>().material.color = _selectedSquareMaterial.color;
                     _lastHoveredSquare = null;
+                } else if(Input.GetMouseButton(1)) {
+                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.color = GridMaterial.color;
+                    _lastHoveredSquare = null;
                 } else if(_grid[hoveredSquareIndex].GetComponent<Renderer>().material.color == GridMaterial.color) {
                     _grid[hoveredSquareIndex].GetComponent<Renderer>().material = _selectedSquareMaterial;
                     _lastHoveredSquare = _grid[hoveredSquareIndex];

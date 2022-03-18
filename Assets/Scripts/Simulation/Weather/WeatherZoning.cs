@@ -17,7 +17,7 @@ public class WeatherZoning : MonoBehaviour {
     /// quadrillage. La taille d'une case est fixe
     /// et modifiable dans l'éditeur de Unity.
     /// </summary>
-    private Weather[][] _worldZones { get; set; }
+    private Weather[,] _worldZones { get; set; }
 
     /// <summary>
     /// La taille du carré du quadrillage.
@@ -52,10 +52,56 @@ public class WeatherZoning : MonoBehaviour {
     /// </summary>
     void Start() {
         initializeGameObjetsList();
+        initializeWeatherZones();
         loadGameObjects();
     }
 
     void Update() {}
+
+    /// <summary>
+    /// Fonction qui permet de changer la météo à la
+    /// case donnée.
+    /// 
+    /// Fait par EL MONTASER Osmane le 17/03/2022.
+    /// </summary>
+    /// <param name="x">
+    /// La position de la case à l'horizontale.
+    /// </param>
+    /// <param name="y">
+    /// La position de la case à la verticale.
+    /// </param>
+    /// <param name="weather">
+    /// La nouvelle météo de la zone.
+    /// </param>
+    public void ChangeWeatherAtZone(int x, int y, Weather weather) {
+        _worldZones[x, y] = weather;
+    }
+
+    /// <summary>
+    /// Fonction qui permet de rénitialiser la météo dans
+    /// la zone donnée.
+    /// 
+    /// Fait par EL MONTASER Osmane le 17/03/2022.
+    /// </summary>
+    /// <param name="x">
+    /// La position à l'horizontale de la case.
+    /// </param>
+    /// <param name="y">
+    /// La position à la verticale de la case.
+    /// </param>
+    public void ResetWeatherAtZone(int x, int y) {
+        _worldZones[x, y] = null;
+    }
+
+    /// <summary>
+    /// Fonction qui permet d'initialiser les zones de
+    /// météo.
+    /// 
+    /// Fait par EL MONTASER Osmane le 17/03/2022.
+    /// </summary>
+    private void initializeWeatherZones() {
+        _worldZones = new Weather[_gameObjects.GetLength(0), _gameObjects.GetLength(1)];
+    }
 
     /// <summary>
     /// Fonction qui permet d'initialiser la liste des
