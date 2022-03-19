@@ -5,9 +5,9 @@ using UnityEngine;
 
 
 /// <summary>
-/// Classe codée par Bilal HAMICHE pour le prototype. Elle
-/// est insiprée d'une vidéo qui explique comment créer un menu d'options
-/// caméra. Brackeys, https://www.youtube.com/watch?v=wqm7iyoZSPI.
+/// Classe codÃ©e par Bilal HAMICHE pour le prototype. Elle
+/// est insiprÃ©e d'une vidÃ©o qui explique comment crÃ©er un menu d'options
+/// https://www.youtube.com/watch?v=wqm7iyoZSPI.
 /// </summary>
 public class AfficherMenu : MonoBehaviour
 {
