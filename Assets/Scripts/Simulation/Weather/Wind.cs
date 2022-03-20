@@ -9,5 +9,7 @@ using UnityEngine;
 /// Fait par EL MONTASER Osmane le 14/03/2022.
 /// </summary>
 public class Wind : Weather {
-    
+    public Wind(GameObject skyAndFogGlobalVolume, float treeFallingChance = 0.0f, float waterWaveHeight = 0.0f,
+                   float humidityPercentage = 0.0f) : base(skyAndFogGlobalVolume, treeFallingChance, waterWaveHeight, humidityPercentage) {
+    }
 }

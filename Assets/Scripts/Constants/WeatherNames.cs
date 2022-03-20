@@ -16,9 +16,14 @@ public static class WeatherNames {
     public const string DROUGHT_WEATHER = "drought";
     public const string RAIN_WEATHER = "rain";
 
+    //Les couleurs des grilles dans l'éditeur météo.
     public static Color WIND_COLOR = Color.red;
     public static Color THUNDERSTORM_COLOR = Color.green;
     public static Color STORM_COLOR = Color.blue;
     public static Color DROUGHT_COLOR = Color.yellow;
     public static Color RAIN_COLOR = new Color(0f, 255f, 255f);
+
+    //Toutes les transitions possibles.
+    public const int CLOUDY_TO_SUNNY_TRANSITION = 0;
+    public const int SUNNY_TO_CLOUDY_TRANSITION = 1;
 }

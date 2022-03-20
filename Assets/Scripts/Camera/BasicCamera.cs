@@ -15,20 +15,20 @@ public class BasicCamera : MonoBehaviour {
     public float MouseSensitivity = 100f;
 
     /// <summary>
+    /// Le wrapper de la caméra.
+    /// </summary>
+    public Transform PlayerBody;
+
+    /// <summary>
     /// L'objet de type Capsule Collider à bouger afin de pouvoir 
     /// détecter les collisions et bien orienter la caméra.
     /// </summary>
-    public Transform PlayerBody;
+    public Transform PlayerCollisions;
     
     /// <summary>
     /// La valeur de rotation actuelle de la caméra sur l'axe x.
     /// </summary>
     private float _xRotation = 0f;
-
-    /// <summary>
-    /// La vitesse de déplacement de la caméra à chaque tick.
-    /// </summary>
-    public float CameraSpeed = 100f;
 
     /// <summary>
     /// La fonction exécutée au démarrage.
@@ -47,38 +47,6 @@ public class BasicCamera : MonoBehaviour {
     /// </summary>
     void Update() {
         HandleMouseControl();
-        HandleKeyControl();
-    }
-
-    /// <summary>
-    /// Gestion du mouvement de la caméra avec le clavier.
-    /// Utilise les touches Z, Q, S, D pour se déplacer.
-    /// Espace, et left ctrl pour monter ou descendre.
-    /// 
-    /// Fait par Osmane EL MONTASER le 13/02/2022.
-    /// </summary>
-    private void HandleKeyControl() {
-        if(Input.GetKey(KeyCode.LeftControl))
-            CameraSpeed = 600f;
-        else
-            CameraSpeed = 100f;
-
-        if(Input.GetKey("space"))
-            PlayerBody.Translate(Vector3.up * Time.deltaTime * CameraSpeed, Space.World);
-        if(Input.GetKey(KeyCode.LeftShift))
-            PlayerBody.Translate(Vector3.down * Time.deltaTime * CameraSpeed, Space.World);
-
-        if(Input.GetKey(KeyCode.Q))
-            PlayerBody.Translate(Vector3.left * Time.deltaTime * CameraSpeed, PlayerBody);
-
-        if(Input.GetKey(KeyCode.D))
-            PlayerBody.Translate(Vector3.right * Time.deltaTime * CameraSpeed, PlayerBody);
-        
-        if(Input.GetKey(KeyCode.S))
-            PlayerBody.Translate(Vector3.back * Time.deltaTime * CameraSpeed, PlayerBody);
-
-        if(Input.GetKey(KeyCode.Z))
-            PlayerBody.Translate(Vector3.forward * Time.deltaTime * CameraSpeed, PlayerBody);
     }
 
     /// <summary>
@@ -100,7 +68,7 @@ public class BasicCamera : MonoBehaviour {
             _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
             transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-            PlayerBody.Rotate(Vector3.up * mouseX);
+            PlayerCollisions.Rotate(Vector3.up * mouseX);
         } else if(Input.GetMouseButtonUp(1)) {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
