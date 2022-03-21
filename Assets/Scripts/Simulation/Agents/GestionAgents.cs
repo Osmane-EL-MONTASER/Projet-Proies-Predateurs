@@ -12,8 +12,7 @@ public class GestionAgents : MonoBehaviour
 {
     public List<GameObject> ListeAgents;
 
-    public GameObject wolf; 
-    GameObject temp;
+    public GameObject wolf;
 
     /// <summary>
     /// creerAgents : méthode qui fait apparaitre un nombre d'agents donnés et de l'espèce voulue.
@@ -22,12 +21,9 @@ public class GestionAgents : MonoBehaviour
     /// </summary> 
     public void creerAgents(int nombre, int idAgent)
     {
-        for (int i = 0 ; i < 1 ; i++)
+        for (int i = 0 ; i < nombre ; i++)
         {
-            temp = Instantiate(wolf, new Vector3(572.9277f, 80.1882f, 592.933f), Quaternion.identity) as GameObject;
-
-            temp.name = ("wolf" + 1);
-            ListeAgents.Add(wolf);
+            ListeAgents.Add(Instantiate(wolf, new Vector3(572.9277f, 80.1882f, 592.933f), Quaternion.identity));
         }
 
 
@@ -36,8 +32,7 @@ public class GestionAgents : MonoBehaviour
     void Start()
     {
         ListeAgents = new List<GameObject>();
-        creerAgents(1,1);
-        Debug.Log(ListeAgents[0].name);
+        creerAgents(100,1);
     }
 
 }

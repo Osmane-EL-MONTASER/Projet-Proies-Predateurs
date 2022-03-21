@@ -93,7 +93,7 @@ public class Agent : MonoBehaviour
     {
         _besoinHydrique = 0.0;
         _besoinEnergie = 0.0;
-        _vitesse = 0.0;
+        _vitesse = 10.0;
         _veutSeReprod = false;
         _estEnceinte = false;
         Age = 0.0;
@@ -140,11 +140,16 @@ public class Agent : MonoBehaviour
         {
             ApportEnergieCarcasse -= Time.deltaTime * 0.5; // la carcasse se déteriore et perd en apport énergétique.
 
-            if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
-                Destroy(this.gameObject); // on détruit l'objet.
+            //if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
+                //Destroy(this.gameObject); // on détruit l'objet.
         }        
 
-
+        if ((AgentMesh!=null)&&(AgentMesh.remainingDistance<=AgentMesh.stoppingDistance))
+        {
+            Animation.SetBool("Running",true);
+            AgentMesh.SetDestination(walker());
+        }
+ 
     }
 
     /// <summary>
@@ -312,6 +317,18 @@ public class Agent : MonoBehaviour
 
             AgentMesh.isStopped = false;
         }
+    }
+
+    Vector3 walker()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * 50;
+        randomDirection += transform.position;
+        Vector3 finalPosition = Vector3.zero;
+
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 50, 1));
+            finalPosition = hit.position;
+
+        return finalPosition;   
     }
 
 }
