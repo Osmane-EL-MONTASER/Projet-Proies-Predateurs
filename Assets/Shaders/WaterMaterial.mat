@@ -237,7 +237,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     - _animationSpeed: 1
-    - _cellBorders: 3
+    - _cellBorders: 10
     - _cellDensity: 8
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
@@ -256,7 +256,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _gradientDepth: {r: 4, g: 6, b: 4, a: 0}
+    - _gradientDepth: {r: 4, g: 3.78, b: 4, a: 0}
     - _rippleColor: {r: 0.22432362, g: 0.52827567, b: 0.6698113, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1910303141180624216
