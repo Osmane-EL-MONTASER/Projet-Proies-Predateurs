@@ -10,13 +10,14 @@ using UnityEngine;
 /// Intégrée par EL MONTASER Osmane le 01/03/2022.
 /// </summary>
 public class LightningManager : MonoBehaviour {
-    [SerializeField] private Light _directionalLight;
+    [SerializeField] private Light _sunLight;
+    [SerializeField] private Light _moonLight;
     [SerializeField] private LightningPresets _preset;
 
     /// <summary>
     /// L'heure actuelle dans le monde de la simulation.
     /// </summary>
-    [SerializeField, Range(0, 24)] private float _timeOfDay;
+    [SerializeField, Range(0, 240)] private float _timeOfDay;
 
     /// <summary>
     /// Pour faire avancer le temps dans le cycle jour /
@@ -30,10 +31,10 @@ public class LightningManager : MonoBehaviour {
 
         if(Application.isPlaying) {
             _timeOfDay += Time.deltaTime;
-            _timeOfDay %= 24;
-            UpdateLightning(_timeOfDay / 24f);
+            _timeOfDay %= 240;
+            UpdateLightning(_timeOfDay / 240f);
         } else
-            UpdateLightning(_timeOfDay / 24f);
+            UpdateLightning(_timeOfDay / 240f);
     }
 
     /// <summary>
@@ -49,27 +50,28 @@ public class LightningManager : MonoBehaviour {
         RenderSettings.ambientLight = _preset.AmbientColor.Evaluate(timePercent);
         RenderSettings.fogColor = _preset.FogColor.Evaluate(timePercent);
 
-        if(_directionalLight != null) {
-            _directionalLight.color = _preset.DirectionalColor.Evaluate(timePercent);
-            _directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, -170f, 0f));
+        if(_sunLight != null) {
+            _sunLight.color = _preset.DirectionalColor.Evaluate(timePercent);
+            _sunLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, -170f, 0f));
+            _moonLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) + 90f, -170f, 0f));
         }
     }
 
     /// <summary>
-    /// Récupérer le premier _directionalLightning sur lequel
+    /// Récupérer le premier _sunLightning sur lequel
     /// travailler avec le cycle jour / nuit.
     /// </summary>
     private void OnValidate() {
-        if(_directionalLight != null)
+        if(_sunLight != null)
             return;
         
         if(RenderSettings.sun != null)
-            _directionalLight = RenderSettings.sun;
+            _sunLight = RenderSettings.sun;
         else {
             Light[] lights = GameObject.FindObjectsOfType<Light>();
             foreach(Light light in lights) {
                 if(light.type == LightType.Directional) {
-                    _directionalLight = light;
+                    _sunLight = light;
                     return;
                 }
             }
