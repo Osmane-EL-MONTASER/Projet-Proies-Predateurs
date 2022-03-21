@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using System;
+
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 /// <summary>
-/// Classe permettant de créer la carte de pré-
-/// cipitation grâce à l'algorithme de bruit
-/// de perlin. Elle fonctionne en mode multi-
-/// threadée pour le calcul de la map avec le
-/// bruit de perlin.
-/// Attention toutefois à ne pas faire de cartes 
-/// trop grandes afin de ne pas faire lagger la
-/// simulation.
+/// Classe qui permet de générer du brouillard
+/// grâce à l'algorithme de Perlin Noise et une
+/// référence vers le Volume Sky and Fog.
 /// 
-/// Fait par EL MONTASER Osmane le 19/03/2022.
+/// Fait par EL MONTASER Osmane le 21/03/2022.
 /// </summary>
-public class Precipitation : MonoBehaviour {
+public class FogGenerator : MonoBehaviour {
+    /// <summary>
+    /// Une référence à l'objet de la scène contenant
+    /// le ciel, le brouillard et les nuages 
+    /// volumétriques.
+    /// </summary>
+    public Volume VolumeToEdit;
+
     /// <summary>
     /// Largeur de la carte sur laquelle générer
     /// les précipitations.
@@ -53,14 +59,27 @@ public class Precipitation : MonoBehaviour {
     public float Scale = 1.0f;
 
     /// <summary>
-    /// La vitesse à laquelle la map de 
-    /// précipitations s'acutalise dans le monde.
+    /// La vitesse à laquelle la map de brouillard
+    /// s'acutalise dans le monde.
     /// </summary>
-    public float PrecipitationSpeed = 0.25f;
+    public float FogSpeed = 0.25f;
 
-    public float PrecipitationOffsetX = 0.25f;
+    /// <summary>
+    /// La distance parcourue par le brouillard à
+    /// chaque tick.
+    /// </summary>
+    public float FogOffsetX = 0.25f;
 
-    public float PrecipitationOffsetY = 0.25f;
+    /// <summary>
+    /// La distance parcourue par le brouillard à
+    /// chaque tick.
+    /// </summary>
+    public float FogOffsetY = 0.25f;
+
+    /// <summary>
+    /// La taille des zones dans le monde.
+    /// </summary>
+    public int SquareSize = 25;
 
     /// <summary>
     /// Bruit de perlin généré par l'algorithme.
@@ -77,11 +96,23 @@ public class Precipitation : MonoBehaviour {
 
     /// <summary>
     /// Cet objet permet de bloquer l'utilisation
-    /// des ressources de la map de précipitations
+    /// des ressources de la map du brouillard
     /// qui sont utilisés à la fois dans _t1 et la
     /// fonction Update().
     /// </summary>
     private static object _applyNoiseLock = new object();
+
+    /// <summary>
+    /// Savoir si la map du brouillard a déjà
+    /// été appliquée au monde.
+    /// </summary>
+    private bool _alreadyApplied;
+
+    /// <summary>
+    /// Savoir depuis combien de temps le monde a
+    /// eu la mise à jour de la map du brouillard.
+    /// </summary>
+    private float _timeAccumulator;
 
     /// <summary>
     /// Permet d'accéder au tableau depuis le thread
@@ -91,44 +122,27 @@ public class Precipitation : MonoBehaviour {
     private Mutex _noiseTabMutex = new Mutex();
 
     /// <summary>
-    /// Savoir si la map de précipitations a déjà
-    /// été appliquée au monde.
+    /// Permet de savoir où était la caméra lors de
+    /// la dernière mise à jour des valeurs d'intensité
+    /// du brouillard.
     /// </summary>
-    private bool _alreadyApplied;
+    private (int, int) _lastCameraPosition;
 
-    /// <summary>
-    /// Savoir depuis combien de temps le monde a
-    /// eu la mise à jour de la map de précipitations.
-    /// </summary>
-    private float _timeAccumulator;
-
-    /// <summary>
-    /// Permet de créer l'objet qui stockera la map
-    /// de précipitations ainsi que de lancer le
-    /// thread qui calcul la map de précipitations
-    /// en fonction du décalage actuel.
-    /// 
-    /// Fait par EL MONTASER Osmane le 19/03/2022.
-    /// </summary>
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = PrecipitationSpeed;
+        _timeAccumulator = FogSpeed;
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
     }
 
-    /// <summary>
-    /// Fonction qui permet de mettre à jour la map
-    /// des précipitations.
-    /// 
-    /// Fait par EL MONTASER Osmane le 19/03/2022.
-    /// </summary>
     void Update() {
         _timeAccumulator += Time.deltaTime;
-        if(!_alreadyApplied && _timeAccumulator >= PrecipitationSpeed && Monitor.TryEnter(_applyNoiseLock)) {
-            XOrg += PrecipitationOffsetX;
-            YOrg += PrecipitationOffsetY;
+        applyFogValues();
+        
+        if(!_alreadyApplied && _timeAccumulator >= FogSpeed && Monitor.TryEnter(_applyNoiseLock)) {
+            XOrg += FogOffsetX;
+            YOrg += FogOffsetY;
 
             _alreadyApplied = true;
             _timeAccumulator = 0f;
@@ -137,36 +151,42 @@ public class Precipitation : MonoBehaviour {
     }
 
     /// <summary>
-    /// Permet de savoir s'il y a des précipitations
-    /// à l'endroit donné en paramètre.
+    /// Fonction qui permet d'appliquer les nouvelles
+    /// valeurs d'intensité du brouillard calculées
+    /// par le bruit de Perlin.
     /// 
-    /// Fait par EL MONTASER Osmane le 19/03/2022.
+    /// Fait par EL MONTASER Osmane le 21/03/2022.
     /// </summary>
-    /// <param name="x">
-    /// Coordonnée x de la zone.
-    /// </param>
-    /// <param name="y">
-    /// Coordonnée y de la zone.
-    /// </param>
-    /// <returns>
-    /// Retourne 0 s'il n'y a pas de précipitations.
-    /// Sinon un réel entre 0 et 1 correspondant à
-    /// l'intensité de la précipitation.
-    /// </returns>
-    public float GetPrecipitationAt(int x, int y) {
-        float value = .0f;
+    private void applyFogValues() {
+        int xPosGrid = (int)Math.Floor(transform.position.x / SquareSize);
+        int yPosGrid = (int)Math.Floor(transform.position.z / SquareSize);
 
-        if(_noiseTabMutex.WaitOne()) {
-            value = _noiseTab[x, y];
-            _noiseTabMutex.ReleaseMutex();
+        if(!_alreadyApplied || (xPosGrid, yPosGrid) != _lastCameraPosition) {
+            _lastCameraPosition = (xPosGrid, yPosGrid);
+
+            VolumeProfile profile = VolumeToEdit.sharedProfile;
+
+            if (!profile.TryGet<Fog>(out var fog))
+                fog = profile.Add<Fog>(false);
+            
+            fog.tint.overrideState = true;
+            float intensity = .0f;
+            
+            if(_noiseTabMutex.WaitOne()) {
+                intensity = _noiseTab[xPosGrid, yPosGrid];
+                _noiseTabMutex.ReleaseMutex();
+            }
+            
+            if(intensity < 0.3f)
+                fog.tint.value = new Color(191, 191, 191) * .0f;
+            else
+                fog.tint.value = new Color(191, 191, 191) * ((intensity - 0.3f) * 0.05f);
         }
-
-        return value;
     }
 
     /// <summary>
     /// Fonction qui permet de calculer la map
-    /// des précipitations.
+    /// du brouillard.
     /// 
     /// Repris de la documentation Unity sur
     /// Mathf.PerlinNoise et repris par EL MONTASER
@@ -184,9 +204,6 @@ public class Precipitation : MonoBehaviour {
                         float xCoord = XOrg + x / MapWidth * Scale;
                         float yCoord = YOrg + y / MapHeight * Scale;
                         float sample = Mathf.PerlinNoise(xCoord, yCoord);
-
-                        if(sample < 0.55f)
-                            sample = 0.0f;
 
                         tempNoiseTab[(int)x, + (int)y] = sample;
                         x++;

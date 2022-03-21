@@ -35,20 +35,13 @@ public class Weather : MonoBehaviour {
     //L'ENVIRONNEMENT TEL QUE LA TEMPERATURE...
 
     /// <summary>
-    /// Une référence à l'objet de la scène contenant
-    /// le ciel, le brouillard et les nuages 
-    /// volumétriques.
-    /// </summary>
-    public GameObject SkyAndFogGlobalVolume;
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="treeFallingChance"></param>
     /// <param name="waterWaveHeight"></param>
     /// <param name="humidityPercentage"></param>
-    public Weather(GameObject skyAndFogGlobalVolume, float treeFallingChance = 0.0f, float waterWaveHeight = 0.0f,
+    public Weather(float treeFallingChance = 0.0f, float waterWaveHeight = 0.0f,
                    float humidityPercentage = 0.0f) {
-        SkyAndFogGlobalVolume = skyAndFogGlobalVolume;
+        
     }
 }

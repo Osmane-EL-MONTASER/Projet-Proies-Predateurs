@@ -23,7 +23,7 @@ public class GestionAgents : MonoBehaviour
     {
         for (int i = 0 ; i < nombre ; i++)
         {
-            ListeAgents.Add(Instantiate(wolf, new Vector3(572.9277f, 80.1882f, 592.933f), Quaternion.identity));
+            ListeAgents.Add(Instantiate(wolf, new Vector3(435f, 1f, 330f), Quaternion.identity));
         }
 
 
