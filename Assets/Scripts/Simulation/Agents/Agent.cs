@@ -321,11 +321,11 @@ public class Agent : MonoBehaviour
 
     Vector3 walker()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * 50;
+        Vector3 randomDirection = Random.insideUnitSphere * 100;
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 50, 1));
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1));
             finalPosition = hit.position;
 
         return finalPosition;   
