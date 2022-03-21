@@ -146,7 +146,8 @@ public class Agent : MonoBehaviour
 
         if ((AgentMesh!=null)&&(AgentMesh.remainingDistance<=AgentMesh.stoppingDistance))
         {
-            Animation.SetBool("Running",true);
+            //Animation.SetBool("Running",false);
+            //Animation.SetBool("Idle2",true);
             AgentMesh.SetDestination(walker());
         }
  
