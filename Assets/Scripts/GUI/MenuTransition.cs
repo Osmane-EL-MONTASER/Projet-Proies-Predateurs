@@ -15,17 +15,26 @@ public class MenuTransition : MonoBehaviour {
     /// <summary>
     /// La caméra qui affiche les interfaces ainsi que la simulation.
     /// </summary>
-    public GameObject MainCamera;
-    
-    /// <summary>
-    /// Constructeur de la classe.
-    /// 
-    /// Fait par Pierre AVERTY le 28/02/2022.
-    /// </summary>
-    public MenuTransition() {
-        
-    }
+    private GameObject MainCamera;
 
+    /// <summary>
+    /// Le menu d'ajout d'agents en simulation.
+    /// </summary>
+     public GameObject AgentSimulationPanel;
+    /// <summary>
+    /// Le menu d'ajout d'effets environnementaux en simulation.
+    /// </summary>
+     public GameObject MeteoSimulationPanel;
+
+    /// <summary>
+    /// Script pour le menu d'ajout d'effets environnementaux en simulation.
+    /// </summary>
+     public AgentEvents MenuScript;
+
+    void Start() {
+        MainCamera = ConfigCamera.Instance.CurrentCamera;
+    }
+    
     /// <summary>
     /// Fonction qui cache et qui affiche un menu au clique.
     /// 
@@ -54,12 +63,18 @@ public class MenuTransition : MonoBehaviour {
     /// Utile lorsque l'on passe des menus à la simulation.
     /// 
     /// Fait par EL MONTASER Osmane le 01/03/2022.
+    /// Révisée par AVERTY Pierre le 14/03/2022.
     /// </summary>
     /// 
     /// <param name="newValue">Nouvelle valeur qui influera sur
     /// l'activation ou non du script de contrôle de la caméra.</param>
     public void toogleCamera(bool newValue) {
-        if(MainCamera.GetComponent<BasicCamera>().enabled != newValue)
+        if(MainCamera.GetComponent<BasicCamera>().enabled != newValue) {
             MainCamera.GetComponent<BasicCamera>().enabled = newValue;
+
+            AgentSimulationPanel.SetActive(true);
+            MeteoSimulationPanel.SetActive(true);
+            //MenuScript.onClick();
+        }
     }
 }
