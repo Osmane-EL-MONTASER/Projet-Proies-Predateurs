@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 941.47, g: 642.1406, b: 556.6924, a: 1}
+  m_IndirectSpecularColor: {r: 940.48096, g: 641.49805, b: 556.15625, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13429,6 +13429,11 @@ MonoBehaviour:
   ListeAgents: []
   wolf: {fileID: 2523255196501607929, guid: b3a36a973389b6249a43eb14b70b0860, type: 3}
   Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
+  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8, type: 3}
+  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696, type: 3}
+  Snake: {fileID: 3314495111141517837, guid: 14cc87fbec9906b4ca5b1d898d97f302, type: 3}
+  Rabbit: {fileID: 5629308956239689694, guid: 1549bdb1a50a7ff4f92562bd5a806022, type: 3}
+  Zebra: {fileID: 3037339202061222097, guid: c7508a1b85bba0d40a5e7d2c57d59dc6, type: 3}
 --- !u!1 &780295624
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,12 @@ public class GestionAgents : MonoBehaviour
 
     public GameObject wolf;
     public GameObject Iguana;
+    public GameObject Elephant;
+    public GameObject Pingouin;
+    public GameObject Snake;
+    public GameObject Rabbit;
+    public GameObject Zebra;
+
 
     /// <summary>
     /// creerAgents : méthode qui fait apparaitre un nombre d'agents donnés et de l'espèce voulue.
@@ -28,6 +34,16 @@ public class GestionAgents : MonoBehaviour
                 ListeAgents.Add(Instantiate(wolf, new Vector3(435f, 1f, 330f), Quaternion.identity));
             else if (idAgent==2)
                 ListeAgents.Add(Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==3)
+                ListeAgents.Add(Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==4)
+                ListeAgents.Add(Instantiate(Pingouin, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==5)
+                ListeAgents.Add(Instantiate(Snake, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==6)
+                ListeAgents.Add(Instantiate(Rabbit, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==7)
+                ListeAgents.Add(Instantiate(Zebra, new Vector3(445f, 1f, 310f), Quaternion.identity));
         }
 
 
@@ -37,7 +53,10 @@ public class GestionAgents : MonoBehaviour
     {
         ListeAgents = new List<GameObject>();
         creerAgents(10,1);
-        creerAgents(10,2);
+        creerAgents(5,4);
+        creerAgents(5,5);
+        creerAgents(5,6);
+        creerAgents(5,7);
     }
 
 }

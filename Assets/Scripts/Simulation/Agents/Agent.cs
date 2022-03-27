@@ -102,7 +102,7 @@ public class Agent : MonoBehaviour
         _enFuite = false;
         _tempsRestantDigestion = 0.0;
 
-        AgentMesh.speed = (float)_vitesse;
+        //AgentMesh.speed = (float)_vitesse;
     }
 
     /// <summary>
