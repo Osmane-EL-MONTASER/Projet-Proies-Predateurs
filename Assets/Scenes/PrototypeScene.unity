@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 933.3474, g: 638.00977, b: 556.88086, a: 1}
+  m_IndirectSpecularColor: {r: 941.47, g: 642.1406, b: 556.6924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13427,7 +13427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListeAgents: []
-  wolf: {fileID: 2599620566178990602, guid: 1215f19235f80dd4db8bedc26d5750d1, type: 3}
+  wolf: {fileID: 2523255196501607929, guid: b3a36a973389b6249a43eb14b70b0860, type: 3}
   Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
 --- !u!1 &780295624
 GameObject:

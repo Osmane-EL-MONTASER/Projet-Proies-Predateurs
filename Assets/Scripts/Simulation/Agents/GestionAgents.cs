@@ -37,6 +37,7 @@ public class GestionAgents : MonoBehaviour
     {
         ListeAgents = new List<GameObject>();
         creerAgents(10,1);
+        creerAgents(10,2);
     }
 
 }
