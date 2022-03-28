@@ -102,7 +102,7 @@ public class Agent : MonoBehaviour
         _enFuite = false;
         _tempsRestantDigestion = 0.0;
 
-        AgentMesh.speed = (float)_vitesse;
+        //AgentMesh.speed = (float)_vitesse;
     }
 
     /// <summary>
@@ -146,7 +146,8 @@ public class Agent : MonoBehaviour
 
         if ((AgentMesh!=null)&&(AgentMesh.remainingDistance<=AgentMesh.stoppingDistance))
         {
-            Animation.SetBool("Running",true);
+            //Animation.SetBool("Running",true);
+            //Animation.SetBool("Idle2",true);
             AgentMesh.SetDestination(walker());
         }
  
