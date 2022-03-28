@@ -18,12 +18,6 @@ public class BasicCamera : MonoBehaviour {
     /// Le wrapper de la caméra.
     /// </summary>
     public Transform PlayerBody;
-
-    /// <summary>
-    /// L'objet de type Capsule Collider à bouger afin de pouvoir 
-    /// détecter les collisions et bien orienter la caméra.
-    /// </summary>
-    public Transform PlayerCollisions;
     
     /// <summary>
     /// La valeur de rotation actuelle de la caméra sur l'axe x.
@@ -68,7 +62,8 @@ public class BasicCamera : MonoBehaviour {
             _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
             transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-            PlayerCollisions.Rotate(Vector3.up * mouseX);
+            //PlayerBody.Rotate(Vector3.up * mouseX);
+            PlayerBody.GetComponent<Rigidbody>().rotation = Quaternion.Euler(PlayerBody.GetComponent<Rigidbody>().rotation.eulerAngles + new Vector3(0f, MouseSensitivity*Input.GetAxis("Mouse X") * Time.deltaTime, 0f));
         } else if(Input.GetMouseButtonUp(1)) {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
