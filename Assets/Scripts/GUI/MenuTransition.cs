@@ -26,13 +26,8 @@ public class MenuTransition : MonoBehaviour {
     /// </summary>
      public GameObject MeteoSimulationPanel;
 
-    /// <summary>
-    /// Script pour le menu d'ajout d'effets environnementaux en simulation.
-    /// </summary>
-     public AgentEvents MenuScript;
-
     void Start() {
-        MainCamera = ConfigCamera.Instance.CurrentCamera;
+
     }
     
     /// <summary>
@@ -47,12 +42,13 @@ public class MenuTransition : MonoBehaviour {
     /// 
     /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     public void OnClick(GameObject newScene) {
-        var parent = gameObject.transform.parent.gameObject;
+        if(!parent)
+            parent = gameObject.transform.parent.gameObject;
 
         parent.SetActive(false);
         newScene.SetActive(true);
 
-        if(newScene.name == SceneNames.SIMULATION_SCENE)
+        if(newScene.name.Contains(SceneNames.SIMULATION_SCENE))
             toogleCamera(true);
         else
             toogleCamera(false);
@@ -63,18 +59,25 @@ public class MenuTransition : MonoBehaviour {
     /// Utile lorsque l'on passe des menus à la simulation.
     /// 
     /// Fait par EL MONTASER Osmane le 01/03/2022.
-    /// Révisée par AVERTY Pierre le 14/03/2022.
+    /// Révisée par AVERTY Pierre le 14/03/2022, le 25/03/2022 et le 28/03/2022.
     /// </summary>
     /// 
     /// <param name="newValue">Nouvelle valeur qui influera sur
     /// l'activation ou non du script de contrôle de la caméra.</param>
     public void toogleCamera(bool newValue) {
+        MainCamera = ConfigCamera.Instance.CurrentCamera;
+        
         if(MainCamera.GetComponent<BasicCamera>().enabled != newValue) {
             MainCamera.GetComponent<BasicCamera>().enabled = newValue;
+            GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = false;
 
-            AgentSimulationPanel.SetActive(true);
-            MeteoSimulationPanel.SetActive(true);
-            //MenuScript.onClick();
+            if(AgentSimulationPanel && MeteoSimulationPanel){
+                AgentSimulationPanel.SetActive(true);
+                MeteoSimulationPanel.SetActive(true);
+
+                GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
+            }
+            
         }
     }
 }

@@ -6,34 +6,9 @@ using TMPro;
 /// <summary>
 /// Classe qui gère le panneau de configuration du monde.
 /// 
-/// Fait par AVERTY Pierre le 21/03/2022.
+/// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/02/2022.
 /// </summary>
 public class WorldConfiguration : MonoBehaviour {
-
-    /// <summary>
-    /// Paneau de configuration du monde.
-    /// </summary>
-    public GameObject panel;
-
-    /// <summary>
-    /// Input de la temperature.
-    /// </summary>
-    public GameObject temperatureInput;
-
-    /// <summary>
-    /// Input du taux d'humidité.
-    /// </summary>
-    public GameObject humidityDegreeInput;
-
-    /// <summary>
-    /// Input de la vitesse du vent.
-    /// </summary>
-    public GameObject windSpeedInput;
-
-    /// <summary>
-    /// Input de la vitesse de la simulation.
-    /// </summary>
-    public GameObject timeSpeedInput;
 
     /// <summary>
     /// Singleton qui représente le monde.
@@ -41,52 +16,71 @@ public class WorldConfiguration : MonoBehaviour {
     private World world;
 
     /// <summary>
+    /// Input de la température.
+    /// </summary>
+    public TMP_InputField inputTemp;
+
+    /// <summary>
+    /// Input de l'humidité.
+    /// </summary>
+    public TMP_InputField inputHumidity;
+
+    /// <summary>
+    /// Input de la vitesse du vent.
+    /// </summary>
+    public TMP_InputField inputWindSpeed;
+
+    /// <summary>
+    /// Input de la vitesse du temps.
+    /// </summary>
+    public TMP_InputField inputTimeSpeed;
+
+    /// <summary>
     /// Méthode qui s'active à l'initialisation du script.
     /// 
-    /// Fait par AVERTY Pierre le 21/03/2022.
+    /// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/02/2022.
     /// </summary>
     void Start() {
         world = World.Instance;
-
-        temperatureInput.GetComponent<TMP_InputField>().onEndEdit.AddListener(setTemperature);
-        humidityDegreeInput.GetComponent<TMP_InputField>().onEndEdit.AddListener(setHumidity);
-        windSpeedInput.GetComponent<TMP_InputField>().onEndEdit.AddListener(setWindSpeed);
-        timeSpeedInput.GetComponent<TMP_InputField>().onEndEdit.AddListener(setTimeSpeed);
     }
 
     /// <summary>
     /// Méthode qui attribue la temperature au monde.
     /// 
-    /// Fait par AVERTY Pierre le 21/03/2022.
+    /// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/03/2022.
     /// </summary>
-    private void setTemperature(string tempString) {
-        world.Temperature = tempString;
+    public void setTemperature() {
+        world.Temperature =  float.Parse(inputTemp.text);
+        inputTemp.text = "";
     }
 
     /// <summary>
     /// Méthode qui attribue l'humidité au monde.
     /// 
-    /// Fait par AVERTY Pierre le 21/03/2022.
+    /// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/03/2022.
     /// </summary>
-    private void setHumidity(string humidityString) {
-        world.Humidity = humidityString;
+    public void setHumidity() {
+        world.Humidity = int.Parse(inputHumidity.text);
+        inputHumidity.text = "";
     }
 
     /// <summary>
     /// Méthode qui attribue la vitesse du vent au monde.
     /// 
-    /// Fait par AVERTY Pierre le 21/03/2022.
+    /// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/03/2022.
     /// </summary>
-    private void setWindSpeed(string speedString) {
-        world.WindSpeed = speedString;
+    public void setWindSpeed() {
+        world.WindSpeed = float.Parse(inputWindSpeed.text);
+        inputWindSpeed.text = "";
     }
 
     /// <summary>
     /// Méthode qui attribue la vitesse du temps au monde.
     /// 
-    /// Fait par AVERTY Pierre le 21/03/2022.
+    /// Fait par AVERTY Pierre le 21/03/2022 et modifiée le 25/03/2022.
     /// </summary>
-    private void setTimeSpeed(string speedString) {
-        world.TimeSpeed = speedString;
+    public void setTimeSpeed() {
+        world.TimeSpeed = float.Parse(inputTimeSpeed.text);
+        inputTimeSpeed.text = "";
     }
 }

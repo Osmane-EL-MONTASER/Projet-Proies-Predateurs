@@ -7,9 +7,17 @@ using UnityEngine.UI;
 /// Classe de Gestion des Agents
 ///
 /// Fait par Greg Demirdjian et Bilal Hamiche le 19/03/2022.
+/// Modifiée par AVERTY Pierre le 28/09/2022.
+///
 /// </summary> 
 public class GestionAgents : MonoBehaviour
 {
+
+    /// <summary>
+    /// Instance du singleton.
+    /// </summary>
+    private static GestionAgents instance = null;
+
     public List<GameObject> ListeAgents;
 
     public GameObject Wolf;
@@ -25,6 +33,14 @@ public class GestionAgents : MonoBehaviour
     public GameObject Racoon;
     public GameObject Tortoise;
 
+    /// <summary>
+    /// Constructeur du singleton GestionAgents.
+    /// 
+    /// Fait par AVERTY Pierre le 28/03/2022.
+    /// </summary>
+    private GestionAgents() {
+       
+    }
 
 
     /// <summary>
@@ -80,5 +96,19 @@ public class GestionAgents : MonoBehaviour
         creerAgents(5,11);
         creerAgents(5,12);
     }
+
+    /// <summary>
+    /// Méthode qui crée l'instance du singleton et si elle existe déjà, la retourne.
+    /// 
+    /// Fait par AVERTY Pierre le 28/03/2022.
+    /// </summary>
+        public static GestionAgents Instance {
+            get {
+                if (instance==null) {
+                    instance = new GestionAgents();
+                }
+                return instance;
+            }
+        }
 
 }
