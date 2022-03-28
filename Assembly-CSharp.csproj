@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Simulation\Agents\Agent.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\WeatherType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraUtils\SmoothCameraTranslation.cs" />
     <Compile Include="Assets\Scripts\Constants\WeatherNames.cs" />
@@ -74,8 +75,10 @@
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherTransitions\CloudyToSunnyTransition.cs" />
     <Compile Include="Assets\Scripts\GUI\WeatherEvents.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Worlds\World.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraUtils\EditorGrid.cs" />
+    <Compile Include="Assets\Scripts\GUI\WorldConfiguration.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherZoning.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Camera\WeatherCamera.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Assets\Scripts\Camera\CameraUtils\SmoothCameraRotation.cs" />
     <Compile Include="Assets\Scripts\Constants\UINames.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\WindGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Simulation\DayNightCycle\LightningManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
@@ -107,15 +111,17 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Camera\BasicCamera.cs" />
-    <Compile Include="Assets\Scripts\Simulation\Weather\FogGenerator.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\FogGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Camera\ConfigCamera.cs" />
-    <Compile Include="Assets\Scripts\Simulation\Weather\Precipitation.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\Precipitation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\WeatherUpdate\WeatherUpdateProperty.cs" />
     <Compile Include="Assets\Scripts\GUI\FenetreGraphe.cs" />
     <Compile Include="Assets\Scripts\DB\DBHelper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Weather\WeatherUpdate\WeatherObjectUpdater.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\GUI\SetBiome.cs" />
   </ItemGroup>
