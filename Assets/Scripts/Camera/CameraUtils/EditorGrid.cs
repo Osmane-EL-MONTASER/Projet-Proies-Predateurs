@@ -77,7 +77,7 @@ class EditorGrid : MonoBehaviour {
     /// <param name="selectedWeather">
     /// La nouvelle météo sélectionnée.
     /// </param>
-    public void ChangeSquareColor(string selectedWeather) {
+    public void ChangeSquareColor(WeatherType selectedWeather) {
         _selectedSquareMaterial.color = getSquareColorFromWeather(selectedWeather);
     }
 
@@ -88,7 +88,7 @@ class EditorGrid : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
-    public void CreateGrid(string selectedWeather) {
+    public void CreateGrid(WeatherType selectedWeather) {
         if(_grid != null && _grid.Count() > 0) {
             ShowGrid();
             return;
@@ -194,17 +194,17 @@ class EditorGrid : MonoBehaviour {
     /// La chaîne de caractères correspondant à la météo 
     /// sélectionnée dans le panel.
     /// </param>
-    private Color getSquareColorFromWeather(string weather) {
+    private Color getSquareColorFromWeather(WeatherType weather) {
         switch (weather) {
-            case WeatherNames.WIND_WEATHER:
+            case WeatherType.Wind:
                 return WeatherNames.WIND_COLOR;
-            case WeatherNames.THUNDERSTORM_WEATHER:
+            case WeatherType.Thunderstorm:
                 return WeatherNames.THUNDERSTORM_COLOR;
-            case WeatherNames.STORM_WEATHER:
+            case WeatherType.Storm:
                 return WeatherNames.STORM_COLOR;
-            case WeatherNames.DROUGHT_WEATHER:
+            case WeatherType.Drought:
                 return WeatherNames.DROUGHT_COLOR;
-            case WeatherNames.RAIN_WEATHER:
+            case WeatherType.Rain:
                 return WeatherNames.RAIN_COLOR;
             default:
                 return Color.white;

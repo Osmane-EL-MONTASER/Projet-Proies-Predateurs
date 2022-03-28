@@ -80,7 +80,7 @@ public class WeatherCamera : MonoBehaviour {
     /// <summary>
     /// La météo qui a été sélectionnée dans le panel.
     /// </summary>
-    public string _selectedWeather {get; set;}
+    public WeatherType _selectedWeather {get; set;}
 
     /// <summary>
     /// La fonction exécutée au démarrage.
@@ -116,9 +116,8 @@ public class WeatherCamera : MonoBehaviour {
     /// <param name="newWeather">
     /// La nouvelle météo sélectionnée.
     /// </param>
-    public void ChangeSelectedWeather(string newWeather) {
-        _selectedWeather = "";
-        _selectedWeather += newWeather;
+    public void ChangeSelectedWeather(WeatherType newWeather) {
+        _selectedWeather = newWeather;
         Camera.GetComponent<EditorGrid>().ChangeSquareColor(_selectedWeather);
     }
 
@@ -129,7 +128,7 @@ public class WeatherCamera : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
     public void ExitWeatherLook() {
-        _selectedWeather = "";
+        _selectedWeather = WeatherType.None;
         _isExitTransitionFinished = false;
         _transitionType = false;
         Camera.GetComponent<EditorGrid>().HideGrid();
@@ -146,11 +145,10 @@ public class WeatherCamera : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022.
     /// </summary>
-    public void EnterWeatherLook(string selectedWeather) {
+    public void EnterWeatherLook(WeatherType selectedWeather) {
         Camera.GetComponent<BasicCamera>().enabled = false;
         this.enabled = true;
-        _selectedWeather = "";
-        _selectedWeather += selectedWeather;
+        _selectedWeather = selectedWeather;
         _isTransitionFinished = false;
         _transitionType = true;
 

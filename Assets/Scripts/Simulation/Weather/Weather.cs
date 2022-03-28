@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+using System;
 
 /// <summary>
 /// Classe représentant un effet météorologique
@@ -13,7 +15,7 @@ using UnityEngine;
 /// 
 /// Fait par EL MONTASER Osmane le 11/03/2022.
 /// </summary>
-public class Weather : MonoBehaviour {
+public abstract class Weather {
     /// <summary>
     /// La probabilité qu'un arbre tombe.
     /// </summary>
@@ -42,6 +44,41 @@ public class Weather : MonoBehaviour {
     /// <param name="humidityPercentage"></param>
     public Weather(float treeFallingChance = 0.0f, float waterWaveHeight = 0.0f,
                    float humidityPercentage = 0.0f) {
-        
     }
+
+    /// <summary>
+    /// Permet de calculer une valeur aléatoire suivant une loi
+    /// gaussienne centrée réduite.
+    /// 
+    /// Fait par Oneiros90 sur https://answers.unity.com/questions
+    /// /421968/normal-distribution-random.html.
+    /// </summary>
+    /// <param name="minValue">
+    /// La valeur minimale (celle de gauche).
+    /// </param>
+    /// <param name="maxValue">
+    /// La valeur maximale (celle de droite).
+    /// </param>
+    /// <returns></returns>
+    public static double RandomGaussian(double minValue = 0.0, double maxValue = 1.0) {
+        double u, v, S;
+        System.Random rand = new System.Random();
+
+        do {
+            u = 2.0 * rand.NextDouble() - 1.0;
+            v = 2.0 * rand.NextDouble() - 1.0;
+            S = u * u + v * v;
+        } while (S >= 1.0);
+
+        // Standard Normal Distribution
+        double std = u * Math.Sqrt(-2.0 * Math.Log(S) / S);
+
+        // Normal Distribution centered between the min and max value
+        // and clamped following the "three-sigma rule"
+        double mean = (minValue + maxValue) / 2.0;
+        double sigma = (maxValue - mean) / 3.0;
+        return Math.Clamp(std * sigma + mean, minValue, maxValue);
+    }
+
+    abstract public void Update();
 }

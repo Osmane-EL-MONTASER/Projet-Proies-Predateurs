@@ -219,7 +219,7 @@ Material:
     - _Ior: 1.5
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
-    - _LeavesSpeed: 1.36
+    - _LeavesSpeed: 0.2
     - _Leaves_Frequency: 0.4
     - _Leaves_Wave: 0.68
     - _LinkDetailsWithBase: 1
@@ -280,7 +280,7 @@ Material:
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
     - _WIND: 1
-    - _Wind_Bend: 9.52
+    - _Wind_Bend: 4
     - _Wind_Offset: 0.4
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3

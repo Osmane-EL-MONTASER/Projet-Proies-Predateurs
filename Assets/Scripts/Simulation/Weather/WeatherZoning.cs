@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading;
 
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -48,14 +49,20 @@ public class WeatherZoning : MonoBehaviour {
     /// chercher à chaque Update() parmis tous les
     /// objets de la scène.
     /// </summary>
-    private List<GameObject>[,] _gameObjects;
+    public List<TreeInstance>[,] GameObjects { get; set; }
+
+    /// <summary>
+    /// Combien de frames il faut pour passer à la
+    /// frame suivante de l'animation des nuages.
+    /// </summary>
+    public float _transitionSpeed = 0.5f;
 
     /// <summary>
     /// Le monde est décomposé sous forme de 
     /// quadrillage. La taille d'une case est fixe
     /// et modifiable dans l'éditeur de Unity.
     /// </summary>
-    private Weather[,] _worldZones { get; set; }
+    private List<Weather>[,] _worldZones { get; set; }
 
     /// <summary>
     /// Un entier constant définie dans la classe 
@@ -74,10 +81,22 @@ public class WeatherZoning : MonoBehaviour {
     private float _transitionTimeAccumulator;
 
     /// <summary>
-    /// Combien de frames il faut pour passer à la
-    /// frame suivante de l'animation des nuages.
+    /// Temps depuis la dernière actualisation des
+    /// évènements météo.
     /// </summary>
-    public float _transitionSpeed = 0.5f;
+    private float _weatherUpdateAccumulator;
+
+    /// <summary>
+    /// Thread qui permet de mettre à jour la météo
+    /// dans chaque zone.
+    /// </summary>
+    private Thread _updateWeatherThread;
+
+    /// <summary>
+    /// Permet de réguler l'accès au tableau des
+    /// météos de chaque zone pour les 2 threads.
+    /// </summary>
+    private Mutex _worldZonesMutex = new Mutex();
 
     /// <summary>
     /// Ici je lance la fonction de pré-chargement des
@@ -91,6 +110,10 @@ public class WeatherZoning : MonoBehaviour {
         initializeWeatherZones();
         loadGameObjects();
         _transitionTimeAccumulator = .0f;
+        _weatherUpdateAccumulator = .0f;
+
+        _updateWeatherThread = new Thread(updateWeatherZones);
+        _updateWeatherThread.Start();
     }
 
     void Update() {
@@ -101,6 +124,23 @@ public class WeatherZoning : MonoBehaviour {
         }
 
         _transitionTimeAccumulator++;
+        _weatherUpdateAccumulator += Time.deltaTime;
+    }
+
+    private void updateWeatherZones() {
+        while(true) {
+            if(_weatherUpdateAccumulator >= 1f) {
+                foreach(var zone in _worldZones) {
+                    foreach (var weather in zone){
+                        if(weather != null)
+                            weather.Update();   
+                    }
+                }
+
+                _weatherUpdateAccumulator = .0f;
+            }
+            
+        }
     }
 
     /// <summary>
@@ -168,8 +208,8 @@ public class WeatherZoning : MonoBehaviour {
     }
 
     /// <summary>
-    /// Fonction qui permet de changer la météo à la
-    /// case donnée.
+    /// Fonction qui permet d'ajouter un effet météorologique
+    /// dans la zone donnée.
     /// 
     /// Fait par EL MONTASER Osmane le 17/03/2022.
     /// </summary>
@@ -182,8 +222,50 @@ public class WeatherZoning : MonoBehaviour {
     /// <param name="weather">
     /// La nouvelle météo de la zone.
     /// </param>
-    public void ChangeWeatherAtZone(int x, int y, Weather weather) {
-        _worldZones[x, y] = weather;
+    public void AddWeatherAtZone(int x, int y, Weather weather) {
+        if(_worldZonesMutex.WaitOne()) {
+            int indexOfWeahter = -1;
+
+            for(int i = 0; i < _worldZones[x, y].Count; i++) {
+                if(_worldZones[x, y][i].GetType() == weather.GetType()) {
+                    indexOfWeahter = i;
+                    break;
+                }
+            }
+            if(indexOfWeahter >= 0)
+                _worldZones[x, y][indexOfWeahter] = weather;
+            else
+                _worldZones[x, y].Add(weather);
+        }
+    }
+
+    /// <summary>
+    /// Permet de supprimer un type de météo s'il existe
+    /// à la zone donnée en paramètre.
+    /// 
+    /// Fait par EL MONTASER Osmane le 25/03/2022.
+    /// </summary>
+    /// <param name="x">
+    /// La position de la case à l'horizontale.
+    /// </param>
+    /// <param name="y">
+    /// La position de la case à la verticale.
+    /// </param>
+    /// <param name="weatherType">
+    /// La météo à supprimer de la case.
+    /// </param>
+    public void DeleteWeatherAtZone(int x, int y, Weather weatherType) {
+        int indexOfWeahter = -1;
+
+        for(int i = 0; i < _worldZones[x, y].Count; i++) {
+            if(_worldZones[x, y][i].GetType() == weatherType.GetType()) {
+                indexOfWeahter = i;
+                break;
+            }
+        }
+
+        if(indexOfWeahter >= 0)
+            _worldZones[x, y].RemoveAt(indexOfWeahter);
     }
 
     /// <summary>
@@ -199,7 +281,7 @@ public class WeatherZoning : MonoBehaviour {
     /// La position à la verticale de la case.
     /// </param>
     public void ResetWeatherAtZone(int x, int y) {
-        _worldZones[x, y] = null;
+        _worldZones[x, y] = new List<Weather>();
     }
 
     /// <summary>
@@ -209,7 +291,11 @@ public class WeatherZoning : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 17/03/2022.
     /// </summary>
     private void initializeWeatherZones() {
-        _worldZones = new Weather[_gameObjects.GetLength(0), _gameObjects.GetLength(1)];
+        _worldZones = new List<Weather>[GameObjects.GetLength(0), GameObjects.GetLength(1)];
+
+        for(int i = 0; i < _worldZones.GetLength(0); i++)
+            for(int j = 0; j < _worldZones.GetLength(1); j++)
+                _worldZones[i, j] = new List<Weather>();
     }
 
     /// <summary>
@@ -219,18 +305,18 @@ public class WeatherZoning : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 14/03/2022.
     /// </summary>
     private void initializeGameObjetsList() {
-        _gameObjects = new List<GameObject>[(int)(TerrainToEdit.terrainData.size.x / SquareSize), (int)(TerrainToEdit.terrainData.size.z / SquareSize)]; 
+        GameObjects = new List<TreeInstance>[(int)(TerrainToEdit.terrainData.size.x / SquareSize), (int)(TerrainToEdit.terrainData.size.z / SquareSize)]; 
 
-        for(int i = 0; i < _gameObjects.GetLength(0); i++)
-            for(int j = 0; j < _gameObjects.GetLength(1); j++)
-                _gameObjects[i, j] = new List<GameObject>();
+        for(int i = 0; i < GameObjects.GetLength(0); i++)
+            for(int j = 0; j < GameObjects.GetLength(1); j++)
+                GameObjects[i, j] = new List<TreeInstance>();
     }
 
     /// <summary>
     /// Cette fonction permet d'ajouter par zone (ex :
     /// de ce à quoi cela ressemblera dans la mémoire
     /// pour la zone en bas à gauche :
-    /// zone[0][0] <=> _gameObjects[0][0] = {
+    /// zone[0][0] <=> GameObjects[0][0] = {
     ///     TreeInstance tree1,
     ///     TreeInstance tree2,
     ///     Agent agent1,
@@ -248,7 +334,7 @@ public class WeatherZoning : MonoBehaviour {
 
         foreach(TreeInstance tree in terrainData.treeInstances) {
             (int, int) gridCoordinates = getZoneCoordinatesFromRawPosition(tree.position);
-            _gameObjects[gridCoordinates.Item1, gridCoordinates.Item2].Add(terrainData.treePrototypes[tree.prototypeIndex].prefab);
+            GameObjects[gridCoordinates.Item1, gridCoordinates.Item2].Add(tree);
         }
     }
 

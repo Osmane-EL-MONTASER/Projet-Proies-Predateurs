@@ -35,7 +35,7 @@ public class WeatherEvents : MonoBehaviour {
     /// se trouve dans l'éditeur météo.
     /// Sinon la vue change entre vue de base et édition météo.
     /// </summary>
-    private static string _oldSelectedWeather;
+    private static WeatherType _oldSelectedWeather;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tout le
@@ -46,7 +46,7 @@ public class WeatherEvents : MonoBehaviour {
     void Start() {
         if(this.name == UINames.OPEN_WEATHER_BUTTON)
             toogleWeatherPanel();
-        _oldSelectedWeather = new string("");
+        _oldSelectedWeather = WeatherType.None;
     }
 
     /// <summary>
@@ -59,15 +59,15 @@ public class WeatherEvents : MonoBehaviour {
         if(this.name == UINames.OPEN_WEATHER_BUTTON)
             toogleWeatherPanel();
         else if(this.name == UINames.WIND_WEATHER_BUTTON)
-            toogleWeatherZoning(WeatherNames.WIND_WEATHER);
+            toogleWeatherZoning(WeatherType.Wind);
         else if(this.name == UINames.THUNDERSTORM_WEATHER_BUTTON)
-            toogleWeatherZoning(WeatherNames.THUNDERSTORM_WEATHER);
+            toogleWeatherZoning(WeatherType.Thunderstorm);
         else if(this.name == UINames.STORM_WEATHER_BUTTON)
-            toogleWeatherZoning(WeatherNames.STORM_WEATHER);
+            toogleWeatherZoning(WeatherType.Storm);
         else if(this.name == UINames.DROUGHT_WEATHER_BUTTON)
-            toogleWeatherZoning(WeatherNames.DROUGHT_WEATHER);
+            toogleWeatherZoning(WeatherType.Drought);
         else if(this.name == UINames.RAIN_WEATHER_BUTTON)
-            toogleWeatherZoning(WeatherNames.RAIN_WEATHER);
+            toogleWeatherZoning(WeatherType.Rain);
     }
 
     /// <summary>
@@ -80,18 +80,16 @@ public class WeatherEvents : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 11/03/2022.
     /// </summary>
-    private void toogleWeatherZoning(string selectedWeather) {
-        if(_oldSelectedWeather == "") {
+    private void toogleWeatherZoning(WeatherType selectedWeather) {
+        if(_oldSelectedWeather == WeatherType.None) {
             Camera.GetComponent<WeatherCamera>().EnterWeatherLook(selectedWeather);
-            _oldSelectedWeather = "";
-            _oldSelectedWeather += selectedWeather;
+            _oldSelectedWeather = selectedWeather;
         } else if(_oldSelectedWeather == selectedWeather) {
             Camera.GetComponent<WeatherCamera>().ExitWeatherLook();
-            _oldSelectedWeather = "";
+            _oldSelectedWeather = WeatherType.None;
         } else {
             Camera.GetComponent<WeatherCamera>().ChangeSelectedWeather(selectedWeather);
-            _oldSelectedWeather = "";
-            _oldSelectedWeather += selectedWeather;
+            _oldSelectedWeather = selectedWeather;
         }
     }
 
