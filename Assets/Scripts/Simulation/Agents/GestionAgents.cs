@@ -12,13 +12,15 @@ public class GestionAgents : MonoBehaviour
 {
     public List<GameObject> ListeAgents;
 
-    public GameObject wolf;
+    public GameObject Wolf;
     public GameObject Iguana;
     public GameObject Elephant;
     public GameObject Pingouin;
     public GameObject Snake;
     public GameObject Rabbit;
     public GameObject Zebra;
+    public GameObject Tiger;
+    public GameObject Alligator;
 
 
     /// <summary>
@@ -31,7 +33,7 @@ public class GestionAgents : MonoBehaviour
         for (int i = 0 ; i < nombre ; i++)
         {
             if (idAgent==1)
-                ListeAgents.Add(Instantiate(wolf, new Vector3(435f, 1f, 330f), Quaternion.identity));
+                ListeAgents.Add(Instantiate(Wolf, new Vector3(435f, 1f, 330f), Quaternion.identity));
             else if (idAgent==2)
                 ListeAgents.Add(Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity));
             else if (idAgent==3)
@@ -44,6 +46,10 @@ public class GestionAgents : MonoBehaviour
                 ListeAgents.Add(Instantiate(Rabbit, new Vector3(445f, 1f, 310f), Quaternion.identity));
             else if (idAgent==7)
                 ListeAgents.Add(Instantiate(Zebra, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==8)
+                ListeAgents.Add(Instantiate(Tiger, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==9)
+                ListeAgents.Add(Instantiate(Alligator, new Vector3(445f, 1f, 310f), Quaternion.identity));
         }
 
 
@@ -57,6 +63,8 @@ public class GestionAgents : MonoBehaviour
         creerAgents(5,5);
         creerAgents(5,6);
         creerAgents(5,7);
+        creerAgents(5,8);
+        creerAgents(5,9);
     }
 
 }
