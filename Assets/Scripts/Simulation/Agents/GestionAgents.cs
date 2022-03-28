@@ -21,6 +21,10 @@ public class GestionAgents : MonoBehaviour
     public GameObject Zebra;
     public GameObject Tiger;
     public GameObject Alligator;
+    public GameObject Lizard;
+    public GameObject Racoon;
+    public GameObject Tortoise;
+
 
 
     /// <summary>
@@ -50,6 +54,12 @@ public class GestionAgents : MonoBehaviour
                 ListeAgents.Add(Instantiate(Tiger, new Vector3(445f, 1f, 310f), Quaternion.identity));
             else if (idAgent==9)
                 ListeAgents.Add(Instantiate(Alligator, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==10)
+                ListeAgents.Add(Instantiate(Lizard, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==11)
+                ListeAgents.Add(Instantiate(Racoon, new Vector3(445f, 1f, 310f), Quaternion.identity));
+            else if (idAgent==12)
+                ListeAgents.Add(Instantiate(Tortoise, new Vector3(445f, 1f, 310f), Quaternion.identity));
         }
 
 
@@ -59,12 +69,16 @@ public class GestionAgents : MonoBehaviour
     {
         ListeAgents = new List<GameObject>();
         creerAgents(10,1);
+        //creerAgents(5,2);
         creerAgents(5,4);
         creerAgents(5,5);
         creerAgents(5,6);
         creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);
+        creerAgents(5,10);
+        creerAgents(5,11);
+        creerAgents(5,12);
     }
 
 }
