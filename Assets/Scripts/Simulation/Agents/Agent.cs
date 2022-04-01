@@ -10,9 +10,7 @@ using UnityEngine.UI;
 ///
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// </summary> 
-public class Agent : MonoBehaviour
-{
-
+public class Agent : MonoBehaviour {
     public NavMeshAgent AgentMesh;
 
     public Terrain Ter;
