@@ -38,5 +38,7 @@ public class SavingFrequencyGUI : MonoBehaviour {
 
         if(saveFrequency <= 0)
             SaveFrequencyInput.GetComponent<TMP_InputField>().text = "";
+        else
+            GameObject.Find("Player").GetComponent<TemporaryDataSaving>().SetSaveFrequency(saveFrequency);
     }
 }

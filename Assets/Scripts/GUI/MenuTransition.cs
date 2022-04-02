@@ -70,12 +70,14 @@ public class MenuTransition : MonoBehaviour {
         if(MainCamera.GetComponent<BasicCamera>().enabled != newValue) {
             MainCamera.GetComponent<BasicCamera>().enabled = newValue;
             GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = false;
+            GameObject.Find("Player").GetComponent<TemporaryDataSaving>().enabled = false;
 
             if(AgentSimulationPanel && MeteoSimulationPanel){
                 AgentSimulationPanel.SetActive(true);
                 MeteoSimulationPanel.SetActive(true);
 
                 GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
+                GameObject.Find("Player").GetComponent<TemporaryDataSaving>().enabled = true;
             }
             
         }

@@ -49,7 +49,7 @@ public class DBHelper {
     /// de l'enregistrement.</param>
     /// <param name="stopTime">Le temps en secondes de fin 
     /// de l'enregistrement.</param>
-    public void AddRecord(int startTime, int stopTime) {
+    public void AddRecord(float startTime, float stopTime) {
         IDbCommand addRecordCommand = _dbConnection.CreateCommand();
 
         addRecordCommand.CommandText = "INSERT INTO RECORD VALUES(NULL, " + startTime + ", " + stopTime + ");";

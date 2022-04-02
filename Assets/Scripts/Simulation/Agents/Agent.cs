@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -79,9 +80,8 @@ public class Agent : MonoBehaviour {
 
     public string NomEspece {get; set; }
 
-    public int Id {get; set; }
-
-
+    public string Id { get; set; }
+    
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
     ///
@@ -99,6 +99,8 @@ public class Agent : MonoBehaviour {
         EnVie = true;
         _enFuite = false;
         _tempsRestantDigestion = 0.0;
+        NomEspece = gameObject.name;
+        Id = Guid.NewGuid().ToString();
 
         //AgentMesh.speed = (float)_vitesse;
     }
@@ -320,7 +322,7 @@ public class Agent : MonoBehaviour {
 
     Vector3 walker()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * 100;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 
