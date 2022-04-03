@@ -76,6 +76,8 @@ public class GestionAgents : MonoBehaviour
                 ListeAgents.Add(Instantiate(Racoon, new Vector3(445f, 1f, 310f), Quaternion.identity));
             else if (idAgent==12)
                 ListeAgents.Add(Instantiate(Tortoise, new Vector3(445f, 1f, 310f), Quaternion.identity));
+                
+            ListeAgents[ListeAgents.Count - 1].name +=ListeAgents.Count;
         }
 
 
@@ -84,7 +86,8 @@ public class GestionAgents : MonoBehaviour
     void Start()
     {
         ListeAgents = new List<GameObject>();
-        creerAgents(10,1);
+        creerAgents(2,1);
+        /*creerAgents(10,1);
         //creerAgents(5,2);
         creerAgents(5,4);
         creerAgents(5,5);
@@ -94,7 +97,7 @@ public class GestionAgents : MonoBehaviour
         creerAgents(5,9);
         creerAgents(5,10);
         creerAgents(5,11);
-        creerAgents(5,12);
+        creerAgents(5,12);*/
     }
 
     /// <summary>

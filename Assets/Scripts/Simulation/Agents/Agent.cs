@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class Agent : MonoBehaviour {
     public NavMeshAgent AgentMesh;
 
-    public Terrain Ter;
+    public Light Fov;
 
     public Animator Animation;
 
@@ -120,6 +120,7 @@ public class Agent : MonoBehaviour {
     /// </summary>    
     void Update()
     {
+        animauxDansFov();
         testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
         if (EnVie) // si l'agent est en vie, on peut lui appliquer des comportements.
@@ -328,6 +329,28 @@ public class Agent : MonoBehaviour {
             finalPosition = hit.position;
 
         return finalPosition;   
+    }
+
+    /// <summary>
+    /// animauxDansFov : détecte les animaux dans le champ de vision de l'agent, le fov est modélisé par un cône
+    ///
+    /// Fait par Greg Demirdjian le 03/04/2022.
+    /// </summary> 
+    void animauxDansFov()
+    {
+        GameObject[] listeAnimaux;
+        listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
+
+        foreach (GameObject indexAnimal in listeAnimaux)
+        {
+            if (this.name != indexAnimal.name) // on vérifie que l'on ne teste pas sur le meme agent
+                if (Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range)// si l'animal est dans la portée de vue
+                    if (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle/2)// si l'animal est dans l'angle de vue
+                        {
+                            Debug.Log(Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position));
+                        }
+        }
+
     }
 
 }
