@@ -17,6 +17,8 @@ public class Agent : MonoBehaviour {
 
     public Animator Animation;
 
+    public List<GameObject> AnimauxEnVisuel;
+
     public int Portee {get; set; }
 
     public double ApportEnergieCarcasse {get; set; }
@@ -81,6 +83,8 @@ public class Agent : MonoBehaviour {
 
     public int Id {get; set; }
 
+    private List<int> _listeIdEspecesProies {get; set; }
+
 
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
@@ -89,12 +93,18 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     private void initialisation()
     {
+        AnimauxEnVisuel = new List<GameObject>();
         _besoinHydrique = 0.0;
         _besoinEnergie = 0.0;
         _vitesse = 10.0;
         _veutSeReprod = false;
         _estEnceinte = false;
         Age = 0.0;
+        AgeMax = 100.0 ; // à initialiser depuis la bdd
+        Pv = 100; // à initialiser depuis la bdd
+        BesoinEnergieMax = 200.0 ; // à initialiser depuis la bdd
+        BesoinHydriqueMax = 200.0 ; // à initialiser depuis la bdd
+        VitesseMax = 10.0 ; // à initialiser depuis la bdd
         EstAdulte = false;
         EnVie = true;
         _enFuite = false;
@@ -120,7 +130,7 @@ public class Agent : MonoBehaviour {
     /// </summary>    
     void Update()
     {
-        animauxDansFov();
+        
         testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
         if (EnVie) // si l'agent est en vie, on peut lui appliquer des comportements.
@@ -128,19 +138,21 @@ public class Agent : MonoBehaviour {
             if (_tempsRestantDigestion > 0.0) // si l'agent est en digestion
                 _tempsRestantDigestion-=0.2; 
 
-            _besoinHydrique+=0.15; // on augmente les besoins hydriques et énergétiques de l'agent.
-            _besoinEnergie+=0.1;
-            Age+=0.05; // on augmente l'âge de l'agent.
+            _besoinHydrique+=0.00015; // on augmente les besoins hydriques et énergétiques de l'agent.
+            _besoinEnergie+=0.0001;
+            Age+=0.00001; // on augmente l'âge de l'agent.
 
+            AnimauxEnVisuel = animauxDansFov();
             affecterComportement();
             effectuerComportement();
         }    
         else
         {
-            ApportEnergieCarcasse -= Time.deltaTime * 0.5; // la carcasse se déteriore et perd en apport énergétique.
+            ApportEnergieCarcasse -= Time.deltaTime * 0.05; // la carcasse se déteriore et perd en apport énergétique.
 
-            //if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
-                //Destroy(this.gameObject); // on détruit l'objet.
+            Debug.Log(CauseDeces);
+            if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
+                Destroy(this.gameObject); // on détruit l'objet.
         }        
 
         if ((AgentMesh!=null)&&(AgentMesh.remainingDistance<=AgentMesh.stoppingDistance))
@@ -161,7 +173,7 @@ public class Agent : MonoBehaviour {
     {
         if (_besoinHydrique/BesoinHydriqueMax>0.50) // si l'agent est à 50% de ses besoins hydriques max.
             _aSoif = true;
-        if (_besoinEnergie/BesoinEnergieMax>0.70) // si l'agent est à 70% de ses besoins énergétiques max.
+        if (_besoinEnergie/BesoinEnergieMax>0.50) // si l'agent est à 70% de ses besoins énergétiques max.
             _aFaim = true;
         if ((Age>=AgeMaturation)&&(EstAdulte==false)) // si l'agent dépasse l'age de maturation.
             EstAdulte = true;
@@ -226,13 +238,59 @@ public class Agent : MonoBehaviour {
     }
 
     /// <summary>
-    /// chercherAManger : l'agent cherche à se nourrir. Ici on doit distinguer les agents qui chassent de ceux qui se nourrissent d'autotrophes. à écrire.
-    /// s'inspirer de la fonction chasser() pour les prédateurs
-    /// Fait par Greg Demirdjian le 13/03/2022.
+    /// chasser : l'agent chasse un autre agent
+    ///
+    /// Fait par Greg Demirdjian le 03/04/2022.
+    /// </summary> 
+    void chasser(Agent proie)
+    {
+
+    }
+
+    /// <summary>
+    /// chercherAManger : L'agent cherche d'autres agents et chasse ceux qui sont des potentielles proies
+    /// 
+    /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
     void chercherAManger()
     {
-        
+        if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
+        {
+            AgentMesh.SetDestination(walker()); // il se déplace 
+            if (_besoinEnergie/BesoinEnergieMax>0.75)// s'il a très faim
+                AgentMesh.speed = (float) VitesseMax; // il se déplace au plus vite possible
+        }
+        else // si l'agent voit des animaux 
+        {
+            int rangDistMin = -1;
+            for(int i = 1 ; i < AnimauxEnVisuel.Count ; i++) // on cherche l'animal le plus proche parmi 
+            {
+                float distTemp = Vector3.Distance(transform.position, AnimauxEnVisuel[i].transform.position);
+                if ((rangDistMin==-1)||(Vector3.Distance(transform.position, AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))
+                {
+                    for (int j = 0 ; j < _listeIdEspecesProies.Count ; j++)
+                    {
+                        Agent animalTemp = AnimauxEnVisuel[i].GetComponent<Agent>();
+
+                        if (_listeIdEspecesProies[j]==animalTemp.Id) // si l'ID de l'animal fait partie des ID des proies de l'agent.
+                            rangDistMin=i; // on retient son rang dans la liste des animaux en visuel.
+                    }
+
+                }
+            }
+
+            if (rangDistMin != -1) // si un des animaux vus est une proie potentielle
+            {
+                Agent animalTemp = AnimauxEnVisuel[rangDistMin].GetComponent<Agent>();
+                chasser(animalTemp);
+            }
+            else
+            {
+                AgentMesh.SetDestination(walker());
+            }
+                
+        }
+
     }
 
     /// <summary>
@@ -333,11 +391,13 @@ public class Agent : MonoBehaviour {
 
     /// <summary>
     /// animauxDansFov : détecte les animaux dans le champ de vision de l'agent, le fov est modélisé par un cône
+    /// retourne la liste des animaux visibles par l'agent
     ///
     /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
-    void animauxDansFov()
+    List<GameObject> animauxDansFov()
     {
+        List<GameObject> listeAnimauxEnVisuel = new List<GameObject>();;
         GameObject[] listeAnimaux;
         listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
 
@@ -347,10 +407,11 @@ public class Agent : MonoBehaviour {
                 if (Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range)// si l'animal est dans la portée de vue
                     if (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle/2)// si l'animal est dans l'angle de vue
                         {
-                            Debug.Log(Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position));
+                            listeAnimauxEnVisuel.Add(indexAnimal);
                         }
         }
 
+        return listeAnimauxEnVisuel;
     }
 
 }
