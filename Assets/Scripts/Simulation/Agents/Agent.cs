@@ -19,9 +19,9 @@ public class Agent : MonoBehaviour {
 
     public List<GameObject> AnimauxEnVisuel;
 
-    public int Portee {get; set; }
+    public int Portee;
 
-    public double ApportEnergieCarcasse {get; set; }
+    public double ApportEnergieCarcasse;
 
     private double _besoinHydrique;
 
@@ -84,6 +84,12 @@ public class Agent : MonoBehaviour {
     public int Id {get; set; }
 
     private List<int> _listeIdEspecesProies {get; set; }
+
+    public GameObject AgentCible;
+
+    public GameObject AgentCibleur;
+
+    private int degatsAttaque {get; set; }
 
 
     /// <summary>
@@ -188,6 +194,8 @@ public class Agent : MonoBehaviour {
     {
         if (_enFuite)
             Fuite();
+        else if (AgentCible != null)
+            chasser();
         else if (_aSoif)
             Boire();
         else if (_aFaim)
@@ -242,8 +250,40 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
-    void chasser(Agent proie)
+    void chasser()
     {
+        Agent animalTemp = AgentCible.GetComponent<Agent>();
+
+        AgentMesh.SetDestination(AgentCible.transform.position);
+        
+        float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
+        
+        if (dist <= 3.0f)
+        {
+            if (animalTemp.EnVie) // si la cible est en vie
+            {
+                animalTemp.Pv-= degatsAttaque; //l'agent attaque la cible
+                // rajotuer les anim si dispo
+            }
+            else if (animalTemp.ApportEnergieCarcasse >= 10.0)
+            {
+                animalTemp.ApportEnergieCarcasse-= 5.0;
+                _besoinEnergie-=5.0;
+                if (_besoinEnergie<0.0)
+                    _besoinEnergie = 0.0;
+            }
+        }
+
+        if (animalTemp.ApportEnergieCarcasse < 10.0)
+        {
+            AgentCible = null;
+        }
+
+        if (_besoinEnergie/BesoinEnergieMax<=0.25)
+        {
+            _aFaim = false;
+        }
+
 
     }
 
@@ -258,7 +298,7 @@ public class Agent : MonoBehaviour {
         {
             AgentMesh.SetDestination(walker()); // il se déplace 
             if (_besoinEnergie/BesoinEnergieMax>0.75)// s'il a très faim
-                AgentMesh.speed = (float) VitesseMax; // il se déplace au plus vite possible
+                AgentMesh.speed =  0.75f * (float) VitesseMax; // il se déplace plus vite
         }
         else // si l'agent voit des animaux 
         {
@@ -281,8 +321,7 @@ public class Agent : MonoBehaviour {
 
             if (rangDistMin != -1) // si un des animaux vus est une proie potentielle
             {
-                Agent animalTemp = AnimauxEnVisuel[rangDistMin].GetComponent<Agent>();
-                chasser(animalTemp);
+                AgentCible = AnimauxEnVisuel[rangDistMin];
             }
             else
             {
