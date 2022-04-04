@@ -337,8 +337,10 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    IEnumerator Manger(Agent proie)
+    IEnumerator Manger()
     {
+
+        Agent proie = AgentCible.GetComponent<Agent>();;
         AgentMesh.isStopped = true;//l'agent s'arrête pour manger.
         /*Animation.SetBool("Walk", false);
         Animation.SetBool("Run", false);
@@ -355,7 +357,7 @@ public class Agent : MonoBehaviour {
             proie.ApportEnergieCarcasse = 0.0;
         }
 
-        if (_besoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
+        if (_besoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisamment mangé.
             _aFaim = false; // il n'a plus faim.
 
         _tempsRestantDigestion = TempsDigestion;
