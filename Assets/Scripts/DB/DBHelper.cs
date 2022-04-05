@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Data;
 using Mono.Data.Sqlite;
+using System.Data;
+using System;
 
 /// <summary>
 /// Classe qui contient toutes les fonctions que
@@ -49,11 +51,43 @@ public class DBHelper {
     /// de l'enregistrement.</param>
     /// <param name="stopTime">Le temps en secondes de fin 
     /// de l'enregistrement.</param>
-    public void AddRecord(float startTime, float stopTime) {
+    /// <returns>
+    /// L'id du record qui vient d'être ajouté.
+    /// </returns>
+    public int AddRecord(float startTime, float stopTime) {
         IDbCommand addRecordCommand = _dbConnection.CreateCommand();
+        IDbCommand selectRecordId = _dbConnection.CreateCommand();
+        int id = -1;
 
-        addRecordCommand.CommandText = "INSERT INTO RECORD VALUES(NULL, " + startTime + ", " + stopTime + ");";
+        addRecordCommand.CommandText = "INSERT INTO RECORD VALUES('" + Guid.NewGuid().ToString() + "', " + startTime + ", " + stopTime + ");";
         addRecordCommand.ExecuteReader();
+
+        selectRecordId.CommandText = "SELECT last_insert_rowid();";
+        IDataReader rdr = selectRecordId.ExecuteReader();
+        rdr.Read();
+
+        id = rdr.GetInt32(0);
+
+        return id;
+    }
+
+    /// <summary>
+    /// Pour pouvoir modifier le temps d'arrêt de la mesure.
+    /// 
+    /// Fait par EL MONTASER Osmane le 03/04/2022.
+    /// </summary>
+    /// <param name="recordNum">
+    /// Le numéro de l'enregistrement à modifier.
+    /// </param>
+    /// <param name="stopTime">
+    /// Le temps en secondes auquel les mesures de la 
+    /// simulation s'arrête.
+    /// </param>
+    public void UpdateRecord(int recordNum, float stopTime) {
+        IDbCommand updateRecordCommand = _dbConnection.CreateCommand();
+
+        updateRecordCommand.CommandText = "UPDATE RECORD SET record_stop_time = " + stopTime + " WHERE ROWID = " + recordNum + ";";
+        updateRecordCommand.ExecuteReader();
     }
 
     /// <summary>
@@ -110,8 +144,21 @@ public class DBHelper {
     public void AddSpecies(string speciesLabel, int speciesParentNum) {
         IDbCommand addSpeciesCommand = _dbConnection.CreateCommand();
 
-        addSpeciesCommand.CommandText = "INSERT OR IGNORE INTO SPECIES VALUES(NULL, " + speciesLabel + ", " + speciesParentNum + ");";
+        addSpeciesCommand.CommandText = "INSERT OR IGNORE INTO SPECIES VALUES(NULL, '" + speciesLabel + "', " + speciesParentNum + ");";
         addSpeciesCommand.ExecuteReader();
+    }
+
+    public int SelectSpeciesId(string speciesLabel) {
+        IDbCommand selectSpeciesIdCommand = _dbConnection.CreateCommand();
+        int id = -1;
+
+        selectSpeciesIdCommand.CommandText = "SELECT species_num FROM SPECIES WHERE species_label = '" + speciesLabel + "';";
+        IDataReader rdr = selectSpeciesIdCommand.ExecuteReader();
+        rdr.Read();
+
+        id = rdr.GetInt32(0);
+
+        return id;
     }
 
     /// <summary>
@@ -124,6 +171,8 @@ public class DBHelper {
     /// Fait par EL MONTASER Osmane le 02/03/2022.
     /// </summary>
     /// 
+    /// <param name="agentId">L'Id de l'agent unique à ajouter
+    /// contenu dans l'objet Agent.</param>
     /// <param name="agentLabel">Le libellé de l'agent à 
     /// ajouter.</param>
     /// <param name="agentBirthDate">Le temps en secondes
@@ -135,13 +184,12 @@ public class DBHelper {
     /// <param name="speciesNum">L'ID de l'espèce de 
     /// l'agent.</param>
     /// <param name="genderNum">L'ID du genre de l'agent.</param>
-    public void AddAgent(string agentLabel, int agentBirthDate, int agentDeathDate,
+    public void AddAgent(string agentId, string agentLabel, float agentBirthDate, float agentDeathDate,
                          int recordNum, int speciesNum, int genderNum) {
         IDbCommand addAgentCommand = _dbConnection.CreateCommand();
 
-        addAgentCommand.CommandText = "INSERT OR IGNORE INTO AGENT VALUES(NULL, " 
-                                        + agentLabel + ", " + agentBirthDate + ", " + (agentDeathDate == -1 ? "NULL" : agentDeathDate) + ", "
-                                        + recordNum + ", " + speciesNum + ", " + genderNum + ");";
+        addAgentCommand.CommandText = "INSERT OR IGNORE INTO AGENT VALUES('" + agentId + "', '" 
+                                        + agentLabel + "', " + agentBirthDate + ", " + (agentDeathDate == -1.0f ? "NULL" : agentDeathDate) + ", (SELECT record_num FROM RECORD WHERE ROWID = " + recordNum + "), " + speciesNum + ", " + genderNum + ");";
         addAgentCommand.ExecuteReader();
     }
 
@@ -161,13 +209,14 @@ public class DBHelper {
     /// <param name="dataAgentNum">L'ID de l'agent.</param>
     /// <param name="dataPackNum">L'ID de la meute si il en
     /// a une(-1 s'il n'en a pas).</param>
-    public void AddAgentData(int dataTime, float dataHydrationLevel, float dataHungerLevel, 
-                             int dataWorldNum, int dataAgentNum, int dataPackNum) {
+    public void AddAgentData(float dataTime, double dataHydrationLevel, double dataHungerLevel, 
+                             string dataWorldNum, string dataAgentNum, int dataPackNum) {
         IDbCommand addAgentDataCommand = _dbConnection.CreateCommand();
 
-        addAgentDataCommand.CommandText = "INSERT OR IGNORE INTO AGENT_DATA VALUES(" 
-                                        + dataTime + ", " + dataHydrationLevel + ", " + dataHungerLevel + ", "
-                                        + dataWorldNum + ", " + dataAgentNum + ", " + (dataPackNum == -1 ? "NULL" : dataPackNum) + ");";
+        addAgentDataCommand.CommandText = "INSERT INTO AGENT_DATA VALUES(" 
+                                        + dataTime + ", " + dataHydrationLevel + ", " + dataHungerLevel + ", '"
+                                        + dataWorldNum + "', '" + dataAgentNum + "', " + (dataPackNum == -1 ? "NULL" : dataPackNum) + ");";
+                                        
         addAgentDataCommand.ExecuteReader();
     }
 

@@ -39,6 +39,17 @@ public class TemporaryDataSaving : MonoBehaviour {
     private float _time;
 
     /// <summary>
+    /// Le numéro d'enregistrement des mesures.
+    /// </summary>
+    private int _recordNumber;
+
+    /// <summary>
+    /// L'instance de DBHelper utilisée afin de 
+    /// manipuler la base de données.
+    /// </summary>
+    private DBHelper _dbHelper;
+
+    /// <summary>
     /// Crée au moment de la création du GameObject de
     /// créer / reset la base de données temporaire.
     /// 
@@ -46,18 +57,20 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// </summary>
     void Start() {
         string tempPath = "Data Source=tempDB.db;Version=3";
-        
-        if (!System.IO.File.Exists(tempPath))
-            SqliteConnection.CreateFile(tempPath);
-
+        File.Delete("tempDB.db");
         DBInit init = new DBInit(tempPath, "./Assets/Scripts/DB/tables_creation.sql");
 
-        DBHelper dbHelper = new DBHelper(tempPath);
-        dbHelper.AddRecord(0.0f, 0.0f);
-
-        dbHelper.Close();
+        _dbHelper = new DBHelper(tempPath);
+        _recordNumber = _dbHelper.AddRecord(0.0f, 0.0f);
 
         _agentList = getAllGOAgents();
+
+        foreach(GameObject go in _agentList) {
+            Agent agent = go.GetComponent<Agent>();
+            string name = agent.NomEspece.Split('(')[0];
+            
+            _dbHelper.AddAgent(agent.Id, name, .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(name), agent.Sexe);
+        }
         _time = .0f;
     }
 
@@ -90,19 +103,29 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// enregistrée.
     /// </param>
     private void saveAgentData(float time) {
+        _dbHelper.UpdateRecord(_recordNumber, time);
         foreach (GameObject go in _agentList) {
             Agent agent = go.GetComponent<Agent>();
             string name = agent.NomEspece.Split('(')[0];
             
-            //Condition à enlever DEBUG ONLY.
-            if(name == "Wolf2") {
-                
-            }
+            _dbHelper.AddAgentData(time, agent.BesoinHydrique / agent.BesoinHydriqueMax, agent.BesoinEnergie / agent.BesoinEnergieMax, "test", agent.Id, -1);
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="frequency"></param>
     public void SetSaveFrequency(float frequency) {
         SaveFrequency = frequency;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="agent"></param>
+    public void AddNewAgent(GameObject agent) {
+
     }
 
     /// <summary>

@@ -22,13 +22,13 @@ public class Agent : MonoBehaviour {
 
     public double ApportEnergieCarcasse {get; set; }
 
-    private double _besoinHydrique;
+    public double BesoinHydrique { get; private set; }
 
     public double BesoinHydriqueMax {get; set; }
 
     private bool _aSoif;
 
-    private double _besoinEnergie;
+    public double BesoinEnergie { get; private set; }
 
     public double BesoinEnergieMax {get; set; }
 
@@ -42,43 +42,43 @@ public class Agent : MonoBehaviour {
 
     private double _vitesse;
 
-    public double VitesseMax {get; set; }
+    public double VitesseMax { get; set; }
 
-    public int Sexe {get; set; }
+    public int Sexe { get; set; }
 
     private bool _veutSeReprod;
 
     private bool _estEnceinte;
 
-    public double TempsGrossesse {get; set; }
+    public double TempsGrossesse { get; set; }
 
-    public double Age {get; set; }
+    public double Age { get; set; }
 
-    public double AgeMaturation {get; set; }
+    public double AgeMaturation { get; set; }
 
-    public double AgeMax {get; set; }
+    public double AgeMax { get; set; }
 
-    public bool EstAdulte {get; set; }
+    public bool EstAdulte { get; set; }
 
-    public double TempsDigestion {get; set; }
+    public double TempsDigestion { get; set; }
 
     private double _tempsRestantDigestion;
 
-    public double TempsConsoProie {get; set; }
+    public double TempsConsoProie { get; set; }
 
-    public int Pv {get; set; }
+    public int Pv { get; set; }
 
-    public bool EnVie {get; set; }
+    public bool EnVie { get; set; }
 
     private bool _enFuite;
 
     private int _endurance;
 
-    public int EnduranceMax {get; set; }
+    public int EnduranceMax { get; set; }
 
-    public string CauseDeces {get; set; }
+    public string CauseDeces { get; set; }
 
-    public string NomEspece {get; set; }
+    public string NomEspece { get; set; }
 
     public string Id { get; set; }
     
@@ -89,8 +89,10 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     private void initialisation()
     {
-        _besoinHydrique = 0.0;
-        _besoinEnergie = 0.0;
+        BesoinHydrique = 0.0;
+        BesoinEnergie = 0.0;
+        BesoinHydriqueMax = 100;
+        BesoinEnergieMax = 100;
         _vitesse = 10.0;
         _veutSeReprod = false;
         _estEnceinte = false;
@@ -100,6 +102,7 @@ public class Agent : MonoBehaviour {
         _enFuite = false;
         _tempsRestantDigestion = 0.0;
         NomEspece = gameObject.name;
+        Sexe = new System.Random().Next(2) + 1;
         Id = Guid.NewGuid().ToString();
 
         //AgentMesh.speed = (float)_vitesse;
@@ -129,8 +132,8 @@ public class Agent : MonoBehaviour {
             if (_tempsRestantDigestion > 0.0) // si l'agent est en digestion
                 _tempsRestantDigestion-=0.2; 
 
-            _besoinHydrique+=0.15; // on augmente les besoins hydriques et énergétiques de l'agent.
-            _besoinEnergie+=0.1;
+            BesoinHydrique+=0.15; // on augmente les besoins hydriques et énergétiques de l'agent.
+            BesoinEnergie+=0.1;
             Age+=0.05; // on augmente l'âge de l'agent.
 
             affecterComportement();
@@ -160,9 +163,9 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     private void affecterComportement()
     {
-        if (_besoinHydrique/BesoinHydriqueMax>0.50) // si l'agent est à 50% de ses besoins hydriques max.
+        if (BesoinHydrique/BesoinHydriqueMax>0.50) // si l'agent est à 50% de ses besoins hydriques max.
             _aSoif = true;
-        if (_besoinEnergie/BesoinEnergieMax>0.70) // si l'agent est à 70% de ses besoins énergétiques max.
+        if (BesoinEnergie/BesoinEnergieMax>0.70) // si l'agent est à 70% de ses besoins énergétiques max.
             _aFaim = true;
         if ((Age>=AgeMaturation)&&(EstAdulte==false)) // si l'agent dépasse l'age de maturation.
             EstAdulte = true;
@@ -191,13 +194,13 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     private void testMort()
     {
-        if (_besoinEnergie >= BesoinEnergieMax)
+        if (BesoinEnergie >= BesoinEnergieMax)
         {
             EnVie = false;
             CauseDeces = "Mort de faim.";
         }
 
-        if (_besoinHydrique >= BesoinHydriqueMax)
+        if (BesoinHydrique >= BesoinHydriqueMax)
         {
             EnVie = false;
             CauseDeces = "Mort de soif.";
@@ -248,18 +251,18 @@ public class Agent : MonoBehaviour {
         Animation.SetBool("Run", false);
         Animation.SetBool("Eat", true);*/
 
-        if (_besoinEnergie - proie.ApportEnergieCarcasse < 0) // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
+        if (BesoinEnergie - proie.ApportEnergieCarcasse < 0) // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
         {
-            _besoinEnergie = 0.0; // l'agent récupère les apports jusqu'à ne plus avoir de besoins.
-            proie.ApportEnergieCarcasse -= _besoinEnergie;
+            BesoinEnergie = 0.0; // l'agent récupère les apports jusqu'à ne plus avoir de besoins.
+            proie.ApportEnergieCarcasse -= BesoinEnergie;
         }
         else // la carcasse est trop faible en apports pour rassasier complètement l'agent.
         {
-            _besoinEnergie -= proie.ApportEnergieCarcasse; // l'agent finit la carcasse.
+            BesoinEnergie -= proie.ApportEnergieCarcasse; // l'agent finit la carcasse.
             proie.ApportEnergieCarcasse = 0.0;
         }
 
-        if (_besoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
+        if (BesoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
             _aFaim = false; // il n'a plus faim.
 
         _tempsRestantDigestion = TempsDigestion;
@@ -270,7 +273,7 @@ public class Agent : MonoBehaviour {
         //Animation.SetBool("Eat", false);
         //Animation.SetBool("Walk", true);
 
-        // modifier _besoinEnergie en conséquence
+        // modifier BesoinEnergie en conséquence
 
         AgentMesh.isStopped = false;// le prédateur n'est plus à l'arrêt.
 
@@ -307,9 +310,9 @@ public class Agent : MonoBehaviour {
             //Animation.SetBool("Walk", false);
             //Animation.SetBool("Eat", true);
             
-            yield return new WaitForSeconds((float)_besoinHydrique/10.0f); //Il boit pendant un certain temps.
+            yield return new WaitForSeconds((float)BesoinHydrique/10.0f); //Il boit pendant un certain temps.
 
-            _besoinHydrique = 0.0;
+            BesoinHydrique = 0.0;
 
             _aSoif = false;
 
