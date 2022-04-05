@@ -36,7 +36,7 @@ public class MenuTransition : MonoBehaviour {
     /// Si la prochaine scène se trouve être la simulation,
     /// cela active les contrôles de la caméra.
     /// 
-    /// Fait par Pierre AVERTY le 28/02/2022 et modifiée le 03/04/2022.
+    /// Fait par Pierre AVERTY le 28/02/2022.
     /// Révisée par EL MONTASER Osmane le 01/03/2022.
     /// </summary>
     /// 
@@ -44,11 +44,6 @@ public class MenuTransition : MonoBehaviour {
     public void OnClick(GameObject newScene) {
         if(!parent)
             parent = gameObject.transform.parent.gameObject;
-
-        if(newScene.name == "Add Agent"){
-            AgentManager am = AgentManager.Instance;
-            am.newAgentType = gameObject.name;
-        }
 
         parent.SetActive(false);
         newScene.SetActive(true);

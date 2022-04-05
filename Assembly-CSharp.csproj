@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Simulation\Agents\Agent.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherType.cs" />
-    <Compile Include="Assets\Scripts\DB\TemporaryDataSaving.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraUtils\SmoothCameraTranslation.cs" />
     <Compile Include="Assets\Scripts\Constants\WeatherNames.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="Assets\Scripts\GUI\GraphismActions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
-    <Compile Include="Assets\Scripts\GUI\SavingFrequencyGUI.cs" />
     <Compile Include="Assets\Scripts\GUI\DropShadow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -124,7 +122,6 @@
     <Compile Include="Assets\Scripts\DB\DBHelper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherUpdate\WeatherObjectUpdater.cs" />
-    <Compile Include="Assets\Scripts\Simulation\Agents\AddSimulationAgent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\GUI\SetBiome.cs" />
   </ItemGroup>

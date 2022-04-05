@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Singleton qui représente le paramètres de la caméra.
 /// 
-/// Fait par AVERTY Pierre le 14/03/2022 et modifée le 03/04/2022.
+/// Fait par AVERTY Pierre le 14/03/2022.
 /// </summary>
 public class ConfigCamera : MonoBehaviour {
 
@@ -46,30 +46,17 @@ public class ConfigCamera : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Getter de la caméra actuelle.
-    /// 
-    /// Fait par AVERTY Pierre le 14/03/2022.
-    /// </summary>
+/// <summary>
+/// Getter de la caméra actuelle.
+/// 
+/// Fait par AVERTY Pierre le 14/03/2022.
+/// </summary>
      public GameObject CurrentCamera {
         get {
             return _currentCamera;
         }
         set {
             _currentCamera = value;
-        }
-    }
-
-    /// <summary>
-    /// Méthode qui s'assure que le singleton n'est pas supprimé.
-    /// 
-    /// Fait par AVERTY Pierre le 03/04/2022.
-    /// </summary>
-    private void Awake(){
-        if (instance != null && instance != this){
-            Destroy(this.gameObject);
-        } else {
-            instance = this;
         }
     }
 }
