@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Classe de Gestion des Agents
 ///
 /// Fait par Greg Demirdjian et Bilal Hamiche le 19/03/2022.
-/// Modifiée par AVERTY Pierre le 28/09/2022.
+/// Modifiée par AVERTY Pierre le 28/03/2022.
 ///
 /// </summary> 
 public class GestionAgents : MonoBehaviour

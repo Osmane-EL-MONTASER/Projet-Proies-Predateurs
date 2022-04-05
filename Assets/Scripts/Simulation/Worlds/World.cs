@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Singleton qui modèlise le monde.
 /// 
-/// Fait par AVERTY Pierre le 19/03/2022 et modifiée le 20/03/2022.
+/// Fait par AVERTY Pierre le 19/03/2022, modifiée le 20/03/2022 et le 03/03/2022.
 /// </summary>
 public class World  : MonoBehaviour {
 
@@ -153,4 +153,18 @@ public class World  : MonoBehaviour {
                     _simulationTimeSpeed = 0f;
             }
         }
+
+
+    /// <summary>
+    /// Méthode qui s'assure que le singleton n'est pas supprimé.
+    /// 
+    /// Fait par AVERTY Pierre le 03/04/2022.
+    /// </summary>
+    private void Awake(){
+        if (instance != null && instance != this){
+            Destroy(this.gameObject);
+        } else {
+            instance = this;
+        }
+    }
 }

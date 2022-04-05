@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// Classe des Agents
 ///
 /// Fait par Greg Demirdjian le 12/03/2022.
+/// Modifiée par AVERTY Pierre le 03/04/2022.
 /// </summary> 
 public class Agent : MonoBehaviour {
     public NavMeshAgent AgentMesh;
@@ -18,7 +19,7 @@ public class Agent : MonoBehaviour {
     public Animator Animation;
 
     public List<GameObject> AnimauxEnVisuel;
-
+    public bool isGhost;
     public int Portee;
 
     public double ApportEnergieCarcasse;
@@ -192,14 +193,15 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     private void effectuerComportement()
     {
-        if (_enFuite)
-            Fuite();
-        else if (AgentCible != null)
-            chasser();
-        else if (_aSoif)
-            Boire();
-        else if (_aFaim)
-            chercherAManger();
+        if(!isGhost)
+            if (_enFuite)
+                Fuite();
+            else if (AgentCible != null)
+                chasser();
+            else if (_aSoif)
+                Boire();
+            else if (_aFaim)
+                chercherAManger();
         
     }
 
@@ -209,29 +211,31 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
     private void testMort()
-    {
-        if (_besoinEnergie >= BesoinEnergieMax)
-        {
-            EnVie = false;
-            CauseDeces = "Mort de faim.";
-        }
+    {   
+        if(!isGhost){
+            if (_besoinEnergie >= BesoinEnergieMax)
+            {
+                EnVie = false;
+                CauseDeces = "Mort de faim.";
+            }
 
-        if (_besoinHydrique >= BesoinHydriqueMax)
-        {
-            EnVie = false;
-            CauseDeces = "Mort de soif.";
-        }
+            if (_besoinHydrique >= BesoinHydriqueMax)
+            {
+                EnVie = false;
+                CauseDeces = "Mort de soif.";
+            }
 
-        if (Pv <= 0)
-        {
-            EnVie = false;
-            CauseDeces = "Plus de points de vie.";
-        }
+            if (Pv <= 0)
+            {
+                EnVie = false;
+                CauseDeces = "Plus de points de vie.";
+            }
 
-        if (Age >= AgeMax)
-        {
-            EnVie = false;
-            CauseDeces = "Mort de vieillesse.";
+            if (Age >= AgeMax)
+            {
+                EnVie = false;
+                CauseDeces = "Mort de vieillesse.";
+            }
         }
     }
 
@@ -420,14 +424,18 @@ public class Agent : MonoBehaviour {
 
     Vector3 walker()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * 100;
-        randomDirection += transform.position;
-        Vector3 finalPosition = Vector3.zero;
+        if(!isGhost){
+            Vector3 randomDirection = Random.insideUnitSphere * 100;
+            randomDirection += transform.position;
+            Vector3 finalPosition = Vector3.zero;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1));
-            finalPosition = hit.position;
+            if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1));
+                finalPosition = hit.position;
+            
+            return finalPosition;
+        }
 
-        return finalPosition;   
+        return Vector3.zero;
     }
 
     /// <summary>
