@@ -16160,7 +16160,7 @@ GameObject:
   - component: {fileID: -1172076887284798039}
   - component: {fileID: 1563758796792495046}
   m_Layer: 0
-  m_Name: alligator
+  m_Name: aligator ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16251,6 +16251,12 @@ MonoBehaviour:
   AgentMesh: {fileID: 596706464147382069}
   Fov: {fileID: -1172076887284798039}
   Animation: {fileID: 3730388961492907964}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!108 &-1172076887284798039
 Light:
   m_ObjectHideFlags: 0

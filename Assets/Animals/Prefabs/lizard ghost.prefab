@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: -6031416358523539907}
   - component: {fileID: 944413324018091951}
   m_Layer: 0
-  m_Name: Lizard
+  m_Name: lizard ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,6 +161,12 @@ MonoBehaviour:
   AgentMesh: {fileID: 1203048643693389960}
   Fov: {fileID: -6031416358523539907}
   Animation: {fileID: 6568390202122094723}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!108 &-6031416358523539907
 Light:
   m_ObjectHideFlags: 0

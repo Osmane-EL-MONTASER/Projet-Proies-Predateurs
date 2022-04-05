@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: -3962266832102983067}
   - component: {fileID: -1217569078698571375}
   m_Layer: 0
-  m_Name: Wolf2
+  m_Name: wolf2 ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,6 +431,12 @@ MonoBehaviour:
   AgentMesh: {fileID: -3182034091861395710}
   Fov: {fileID: -3962266832102983067}
   Animation: {fileID: 9128685684434830649}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!95 &9128685684434830649
 Animator:
   serializedVersion: 4

@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: -8204059504132649285}
   - component: {fileID: -8378142383854146375}
   m_Layer: 0
-  m_Name: Snake
+  m_Name: snake ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1079,6 +1079,12 @@ MonoBehaviour:
   AgentMesh: {fileID: 3193879683727967495}
   Fov: {fileID: -8204059504132649285}
   Animation: {fileID: 4151465978931541747}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!108 &-8204059504132649285
 Light:
   m_ObjectHideFlags: 0

@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 3311806297574477886}
   - component: {fileID: 3294694928866714248}
   m_Layer: 0
-  m_Name: Penguin
+  m_Name: penguin ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,6 +577,12 @@ MonoBehaviour:
   AgentMesh: {fileID: 6688501803559112377}
   Fov: {fileID: 3311806297574477886}
   Animation: {fileID: 6688501803559112376}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!108 &3311806297574477886
 Light:
   m_ObjectHideFlags: 0

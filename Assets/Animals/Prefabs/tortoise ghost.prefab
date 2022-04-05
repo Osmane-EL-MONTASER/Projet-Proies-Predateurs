@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 8793662049175571664}
   - component: {fileID: -3012397728581332960}
   m_Layer: 0
-  m_Name: tortoise
+  m_Name: tortoise ghost
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,6 +288,12 @@ MonoBehaviour:
   AgentMesh: {fileID: 5726267830269133819}
   Fov: {fileID: 8793662049175571664}
   Animation: {fileID: 8292804119350857236}
+  AnimauxEnVisuel: []
+  isGhost: 1
+  Portee: 0
+  ApportEnergieCarcasse: 0
+  AgentCible: {fileID: 0}
+  AgentCibleur: {fileID: 0}
 --- !u!108 &8793662049175571664
 Light:
   m_ObjectHideFlags: 0
