@@ -81,7 +81,9 @@ public class Agent : MonoBehaviour {
 
     public string NomEspece {get; set; }
 
-    public int Id {get; set; }
+    public string Id {get; set; }
+
+    public int IdEspece {get; set; }
 
     private List<int> _listeIdEspecesProies {get; set; }
 
