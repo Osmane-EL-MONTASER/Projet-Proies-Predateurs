@@ -22,33 +22,33 @@ public class Agent : MonoBehaviour {
 
     public double ApportEnergieCarcasse {get; set; }
 
-    public double BesoinHydrique { get; private set; }
+    public double BesoinHydrique { get; protected set; }
 
     public double BesoinHydriqueMax {get; set; }
 
-    private bool _aSoif;
+    protected bool _aSoif;
 
-    public double BesoinEnergie { get; private set; }
+    public double BesoinEnergie { get; protected set; }
 
     public double BesoinEnergieMax {get; set; }
 
-    private bool _aFaim;
+    protected bool _aFaim;
 
-    private double _coordX;
+    protected double _coordX;
     
-    private double _coordY;
+    protected double _coordY;
 
-    private double _coordZ;
+    protected double _coordZ;
 
-    private double _vitesse;
+    protected double _vitesse;
 
     public double VitesseMax { get; set; }
 
     public int Sexe { get; set; }
 
-    private bool _veutSeReprod;
+    protected bool _veutSeReprod;
 
-    private bool _estEnceinte;
+    protected bool _estEnceinte;
 
     public double TempsGrossesse { get; set; }
 
@@ -62,7 +62,7 @@ public class Agent : MonoBehaviour {
 
     public double TempsDigestion { get; set; }
 
-    private double _tempsRestantDigestion;
+    protected double _tempsRestantDigestion;
 
     public double TempsConsoProie { get; set; }
 
@@ -70,9 +70,9 @@ public class Agent : MonoBehaviour {
 
     public bool EnVie { get; set; }
 
-    private bool _enFuite;
+    protected bool _enFuite;
 
-    private int _endurance;
+    protected int _endurance;
 
     public int EnduranceMax { get; set; }
 
@@ -87,8 +87,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
-    private void initialisation()
-    {
+    protected void initialisation() {
         BesoinHydrique = 0.0;
         BesoinEnergie = 0.0;
         BesoinHydriqueMax = 100;
@@ -113,8 +112,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
-    void Start()
-    {
+    void Start() {
         initialisation();
     }
 
@@ -123,13 +121,12 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary>    
-    void Update()
-    {
+    void Update() {
         testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
-        if (EnVie) // si l'agent est en vie, on peut lui appliquer des comportements.
-        {
-            if (_tempsRestantDigestion > 0.0) // si l'agent est en digestion
+        // si l'agent est en vie, on peut lui appliquer des comportements.
+        if(EnVie) {
+            if(_tempsRestantDigestion > 0.0) // si l'agent est en digestion
                 _tempsRestantDigestion-=0.2; 
 
             BesoinHydrique+=0.15; // on augmente les besoins hydriques et énergétiques de l'agent.
@@ -139,16 +136,14 @@ public class Agent : MonoBehaviour {
             affecterComportement();
             effectuerComportement();
         }    
-        else
-        {
+        else {
             ApportEnergieCarcasse -= Time.deltaTime * 0.5; // la carcasse se déteriore et perd en apport énergétique.
 
             //if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
                 //Destroy(this.gameObject); // on détruit l'objet.
         }        
 
-        if ((AgentMesh!=null)&&(AgentMesh.remainingDistance<=AgentMesh.stoppingDistance))
-        {
+        if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
             //Animation.SetBool("Running",true);
             //Animation.SetBool("Idle2",true);
             AgentMesh.SetDestination(walker());
@@ -161,13 +156,12 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
-    private void affecterComportement()
-    {
-        if (BesoinHydrique/BesoinHydriqueMax>0.50) // si l'agent est à 50% de ses besoins hydriques max.
+    protected void affecterComportement() {
+        if(BesoinHydrique / BesoinHydriqueMax > 0.50) // si l'agent est à 50% de ses besoins hydriques max.
             _aSoif = true;
-        if (BesoinEnergie/BesoinEnergieMax>0.70) // si l'agent est à 70% de ses besoins énergétiques max.
+        if(BesoinEnergie / BesoinEnergieMax > 0.70) // si l'agent est à 70% de ses besoins énergétiques max.
             _aFaim = true;
-        if ((Age>=AgeMaturation)&&(EstAdulte==false)) // si l'agent dépasse l'age de maturation.
+        if((Age >= AgeMaturation) && (EstAdulte == false)) // si l'agent dépasse l'age de maturation.
             EstAdulte = true;
     } 
 
@@ -176,8 +170,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    private void effectuerComportement()
-    {
+    protected void effectuerComportement() {
         if (_enFuite)
             Fuite();
         else if (_aSoif)
@@ -192,28 +185,23 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    private void testMort()
-    {
-        if (BesoinEnergie >= BesoinEnergieMax)
-        {
+    protected void testMort(){
+        if (BesoinEnergie >= BesoinEnergieMax) {
             EnVie = false;
             CauseDeces = "Mort de faim.";
         }
 
-        if (BesoinHydrique >= BesoinHydriqueMax)
-        {
+        if (BesoinHydrique >= BesoinHydriqueMax) {
             EnVie = false;
             CauseDeces = "Mort de soif.";
         }
 
-        if (Pv <= 0)
-        {
+        if (Pv <= 0) {
             EnVie = false;
             CauseDeces = "Plus de points de vie.";
         }
 
-        if (Age >= AgeMax)
-        {
+        if (Age >= AgeMax) {
             EnVie = false;
             CauseDeces = "Mort de vieillesse.";
         }
