@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// Modifiée par AVERTY Pierre le 03/04/2022.
 /// </summary> 
-public class Agent {
+public class Agent : MonoBehaviour {
     public NavMeshAgent AgentMesh;
 
     public Light Fov;
