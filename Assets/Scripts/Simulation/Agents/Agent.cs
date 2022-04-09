@@ -11,88 +11,92 @@ using UnityEngine.UI;
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// Modifiée par AVERTY Pierre le 03/04/2022.
 /// </summary> 
-public class Agent : MonoBehaviour {
-    public NavMeshAgent AgentMesh;
+public class Agent : AttributsAgent { //Herite de la classe AttributsAgent
+    /*
+public NavMeshAgent AgentMesh;
 
-    public Light Fov;
+public Light Fov;
 
-    public Animator Animation;
+public Animator Animation;
 
-    public List<GameObject> AnimauxEnVisuel;
-    public bool isGhost;
-    public int Portee;
+public List<GameObject> AnimauxEnVisuel;
+public bool isGhost;
+public int Portee;
 
-    public double ApportEnergieCarcasse;
+public double ApportEnergieCarcasse;
 
-    private double _besoinHydrique;
+private double _besoinHydrique;
 
-    public double BesoinHydriqueMax {get; set; }
+public double BesoinHydriqueMax { get; set; }
 
-    private bool _aSoif;
+private bool _aSoif;
 
-    private double _besoinEnergie;
+private double _besoinEnergie;
 
-    public double BesoinEnergieMax {get; set; }
+public double BesoinEnergieMax { get; set; }
 
-    private bool _aFaim;
+private bool _aFaim;
 
-    private double _coordX;
-    
-    private double _coordY;
+private double _coordX;
 
-    private double _coordZ;
+private double _coordY;
 
-    private double _vitesse;
+private double _coordZ;
 
-    public double VitesseMax {get; set; }
+private double _vitesse;
 
-    public int Sexe {get; set; }
+public double VitesseMax { get; set; }
 
-    private bool _veutSeReprod;
+public int Sexe { get; set; }
 
-    private bool _estEnceinte;
+private bool _veutSeReprod;
 
-    public double TempsGrossesse {get; set; }
+private bool _estEnceinte;
 
-    public double Age {get; set; }
+public double TempsGrossesse { get; set; }
 
-    public double AgeMaturation {get; set; }
+public double Age { get; set; }
 
-    public double AgeMax {get; set; }
+public double AgeMaturation { get; set; }
 
-    public bool EstAdulte {get; set; }
+public double AgeMax { get; set; }
 
-    public double TempsDigestion {get; set; }
+public bool EstAdulte { get; set; }
 
-    private double _tempsRestantDigestion;
+public double TempsDigestion { get; set; }
 
-    public double TempsConsoProie {get; set; }
+private double _tempsRestantDigestion;
 
-    public int Pv {get; set; }
+public double TempsConsoProie { get; set; }
 
-    public bool EnVie {get; set; }
+public int Pv { get; set; }
 
-    private bool _enFuite;
+public bool EnVie { get; set; }
 
-    private int _endurance;
+private bool _enFuite;
 
-    public int EnduranceMax {get; set; }
+private int _endurance;
 
-    public string CauseDeces {get; set; }
+public int EnduranceMax { get; set; }
 
-    public string NomEspece {get; set; }
+public string CauseDeces { get; set; }
 
-    public string Id {get; set; }
+public string NomEspece { get; set; }
 
-    public int IdEspece {get; set; }
+public string Id { get; set; }
 
-    private List<int> _listeIdEspecesProies {get; set; }
+public int IdEspece { get; set; }
 
-    public GameObject AgentCible;
+private List<int> _listeIdEspecesProies { get; set; }
 
-    public GameObject AgentCibleur;
+public GameObject AgentCible;
 
-    private int degatsAttaque {get; set; }
+public GameObject AgentCibleur;
+
+private int degatsAttaque { get; set; }
+    */
+
+
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
     ///
@@ -464,3 +468,4 @@ public class Agent : MonoBehaviour {
     }
 
 }
+
