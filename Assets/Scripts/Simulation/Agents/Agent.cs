@@ -10,6 +10,7 @@ using UnityEngine.UI;
 ///
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// Modifiée par AVERTY Pierre le 03/04/2022.
+/// Révisée par HAMICHE Bilal le 09/04/2022
 /// </summary> 
 public class Agent : AttributsAgent { //Herite de la classe AttributsAgent
     /*
