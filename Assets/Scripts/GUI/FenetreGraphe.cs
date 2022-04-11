@@ -1,5 +1,5 @@
 
-
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ public class FenetreGraphe : MonoBehaviour
 		
 		
 		//List<int> valueList = new List<int>() { 300, 208, 156, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33}; // placement des points
-		List<int> valueList = new List<int>() { 50, 40, 25, 28, 28, 280, 48, 58, 68, 47, 12, 5, 68, 96, 98 };
+		List<int> valueList = new List<int>() { 50, 40, 25, 28, 28, 280, 48, 58, 68, 47, 12, 35, 68, 96, 98 };
 		IGraphVisual lineGraphVisual =  new LineGraphVisual( _graphContainer, _dotSprite, Color.green, new Color(1, 1, 1, .5f));
 		IGraphVisual barGraphVisual =  new BarChartVisual(_graphContainer, Color.green, .8f);
 		//ShowGraph(valueList, barChartVisual, -1, (int _i) => "Jour "+(_i + 1) , (float _f)  => Mathf.RoundToInt(_f) + "$" ); // utile pour placer nb agent en y et en x le temps
@@ -96,6 +96,7 @@ public class FenetreGraphe : MonoBehaviour
 		*/
 
 	}
+/*
 
 	//pour bouton ajout
 	private void IncreaseVisibleAmount()
@@ -208,6 +209,7 @@ public class FenetreGraphe : MonoBehaviour
 		}
 		lastDotGameObject = dotGameObject;
 		*/
+/*
 		
 		RectTransform labelX = Instantiate(_labelTemplateX);
 		labelX.SetParent(_graphContainer, false);
@@ -358,7 +360,7 @@ public class FenetreGraphe : MonoBehaviour
 }
 
 	
-
+*/
 
 /*
 using System;
