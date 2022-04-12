@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Singleton de Gestion des Global des Agents
 ///
 /// Fait par AVERTY Pierre le 03/04/2022 inspiré par l'ancienne classe GestionAgents.
+/// Modifiée le 10/04/2022 par AVERTY Pierre.
 ///
 /// </summary> 
 public class AgentManager : MonoBehaviour {
@@ -17,8 +19,8 @@ public class AgentManager : MonoBehaviour {
     /// <summary>
     /// Instance du singleton.
     /// </summary>
-    private List<GameObject> AgentList;
-    private List<GameObject> GhostList;
+    private List<GameObject> AgentList = new List<GameObject>();
+    private List<GameObject> GhostList = new List<GameObject>();
 
 
     /// <summary>
@@ -69,20 +71,11 @@ public class AgentManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Méthode qui gère l'ajout d'un nouvel agent dans la simulation.
+    /// Méthode qui se lance au lancement du gameObject.
     /// 
-    /// Fait par AVERTY Pierre le 03/04/2022.
+    /// Fait par AVERTY Pierre le 10/04/2022. 
     /// </summary>
-    public void newAgentInSim(){
-       GameObject ghost = instanciateGhost();
-    } 
-
-    /// <summary>
-    /// Méthode qui instancie un fantôme.
-    /// 
-    /// Fait par AVERTY Pierre le 03/04/2022. A refactoriser (Revoir la classe agent et le système d'id)
-    /// </summary>
-    public GameObject instanciateGhost(){
+    public void Start() {
        GhostList.Add(WolfGhost);
        GhostList.Add(IguanaGhost);
        GhostList.Add(ElephantGhost);
@@ -94,8 +87,28 @@ public class AgentManager : MonoBehaviour {
        GhostList.Add(LizardGhost);
        GhostList.Add(RacoonGhost);
        GhostList.Add(TortoiseGhost);
+    }
+
+    /// <summary>
+    /// Méthode qui gère l'ajout d'un nouvel agent dans la simulation.
+    /// 
+    /// Fait par AVERTY Pierre le 03/04/2022.
+    /// </summary>
+    public void newAgentInSim(){
+       GameObject ghost = instanciateGhost();
+       Vector3 mousePosition = Input.mousePosition;
         
-       return GhostList.Find(el => el.name +"Ghost" == newAgentType);
+        Debug.Log(ghost); 
+       ghost = Instantiate(ghost, new Vector3(0f, 0f, 0f), Quaternion.identity);
+    } 
+
+    /// <summary>
+    /// Méthode qui instancie un fantôme.
+    /// 
+    /// Fait par AVERTY Pierre le 03/04/2022. A refactoriser (Revoir la classe agent et le système d'id)
+    /// </summary>
+    public GameObject instanciateGhost(){
+       return GhostList.Find(el => el.name  == newAgentType +" ghost");
     } 
 
     /// <summary>

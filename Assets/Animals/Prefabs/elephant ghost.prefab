@@ -744,10 +744,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6604028406809594916}
   - component: {fileID: 956474013423785566}
-  - component: {fileID: -3374118349083653790}
   - component: {fileID: 967548480259326818}
   - component: {fileID: 4296542604213885489}
   - component: {fileID: 3361475815846704797}
+  - component: {fileID: 8006822830519900706}
   m_Layer: 0
   m_Name: elephant ghost
   m_TagString: Animal
@@ -792,27 +792,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-3374118349083653790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5831572678247044766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 967548480259326818}
-  Fov: {fileID: 4296542604213885489}
-  Animation: {fileID: 956474013423785566}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!195 &967548480259326818
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1019,6 +998,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &8006822830519900706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831572678247044766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5839753184902337788
 GameObject:
   m_ObjectHideFlags: 0

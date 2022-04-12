@@ -363,10 +363,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2904742144307846979}
   - component: {fileID: -3182034091861395710}
-  - component: {fileID: -712028800804933330}
   - component: {fileID: 9128685684434830649}
   - component: {fileID: -3962266832102983067}
   - component: {fileID: -1217569078698571375}
+  - component: {fileID: 2884014306058356148}
   m_Layer: 0
   m_Name: wolf2 ghost
   m_TagString: Animal
@@ -416,27 +416,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-712028800804933330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2523255196501607929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: -3182034091861395710}
-  Fov: {fileID: -3962266832102983067}
-  Animation: {fileID: 9128685684434830649}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!95 &9128685684434830649
 Animator:
   serializedVersion: 4
@@ -641,6 +620,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &2884014306058356148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523255196501607929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2624668704608338577
 GameObject:
   m_ObjectHideFlags: 0

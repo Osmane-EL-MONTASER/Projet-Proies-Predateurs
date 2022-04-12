@@ -326,9 +326,9 @@ GameObject:
   - component: {fileID: 1599574879426746205}
   - component: {fileID: 4671068666742394151}
   - component: {fileID: 6939085750895677140}
-  - component: {fileID: 6346973933091139746}
   - component: {fileID: -3375570666324574179}
   - component: {fileID: -7424799710692345039}
+  - component: {fileID: 7724517988404008821}
   m_Layer: 0
   m_Name: tiger ghost
   m_TagString: Animal
@@ -395,27 +395,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6346973933091139746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123733424373943783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 6939085750895677140}
-  Fov: {fileID: -3375570666324574179}
-  Animation: {fileID: 4671068666742394151}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!108 &-3375570666324574179
 Light:
   m_ObjectHideFlags: 0
@@ -600,6 +579,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &7724517988404008821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123733424373943783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2183210193561063779
 GameObject:
   m_ObjectHideFlags: 0

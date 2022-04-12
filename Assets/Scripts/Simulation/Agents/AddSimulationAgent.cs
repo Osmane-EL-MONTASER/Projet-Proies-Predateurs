@@ -38,7 +38,7 @@ public class AddSimulationAgent : MonoBehaviour {
     /// <summary>
     /// Méthode qui s'active la fin de l'ajout d'agents.
     /// 
-    /// Fait par AVERTY Pierre le 28/03/2022 et modifiée le 03/04/2022.
+    /// Fait par AVERTY Pierre le 28/03/2022, modifiée le 03/04/2022 et le 10/04/2022.
     /// </summary>
     public void onEndEdit(){
         AgentSimulationPanel.SetActive(true);

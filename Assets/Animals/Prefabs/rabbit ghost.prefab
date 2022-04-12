@@ -1181,9 +1181,9 @@ GameObject:
   - component: {fileID: 4995760853256449380}
   - component: {fileID: 1419952006010435358}
   - component: {fileID: 4518551557109293615}
-  - component: {fileID: 1817479858060449295}
   - component: {fileID: -7783201147851256643}
   - component: {fileID: -1528801200010239042}
+  - component: {fileID: -7091176410942378111}
   m_Layer: 0
   m_Name: rabbit ghost
   m_TagString: Animal
@@ -1250,27 +1250,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1817479858060449295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629308956239689694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 4518551557109293615}
-  Fov: {fileID: -7783201147851256643}
-  Animation: {fileID: 1419952006010435358}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!108 &-7783201147851256643
 Light:
   m_ObjectHideFlags: 0
@@ -1455,6 +1434,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &-7091176410942378111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5629308956239689694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5731789989393540622
 GameObject:
   m_ObjectHideFlags: 0

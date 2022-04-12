@@ -961,10 +961,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5105361321766476546}
   - component: {fileID: 1169194028203573624}
-  - component: {fileID: 4707205472067108077}
   - component: {fileID: 4707205472067108076}
   - component: {fileID: -5476839567270182739}
   - component: {fileID: -864195900315204492}
+  - component: {fileID: 2089713249590324475}
   m_Layer: 0
   m_Name: panda ghost
   m_TagString: Animal
@@ -1009,27 +1009,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4707205472067108077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5589586979652665784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 4707205472067108076}
-  Fov: {fileID: -5476839567270182739}
-  Animation: {fileID: 1169194028203573624}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!195 &4707205472067108076
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1236,6 +1215,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &2089713249590324475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589586979652665784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5663994625062560825
 GameObject:
   m_ObjectHideFlags: 0

@@ -75,9 +75,9 @@ GameObject:
   - component: {fileID: 992956590176408313}
   - component: {fileID: 6568390202122094723}
   - component: {fileID: 1203048643693389960}
-  - component: {fileID: 6755747462092293782}
   - component: {fileID: -6031416358523539907}
   - component: {fileID: 944413324018091951}
+  - component: {fileID: -7932658452931502947}
   m_Layer: 0
   m_Name: lizard ghost
   m_TagString: Animal
@@ -146,27 +146,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6755747462092293782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471858089086765123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 1203048643693389960}
-  Fov: {fileID: -6031416358523539907}
-  Animation: {fileID: 6568390202122094723}
-  AnimauxEnVisuel: []
-  isGhost: 1
-  Portee: 0
-  ApportEnergieCarcasse: 0
-  AgentCible: {fileID: 0}
-  AgentCibleur: {fileID: 0}
 --- !u!108 &-6031416358523539907
 Light:
   m_ObjectHideFlags: 0
@@ -351,6 +330,18 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &-7932658452931502947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471858089086765123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &671720622713095604
 GameObject:
   m_ObjectHideFlags: 0

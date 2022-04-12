@@ -26,6 +26,10 @@ public class MenuTransition : MonoBehaviour {
     /// </summary>
      public GameObject MeteoSimulationPanel;
 
+    /// <summary>
+    /// Type d'un nouvel agent.
+    /// </summary>
+     public string newAgentType;
     void Start() {
 
     }
@@ -36,19 +40,18 @@ public class MenuTransition : MonoBehaviour {
     /// Si la prochaine scène se trouve être la simulation,
     /// cela active les contrôles de la caméra.
     /// 
-    /// Fait par Pierre AVERTY le 28/02/2022 et modifiée le 03/04/2022.
+    /// Fait par Pierre AVERTY le 28/02/2022, modifiée le 03/04/2022 et le 10/04/2022.
     /// Révisée par EL MONTASER Osmane le 01/03/2022.
     /// </summary>
     /// 
+    /// A refactoriser (overwrite la classe avec un bool)
     /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     public void OnClick(GameObject newScene) {
         if(!parent)
             parent = gameObject.transform.parent.gameObject;
 
-        if(newScene.name == "Add Agent"){
-            AgentManager am = AgentManager.Instance;
-            am.newAgentType = gameObject.name;
-        }
+        if(newScene.name == "Panel New Agent Panel Config")
+            AgentManager.Instance.newAgentType = newAgentType;
 
         parent.SetActive(false);
         newScene.SetActive(true);
