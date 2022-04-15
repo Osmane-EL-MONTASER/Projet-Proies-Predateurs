@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 932.5969, g: 637.4917, b: 556.7959, a: 1}
+  m_IndirectSpecularColor: {r: 940.5596, g: 641.55176, b: 556.19434, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1072,8 +1072,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
 --- !u!4 &41997229 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
   m_PrefabInstance: {fileID: 41997228}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &46676883
@@ -2919,8 +2918,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
 --- !u!4 &158968972 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   m_PrefabInstance: {fileID: 158968971}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &167522157
@@ -11815,103 +11813,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639047263}
   m_CullTransparentMesh: 1
---- !u!1 &640116170
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 640116174}
-  - component: {fileID: 640116173}
-  - component: {fileID: 640116172}
-  - component: {fileID: 640116171}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &640116171
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640116170}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &640116172
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640116170}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &640116173
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640116170}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &640116174
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640116170}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 435, y: 1, z: 330}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652239189
 GameObject:
   m_ObjectHideFlags: 0
@@ -15115,8 +15016,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
 --- !u!4 &766555606 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
   m_PrefabInstance: {fileID: 766555605}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &767081470
@@ -15437,20 +15337,16 @@ MonoBehaviour:
   ListeAgents: []
   Wolf: {fileID: 2523255196501607929, guid: b3a36a973389b6249a43eb14b70b0860, type: 3}
   Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
-  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8,
-    type: 3}
-  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696,
-    type: 3}
+  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8, type: 3}
+  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696, type: 3}
   Snake: {fileID: 3314495111141517837, guid: 14cc87fbec9906b4ca5b1d898d97f302, type: 3}
   Rabbit: {fileID: 5629308956239689694, guid: 1549bdb1a50a7ff4f92562bd5a806022, type: 3}
   Zebra: {fileID: 3037339202061222097, guid: c7508a1b85bba0d40a5e7d2c57d59dc6, type: 3}
   Tiger: {fileID: 2123733424373943783, guid: fbed4605863dacd448f467c348cc28d6, type: 3}
-  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173,
-    type: 3}
+  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173, type: 3}
   Lizard: {fileID: 471858089086765123, guid: a2d304195d71248459245005bf635c84, type: 3}
   Racoon: {fileID: 6606307546370012650, guid: 8984ee2a03a23d24e80997c359b6a8d9, type: 3}
-  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703,
-    type: 3}
+  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703, type: 3}
 --- !u!1 &780295624
 GameObject:
   m_ObjectHideFlags: 0
@@ -26105,8 +26001,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
 --- !u!4 &1079831112 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
   m_PrefabInstance: {fileID: 1079831111}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1082002772
@@ -31768,47 +31663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d453e76e38f5438049d94d34f2885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newAgentType: 
-  Wolf: {fileID: 2523255196501607929, guid: b3a36a973389b6249a43eb14b70b0860, type: 3}
-  Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
-  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8,
-    type: 3}
-  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696,
-    type: 3}
-  Snake: {fileID: 3314495111141517837, guid: 14cc87fbec9906b4ca5b1d898d97f302, type: 3}
-  Lapin: {fileID: 5629308956239689694, guid: 1549bdb1a50a7ff4f92562bd5a806022, type: 3}
-  Zebra: {fileID: 3037339202061222097, guid: c7508a1b85bba0d40a5e7d2c57d59dc6, type: 3}
-  Tiger: {fileID: 2123733424373943783, guid: fbed4605863dacd448f467c348cc28d6, type: 3}
-  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173,
-    type: 3}
-  Lizard: {fileID: 471858089086765123, guid: a2d304195d71248459245005bf635c84, type: 3}
-  Racoon: {fileID: 6606307546370012650, guid: 8984ee2a03a23d24e80997c359b6a8d9, type: 3}
-  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703,
-    type: 3}
-  WolfGhost: {fileID: 2599620566178990602, guid: c412925c0ac11b84fb90ae710a5a6cd2,
-    type: 3}
-  IguanaGhost: {fileID: 3378407786352617407, guid: 0155f76d07ee34f4fb81e033be2fa287,
-    type: 3}
-  ElephantGhost: {fileID: 5831572678247044766, guid: afa45c886330a3046a68d1e0a8904f7c,
-    type: 3}
-  PingouinGhost: {fileID: 6688501803559112382, guid: 97d86fed0790c564685b23aeded8e668,
-    type: 3}
-  SnakeGhost: {fileID: 3314495111141517837, guid: 00696eb5f8a0bd140ba58b2f7ac880d6,
-    type: 3}
-  LapinGhost: {fileID: 5629308956239689694, guid: 06c9943feca219c4d8b041086ad54949,
-    type: 3}
-  ZebraGhost: {fileID: 3037339202061222097, guid: c32b8826f3dd05e40884cafc6710a43f,
-    type: 3}
-  TigerGhost: {fileID: 2123733424373943783, guid: 33927a68a2aca6b4a84489c3e392c76e,
-    type: 3}
-  AlligatorGhost: {fileID: 7957575247893313404, guid: 034e4a893b02ca748b1c65ccb66c0e44,
-    type: 3}
-  LizardGhost: {fileID: 471858089086765123, guid: 0cb90f173e638a84593efc1809a7d029,
-    type: 3}
-  RacoonGhost: {fileID: 6606307546370012650, guid: caf0d3c4cb6720a4989e9a88f2c18622,
-    type: 3}
-  TortoiseGhost: {fileID: 3368139539167071956, guid: 7f8d47822e394b94f8e8977739a6ea07,
-    type: 3}
 --- !u!4 &1299620757
 Transform:
   m_ObjectHideFlags: 0
@@ -32600,8 +32454,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
 --- !u!4 &1377064490 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000011339693244, guid: f94554303b4f7094ea5e12fe79985529,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000011339693244, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
   m_PrefabInstance: {fileID: 1377064489}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1378785017
@@ -34505,8 +34358,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
 --- !u!4 &1500358460 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010352536618, guid: 5d10ae558efe6a64d96e5b4d02ec6792,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000010352536618, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
   m_PrefabInstance: {fileID: 1500358459}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1514529465
@@ -37150,8 +37002,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
 --- !u!4 &1629314555 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   m_PrefabInstance: {fileID: 1629314554}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1631901867
