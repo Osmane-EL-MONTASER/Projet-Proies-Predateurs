@@ -5,6 +5,8 @@ using TMPro;
 
 /// <summary>
 /// Classe codée par Pierre AVERTY pour l'ajout d'un agent dans la simulation. 
+///
+/// Fait par AVERTY Pierre le 28/03/2022 et modifiée le 03/04/2022.
 /// </summary>
 public class AddSimulationAgent : MonoBehaviour {
     // Start is called before the first frame update
@@ -36,7 +38,7 @@ public class AddSimulationAgent : MonoBehaviour {
     /// <summary>
     /// Méthode qui s'active la fin de l'ajout d'agents.
     /// 
-    /// Fait par AVERTY Pierre le 28/03/2022.
+    /// Fait par AVERTY Pierre le 28/03/2022, modifiée le 03/04/2022 et le 10/04/2022.
     /// </summary>
     public void onEndEdit(){
         AgentSimulationPanel.SetActive(true);
@@ -45,7 +47,7 @@ public class AddSimulationAgent : MonoBehaviour {
         var MainCamera = ConfigCamera.Instance.CurrentCamera;
 
         if(agentField.text == "1"){
-            print("cc");
+            AgentManager.Instance.newAgentInSim();
             agentField.text = "";
         }
 
