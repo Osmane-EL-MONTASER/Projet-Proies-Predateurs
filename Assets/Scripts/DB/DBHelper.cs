@@ -176,6 +176,78 @@ public class DBHelper {
     }
 
     /// <summary>
+    /// Permet de récupérer l'Id d'une espèce avec son
+    /// nom.
+    /// 
+    /// Fait par EL MONTASER Osmane le 03/04/2022.
+    /// </summary>
+    /// <param name="speciesLabel">
+    /// Le nom de l'espèce.
+    /// </param>
+    /// <returns>
+    /// L'id de l'espèce dans la BDD.
+    /// </returns>
+    public Dictionary<string, double> SelectSpeciesData(string speciesLabel) {
+        IDbCommand selectSpeciesIdCommand = _dbConnection.CreateCommand();
+        Dictionary<string, double> speciesData = new();
+
+        selectSpeciesIdCommand.CommandText = "SELECT species_carcass_energy_contribution, species_max_water_needs," +
+                                             "species_max_energy_needs, species_max_speed, species_gestation_period," +
+                                             "species_maturity_age, species_max_age, species_digestion_time, " + 
+                                             "species_prey_consumption_time, species_range, species_max_health," +
+                                             "species_damage FROM SPECIES WHERE species_label = '" + speciesLabel + "';";
+        IDataReader rdr = selectSpeciesIdCommand.ExecuteReader();
+        while(rdr.Read())
+            for(int i = 0; i < 11; i++)
+                speciesData.Add(getSelectedSpeciesDataString(i), rdr.GetDouble(i));
+
+        return speciesData;
+    }
+
+    private string getSelectedSpeciesDataString(int index) {
+        switch (index) {
+            case 0:
+                return "CarcassEnergyContribution";
+                break;
+            case 1:
+                return "MaxWaterNeeds";
+                break;
+            case 2:
+                return "MaxEnergyNeeds";
+                break;
+            case 3:
+                return "MaxSpeed";
+                break;
+            case 4:
+                return "GestationPeriod";
+                break;
+            case 5:
+                return "MaturityAge";
+                break;
+            case 6:
+                return "MaxAge";
+                break;
+            case 7:
+                return "DigestionTime";
+                break;
+            case 8:
+                return "PreyConsumptionTime";
+                break;
+            case 9:
+                return "Range";
+                break;
+            case 10:
+                return "MaxHealth";
+                break;
+            case 11:
+                return "Ad";
+                break;
+            default:
+                return "Unkown";
+        }
+    }
+
+    /// <summary>
     /// Permet de récupérer la liste des proies d'une espèce
     /// passée en paramètre.
     /// 

@@ -48,9 +48,6 @@ public class Agent : MonoBehaviour {
         preys = new List<string>();
 
         Attributes = AgentAttributes.GetAttributesDict();
-        Attributes["MaxWaterNeeds"] = "100";
-        Attributes["MaxEnergyNeeds"] = "100";
-        Attributes["MaxAge"] = "100";
         Attributes["Health"] = "100";
         Attributes["Speed"] = "10";
         Attributes["SpeciesName"] = gameObject.name;
@@ -60,7 +57,12 @@ public class Agent : MonoBehaviour {
         
         //POUR UTILISER LA BDD
         DBHelper db = new("Data Source=tempDB.db;Version=3");
-        preys = db.SelectPreysOf("Wolf2");
+        preys = db.SelectPreysOf(Attributes["SpeciesName"]);
+
+        //Ajout des données dans l'agent.
+        Dictionary<string, double> data = db.SelectSpeciesData(Attributes["SpeciesName"]);
+        foreach(KeyValuePair<string, double> entry in data)
+            Attributes[entry.Key] = entry.Value.ToString();
        /* foreach(string prey in preys)
             Debug.Log(prey);*/
     }
