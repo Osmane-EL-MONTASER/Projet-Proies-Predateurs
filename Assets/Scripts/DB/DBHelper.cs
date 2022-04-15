@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Data;
 using Mono.Data.Sqlite;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System;
 
@@ -148,6 +150,18 @@ public class DBHelper {
         addSpeciesCommand.ExecuteReader();
     }
 
+    /// <summary>
+    /// Permet de récupérer l'Id d'une espèce avec son
+    /// nom.
+    /// 
+    /// Fait par EL MONTASER Osmane le 03/04/2022.
+    /// </summary>
+    /// <param name="speciesLabel">
+    /// Le nom de l'espèce.
+    /// </param>
+    /// <returns>
+    /// L'id de l'espèce dans la BDD.
+    /// </returns>
     public int SelectSpeciesId(string speciesLabel) {
         IDbCommand selectSpeciesIdCommand = _dbConnection.CreateCommand();
         int id = -1;
@@ -159,6 +173,30 @@ public class DBHelper {
         id = rdr.GetInt32(0);
 
         return id;
+    }
+
+    /// <summary>
+    /// Permet de récupérer la liste des proies d'une espèce
+    /// passée en paramètre.
+    /// 
+    /// Fait par EL MONTASER Osmane le 15/04/2022.
+    /// </summary>
+    /// <param name="speciesLabel">
+    /// Le nom de l'espèce à ajouter.
+    /// </param>
+    /// <returns>
+    /// La liste des proies de l'espèce.
+    /// </returns>
+    public List<string> SelectPreysOf(string speciesLabel) {
+        IDbCommand selectSpeciesIdCommand = _dbConnection.CreateCommand();
+        List<string> preys = new();
+
+        selectSpeciesIdCommand.CommandText = "SELECT species_label FROM SPECIES S JOIN (SELECT * FROM PREY_LIST WHERE predator_species_num = (SELECT species_num FROM SPECIES WHERE species_label = '" + speciesLabel + "')) ON prey_species_num = species_num;";
+        IDataReader rdr = selectSpeciesIdCommand.ExecuteReader();
+        while(rdr.Read())
+            preys.Add(rdr.GetString(0));
+
+        return preys;
     }
 
     /// <summary>

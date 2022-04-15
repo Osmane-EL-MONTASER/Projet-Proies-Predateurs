@@ -47,7 +47,13 @@ public class Agent : MonoBehaviour {
         Attributes["SpeciesName"] = gameObject.name;
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
-        Debug.Log("WATER NEEDS : " + Attributes["WaterNeeds"].GetType());
+
+        /*
+        POUR UTILISER LA BDD
+        DBHelper db = new("Data Source=tempDB.db;Version=3");
+        List<string> preys = db.SelectPreysOf("Wolf2");
+        foreach(string prey in preys)
+            Debug.Log(prey);*/
     }
 
     /// <summary>

@@ -4,13 +4,6 @@ CREATE TABLE IF NOT EXISTS "GENDER" (
 	"gender_label"	TEXT NOT NULL UNIQUE,
 	PRIMARY KEY("gender_num" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "SPECIES" (
-	"species_num"	INTEGER NOT NULL UNIQUE,
-	"species_label"	TEXT NOT NULL UNIQUE,
-	"parent_species_num"	INTEGER,
-	FOREIGN KEY("parent_species_num") REFERENCES "SPECIES"("species_num"),
-	PRIMARY KEY("species_num")
-);
 CREATE TABLE IF NOT EXISTS "AGENT" (
 	"agent_num"	TEXT NOT NULL UNIQUE,
 	"agent_label"	TEXT NOT NULL,
@@ -19,8 +12,8 @@ CREATE TABLE IF NOT EXISTS "AGENT" (
 	"record_num"	TEXT NOT NULL,
 	"species_num"	INTEGER NOT NULL,
 	"gender_num"	INTEGER NOT NULL,
-	FOREIGN KEY("species_num") REFERENCES "SPECIES"("species_num"),
 	FOREIGN KEY("gender_num") REFERENCES "GENDER"("gender_num"),
+	FOREIGN KEY("species_num") REFERENCES "SPECIES"("species_num"),
 	FOREIGN KEY("record_num") REFERENCES "RECORD"("record_num"),
 	PRIMARY KEY("agent_num")
 );
@@ -34,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "AGENT_DATA" (
 	FOREIGN KEY("agent_data_agent_num") REFERENCES "AGENT"("agent_num"),
 	FOREIGN KEY("agent_data_pack_num") REFERENCES "PACK"("pack_num"),
 	FOREIGN KEY("agent_data_world_num") REFERENCES "WORLD"("world_num"),
-	PRIMARY KEY("agent_data_time", "agent_data_agent_num")
+	PRIMARY KEY("agent_data_time","agent_data_agent_num")
 );
 CREATE TABLE IF NOT EXISTS "PACK" (
 	"pack_num"	TEXT NOT NULL UNIQUE,
@@ -53,6 +46,33 @@ CREATE TABLE IF NOT EXISTS "RECORD" (
 	"record_start_time"	REAL NOT NULL,
 	"record_stop_time"	REAL NOT NULL,
 	PRIMARY KEY("record_num")
+);
+CREATE TABLE IF NOT EXISTS "SPECIES" (
+	"species_num"	INTEGER NOT NULL UNIQUE,
+	"species_label"	TEXT NOT NULL UNIQUE,
+	"parent_species_num"	INTEGER,
+	"species_carcass_energy_contribution"	REAL,
+	"species_max_water_needs"	REAL,
+	"species_max_energy_needs"	REAL,
+	"species_max_speed"	REAL,
+	"species_gestation_period"	REAL,
+	"species_maturity_age"	REAL,
+	"species_max_age"	REAL,
+	"species_digestion_time"	REAL,
+	"species_prey_consumption_time"	REAL,
+	"species_range"	REAL,
+	"species_max_health"	REAL,
+	"species_damage"	REAL,
+	FOREIGN KEY("parent_species_num") REFERENCES "SPECIES"("species_num"),
+	PRIMARY KEY("species_num")
+);
+CREATE TABLE IF NOT EXISTS "PREY_LIST" (
+	"prey_num"	INTEGER NOT NULL UNIQUE,
+	"prey_species_num"	INTEGER NOT NULL,
+	"predator_species_num"	INTEGER NOT NULL,
+	FOREIGN KEY("predator_species_num") REFERENCES "SPECIES"("species_num"),
+	FOREIGN KEY("prey_species_num") REFERENCES "SPECIES"("species_num"),
+	PRIMARY KEY("prey_num" AUTOINCREMENT)
 );
 INSERT OR IGNORE INTO "GENDER" VALUES (NULL,'Mâle');
 INSERT OR IGNORE INTO "GENDER" VALUES (NULL,'Femelle');
@@ -79,5 +99,7 @@ INSERT OR IGNORE INTO "SPECIES" VALUES (NULL,'Snake',NULL);
 INSERT OR IGNORE INTO "SPECIES" VALUES (NULL,'Tiger',NULL);
 INSERT OR IGNORE INTO "SPECIES" VALUES (NULL,'tortoise',NULL);
 INSERT OR IGNORE INTO "SPECIES" VALUES (NULL,'wolf',8);
-COMMIT;
 INSERT OR IGNORE INTO "SPECIES" VALUES (NULL,'Zebra',NULL);
+INSERT INTO "PREY_LIST" VALUES (1,17,10);
+INSERT INTO "PREY_LIST" VALUES (2,19,10);
+COMMIT;
