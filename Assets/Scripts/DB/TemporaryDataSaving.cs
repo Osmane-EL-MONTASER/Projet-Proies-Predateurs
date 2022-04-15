@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+
 /// <summary>
 /// Classe qui permet de récupérer les données de
 /// chaque agent de la scène et de les enregistrer
@@ -58,8 +59,6 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// </summary>
     void Start() {
         string tempPath = "Data Source=tempDB.db;Version=3";
-        File.Delete("tempDB.db");
-        DBInit init = new DBInit(tempPath, "./Assets/Scripts/DB/tables_creation.sql");
 
         _dbHelper = new DBHelper(tempPath);
         _recordNumber = _dbHelper.AddRecord(0.0f, 0.0f);

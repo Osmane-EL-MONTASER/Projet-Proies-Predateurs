@@ -326,7 +326,9 @@ public class DBHelper {
         addAgentDataCommand.CommandText = "INSERT INTO AGENT_DATA VALUES(" 
                                         + dataTime + ", " + dataHydrationLevel + ", " + dataHungerLevel + ", '"
                                         + dataWorldNum + "', '" + dataAgentNum + "', " + (dataPackNum == -1 ? "NULL" : dataPackNum) + ");";
-                                        
+
+        Debug.Log(addAgentDataCommand.CommandText);
+
         addAgentDataCommand.ExecuteReader();
     }
 

@@ -30,10 +30,7 @@ public class MenuTransition : MonoBehaviour {
     /// Type d'un nouvel agent.
     /// </summary>
      public string newAgentType;
-    void Start() {
 
-    }
-    
     /// <summary>
     /// Fonction qui cache et qui affiche un menu au clique.
     /// 
@@ -84,6 +81,7 @@ public class MenuTransition : MonoBehaviour {
                 MeteoSimulationPanel.SetActive(true);
 
                 GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
+                GameObject.Find("Player").GetComponent<TemporaryDataSaving>().enabled = true;
             }
             
         }

@@ -4,7 +4,9 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-
+using System.IO;
+using System.Threading;
+using System.Globalization;
 
 /// <summary>
 /// Classe des Agents
@@ -37,6 +39,8 @@ public class Agent : MonoBehaviour {
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
     protected TreeEditor.ActionTreeNode<AgentAction> _currentAction;
+
+    private static bool _isBDDReset = false;
     
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
@@ -44,6 +48,7 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
     protected void initialisation() {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
         AnimauxEnVisuel = new List<GameObject>();
         preys = new List<string>();
 
@@ -56,6 +61,13 @@ public class Agent : MonoBehaviour {
 
         
         //POUR UTILISER LA BDD
+        
+        if(!_isBDDReset) {
+            File.Delete("tempDB.db");
+            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
+            _isBDDReset = true;
+        }
+
         DBHelper db = new("Data Source=tempDB.db;Version=3");
         preys = db.SelectPreysOf(Attributes["SpeciesName"]);
 
@@ -63,6 +75,7 @@ public class Agent : MonoBehaviour {
         Dictionary<string, double> data = db.SelectSpeciesData(Attributes["SpeciesName"]);
         foreach(KeyValuePair<string, double> entry in data)
             Attributes[entry.Key] = entry.Value.ToString();
+        
        /* foreach(string prey in preys)
             Debug.Log(prey);*/
     }
@@ -106,7 +119,7 @@ public class Agent : MonoBehaviour {
             effectuerComportement();
         }    
         else {
-            Debug.Log(Attributes["DeathCause"]);
+            Debug.Log(Attributes["SpeciesName"] + " : " + Attributes["DeathCause"]);
 
             newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
