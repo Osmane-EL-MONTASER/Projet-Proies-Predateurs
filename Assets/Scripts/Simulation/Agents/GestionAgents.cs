@@ -50,33 +50,41 @@ public class GestionAgents : MonoBehaviour
     /// </summary> 
     public void creerAgents(int nombre, int idAgent)
     {
-        for (int i = 0 ; i < nombre ; i++)
-        {
-            if (idAgent==1)
-                ListeAgents.Add(Instantiate(Wolf, new Vector3(435f, 1f, 330f), Quaternion.identity));
-            else if (idAgent==2)
-                ListeAgents.Add(Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==3)
-                ListeAgents.Add(Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==4)
-                ListeAgents.Add(Instantiate(Pingouin, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==5)
-                ListeAgents.Add(Instantiate(Snake, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==6)
-                ListeAgents.Add(Instantiate(Rabbit, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==7)
-                ListeAgents.Add(Instantiate(Zebra, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==8)
-                ListeAgents.Add(Instantiate(Tiger, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==9)
-                ListeAgents.Add(Instantiate(Alligator, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==10)
-                ListeAgents.Add(Instantiate(Lizard, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==11)
-                ListeAgents.Add(Instantiate(Racoon, new Vector3(445f, 1f, 310f), Quaternion.identity));
-            else if (idAgent==12)
-                ListeAgents.Add(Instantiate(Tortoise, new Vector3(445f, 1f, 310f), Quaternion.identity));
-        }
+        if ((idAgent <=12)&&(idAgent>0))
+            for (int i = 0 ; i < nombre ; i++)
+            {
+                GameObject tempGo = null;
+
+                if (idAgent==1)
+                    tempGo = Instantiate(Wolf, new Vector3(435f, 1f, 330f), Quaternion.identity);
+                else if (idAgent==2)
+                    tempGo = Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==3)
+                    tempGo = Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==4)
+                    tempGo = Instantiate(Pingouin, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==5)
+                    tempGo = Instantiate(Snake, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==6)
+                    tempGo = Instantiate(Rabbit, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==7)
+                    tempGo = Instantiate(Zebra, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==8)
+                    tempGo = Instantiate(Tiger, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==9)
+                    tempGo = Instantiate(Alligator, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==10)
+                    tempGo = Instantiate(Lizard, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==11)
+                    tempGo = Instantiate(Racoon, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if (idAgent==12)
+                    tempGo = Instantiate(Tortoise, new Vector3(445f, 1f, 310f), Quaternion.identity);
+
+                tempGo.name= tempGo.name.Replace("(Clone)","");
+
+                ListeAgents.Add(tempGo);
+
+            }
 
 
     }
@@ -84,17 +92,17 @@ public class GestionAgents : MonoBehaviour
     void Start()
     {
         ListeAgents = new List<GameObject>();
-        creerAgents(10,1);
+        creerAgents(5,1);
         //creerAgents(5,2);
-        creerAgents(5,4);
-        creerAgents(5,5);
+        /*creerAgents(5,4);
+        creerAgents(5,5);*/
         creerAgents(5,6);
-        creerAgents(5,7);
+        /*creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);
         creerAgents(5,10);
         creerAgents(5,11);
-        creerAgents(5,12);
+        creerAgents(5,12);*/
     }
 
     /// <summary>
