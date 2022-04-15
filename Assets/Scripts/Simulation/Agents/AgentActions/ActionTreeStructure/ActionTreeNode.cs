@@ -13,9 +13,11 @@ namespace TreeEditor {
     /// Fait par EL MONTASER Osmane le 08/04/2022.
     /// </summary>
     public class ActionTreeNode<T> {
-        public T Action { get { return _action; } }
-        public List<ActionTreeNode<T>> Children { get { return _children; } }
-            
+        public T Action { get { return _action; } set { _action = value; } }
+        public List<ActionTreeNode<T>> Children { get { return _children; } set { _children = value; } }
+
+        public List<string> TransitionsCond { get { return _transitionsCond; } set { _transitionsCond = value; } }
+
         /// <summary>
         /// L'id du node crée, ce qui permet de le différencier
         /// avec d'autre noeuds.
@@ -26,7 +28,7 @@ namespace TreeEditor {
         /// Permet de donner un Id unique pour chaque noeud
         /// créé.
         /// </summary>
-        private static int idCounter = 0;
+        public static int IdCounter = 0;
 
         /// <summary>
         /// La liste des actions filles du noeud courant.
@@ -44,7 +46,7 @@ namespace TreeEditor {
         /// <summary>
         /// L'action courante présente dans le noeud.
         /// </summary>
-        private T _action;
+        private T? _action;
 
         /// <summary>
         /// Permet d'initialiser l'arbre des actions
@@ -57,7 +59,12 @@ namespace TreeEditor {
             _action = action;
             _children = new();
             _transitionsCond = new();
-            Id = idCounter++;
+            Id = IdCounter++;
+        }
+
+        public ActionTreeNode() { 
+            _children = new();
+            _transitionsCond = new();
         }
 
         /// <summary>

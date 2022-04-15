@@ -4,6 +4,7 @@ using System.IO;
 using Mono.Data.Sqlite;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Classe qui permet de récupérer les données de
@@ -67,9 +68,9 @@ public class TemporaryDataSaving : MonoBehaviour {
 
         foreach(GameObject go in _agentList) {
             Agent agent = go.GetComponent<Agent>();
-            string name = agent.NomEspece.Split('(')[0];
+            string name = agent.Attributes["SpeciesName"].Split('(')[0];
             
-            _dbHelper.AddAgent(agent.Id, name, .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(name), agent.Sexe);
+            _dbHelper.AddAgent(agent.Attributes["Id"], name, .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(name), Convert.ToInt32(agent.Attributes["Gender"]));
         }
         _time = .0f;
     }
@@ -106,9 +107,9 @@ public class TemporaryDataSaving : MonoBehaviour {
         _dbHelper.UpdateRecord(_recordNumber, time);
         foreach (GameObject go in _agentList) {
             Agent agent = go.GetComponent<Agent>();
-            string name = agent.NomEspece.Split('(')[0];
+            string name = agent.Attributes["SpeciesName"].Split('(')[0];
             
-            _dbHelper.AddAgentData(time, agent.BesoinHydrique / agent.BesoinHydriqueMax, agent.BesoinEnergie / agent.BesoinEnergieMax, "test", agent.Id, -1);
+            _dbHelper.AddAgentData(time, Convert.ToDouble(agent.Attributes["WaterNeeds"]) / Convert.ToDouble(agent.Attributes["MaxWaterNeeds"]), Convert.ToDouble(agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(agent.Attributes["MaxEnergyNeeds"]), "test", agent.Attributes["Id"], -1);
         }
     }
 
