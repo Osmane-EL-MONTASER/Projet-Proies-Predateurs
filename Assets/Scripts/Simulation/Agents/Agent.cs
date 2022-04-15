@@ -81,6 +81,13 @@ public class Agent : MonoBehaviour {
     public string NomEspece { get; set; }
 
     public string Id { get; set; }
+
+    protected TreeEditor.ActionTreeNode<IdleAgentAction> _actionTree;
+
+    /// <summary>
+    /// L'action courante que l'agent est en train de réaliser.
+    /// </summary>
+    protected AgentAction _currentAction;
     
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
@@ -148,7 +155,8 @@ public class Agent : MonoBehaviour {
             //Animation.SetBool("Idle2",true);
             AgentMesh.SetDestination(walker());
         }
- 
+
+        //_currentAction.update();
     }
 
     /// <summary>
@@ -212,8 +220,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    void Fuite()
-    {
+    void Fuite() {
 
     }
 
@@ -222,8 +229,7 @@ public class Agent : MonoBehaviour {
     /// s'inspirer de la fonction chasser() pour les prédateurs
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    void chercherAManger()
-    {
+    void chercherAManger() {
         
     }
 
@@ -232,25 +238,24 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    IEnumerator Manger(Agent proie)
-    {
+    IEnumerator Manger(Agent proie) {
         AgentMesh.isStopped = true;//l'agent s'arrête pour manger.
         /*Animation.SetBool("Walk", false);
         Animation.SetBool("Run", false);
         Animation.SetBool("Eat", true);*/
 
-        if (BesoinEnergie - proie.ApportEnergieCarcasse < 0) // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
-        {
+        // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
+        if (BesoinEnergie - proie.ApportEnergieCarcasse < 0) {
             BesoinEnergie = 0.0; // l'agent récupère les apports jusqu'à ne plus avoir de besoins.
             proie.ApportEnergieCarcasse -= BesoinEnergie;
         }
-        else // la carcasse est trop faible en apports pour rassasier complètement l'agent.
-        {
+        // la carcasse est trop faible en apports pour rassasier complètement l'agent.
+        else {
             BesoinEnergie -= proie.ApportEnergieCarcasse; // l'agent finit la carcasse.
             proie.ApportEnergieCarcasse = 0.0;
         }
 
-        if (BesoinEnergie/BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
+        if (BesoinEnergie / BesoinEnergieMax < 0.20) // si l'agent a suffisemment mangé.
             _aFaim = false; // il n'a plus faim.
 
         _tempsRestantDigestion = TempsDigestion;
@@ -273,18 +278,16 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    IEnumerator  Boire()
-    {
+    IEnumerator Boire() {
         GameObject eauP = null; //Variable permettant de représenter le point d'eau le plus proche.
         double distance; //variable permettant de stocker la distance entre l'agent et un point d'eau.
         double distanceMin = double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
         GameObject[] eaux = GameObject.FindGameObjectsWithTag("pointEau"); // On stocke tous les points d'eau du terrain dans un tableau.
 
-        for (int i = 0; i < eaux.Length; i++) //On recherche le point d'eau le plus proche.
-        {
+        //On recherche le point d'eau le plus proche.
+        for (int i = 0; i < eaux.Length; i++) {
             distance = Vector3.Distance(AgentMesh.transform.position, eaux[i].transform.position);
-            if (distance < distanceMin)
-            {
+            if (distance < distanceMin) {
                 eauP = eaux[i];
                 distanceMin = distance;
             }
@@ -292,8 +295,8 @@ public class Agent : MonoBehaviour {
 
         AgentMesh.SetDestination(eauP.transform.position); //L'agent se déplace vers le point d'eau le plus proche.
 
-        if (eauP != null && Vector3.Distance(AgentMesh.transform.position, eauP.transform.position) < 1f) //Si l'agent est assez proche du point d'eau...
-        {
+        //Si l'agent est assez proche du point d'eau...
+        if (eauP != null && Vector3.Distance(AgentMesh.transform.position, eauP.transform.position) < 1f) {
             AgentMesh.isStopped = true; //Il s'arrête
             //Animation.SetBool("Walk", false);
             //Animation.SetBool("Eat", true);
@@ -311,8 +314,7 @@ public class Agent : MonoBehaviour {
         }
     }
 
-    Vector3 walker()
-    {
+    Vector3 walker() {
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;

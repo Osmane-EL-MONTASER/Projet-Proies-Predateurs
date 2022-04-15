@@ -34,7 +34,7 @@ public class Wind : Weather {
         if(WeatherObjectUpdater.ObjectsToUpdateMutex.WaitOne()) {
             foreach (var obj in _objectsToUpdate) {
                 double randomGenerated = RandomGaussian();
-                if(randomGenerated >= 0.96) {
+                if(randomGenerated >= 0.05) {
                     Dictionary<WeatherUpdatePropertyValued, List<TreeInstance> > dic =
                      new Dictionary<WeatherUpdatePropertyValued, List<TreeInstance>>();
                     dic.Add(new WeatherUpdatePropertyValued(WeatherUpdateProperty.Fall, i), _objectsToUpdate);
