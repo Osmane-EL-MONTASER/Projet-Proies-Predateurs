@@ -59,8 +59,8 @@ public class GestionAgents : MonoBehaviour
                     tempGo = Instantiate(Wolf, new Vector3(435f, 1f, 330f), Quaternion.identity);
                 else if (idAgent==2)
                     tempGo = Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity);
-                else if (idAgent==3)
-                    tempGo = Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                //else if (idAgent==3)
+                //    tempGo = Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity); // le modèle de l'éléphant est dans la mauvaise direction
                 else if (idAgent==4)
                     tempGo = Instantiate(Pingouin, new Vector3(445f, 1f, 310f), Quaternion.identity);
                 else if (idAgent==5)
@@ -92,11 +92,11 @@ public class GestionAgents : MonoBehaviour
     void Start()
     {
         ListeAgents = new List<GameObject>();
-        creerAgents(3,1);
+        creerAgents(4,1);
         //creerAgents(5,2);
         /*creerAgents(5,4);
         creerAgents(5,5);*/
-        creerAgents(10,6);
+        creerAgents(7,6);
         /*creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);

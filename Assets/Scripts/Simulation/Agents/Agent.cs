@@ -48,7 +48,7 @@ public class Agent : MonoBehaviour {
 
         Attributes = AgentAttributes.GetAttributesDict();
         Attributes["Health"] = "100";
-        Attributes["Speed"] = "10";
+        Attributes["Speed"] = AgentMesh.speed.ToString();
         Attributes["SpeciesName"] = gameObject.name;
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
@@ -86,6 +86,17 @@ public class Agent : MonoBehaviour {
     void Update() {
         testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
         System.Double newValue;
+
+        if ((AgentMesh.isStopped == true) || (AgentMesh.speed <= 0.0) || (Convert.ToDouble(Attributes["Speed"]) <= 0))
+        {
+            Animation.ResetTrigger("WalkTrigger");
+            Animation.SetTrigger("IdleTrigger");
+        }
+        else if (AgentMesh.isStopped == false)
+        {
+            Animation.SetTrigger("WalkTrigger");
+            Animation.ResetTrigger("IdleTrigger");
+        }
 
         // si l'agent est en vie, on peut lui appliquer des comportements.
         if(bool.Parse(Attributes["IsAlive"])) {
@@ -216,7 +227,6 @@ public class Agent : MonoBehaviour {
     void chasser()
     {
         Agent animalTemp = AgentCible.GetComponent<Agent>();
-        AgentMesh.SetDestination(AgentCible.transform.position);
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
 
@@ -239,6 +249,7 @@ public class Agent : MonoBehaviour {
         }
         else
         {
+            AgentMesh.SetDestination(AgentCible.transform.position);
             AgentMesh.isStopped = false;
         }
 
