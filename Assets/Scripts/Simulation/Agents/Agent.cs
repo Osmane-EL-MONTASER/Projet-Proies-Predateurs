@@ -15,7 +15,6 @@ using System.Globalization;
 /// </summary> 
 public class Agent : MonoBehaviour {
     public NavMeshAgent AgentMesh;
-    public Terrain Ter;
     public Animator Animation;
     public GameObject AgentCible;
     public List<GameObject> AnimauxEnVisuel;
@@ -78,6 +77,9 @@ public class Agent : MonoBehaviour {
         
        /* foreach(string prey in preys)
             Debug.Log(prey);*/
+
+        Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
+        Attributes["Ad"] = (0.1).ToString(); // a changer dans la bdd
     }
 
     /// <summary>
@@ -100,7 +102,7 @@ public class Agent : MonoBehaviour {
 
         // si l'agent est en vie, on peut lui appliquer des comportements.
         if(bool.Parse(Attributes["IsAlive"])) {
-            
+
             // si l'agent est en digestion
             if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
                 newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
@@ -119,13 +121,19 @@ public class Agent : MonoBehaviour {
             effectuerComportement();
         }    
         else {
-            Debug.Log(Attributes["SpeciesName"] + " : " + Attributes["DeathCause"]);
+
+            if (Convert.ToDouble(Attributes["Speed"])!=0.0)
+            {
+                AgentMesh.isStopped = true;
+                Attributes["Speed"] = (0.0).ToString();
+            }
+
 
             newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
 
-            //if (ApportEnergieCarcasse<2.0) // si la carcasse est presque vide.
-                //Destroy(this.gameObject); // on détruit l'objet.
+            if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
+                Destroy(this.gameObject); // on détruit l'objet.
         }        
 
         /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
@@ -171,6 +179,9 @@ public class Agent : MonoBehaviour {
             chasser();
         else if (bool.Parse(Attributes["IsHungry"]))
             chercherAManger();
+        else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
+            AgentMesh.SetDestination(walker());
+
     }
     
 
@@ -217,14 +228,15 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     void chasser()
     {
-        Debug.Log("En chasse");
         Agent animalTemp = AgentCible.GetComponent<Agent>();
         AgentMesh.SetDestination(AgentCible.transform.position);
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
 
-        if (dist <= 3.0f)
+        if (dist <= 2.5f)
         {
+            AgentMesh.isStopped = true;
+
             if (bool.Parse(animalTemp.Attributes["IsAlive"])) // si la cible est en vie
             {
                 animalTemp.Attributes["Health"] = (Convert.ToDouble(animalTemp.Attributes["Health"]) - Convert.ToDouble(Attributes["Ad"])).ToString(); //l'agent attaque la cible
@@ -232,20 +244,27 @@ public class Agent : MonoBehaviour {
             }
             else if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) >= 10.0)
             {
-                animalTemp.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) - 5.0).ToString();
-                Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["EnergyNeeds"]) - 5.0).ToString();
+                animalTemp.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) - 0.5).ToString();
+                Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["EnergyNeeds"]) - 0.5).ToString();
                 if (Convert.ToDouble(Attributes["EnergyNeeds"]) < 0.0)
                     Attributes["EnergyNeeds"] = (0.0).ToString();
             }
         }
+        else
+        {
+            AgentMesh.isStopped = false;
+        }
+
         if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0)
         {
+            AgentMesh.isStopped = false;
             AgentCible = null;
+            if ((Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) <= 0.25)&&(Attributes["IsHungry"]=="true"))
+            {
+                Attributes["IsHungry"]="false";
+            }           
         }
-        if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) <= 0.25)
-        {
-            Attributes["IsHungry"]="false";
-        }
+
     }
 
     /// <summary>
@@ -258,7 +277,6 @@ public class Agent : MonoBehaviour {
         
         if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {
-
             if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) 
                 AgentMesh.SetDestination(walker());// il se déplace 
             if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
@@ -266,9 +284,8 @@ public class Agent : MonoBehaviour {
         }
         else // si l'agent voit des animaux 
         {
-
             int rangDistMin = -1;
-            for (int i = 1; i < AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
+            for (int i = 0; i < AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
             {
                 float distTemp = Vector3.Distance(transform.position, AnimauxEnVisuel[i].transform.position);
                 if ((rangDistMin == -1) || (Vector3.Distance(transform.position, AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))

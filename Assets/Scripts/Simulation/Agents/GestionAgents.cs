@@ -92,11 +92,11 @@ public class GestionAgents : MonoBehaviour
     void Start()
     {
         ListeAgents = new List<GameObject>();
-        creerAgents(5,1);
+        creerAgents(3,1);
         //creerAgents(5,2);
         /*creerAgents(5,4);
         creerAgents(5,5);*/
-        creerAgents(5,6);
+        creerAgents(10,6);
         /*creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);
