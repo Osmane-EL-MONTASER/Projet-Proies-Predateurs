@@ -12,6 +12,11 @@ public class AddSimulationAgent : MonoBehaviour {
     // Start is called before the first frame update
 
     /// <summary>
+    /// Référence à la caméra afin de changer la vue basique
+    /// en la vue d'ajout d'agent.
+    /// </summary>
+    public GameObject Camera;
+    /// <summary>
     /// Panel Agent Simulation.
     /// </summary>
     public GameObject AgentSimulationPanel;
@@ -32,7 +37,7 @@ public class AddSimulationAgent : MonoBehaviour {
     /// Fait par AVERTY Pierre le 28/03/2022.
     /// </summary>
     void Start() {
-        
+        Camera = ConfigCamera.Instance.CurrentCamera;
     }
     
     /// <summary>
@@ -47,8 +52,10 @@ public class AddSimulationAgent : MonoBehaviour {
         var MainCamera = ConfigCamera.Instance.CurrentCamera;
 
         if(agentField.text == "1"){
-            AgentManager.Instance.newAgentInSim();
             agentField.text = "";
+
+            Camera.GetComponent<AgentCamera>().EnterAgentLook();
+            AgentManager.Instance.newAgentInSim();
         }
 
         if(MainCamera.GetComponent<BasicCamera>().enabled != true) {

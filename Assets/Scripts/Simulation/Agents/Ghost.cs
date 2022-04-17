@@ -12,11 +12,13 @@ public class Ghost : MonoBehaviour {
 /// <summary>
 /// Méthode qui s'active au changement d'un fantome.
 ///
-/// Fait par AVERTY Pierre le 10/04/2022
+/// Fait par AVERTY Pierre le 10/04/2022 et modifiée le 17/04/2022
 /// </summary> 
     void Update() {
-       Vector3 pos = Input.mousePosition;
-
-       transform.position = new Vector3(pos.x, pos.y, pos.z - 1f);
+        Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        Debug.Log(camera.transform.position.y);
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+        transform.localScale = new Vector3(0.03f * camera.transform.position.y,0.03f * camera.transform.position.y,0.03f * camera.transform.position.y);
     }
+
 }
