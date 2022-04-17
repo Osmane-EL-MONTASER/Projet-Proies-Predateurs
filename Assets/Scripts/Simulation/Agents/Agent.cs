@@ -462,7 +462,7 @@ public class Agent : MonoBehaviour {
         listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject indexAnimal in listeAnimaux)
         {
-            if (Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
+            if (String.Equals(Attributes["Id"], indexAnimal.GetComponent<Agent>().Attributes["Id"])) // on vérifie que l'on ne teste pas sur le meme agent
                 if (Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range)// si l'animal est dans la portée de vue
                     if (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2)// si l'animal est dans l'angle de vue
                     {
