@@ -11,9 +11,9 @@ using System;
 /// plus et est dans l'attente d'une nouvelle
 /// action à réaliser.
 /// 
-/// Fait par EL MONTASER Osmane le 10/04/2022. 
+/// Fait par EL MONTASER Osmane le 17/04/2022. 
 /// </summary>
-public class IdleAgentAction : AgentAction {
+public class FindFoodAgentAction : AgentAction {
 
     /// <summary>
     /// Permet d'initialiser l'attribut _agent.
@@ -21,16 +21,17 @@ public class IdleAgentAction : AgentAction {
     /// <param name="agent">
     /// L'agent sur lequel l'action est réalisée.
     /// </param>
-    public IdleAgentAction(Agent agent) : base(agent) { }
+    public FindFoodAgentAction(Agent agent) : base(agent) { }
 
     /// <summary>
-    /// Dans cet fonction, il est vérifié si l'agent
-    /// a bien changé d'animation, qu'il n'a plus de
-    /// destination.
+    /// Dans cet fonction, il est fait en sorte que 
+    /// l'agent cherche de la nourriture en fonction de
+    /// son régime alimentaire.
     /// 
-    /// Fait par EL MONTASER Osmane le 10/04/2022.
+    /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        throw new NotImplementedException();
+        Debug.Log("Finding Food...");
+        //throw new NotImplementedException();
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Threading;
 using System.Globalization;
+using TreeEditor;
 
 /// <summary>
 /// Classe des Agents
@@ -32,19 +33,22 @@ public class Agent : MonoBehaviour {
     /// L'arbre de décisions qui permet à l'agent de savoir quoi faire
     /// à chaque instant.
     /// </summary>
-    protected TreeEditor.ActionTreeNode<IdleAgentAction> _actionTree;
+    protected ActionTreeNode<AgentAction> _actionTree;
 
     /// <summary>
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
-    protected TreeEditor.ActionTreeNode<AgentAction> _currentAction;
+    protected ActionTreeNode<AgentAction> _currentAction;
 
     private static bool _isBDDReset = false;
+
+    private const string AGENT_RESOURCE_PATH = "./Assets/Resources/Agents/";
     
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
     ///
     /// Fait par Greg Demirdjian le 12/03/2022.
+    /// Modifiée par EL MONTASER Osmane le 17/04/2022.
     /// </summary> 
     protected void initialisation() {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
@@ -58,9 +62,8 @@ public class Agent : MonoBehaviour {
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
 
-        
-        //POUR UTILISER LA BDD
-        
+        //TODO: A ENLEVER ICI
+        //Supprimer la BDD si elle existe pour le débogage uniquement !!!!
         if(!_isBDDReset) {
             File.Delete("tempDB.db");
             DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
@@ -75,8 +78,14 @@ public class Agent : MonoBehaviour {
         foreach(KeyValuePair<string, double> entry in data)
             Attributes[entry.Key] = entry.Value.ToString();
         
-       /* foreach(string prey in preys)
-            Debug.Log(prey);*/
+        ActionTreeNode<string> strATN = 
+            ActionTreeParser.ReadFromXmlFile<ActionTreeNode<string>>(AGENT_RESOURCE_PATH +
+             Attributes["SpeciesName"] + "/" + Attributes["SpeciesName"] + ".tree");
+
+        _actionTree = ActionTreeParser.ParseStringActionTree(strATN, this);
+        _currentAction = _actionTree;
+
+        Debug.Log(ActionTreeParser.CondTextToBool(_currentAction.TransitionsCond[0], this));
 
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
         Attributes["Ad"] = (0.1).ToString(); // a changer dans la bdd
@@ -91,50 +100,65 @@ public class Agent : MonoBehaviour {
         initialisation();
     }
 
+    protected void changeAction() {
+        int i = 0;
+        foreach(ActionTreeNode<AgentAction> action in _currentAction.Children) {
+            if(ActionTreeParser.CondTextToBool(_currentAction.TransitionsCond[i], this)) {
+                _currentAction = action;
+                break;
+            }
+            i++;
+        }
+    } 
+
     /// <summary>
     /// Update : renverra vers les comportements en fonction des valeurs des variables de l'agent.
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary>    
     void Update() {
-        testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
-        System.Double newValue;
+        changeAction();
+        _currentAction.Action.update();
+        /*
+            testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
+            System.Double newValue;
 
-        // si l'agent est en vie, on peut lui appliquer des comportements.
-        if(bool.Parse(Attributes["IsAlive"])) {
+            // si l'agent est en vie, on peut lui appliquer des comportements.
+            if(bool.Parse(Attributes["IsAlive"])) {
 
-            // si l'agent est en digestion
-            if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
-                newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
-                Attributes["RemainingDigestionTime"] = newValue.ToString();
-            }   
-            
-            newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
-            Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
-            newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
-            Attributes["EnergyNeeds"] = newValue.ToString();
-            newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
-            Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
+                // si l'agent est en digestion
+                if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
+                    newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
+                    Attributes["RemainingDigestionTime"] = newValue.ToString();
+                }   
+                
+                newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
+                Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
+                newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
+                Attributes["EnergyNeeds"] = newValue.ToString();
+                newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
+                Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
 
-            AnimauxEnVisuel = animauxDansFov();
-            affecterComportement();
-            effectuerComportement();
-        }    
-        else {
+                AnimauxEnVisuel = animauxDansFov();
+                affecterComportement();
+                effectuerComportement();
+            }    
+            else {
 
-            if (Convert.ToDouble(Attributes["Speed"])!=0.0)
-            {
-                AgentMesh.isStopped = true;
-                Attributes["Speed"] = (0.0).ToString();
-            }
+                if (Convert.ToDouble(Attributes["Speed"])!=0.0)
+                {
+                    AgentMesh.isStopped = true;
+                    Attributes["Speed"] = (0.0).ToString();
+                }
 
 
-            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
-            Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
+                newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
+                Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
 
-            if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
-                Destroy(this.gameObject); // on détruit l'objet.
-        }        
+                if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
+                    Destroy(this.gameObject); // on détruit l'objet.
+            }        
+        */
 
         /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
             //Animation.SetBool("Running",true);

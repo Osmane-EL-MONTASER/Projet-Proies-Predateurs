@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ActionTreeNodeOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Id>0</Id>
+    <Action>Idle</Action>
+    <Children>
+        <ActionTreeNodeOfString>
+            <Id>1</Id>
+            <Action>Sleep</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>2</Id>
+            <Action>Find Food</Action>
+            <Children>
+                <ActionTreeNodeOfString>
+                    <Id>3</Id>
+                    <Action>Choose Prey</Action>
+                    <Children>
+                        <ActionTreeNodeOfString>
+                            <Id>4</Id>
+                            <Action>Eat Food</Action>
+                            <Children />
+                            <TransitionsCond />
+                        </ActionTreeNodeOfString>
+                    </Children>
+                    <TransitionsCond>
+                        <string />
+                    </TransitionsCond>
+                </ActionTreeNodeOfString>
+            </Children>
+            <TransitionsCond>
+                <string />
+            </TransitionsCond>
+        </ActionTreeNodeOfString>
+    </Children>
+    <TransitionsCond>
+        <string>Stamina &lt;= 0.5</string>
+        <string>EnergyNeeds &lt;= 0.7</string>
+    </TransitionsCond>
+</ActionTreeNodeOfString>
