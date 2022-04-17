@@ -764,7 +764,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -784,13 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 6441179671690687595}
-  Ter: {fileID: 0}
-  Animation: {fileID: 8614602760135360529}
-  AgentCible: {fileID: 0}
-  AnimauxEnVisuel: []
-  Fov: {fileID: -523522984485842565}
-  preys: []
 --- !u!108 &-523522984485842565
 Light:
   m_ObjectHideFlags: 0

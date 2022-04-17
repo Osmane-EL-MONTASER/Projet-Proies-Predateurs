@@ -198,17 +198,14 @@ public class Agent : MonoBehaviour {
     protected void effectuerComportement() {
        /* if (_enFuite)
             Fuite();
-        else */if (bool.Parse(Attributes["IsThirsty"]))
+        else if (bool.Parse(Attributes["IsThirsty"]))
             Boire();
-        else if (AgentCible != null)
-            chasser();
+        else*/ if (AgentCible != null)
+            chasser();  
         else if (bool.Parse(Attributes["IsHungry"]))
             chercherAManger();
         else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
-        {
             AgentMesh.SetDestination(walker());
-        }
-            
 
     }
     
@@ -277,7 +274,7 @@ public class Agent : MonoBehaviour {
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
 
-        if (dist <= 2.5f)
+        if (dist <= 2.0f)
         {
             AgentMesh.isStopped = true;
 
@@ -319,7 +316,6 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     void chercherAManger()
     {
-        
         if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {
             
