@@ -51,11 +51,11 @@ public class AgentsConfiguration : MonoBehaviour
     void Start(){
         _isFocused = false;
 
-        inputHealth.text = "0";
-        inputMaxSpeed.text = "0";
-        inputMaxStamina.text = "0";
-        inputNumAgents.text = "0";
-        inputTimeToLive.text = "0";
+        _health = 0.0;
+        _maxSpeed = 0.0;
+        _maxSpeed = 0.0;
+        _numAgents = 0;
+        _timeToLive = 0.0;
     }
     public void onClick(){
         inputHealth.text = _health.ToString();
