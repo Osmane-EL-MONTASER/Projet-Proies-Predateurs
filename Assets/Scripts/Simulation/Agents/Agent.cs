@@ -19,9 +19,9 @@ public class Agent : MonoBehaviour {
     public Animator Animation;
     public Light Fov;
 
-    private GameObject AgentCible;
-    private List<GameObject> AnimauxEnVisuel;
-    private List<string> preys;
+    public Agent AgentCible;
+    public List<GameObject> AnimauxEnVisuel;
+    public List<string> Preys;
 
     /// <summary>
     /// Tous les attributs de l'agent sont stockés à l'intérieur
@@ -39,7 +39,7 @@ public class Agent : MonoBehaviour {
     /// <summary>
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
-    protected ActionTreeNode<AgentAction> _currentAction;
+    public ActionTreeNode<AgentAction> _currentAction;
 
     private static bool _isBDDReset = false;
 
@@ -54,7 +54,7 @@ public class Agent : MonoBehaviour {
     protected void initialisation() {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
         AnimauxEnVisuel = new List<GameObject>();
-        preys = new List<string>();
+        Preys = new List<string>();
 
         Attributes = AgentAttributes.GetAttributesDict();
         Attributes["Health"] = "100";
@@ -72,7 +72,7 @@ public class Agent : MonoBehaviour {
         }
         
         DBHelper db = new("Data Source=tempDB.db;Version=3");
-        preys = db.SelectPreysOf(Attributes["SpeciesName"]);
+        Preys = db.SelectPreysOf(Attributes["SpeciesName"]);
 
         //Ajout des données dans l'agent.
         Dictionary<string, double> data = db.SelectSpeciesData(Attributes["SpeciesName"]);
@@ -123,6 +123,12 @@ public class Agent : MonoBehaviour {
         if(_currentAction.Parent != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
             _currentAction = _currentAction.Parent;
         
+    } 
+    public void ForceChangeAction(ActionTreeNode<AgentAction> newAction, string transition) {
+        newAction.Parent = _currentAction;
+        newAction.ParentTransition = transition;
+                
+        _currentAction = newAction;
     } 
 
     /// <summary>
@@ -185,7 +191,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 16/04/2022.
     /// </summary>    
-    protected void affecterAnimations() {
+    public void affecterAnimations() {
 
         if ((AgentMesh.isStopped == true) || (AgentMesh.speed <= 0.0) || (Convert.ToDouble(Attributes["Speed"]) <= 0)) // si l'agent est à l'arrêt 
         {
@@ -246,9 +252,8 @@ public class Agent : MonoBehaviour {
             Fuite();
         else if (bool.Parse(Attributes["IsThirsty"]))
             Boire();
-        else*/ if (AgentCible != null)
-            chasser();  
-        else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
+        else*/  
+        if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
             AgentMesh.SetDestination(walker());
 
     }
@@ -303,53 +308,6 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
     void Fuite() {
-
-    }
-
-    /// <summary>
-    /// chasser : l'agent chasse un autre agent
-    ///
-    /// Fait par Greg Demirdjian le 03/04/2022.
-    /// </summary> 
-    void chasser()
-    {
-
-        Agent animalTemp = AgentCible.GetComponent<Agent>();
-
-        float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
-
-        if (dist <= 2.0f)
-        {
-            AgentMesh.isStopped = true;
-
-            if (bool.Parse(animalTemp.Attributes["IsAlive"])) // si la cible est en vie
-            {
-                animalTemp.Attributes["Health"] = (Convert.ToDouble(animalTemp.Attributes["Health"]) - Convert.ToDouble(Attributes["Ad"])).ToString(); //l'agent attaque la cible
-                // rajotuer les anim si dispo
-            }
-            else if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) >= 10.0)
-            {
-                animalTemp.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) - 0.5).ToString();
-                Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["EnergyNeeds"]) - 0.5).ToString();
-                if (Convert.ToDouble(Attributes["EnergyNeeds"]) < 0.0)
-                    Attributes["EnergyNeeds"] = (0.0).ToString();
-            }
-        }
-        else
-        {
-            AgentMesh.SetDestination(AgentCible.transform.position);
-            AgentMesh.isStopped = false;
-        }
-
-        if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0)
-        {
-            AgentMesh.isStopped = false;
-            AgentCible = null;
-            if ((Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) <= 0.25)&&(Attributes["IsHungry"]=="true"))
-            {
-                Attributes["IsHungry"]="false";
-            }           
-        }
 
     }
 
@@ -434,8 +392,8 @@ public class Agent : MonoBehaviour {
         }
     }
 
-    Vector3 walker() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
+    public Vector3 walker() {
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 50;
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 

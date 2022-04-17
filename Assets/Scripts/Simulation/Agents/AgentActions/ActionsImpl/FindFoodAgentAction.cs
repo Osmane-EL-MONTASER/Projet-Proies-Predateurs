@@ -31,8 +31,14 @@ public class FindFoodAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Finding Food...");
+        chercherAManger();
 
+        if(_agent.AgentCible != null) {
+            _agent.ForceChangeAction(_agent._currentAction.Children[0], "EnergyNeeds == -1\n<->\nEnergyNeeds == -1");
+        }
+
+        if(!_agent.Animation.GetBool("WalkTrigger"))
+            _agent.affecterAnimations();
     }
 
     /// <summary>
@@ -42,37 +48,40 @@ public class FindFoodAgentAction : AgentAction {
     /// </summary> 
     private void chercherAManger()
     {
-        
-        if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
+        if (_agent.AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {
-            if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) 
-                AgentMesh.SetDestination(walker());// il se déplace 
-            if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
-                AgentMesh.speed = 0.75f * (float)Convert.ToDouble(Attributes["MaxSpeed"]); // il se déplace plus vite
+            
+            if((_agent.AgentMesh != null) && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
+                _agent.AgentMesh.SetDestination(_agent.walker());// il se déplace 
+            if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
+                _agent.AgentMesh.speed = 0.75f * (float)Convert.ToDouble(_agent.Attributes["MaxSpeed"]); // il se déplace plus vite
         }
         else // si l'agent voit des animaux 
         {
             int rangDistMin = -1;
-            for (int i = 0; i < AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
+            for (int i = 0; i < _agent.AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
             {
-                float distTemp = Vector3.Distance(transform.position, AnimauxEnVisuel[i].transform.position);
-                if ((rangDistMin == -1) || (Vector3.Distance(transform.position, AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))
+                float distTemp = Vector3.Distance(_agent.transform.position, _agent.AnimauxEnVisuel[i].transform.position);
+                if ((rangDistMin == -1) || (Vector3.Distance(_agent.transform.position, _agent.AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))
                 {
-                    for (int j = 0; j < preys.Count; j++)
+                    for (int j = 0; j < _agent.Preys.Count; j++)
                     {
-                        Agent animalTemp = AnimauxEnVisuel[i].GetComponent<Agent>();
-                        if (preys[j] == animalTemp.Attributes["SpeciesName"]) // si l'ID de l'animal fait partie des ID des proies de l'agent.
+                        Agent animalTemp = _agent.AnimauxEnVisuel[i].GetComponent<Agent>();
+                        if (_agent.Preys[j] == animalTemp.Attributes["SpeciesName"]) // si l'ID de l'animal fait partie des ID des proies de l'agent.
                             rangDistMin = i; // on retient son rang dans la liste des animaux en visuel.
                     }
                 }
             }
-            if (rangDistMin != -1) // si un des animaux vus est une proie potentielle
+            if (rangDistMin != -1 && _agent.AnimauxEnVisuel[rangDistMin].GetComponent<Agent>() != null) // si un des animaux vus est une proie potentielle
             {
-                AgentCible = AnimauxEnVisuel[rangDistMin];
+                _agent.AgentCible = _agent.AnimauxEnVisuel[rangDistMin].GetComponent<Agent>();
             }
             else
             {
-                AgentMesh.SetDestination(walker());
+                if(_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)
+                {
+                    _agent.AgentMesh.SetDestination(_agent.walker());
+                }
             }
 
         }

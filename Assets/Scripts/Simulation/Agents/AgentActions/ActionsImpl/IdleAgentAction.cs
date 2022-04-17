@@ -33,18 +33,13 @@ public class IdleAgentAction : AgentAction {
     public override void update() {
         Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
         _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.0001).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.005).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
+
+        if((_agent.AgentMesh != null) && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
+                _agent.AgentMesh.SetDestination(_agent.walker());
         
         if(!_agent.Animation.GetBool("IdleTrigger"))
-            handleAnimation();
+            _agent.affecterAnimations();
         //throw new NotImplementedException();
-    }
-
-    private void handleAnimation() {
-        _agent.Animation.ResetTrigger("WalkTrigger");
-        _agent.Animation.ResetTrigger("DeadTrigger");
-        _agent.Animation.ResetTrigger("AttackTrigger");
-        _agent.Animation.ResetTrigger("EatTrigger");
-        _agent.Animation.SetTrigger("IdleTrigger");
     }
 }

@@ -31,7 +31,59 @@ public class ChoosePreyAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Choosing prey...");
+        Debug.Log("Chasing prey...");
+        
+        chasser();
+
+        if(_agent.AgentCible == null) {
+            _agent.ForceChangeAction(_agent._currentAction.Parent, _agent._currentAction.ParentTransition);
+        }
+
         //throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// chasser : l'agent chasse un autre agent
+    ///
+    /// Fait par Greg Demirdjian le 03/04/2022.
+    /// </summary> 
+    private void chasser() {
+        Agent animalTemp = _agent.AgentCible.GetComponent<Agent>();
+
+        float dist = Vector3.Distance(_agent.transform.position, _agent.AgentCible.transform.position);
+
+        if (dist <= 2.0f)
+        {
+            _agent.AgentMesh.isStopped = true;
+
+            if (bool.Parse(animalTemp.Attributes["IsAlive"])) // si la cible est en vie
+            {
+                animalTemp.Attributes["Health"] = (Convert.ToDouble(animalTemp.Attributes["Health"]) - Convert.ToDouble(_agent.Attributes["Ad"])).ToString(); //l'agent attaque la cible
+                // rajotuer les anim si dispo
+            }
+            else if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) >= 10.0)
+            {
+                animalTemp.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) - 0.5).ToString();
+                _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.5).ToString();
+                if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) < 0.0)
+                    _agent.Attributes["EnergyNeeds"] = (0.0).ToString();
+            }
+        }
+        else
+        {
+            _agent.AgentMesh.SetDestination(_agent.AgentCible.transform.position);
+            _agent.AgentMesh.isStopped = false;
+        }
+
+        if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0)
+        {
+            _agent.AgentMesh.isStopped = false;
+            _agent.AgentCible = null;
+            if ((Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) <= 0.25)&&(_agent.Attributes["IsHungry"]=="true"))
+            {
+                _agent.Attributes["IsHungry"]="false";
+            }           
+        }
+
     }
 }
