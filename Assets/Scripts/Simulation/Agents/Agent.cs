@@ -117,8 +117,7 @@ public class Agent : MonoBehaviour {
             effectuerComportement();
         }    
         else {
-
-            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
+            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.5;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
 
             if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
@@ -206,7 +205,10 @@ public class Agent : MonoBehaviour {
         else if (bool.Parse(Attributes["IsHungry"]))
             chercherAManger();
         else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
+        {
             AgentMesh.SetDestination(walker());
+        }
+            
 
     }
     
@@ -270,6 +272,7 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     void chasser()
     {
+
         Agent animalTemp = AgentCible.GetComponent<Agent>();
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
@@ -319,6 +322,7 @@ public class Agent : MonoBehaviour {
         
         if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {
+            
             if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) 
                 AgentMesh.SetDestination(walker());// il se déplace 
             if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
@@ -346,7 +350,10 @@ public class Agent : MonoBehaviour {
             }
             else
             {
-                AgentMesh.SetDestination(walker());
+                if(AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)
+                {
+                    AgentMesh.SetDestination(walker());
+                }
             }
 
         }
@@ -462,7 +469,7 @@ public class Agent : MonoBehaviour {
         listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject indexAnimal in listeAnimaux)
         {
-            if (String.Equals(Attributes["Id"], indexAnimal.GetComponent<Agent>().Attributes["Id"])) // on vérifie que l'on ne teste pas sur le meme agent
+            if (Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
                 if (Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range)// si l'animal est dans la portée de vue
                     if (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2)// si l'animal est dans l'angle de vue
                     {
