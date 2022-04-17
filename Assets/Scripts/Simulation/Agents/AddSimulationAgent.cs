@@ -55,7 +55,7 @@ public class AddSimulationAgent : MonoBehaviour {
             agentField.text = "";
 
             Camera.GetComponent<AgentCamera>().EnterAgentLook();
-            AgentManager.Instance.newAgentInSim();
+            AgentManager.Instance.newGhostInSim();
         }
 
         if(MainCamera.GetComponent<BasicCamera>().enabled != true) {

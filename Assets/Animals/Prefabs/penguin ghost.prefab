@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 596053696496398465}
   m_Layer: 0
   m_Name: penguin ghost
-  m_TagString: Animal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

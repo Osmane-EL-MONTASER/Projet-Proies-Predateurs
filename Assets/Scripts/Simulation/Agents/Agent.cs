@@ -163,8 +163,7 @@ public class Agent : MonoBehaviour {
             //effectuerComportement();
         }    
         else {
-
-            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
+            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.5;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
 
                 if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
@@ -245,10 +244,10 @@ public class Agent : MonoBehaviour {
     protected void effectuerComportement() {
        /* if (_enFuite)
             Fuite();
-        else */if (bool.Parse(Attributes["IsThirsty"]))
+        else if (bool.Parse(Attributes["IsThirsty"]))
             Boire();
-        else if (AgentCible != null)
-            chasser();
+        else*/ if (AgentCible != null)
+            chasser();  
         else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
             AgentMesh.SetDestination(walker());
 
@@ -314,11 +313,12 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     void chasser()
     {
+
         Agent animalTemp = AgentCible.GetComponent<Agent>();
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
 
-        if (dist <= 2.5f)
+        if (dist <= 2.0f)
         {
             AgentMesh.isStopped = true;
 

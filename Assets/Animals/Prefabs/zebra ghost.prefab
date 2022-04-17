@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: -2980311024166093609}
   m_Layer: 0
   m_Name: zebra ghost
-  m_TagString: Animal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

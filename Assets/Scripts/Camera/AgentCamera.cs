@@ -99,7 +99,7 @@ public class AgentCamera : MonoBehaviour {
     }
 
     /// <summary>
-    /// Sortir de la vue d'édition météo pour revenir à la
+    /// Sortir de la vue d'ajout d'agents pour revenir à la
     /// vue de base.
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022 et modifiée par AVERTY Pierre le 16/04/2022.
@@ -114,7 +114,7 @@ public class AgentCamera : MonoBehaviour {
     }
 
     /// <summary>
-    /// Entrer dans la vue d'édition météo tout en sortant
+    /// Entrer dans la vue d'ajout d'agents tout en sortant
     /// de celle de base.
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022 et modifiée par AVERTY Pierre le 16/04/2022.
@@ -129,7 +129,7 @@ public class AgentCamera : MonoBehaviour {
         _oldHeight = transform.position.y;
         
         _cameraRotationScript = new SmoothCameraRotation(startRotation: transform.eulerAngles.x, targetRotation: 90f, rotationSpeed: 100f);
-        _cameraTranslationScript = new SmoothCameraTranslation(startTranslation: transform.position.y, targetTranslation: 800f, translationSpeed: 800f);
+        _cameraTranslationScript = new SmoothCameraTranslation(startTranslation: transform.position.y, targetTranslation: 400f, translationSpeed: 400f);
     }
 
     /// <summary>
@@ -138,9 +138,6 @@ public class AgentCamera : MonoBehaviour {
     /// 
     /// Fait par EL MONTASER Osmane le 12/03/2022 et modifiée par AVERTY Pierre le 16/04/2022.
     /// </summary>
-    /// <param name="weather">
-    /// La météo qui a été sélectionnée dans le panel.
-    /// </param>
     private void makeTransition() {
         float nextRotation = _cameraRotationScript.GetNextRotation();
         float nextTranslation = _cameraTranslationScript.GetNextTranslation();
