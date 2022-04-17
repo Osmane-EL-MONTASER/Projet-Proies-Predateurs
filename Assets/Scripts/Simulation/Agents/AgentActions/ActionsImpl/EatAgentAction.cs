@@ -31,6 +31,7 @@ public class EatAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        throw new NotImplementedException();
+        Debug.Log("Eeating... With : " + _agent.Attributes["EnergyNeeds"]);
+        //throw new NotImplementedException();
     }
 }

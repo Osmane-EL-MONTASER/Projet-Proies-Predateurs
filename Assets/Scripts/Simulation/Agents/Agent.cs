@@ -15,9 +15,9 @@ using TreeEditor;
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// </summary> 
 public class Agent : MonoBehaviour {
-    private NavMeshAgent AgentMesh;
-    private Animator Animation;
-    private Light Fov;
+    public NavMeshAgent AgentMesh;
+    public Animator Animation;
+    public Light Fov;
 
     private GameObject AgentCible;
     private List<GameObject> AnimauxEnVisuel;
@@ -70,7 +70,7 @@ public class Agent : MonoBehaviour {
             DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
             _isBDDReset = true;
         }
-
+        
         DBHelper db = new("Data Source=tempDB.db;Version=3");
         preys = db.SelectPreysOf(Attributes["SpeciesName"]);
 
@@ -108,13 +108,21 @@ public class Agent : MonoBehaviour {
 
     protected void changeAction() {
         int i = 0;
+
         foreach(ActionTreeNode<AgentAction> action in _currentAction.Children) {
             if(ActionTreeParser.CondTextToBool(_currentAction.TransitionsCond[i], this)) {
+                action.Parent = _currentAction;
+                action.ParentTransition = _currentAction.TransitionsCond[i];
+                
                 _currentAction = action;
                 break;
             }
             i++;
         }
+
+        if(_currentAction.Parent != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
+            _currentAction = _currentAction.Parent;
+        
     } 
 
     /// <summary>
@@ -125,14 +133,13 @@ public class Agent : MonoBehaviour {
     void Update() {
         changeAction();
         _currentAction.Action.update();
-        /*
-            testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
-            System.Double newValue;
+        
+        System.Double newValue;
 
         // si l'agent est en vie, on peut lui appliquer des comportements.
         if(bool.Parse(Attributes["IsAlive"])) {
         
-        affecterAnimations();
+        //affecterAnimations();
 
         testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
@@ -142,16 +149,18 @@ public class Agent : MonoBehaviour {
                 Attributes["RemainingDigestionTime"] = newValue.ToString();
             }   
             
-            newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
-            Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
-            newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
-            Attributes["EnergyNeeds"] = newValue.ToString();
-            newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
-            Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
-
+            /*
+                newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
+                Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
+                newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
+                Attributes["EnergyNeeds"] = newValue.ToString();
+                newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
+                Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
+            */
+    
             AnimauxEnVisuel = animauxDansFov();
             affecterComportement();
-            effectuerComportement();
+            //effectuerComportement();
         }    
         else {
 
@@ -160,8 +169,7 @@ public class Agent : MonoBehaviour {
 
                 if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
                     Destroy(this.gameObject); // on détruit l'objet.
-            }        
-        */
+        }
 
         /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
             //Animation.SetBool("Running",true);
@@ -241,8 +249,6 @@ public class Agent : MonoBehaviour {
             Boire();
         else if (AgentCible != null)
             chasser();
-        else if (bool.Parse(Attributes["IsHungry"]))
-            chercherAManger();
         else if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
             AgentMesh.SetDestination(walker());
 
@@ -346,54 +352,6 @@ public class Agent : MonoBehaviour {
         }
 
     }
-
-    /// <summary>
-    /// chercherAManger : L'agent cherche d'autres agents et chasse ceux qui sont des potentielles proies
-    /// 
-    /// Fait par Greg Demirdjian le 03/04/2022.
-    /// </summary> 
-    void chercherAManger()
-    {
-        
-        if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
-        {
-            if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) 
-                AgentMesh.SetDestination(walker());// il se déplace 
-            if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
-                AgentMesh.speed = 0.75f * (float)Convert.ToDouble(Attributes["MaxSpeed"]); // il se déplace plus vite
-        }
-        else // si l'agent voit des animaux 
-        {
-            int rangDistMin = -1;
-            for (int i = 0; i < AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
-            {
-                float distTemp = Vector3.Distance(transform.position, AnimauxEnVisuel[i].transform.position);
-                if ((rangDistMin == -1) || (Vector3.Distance(transform.position, AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))
-                {
-                    for (int j = 0; j < preys.Count; j++)
-                    {
-                        Agent animalTemp = AnimauxEnVisuel[i].GetComponent<Agent>();
-                        if (preys[j] == animalTemp.Attributes["SpeciesName"]) // si l'ID de l'animal fait partie des ID des proies de l'agent.
-                            rangDistMin = i; // on retient son rang dans la liste des animaux en visuel.
-                    }
-                }
-            }
-            if (rangDistMin != -1) // si un des animaux vus est une proie potentielle
-            {
-                AgentCible = AnimauxEnVisuel[rangDistMin];
-            }
-            else
-            {
-                AgentMesh.SetDestination(walker());
-            }
-
-        }
-    }
-
-
-
-
-
 
     /// <summary>
     /// Manger : L'agent mange la proie passée en paramètre; influe sur la digestion et les besoin énergétiques.

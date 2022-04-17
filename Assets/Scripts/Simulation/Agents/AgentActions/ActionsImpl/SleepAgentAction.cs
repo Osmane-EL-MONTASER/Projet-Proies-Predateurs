@@ -29,7 +29,17 @@ public class SleepAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Sleeping...");
-        //throw new NotImplementedException();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + 0.001).ToString();
+        
+        if(!_agent.Animation.GetBool("DeadTrigger"))
+            handleAnimation();
+    }
+
+    private void handleAnimation() {
+        _agent.Animation.ResetTrigger("WalkTrigger");
+        _agent.Animation.SetTrigger("DeadTrigger");
+        _agent.Animation.ResetTrigger("AttackTrigger");
+        _agent.Animation.ResetTrigger("EatTrigger");
+        _agent.Animation.ResetTrigger("IdleTrigger");
     }
 }

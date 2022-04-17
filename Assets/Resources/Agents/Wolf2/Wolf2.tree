@@ -5,12 +5,6 @@
     <Children>
         <ActionTreeNodeOfString>
             <Id>1</Id>
-            <Action>Sleep</Action>
-            <Children />
-            <TransitionsCond />
-        </ActionTreeNodeOfString>
-        <ActionTreeNodeOfString>
-            <Id>2</Id>
             <Action>Find Food</Action>
             <Children>
                 <ActionTreeNodeOfString>
@@ -18,7 +12,7 @@
                     <Action>Choose Prey</Action>
                     <Children>
                         <ActionTreeNodeOfString>
-                            <Id>4</Id>
+                            <Id>2</Id>
                             <Action>Eat Food</Action>
                             <Children />
                             <TransitionsCond />
@@ -33,9 +27,27 @@
                 <string />
             </TransitionsCond>
         </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>4</Id>
+            <Action>Flee</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>5</Id>
+            <Action>Sleep</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
     </Children>
     <TransitionsCond>
-        <string>Stamina &lt;= 0.5</string>
-        <string>EnergyNeeds &lt;= 0.7</string>
+        <string>Stamina &gt;= 0.4
+EnergyNeeds &gt;= 0.25
+&lt;-&gt;
+Stamina  &lt; 0.4</string>
+        <string />
+        <string>Stamina &lt;= 0.35
+&lt;-&gt;
+Stamina == 1</string>
     </TransitionsCond>
 </ActionTreeNodeOfString>

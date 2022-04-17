@@ -45,18 +45,31 @@ public static class ActionTreeParser {
     /// </summary>
     /// <param name="condition"></param>
     /// <returns></returns>
-    public static bool CondTextToBool(string condition, Agent agent) {
+    public static bool CondTextToBool(string condition, Agent agent, bool reversed = false) {
+        if(condition == "")
+            return false;
+
         string[] delimiters = new [] { "<=", ">=", "<" , ">", "==", "!=" };
         bool result = true;
+        string condition1, condition2, conditionTemp;
+        string[] conditionSplit = condition.Split("<->");
+        
+        condition1 = conditionSplit[0];
+        condition2 = conditionSplit[1];
+        
+        if(reversed)
+            conditionTemp = conditionSplit[1];
+        else
+            conditionTemp = conditionSplit[0];
 
-        using(StringReader reader = new StringReader(condition)) {
+        using(StringReader reader = new StringReader(conditionTemp)) {
             string line;
             //Pour chaque condition séparée par une ligne.
             while((line = reader.ReadLine()) != null) {
                 line = line.Replace(" ", "");
                 string[] splited = line.Split(delimiters, StringSplitOptions.None);
-
-                if(line.Contains("<="))
+                
+                if(line.Contains("<=")) 
                     result = result && Convert.ToDouble(agent.Attributes[splited[0]]) <= Convert.ToDouble(splited[1]);
                 else if(line.Contains(">="))
                     result = result && Convert.ToDouble(agent.Attributes[splited[0]]) >= Convert.ToDouble(splited[1]);
@@ -70,7 +83,7 @@ public static class ActionTreeParser {
                     result = result && Convert.ToDouble(agent.Attributes[splited[0]]) != Convert.ToDouble(splited[1]);
             }
         }
-
+        
         return result;
     }
 
@@ -111,7 +124,8 @@ public static class ActionTreeParser {
             if(strActionTree.TransitionsCond.Count != 0)
                 tree.TransitionsCond.Add(strActionTree.TransitionsCond[tree.Children.Count]);
 
-            tree.AddChild(new ActionTreeNode<AgentAction>(stringActionToAgentAction(node.Action, agent)));
+            ActionTreeNode<AgentAction> childAction = new ActionTreeNode<AgentAction>(stringActionToAgentAction(node.Action, agent));
+            tree.AddChild(childAction);
             DFS(tree.Children[tree.Children.Count - 1], node, agent);
         }
     }

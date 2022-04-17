@@ -31,7 +31,20 @@ public class IdleAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Idling...");
+        Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.0001).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.005).ToString();
+        
+        if(!_agent.Animation.GetBool("IdleTrigger"))
+            handleAnimation();
         //throw new NotImplementedException();
+    }
+
+    private void handleAnimation() {
+        _agent.Animation.ResetTrigger("WalkTrigger");
+        _agent.Animation.ResetTrigger("DeadTrigger");
+        _agent.Animation.ResetTrigger("AttackTrigger");
+        _agent.Animation.ResetTrigger("EatTrigger");
+        _agent.Animation.SetTrigger("IdleTrigger");
     }
 }

@@ -31,6 +31,7 @@ public class ChoosePreyAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        throw new NotImplementedException();
+        Debug.Log("Choosing prey...");
+        //throw new NotImplementedException();
     }
 }

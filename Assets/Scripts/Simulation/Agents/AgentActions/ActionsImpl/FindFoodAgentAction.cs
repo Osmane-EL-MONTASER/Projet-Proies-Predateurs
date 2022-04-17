@@ -32,6 +32,49 @@ public class FindFoodAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         Debug.Log("Finding Food...");
-        //throw new NotImplementedException();
+
+    }
+
+    /// <summary>
+    /// chercherAManger : L'agent cherche d'autres agents et chasse ceux qui sont des potentielles proies
+    /// 
+    /// Fait par Greg Demirdjian le 03/04/2022.
+    /// </summary> 
+    private void chercherAManger()
+    {
+        
+        if (AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
+        {
+            if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) 
+                AgentMesh.SetDestination(walker());// il se déplace 
+            if (Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
+                AgentMesh.speed = 0.75f * (float)Convert.ToDouble(Attributes["MaxSpeed"]); // il se déplace plus vite
+        }
+        else // si l'agent voit des animaux 
+        {
+            int rangDistMin = -1;
+            for (int i = 0; i < AnimauxEnVisuel.Count; i++) // on cherche l'animal le plus proche parmi 
+            {
+                float distTemp = Vector3.Distance(transform.position, AnimauxEnVisuel[i].transform.position);
+                if ((rangDistMin == -1) || (Vector3.Distance(transform.position, AnimauxEnVisuel[rangDistMin].transform.position) < distTemp))
+                {
+                    for (int j = 0; j < preys.Count; j++)
+                    {
+                        Agent animalTemp = AnimauxEnVisuel[i].GetComponent<Agent>();
+                        if (preys[j] == animalTemp.Attributes["SpeciesName"]) // si l'ID de l'animal fait partie des ID des proies de l'agent.
+                            rangDistMin = i; // on retient son rang dans la liste des animaux en visuel.
+                    }
+                }
+            }
+            if (rangDistMin != -1) // si un des animaux vus est une proie potentielle
+            {
+                AgentCible = AnimauxEnVisuel[rangDistMin];
+            }
+            else
+            {
+                AgentMesh.SetDestination(walker());
+            }
+
+        }
     }
 }
