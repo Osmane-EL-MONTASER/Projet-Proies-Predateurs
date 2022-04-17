@@ -20,7 +20,7 @@ ModelImporter:
     second: spawn_CINEMA_4D_Main
   - first:
       74: -3100369314251171874
-    second: Snake Idle
+    second: Snake Dead
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -206,7 +206,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Snake Idle
+      name: Snake Dead
       takeName: atk coiled_CINEMA_4D_Main
       internalID: 0
       firstFrame: 0

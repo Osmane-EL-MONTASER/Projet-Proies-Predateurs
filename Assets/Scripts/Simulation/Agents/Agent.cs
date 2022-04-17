@@ -12,12 +12,13 @@ using UnityEngine.UI;
 /// Fait par Greg Demirdjian le 12/03/2022.
 /// </summary> 
 public class Agent : MonoBehaviour {
-    public NavMeshAgent AgentMesh;
-    public Animator Animation;
-    public GameObject AgentCible;
-    public List<GameObject> AnimauxEnVisuel;
-    public Light Fov;
-    public List<string> preys;
+    private NavMeshAgent AgentMesh;
+    private Animator Animation;
+    private Light Fov;
+
+    private GameObject AgentCible;
+    private List<GameObject> AnimauxEnVisuel;
+    private List<string> preys;
 
     /// <summary>
     /// Tous les attributs de l'agent sont stockés à l'intérieur
@@ -75,6 +76,11 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
     void Start() {
+
+        AgentMesh = gameObject.GetComponent<NavMeshAgent>();
+        Animation = gameObject.GetComponent<Animator>();
+        Fov = gameObject.GetComponent<Light>();
+
         initialisation();
     }
 
@@ -84,22 +90,14 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary>    
     void Update() {
-        testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
         System.Double newValue;
-
-        if ((AgentMesh.isStopped == true) || (AgentMesh.speed <= 0.0) || (Convert.ToDouble(Attributes["Speed"]) <= 0))
-        {
-            Animation.ResetTrigger("WalkTrigger");
-            Animation.SetTrigger("IdleTrigger");
-        }
-        else if (AgentMesh.isStopped == false)
-        {
-            Animation.SetTrigger("WalkTrigger");
-            Animation.ResetTrigger("IdleTrigger");
-        }
 
         // si l'agent est en vie, on peut lui appliquer des comportements.
         if(bool.Parse(Attributes["IsAlive"])) {
+        
+        affecterAnimations();
+
+        testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
             // si l'agent est en digestion
             if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
@@ -120,13 +118,6 @@ public class Agent : MonoBehaviour {
         }    
         else {
 
-            if (Convert.ToDouble(Attributes["Speed"])!=0.0)
-            {
-                AgentMesh.isStopped = true;
-                Attributes["Speed"] = (0.0).ToString();
-            }
-
-
             newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.05;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
 
@@ -142,6 +133,43 @@ public class Agent : MonoBehaviour {
 
         //_currentAction.update();
     }
+
+
+    /// <summary>
+    /// affecterAnimations : affecte la bonne animation (si dispo) à l'agent
+    ///
+    /// Fait par Greg Demirdjian le 16/04/2022.
+    /// </summary>    
+    protected void affecterAnimations() {
+
+        if ((AgentMesh.isStopped == true) || (AgentMesh.speed <= 0.0) || (Convert.ToDouble(Attributes["Speed"]) <= 0)) // si l'agent est à l'arrêt 
+        {
+            Animation.ResetTrigger("WalkTrigger"); // on arrête l'animation de marche
+
+            if (AgentCible != null) // si l'agent chasse
+            {
+                Animation.ResetTrigger("IdleTrigger");
+                Animation.SetTrigger("AttackTrigger"); // on lui attribue l'animation d'attaque (s'il y en a une)
+            }
+            else // sinon
+            {
+                Animation.ResetTrigger("AttackTrigger");
+                Animation.SetTrigger("IdleTrigger"); // on lui attribue l'animation de base de l'agent (s'il y en a une)
+            }
+
+            
+        }
+        else if (AgentMesh.isStopped == false)
+        {
+            Animation.SetTrigger("WalkTrigger");
+            Animation.ResetTrigger("IdleTrigger");
+            Animation.ResetTrigger("AttackTrigger");
+        }
+
+
+
+    }
+
 
     /// <summary>
     /// affecterComportement : teste si les variables de comportemnts doivent être changées.
@@ -208,6 +236,22 @@ public class Agent : MonoBehaviour {
             Attributes["IsAlive"] = "false";
             Attributes["DeathCause"] = "Mort de vieillesse.";
         }
+
+        if (bool.Parse(Attributes["IsAlive"])==false)
+        {
+            AgentMesh.speed = 0.0f;
+            AgentMesh.isStopped = true;
+            Attributes["Speed"] = (0.0).ToString();
+
+            Animation.ResetTrigger("AttackTrigger");
+            Animation.ResetTrigger("IdleTrigger");
+            Animation.ResetTrigger("WalkTrigger");
+            Animation.ResetTrigger("EatTrigger");
+            
+            Animation.SetTrigger("DeadTrigger");
+
+        }
+
     }
 
     /// <summary>
