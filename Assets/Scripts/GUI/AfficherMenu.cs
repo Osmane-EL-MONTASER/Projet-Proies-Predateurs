@@ -5,14 +5,14 @@ using UnityEngine;
 
 
 /// <summary>
-/// Classe codée par Bilal HAMICHE pour le prototype. Elle
+/// Classe codée le 26/03 par Bilal HAMICHE pour le prototype. Elle
 /// est insiprée d'une vidéo qui explique comment créer un menu d'options
 /// https://www.youtube.com/watch?v=wqm7iyoZSPI.
 /// </summary>
 public class AfficherMenu : MonoBehaviour
 {
     /// <summary>
-    /// Variable de type GameObject sui permettra de gerer le menu options
+    /// Variable de type GameObject qui permettra de gerer le menu options
     /// </summary>
     public GameObject MenuOptions;
 

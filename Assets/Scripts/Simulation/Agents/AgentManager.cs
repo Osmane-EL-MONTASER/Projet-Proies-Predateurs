@@ -96,16 +96,16 @@ public class AgentManager : MonoBehaviour {
     /// </summary>
     public void newAgentInSim(){
        GameObject ghost = instanciateGhost();
-       Vector3 mousePosition = Input.mousePosition;
+       Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        Debug.Log(ghost); 
+    
        ghost = Instantiate(ghost, new Vector3(0f, 0f, 0f), Quaternion.identity);
     } 
 
     /// <summary>
     /// Méthode qui instancie un fantôme.
     /// 
-    /// Fait par AVERTY Pierre le 03/04/2022. A refactoriser (Revoir la classe agent et le système d'id)
+    /// Fait par AVERTY Pierre le 03/04/2022.
     /// </summary>
     public GameObject instanciateGhost(){
        return GhostList.Find(el => el.name  == newAgentType +" ghost");
