@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: -7423102099236506963}
   m_Layer: 0
   m_Name: wolf ghost
-  m_TagString: Animal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

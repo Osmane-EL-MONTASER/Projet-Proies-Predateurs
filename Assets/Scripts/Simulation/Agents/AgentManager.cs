@@ -87,19 +87,40 @@ public class AgentManager : MonoBehaviour {
        GhostList.Add(LizardGhost);
        GhostList.Add(RacoonGhost);
        GhostList.Add(TortoiseGhost);
+
+       AgentList.Add(Wolf);
+       AgentList.Add(Iguana);
+       AgentList.Add(Elephant);
+       AgentList.Add(Pingouin);
+       AgentList.Add(Snake);
+       AgentList.Add(Lapin);
+       AgentList.Add(Zebra);
+       AgentList.Add(Alligator);
+       AgentList.Add(Lizard);
+       AgentList.Add(Racoon);
+       AgentList.Add(Tortoise);
     }
 
     /// <summary>
-    /// Méthode qui gère l'ajout d'un nouvel agent dans la simulation.
+    /// Méthode qui gère l'ajout d'un nouveau fantome dans la simulation.
     /// 
     /// Fait par AVERTY Pierre le 03/04/2022.
     /// </summary>
-    public void newAgentInSim(){
-       GameObject ghost = instanciateGhost();
-       Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+    public void newGhostInSim(){
+       GameObject ghost = instanciateGhost();        
     
        ghost = Instantiate(ghost, new Vector3(0f, 0f, 0f), Quaternion.identity);
+    } 
+    
+    /// <summary>
+    /// Méthode qui gère l'ajout d'un nouvel agent dans la simulation.
+    /// 
+    /// Fait par AVERTY Pierre le 17/04/2022.
+    /// </summary>
+    public void newAgentInSim(Vector3 coor){
+       GameObject agent = instanciateAgent();        
+       coor.y = 1f;
+       agent = Instantiate(agent, coor, Quaternion.identity);
     } 
 
     /// <summary>
@@ -111,6 +132,14 @@ public class AgentManager : MonoBehaviour {
        return GhostList.Find(el => el.name  == newAgentType +" ghost");
     } 
 
+    /// <summary>
+    /// Méthode qui instancie un agent.
+    /// 
+    /// Fait par AVERTY Pierre le 17/04/2022.
+    /// </summary>
+    public GameObject instanciateAgent(){
+       return AgentList.Find(el => el.name.ToUpper()  == newAgentType.ToUpper());
+    } 
     /// <summary>
     /// Méthode qui crée l'instance du singleton et si elle existe déjà, la retourne.
     /// 
