@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1071.1738, g: 708.52734, b: 624.82227, a: 1}
+  m_IndirectSpecularColor: {r: 936.6648, g: 639.6548, b: 556.58887, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10621,8 +10621,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595895186}
-  m_LocalRotation: {x: -0, y: 0.16733402, z: -0, w: 0.98590034}
-  m_LocalPosition: {x: 317.7, y: 101.03, z: 547.4}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 433, y: 10, z: 346.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10632,7 +10632,7 @@ Transform:
   - {fileID: 1514529466}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 19.266, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &595895189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14469,91 +14469,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
-  clearDepth: 1
+  backgroundColorHDR: {r: 0, g: 0, b: 0, a: 0}
+  clearDepth: 0
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
-  SMAAQuality: 2
-  dithering: 0
-  stopNaNs: 0
-  taaSharpenStrength: 0.5
-  TAAQuality: 1
-  taaHistorySharpening: 0.35
-  taaAntiFlicker: 0.5
+  SMAAQuality: -59414176
+  dithering: 65
+  stopNaNs: 2
+  taaSharpenStrength: -5.097426e+36
+  TAAQuality: 577
+  taaHistorySharpening: -5.0973194e+36
+  taaAntiFlicker: 8.09e-43
   taaMotionVectorRejection: 0
   taaAntiHistoryRinging: 0
-  taaBaseBlendFactor: 0.875
+  taaBaseBlendFactor: -5.096939e+36
   physicalParameters:
-    m_Iso: 200
-    m_ShutterSpeed: 0.005
-    m_Aperture: 16
-    m_FocusDistance: 10
-    m_BladeCount: 5
-    m_Curvature: {x: 2, y: 11}
-    m_BarrelClipping: 0.25
-    m_Anamorphism: 0
+    m_Iso: 577
+    m_ShutterSpeed: -5.0679555e+36
+    m_Aperture: 8.09e-43
+    m_FocusDistance: 0
+    m_BladeCount: 0
+    m_Curvature: {x: 0, y: 0}
+    m_BarrelClipping: -5.0678947e+36
+    m_Anamorphism: 8.09e-43
   flipYMode: 0
-  xrRendering: 1
+  xrRendering: 0
   fullscreenPassthrough: 0
   allowDynamicResolution: 0
   customRenderingSettings: 0
   invertFaceCulling: 0
   probeLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  hasPersistentHistory: 0
-  allowDeepLearningSuperSampling: 1
-  deepLearningSuperSamplingUseCustomQualitySettings: 0
-  deepLearningSuperSamplingQuality: 0
-  deepLearningSuperSamplingUseCustomAttributes: 0
-  deepLearningSuperSamplingUseOptimalSettings: 1
-  deepLearningSuperSamplingSharpening: 0
+    m_Bits: 0
+  hasPersistentHistory: 48
+  allowDeepLearningSuperSampling: 172
+  deepLearningSuperSamplingUseCustomQualitySettings: 117
+  deepLearningSuperSamplingQuality: 577
+  deepLearningSuperSamplingUseCustomAttributes: 144
+  deepLearningSuperSamplingUseOptimalSettings: 3
+  deepLearningSuperSamplingSharpening: 8.09e-43
   exposureTarget: {fileID: 0}
   materialMipBias: 0
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 72198260625768269
-      data2: 13763000477350330392
-    lodBias: 1
+      data1: 2482431590784
+      data2: 2482431681520
+    lodBias: 0
     lodBiasMode: 0
-    lodBiasQualityLevel: 0
-    maximumLODLevel: 0
+    lodBiasQualityLevel: -59398080
+    maximumLODLevel: 577
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
     sssQualityMode: 0
     sssQualityLevel: 0
-    sssCustomSampleBudget: 20
-    msaaMode: 1
-    materialQuality: 0
+    sssCustomSampleBudget: 0
+    msaaMode: 0
+    materialQuality: 577
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
-  m_Version: 8
+  m_Version: 0
   m_ObsoleteRenderingPath: 0
   m_ObsoleteFrameSettings:
-    overrides: 0
-    enableShadow: 0
-    enableContactShadows: 0
+    overrides: -59414992
+    enableShadow: 65
+    enableContactShadows: 2
     enableShadowMask: 0
     enableSSR: 0
-    enableSSAO: 0
-    enableSubsurfaceScattering: 0
-    enableTransmission: 0
-    enableAtmosphericScattering: 0
+    enableSSAO: 10
+    enableSubsurfaceScattering: 52
+    enableTransmission: 49
+    enableAtmosphericScattering: 192
     enableVolumetrics: 0
     enableReprojectionForVolumetrics: 0
     enableLightLayers: 0
-    enableExposureControl: 1
+    enableExposureControl: 0
     diffuseGlobalDimmer: 0
     specularGlobalDimmer: 0
-    shaderLitMode: 0
-    enableDepthPrepassWithDeferredRendering: 0
-    enableTransparentPrepass: 0
+    shaderLitMode: 1877556416
+    enableDepthPrepassWithDeferredRendering: 62
+    enableTransparentPrepass: 2
     enableMotionVectors: 0
     enableObjectMotionVectors: 0
     enableDecals: 0
@@ -14564,22 +14564,22 @@ MonoBehaviour:
     enableOpaqueObjects: 0
     enableTransparentObjects: 0
     enableRealtimePlanarReflection: 0
-    enableMSAA: 0
-    enableAsyncCompute: 0
-    runLightListAsync: 0
-    runSSRAsync: 0
-    runSSAOAsync: 0
-    runContactShadowsAsync: 0
+    enableMSAA: 192
+    enableAsyncCompute: 172
+    runLightListAsync: 117
+    runSSRAsync: 252
+    runSSAOAsync: 65
+    runContactShadowsAsync: 2
     runVolumeVoxelizationAsync: 0
     lightLoopSettings:
-      overrides: 0
-      enableDeferredTileAndCluster: 0
+      overrides: 12
+      enableDeferredTileAndCluster: 97
       enableComputeLightEvaluation: 0
-      enableComputeLightVariants: 0
+      enableComputeLightVariants: 112
       enableComputeMaterialVariants: 0
-      enableFptlForForwardOpaque: 0
+      enableFptlForForwardOpaque: 112
       enableBigTilePrepass: 0
-      isFptlEnabled: 0
+      isFptlEnabled: 101
 --- !u!1 &758991043
 GameObject:
   m_ObjectHideFlags: 0
@@ -20080,14 +20080,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1027448694}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 317.7, y: 104.5, z: 547.4}
+  m_LocalRotation: {x: 0.6124983, y: 0.29922968, z: -0.35333475, w: 0.6406731}
+  m_LocalPosition: {x: 439, y: 19.86, z: 342.93}
   m_LocalScale: {x: 1.746, y: 3.705571, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 85.056, y: -34.985, z: -89.999}
 --- !u!199 &1027448696
 ParticleSystemRenderer:
   serializedVersion: 6
