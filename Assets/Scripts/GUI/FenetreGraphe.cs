@@ -92,11 +92,22 @@ public class FenetreGraphe : MonoBehaviour
 		_tooltipGameObject = _graphContainer.Find("tooltip").gameObject;
 		_gameObjectList = new List<GameObject>();
 
+
+		/* idee : recuper nbloup, nblapin, ... depuis la classe agent
+		 * et faire List<int> valueList = new List<int>() { nbloup, nblapin, ... };
+		 * ou
+		 * faire 3 graphe (un pred, un proi et un autotrophe) avec bouton changement graphe par types
+		 * 
+		 * ou alors faire 1 graphe avec 3 val : prédateur, proies et autotrophes
+		 * */
+
+
+
 		//valeur a afficher le graphe (penser a prendre compteur agent)
 		List<int> valueList = new List<int>() { 4, 7, 9, 8, 11, 2, 4, 8, 1, 4, 9, 12, 1, 2, 6 };
 		IGraphVisual lineGraphVisual = new LineGraphVisual(_graphContainer, _dotSprite, Color.green, new Color(1, 1, 1, .5f));
 		IGraphVisual barGraphVisual = new BarChartVisual(_graphContainer, Color.green, .8f);
-		ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Jour " + (_i + 1), (float _f) => Mathf.RoundToInt(_f) + ""); // utile pour placer nb agent en y et en x le temps
+		ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Prédateur " + (_i + 1), (float _f) => Mathf.RoundToInt(_f) + ""); // utile pour placer nb agent en y et en x le temps
 
 
 		/// <summary>
