@@ -66,6 +66,10 @@ public class Agent : MonoBehaviour {
        /* foreach(string prey in preys)
             Debug.Log(prey);*/
 
+
+        Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["MaxEnergyNeeds"])*0.70).ToString();// juste pour tester
+        Attributes["MaxSpeed"] = (Convert.ToDouble(Attributes["MaxSpeed"])*0.1).ToString();; // a changer dans la bdd, les animaux sont des fusées
+
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
         Attributes["Ad"] = (0.1).ToString(); // a changer dans la bdd
     }
@@ -274,6 +278,8 @@ public class Agent : MonoBehaviour {
 
         float dist = Vector3.Distance(transform.position, AgentCible.transform.position);
 
+
+
         if (dist <= 2.0f)
         {
             AgentMesh.isStopped = true;
@@ -297,7 +303,7 @@ public class Agent : MonoBehaviour {
             AgentMesh.isStopped = false;
         }
 
-        if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0)
+        if ((Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0) || (Convert.ToDouble(Attributes["EnergyNeeds"])<=0.0))
         {
             AgentMesh.isStopped = false;
             AgentCible = null;
@@ -305,6 +311,19 @@ public class Agent : MonoBehaviour {
             {
                 Attributes["IsHungry"]="false";
             }           
+        }
+        else
+        {
+            // ajouter une condition pour les agents ayant le trait : chasse en meute
+            for (int i = 0 ; i < AnimauxEnVisuel.Count ; i++)
+            {
+                Agent animalTemp2 = AnimauxEnVisuel[i].GetComponent<Agent>();
+                if (( Attributes["SpeciesName"] == animalTemp2.Attributes["SpeciesName"] ) && ( animalTemp2.AgentCible == null ))
+                {
+                    animalTemp2.AgentCible = AgentCible;
+                }
+                    
+            }
         }
 
     }
@@ -466,8 +485,9 @@ public class Agent : MonoBehaviour {
         foreach (GameObject indexAnimal in listeAnimaux)
         {
             if (Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
-                if (Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range)// si l'animal est dans la portée de vue
-                    if (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2)// si l'animal est dans l'angle de vue
+                if ((((Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range) //si l'animal est dans la portée de vue
+                && (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2))) //  et si l'animal est dans l'angle de vue
+                || ((Vector3.Distance(transform.position, indexAnimal.transform.position)<10.0f))) // ou si l'animal est très proche
                     {
                         listeAnimauxEnVisuel.Add(indexAnimal);
                     }

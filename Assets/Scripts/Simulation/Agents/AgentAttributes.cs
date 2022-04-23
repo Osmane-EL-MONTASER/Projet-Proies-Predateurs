@@ -27,7 +27,7 @@ public static class AgentAttributes {
         _attributes.Add("IsThirsty", "false");
         _attributes.Add("EnergyNeeds", "0");
         _attributes.Add("MaxEnergyNeeds", "0");
-        _attributes.Add("IsHungry", "true");
+        _attributes.Add("IsHungry", "false");
         _attributes.Add("X", "0");
         _attributes.Add("Y", "0");
         _attributes.Add("Z", "0");
