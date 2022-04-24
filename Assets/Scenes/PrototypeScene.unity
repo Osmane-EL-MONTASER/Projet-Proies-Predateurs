@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1058.0015, g: 694.06036, b: 600.1716, a: 1}
+  m_IndirectSpecularColor: {r: 1019.27246, g: 741.2988, b: 756.08984, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29814,10 +29814,10 @@ GameObject:
   - component: {fileID: 1182249055}
   m_Layer: 0
   m_Name: water_lake
-  m_TagString: Untagged
+  m_TagString: pointEau
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1182249055
 MeshCollider:
@@ -47337,7 +47337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &2139479591
 TerrainCollider:
   m_ObjectHideFlags: 0

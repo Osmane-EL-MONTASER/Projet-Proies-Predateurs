@@ -67,7 +67,7 @@ public class Agent : MonoBehaviour {
             Debug.Log(prey);*/
 
 
-        Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["MaxEnergyNeeds"])*0.70).ToString();// juste pour tester
+        Attributes["WaterNeeds"] = (Convert.ToDouble(Attributes["MaxWaterNeeds"])*0.70).ToString();// juste pour tester
         Attributes["MaxSpeed"] = (Convert.ToDouble(Attributes["MaxSpeed"])*0.1).ToString();; // a changer dans la bdd, les animaux sont des fusées
 
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
@@ -202,9 +202,13 @@ public class Agent : MonoBehaviour {
     protected void effectuerComportement() {
        /* if (_enFuite)
             Fuite();
-        else if (bool.Parse(Attributes["IsThirsty"]))
+        else*/ if (bool.Parse(Attributes["IsThirsty"]))
+        {
             Boire();
-        else*/ if (AgentCible != null)
+            //Debug.Log("oui");
+        }
+            
+        else if (AgentCible != null)
             chasser();  
         else if (bool.Parse(Attributes["IsHungry"]))
             chercherAManger();
@@ -375,86 +379,54 @@ public class Agent : MonoBehaviour {
     }
 
 
-
-
-
-
-    /// <summary>
-    /// Manger : L'agent mange la proie passée en paramètre; influe sur la digestion et les besoin énergétiques.
-    ///
-    /// Fait par Greg Demirdjian le 13/03/2022.
-    /// </summary> 
-    IEnumerator Manger(Agent proie) {
-        AgentMesh.isStopped = true;//l'agent s'arrête pour manger.
-        /*Animation.SetBool("Walk", false);
-        Animation.SetBool("Run", false);
-        Animation.SetBool("Eat", true);*/
-
-        // si les besoins de l'agent sont inférieurs aux apports de la carcasse.
-        if (Convert.ToDouble(Attributes["EnergyNeeds"]) - Convert.ToDouble(proie.Attributes["CarcassEnergyContribution"]) < 0) {
-            Attributes["EnergyNeeds"] = "0"; // l'agent récupère les apports jusqu'à ne plus avoir de besoins.
-            proie.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(proie.Attributes["CarcassEnergyContribution"]) - Convert.ToDouble(Attributes["EnergyNeeds"])).ToString();
-        }
-        // la carcasse est trop faible en apports pour rassasier complètement l'agent.
-        else {
-            Attributes["EnergyNeeds"] = (Convert.ToDouble(Attributes["EnergyNeeds"]) - Convert.ToDouble(proie.Attributes["CarcassEnergyContribution"])).ToString(); // l'agent finit la carcasse.
-            proie.Attributes["CarcassEnergyContribution"] = "0";
-        }
-
-        if (Convert.ToDouble(Attributes["EnergyNeeds"])  / Convert.ToDouble(Attributes["MaxEnergyNeeds"])  < 0.20) // si l'agent a suffisemment mangé.
-            Attributes["IsHungry"] = "false"; // il n'a plus faim.
-
-        Attributes["RemainingDigestionTime"] = (Convert.ToDouble(Attributes["DigestionTime"])).ToString();
-
-        yield return new WaitForSeconds((float)Convert.ToDouble(Attributes["PreyConsumptionTime"]));//le prédateur consomme sa proie pendant un certain temps.
-
-
-        //Animation.SetBool("Eat", false);
-        //Animation.SetBool("Walk", true);
-
-        // modifier BesoinEnergie en conséquence
-
-        AgentMesh.isStopped = false;// le prédateur n'est plus à l'arrêt.
-
-    }
-
     /// <summary>
     /// Boire : l'agent cherche à boire. à écrire 
     /// Inspirée de la fonction Boire du projet de l'an dernier et modifiée.
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    IEnumerator Boire() {
-        GameObject eauP = null; //Variable permettant de représenter le point d'eau le plus proche.
-        System.Double distance; //variable permettant de stocker la distance entre l'agent et un point d'eau.
-        System.Double distanceMin = System.Double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
-        GameObject[] eaux = GameObject.FindGameObjectsWithTag("pointEau"); // On stocke tous les points d'eau du terrain dans un tableau.
+    void Boire() {
 
+        
+
+        GameObject eauP = null; //Variable permettant de représenter le point d'eau le plus proche.
+        double distance; //variable permettant de stocker la distance entre l'agent et un point d'eau.
+        double distanceMin = System.Double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
+        GameObject[] eaux = GameObject.FindGameObjectsWithTag("pointEau"); // On stocke tous les points d'eau du terrain dans un tableau.
         //On recherche le point d'eau le plus proche.
-        for (int i = 0; i < eaux.Length; i++) {
+        for (int i = 0 ; i < eaux.Length; i++) {
             distance = Vector3.Distance(AgentMesh.transform.position, eaux[i].transform.position);
-            if (distance < distanceMin) {
+            if (distance < distanceMin) 
+            {
                 eauP = eaux[i];
                 distanceMin = distance;
             }
+             
         }
 
-        AgentMesh.SetDestination(eauP.transform.position); //L'agent se déplace vers le point d'eau le plus proche.
+        if (eauP == null)
+            AgentMesh.SetDestination(walker());
+        
 
+        RaycastHit hit;
+
+        Vector3 direc = eauP.transform.position - transform.position;
+        direc.x = - direc.x;
+        direc.z = - direc.z;
+
+        if (Physics.Raycast(new Vector3(eauP.transform.position.x, eauP.transform.position.y +1.0f, eauP.transform.position.z), direc, out hit, Mathf.Infinity)) 
+        {
+            AgentMesh.SetDestination(hit.point);
+        }
+Debug.Log((Vector3.Distance(hit.point, transform.position)));
         //Si l'agent est assez proche du point d'eau...
-        if (eauP != null && Vector3.Distance(AgentMesh.transform.position, eauP.transform.position) < 1f) {
+        if ((eauP != null) && (Vector3.Distance(hit.point, transform.position) < 10.0f))
+        { 
             AgentMesh.isStopped = true; //Il s'arrête
-            //Animation.SetBool("Walk", false);
-            //Animation.SetBool("Eat", true);
-            
-            yield return new WaitForSeconds((float)Convert.ToDouble(Attributes["WaterNeeds"])/10f); //Il boit pendant un certain temps.
 
             Attributes["WaterNeeds"] = "0";
 
             Attributes["IsThirsty"] = "false";
-
-            //Animation.SetBool("Eat", false);
-            //Animation.SetBool("Walk", true);
 
             AgentMesh.isStopped = false;
         }
