@@ -93,13 +93,7 @@ public class FenetreGraphe : MonoBehaviour
 		_gameObjectList = new List<GameObject>();
 
 
-		/* idee : recuper nbloup, nblapin, ... depuis la classe agent
-		 * et faire List<int> valueList = new List<int>() { nbloup, nblapin, ... };
-		 * ou
-		 * faire 3 graphe (un pred, un proi et un autotrophe) avec bouton changement graphe par types
-		 * 
-		 * ou alors faire 1 graphe avec 3 val : prédateur, proies et autotrophes
-		 * */
+		
 
 
 
