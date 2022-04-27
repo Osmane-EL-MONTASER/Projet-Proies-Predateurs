@@ -1,4 +1,4 @@
-/* Commente pour eviter erreur 
+
 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,4 +16,4 @@ public class QuitterSimulation : MonoBehaviour
 		Debug.Log("Fin de la simulation");
 	}
 }
-*/
+
