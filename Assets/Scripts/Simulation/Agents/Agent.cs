@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using System.IO;
 
 
 /// <summary>
@@ -37,6 +38,8 @@ public class Agent : MonoBehaviour {
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
     protected TreeEditor.ActionTreeNode<AgentAction> _currentAction;
+
+    protected static bool _isBDDReset = false;
     
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
@@ -54,6 +57,11 @@ public class Agent : MonoBehaviour {
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
 
+        if(!_isBDDReset) {
+            File.Delete("tempDB.db");
+            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
+            _isBDDReset = true;
+        }
         
         //POUR UTILISER LA BDD
         DBHelper db = new("Data Source=tempDB.db;Version=3");
