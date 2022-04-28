@@ -102,12 +102,12 @@ public class ChoosePreyAgentAction : AgentAction {
         else
         {
             // ajouter une condition pour les agents ayant le trait : chasse en meute
-            for (int i = 0 ; i < AnimauxEnVisuel.Count ; i++)
+            for (int i = 0 ; i < _agent.AnimauxEnVisuel.Count ; i++)
             {
-                Agent animalTemp2 = AnimauxEnVisuel[i].GetComponent<Agent>();
+                Agent animalTemp2 = _agent.AnimauxEnVisuel[i].GetComponent<Agent>();
                 if (( _agent.Attributes["SpeciesName"] == animalTemp2.Attributes["SpeciesName"] ) && ( animalTemp2.AgentCible == null ))
                 {
-                    animalTemp2.AgentCible = AgentCible;
+                    animalTemp2.AgentCible = _agent.AgentCible;
                 }
                     
             }

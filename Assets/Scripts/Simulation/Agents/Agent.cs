@@ -360,17 +360,6 @@ Debug.Log((Vector3.Distance(hit.point, transform.position)));
         }
     }
 
-    Vector3 walker() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
-        randomDirection += transform.position;
-        Vector3 finalPosition = Vector3.zero;
-
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1));
-            finalPosition = hit.position;
-
-        return finalPosition;   
-    }
-
     public Vector3 walker() {
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 50;
         randomDirection += transform.position;
