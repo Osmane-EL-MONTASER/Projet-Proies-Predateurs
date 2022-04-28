@@ -89,7 +89,7 @@ public class ChoosePreyAgentAction : AgentAction {
             _agent.AgentMesh.isStopped = false;
         }
 
-        if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0)
+        if ((Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0) || (Convert.ToDouble(_agent.Attributes["EnergyNeeds"])<=0.0))
         {
             _agent.AgentMesh.isStopped = false;
             _agent.AnimauxEnVisuel.Remove(_agent.AgentCible);
@@ -98,6 +98,19 @@ public class ChoosePreyAgentAction : AgentAction {
             {
                 _agent.Attributes["IsHungry"]="false";
             }           
+        }
+        else
+        {
+            // ajouter une condition pour les agents ayant le trait : chasse en meute
+            for (int i = 0 ; i < AnimauxEnVisuel.Count ; i++)
+            {
+                Agent animalTemp2 = AnimauxEnVisuel[i].GetComponent<Agent>();
+                if (( _agent.Attributes["SpeciesName"] == animalTemp2.Attributes["SpeciesName"] ) && ( animalTemp2.AgentCible == null ))
+                {
+                    animalTemp2.AgentCible = AgentCible;
+                }
+                    
+            }
         }
 
     }
