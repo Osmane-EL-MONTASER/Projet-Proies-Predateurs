@@ -315,8 +315,6 @@ public class Agent : MonoBehaviour {
     /// </summary> 
     void Boire() {
 
-        
-
         GameObject eauP = null; //Variable permettant de représenter le point d'eau le plus proche.
         double distance; //variable permettant de stocker la distance entre l'agent et un point d'eau.
         double distanceMin = System.Double.PositiveInfinity; ; //variable permettant de stocker la plus petite distance entre l'agent et le point d'eau le plus proche.
@@ -335,21 +333,26 @@ public class Agent : MonoBehaviour {
         if (eauP == null)
             AgentMesh.SetDestination(walker());
         
-
-        RaycastHit hit;
-
-        Vector3 direc = eauP.transform.position - transform.position;
-        direc.x = - direc.x;
-        direc.z = - direc.z;
-
-        if (Physics.Raycast(new Vector3(eauP.transform.position.x, eauP.transform.position.y +1.0f, eauP.transform.position.z), direc, out hit, Mathf.Infinity)) 
+        if (AgentMesh.destination == transform.position)
         {
-            AgentMesh.SetDestination(hit.point);
+            RaycastHit hit;
+
+            Vector3 direc = eauP.transform.position - transform.position;
+            direc.x = - direc.x;
+            direc.z = - direc.z;
+
+            if (Physics.Raycast(new Vector3(eauP.transform.position.x, eauP.transform.position.y +1.0f, eauP.transform.position.z), direc, out hit, Mathf.Infinity)) 
+            {
+                
+                NavMeshHit hitNM;
+                if (NavMesh.SamplePosition(hit.point, out hitNM, 100.0f, 1))          
+                    AgentMesh.SetDestination(hitNM.position);
+            }
         }
-Debug.Log((Vector3.Distance(hit.point, transform.position)));
-        //Si l'agent est assez proche du point d'eau...
-        if ((eauP != null) && (Vector3.Distance(hit.point, transform.position) < 10.0f))
-        { 
+        else if ((eauP != null) && (Vector3.Distance(AgentMesh.destination, transform.position)<=5.0f)) //Si l'agent est assez proche du point d'eau...
+
+        {                     
+
             AgentMesh.isStopped = true; //Il s'arrête
 
             Attributes["WaterNeeds"] = "0";
@@ -358,6 +361,7 @@ Debug.Log((Vector3.Distance(hit.point, transform.position)));
 
             AgentMesh.isStopped = false;
         }
+
     }
 
     public Vector3 walker() {

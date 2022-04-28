@@ -62,10 +62,15 @@ public class GestionAgents : MonoBehaviour
                     tempGo = Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity);
                 else if(idAgent == 13) {
                     System.Random rnd = new System.Random();
-                    float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
-                    Vector3 pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
+
+                    Vector3 pos;
                     UnityEngine.AI.NavMeshHit hit;
-                    UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 100.0f, 1);
+                    do
+                    {
+                        float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
+                        pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
+                    } while (!UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 10.0f, 1));
+
  
                     tempGo = Instantiate(Grass, hit.position , Quaternion.identity);
                 }
