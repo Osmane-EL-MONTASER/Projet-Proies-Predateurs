@@ -10,4 +10,5 @@ public static class ActionNames {
     public const string EAT_ACTION = "Eat Food";
     public const string CHOOSE_PREY_ACTION = "Choose Prey";
     public const string SLEEP_ACTION = "Sleep";
+    public const string BREED_ACTION = "Breed";
 }

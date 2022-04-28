@@ -31,6 +31,8 @@ public class FindFoodAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (0.0001 * 4)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
         chercherAManger();
 
         if(_agent.AgentCible != null) {
@@ -48,9 +50,9 @@ public class FindFoodAgentAction : AgentAction {
     /// </summary> 
     private void chercherAManger()
     {
-        if (_agent.AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
+        _agent.AnimauxEnVisuel.RemoveAll(n => n == null || n == null);
+        if(_agent.AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {
-            
             if((_agent.AgentMesh != null) && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
                 _agent.AgentMesh.SetDestination(_agent.walker());// il se déplace 
             if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
@@ -74,7 +76,7 @@ public class FindFoodAgentAction : AgentAction {
             }
             if (rangDistMin != -1 && _agent.AnimauxEnVisuel[rangDistMin].GetComponent<Agent>() != null) // si un des animaux vus est une proie potentielle
             {
-                _agent.AgentCible = _agent.AnimauxEnVisuel[rangDistMin].GetComponent<Agent>();
+                _agent.AgentCible = _agent.AnimauxEnVisuel[rangDistMin];
             }
             else
             {

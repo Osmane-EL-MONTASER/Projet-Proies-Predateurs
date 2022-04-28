@@ -156,6 +156,9 @@ public static class ActionTreeParser {
             case ActionNames.EAT_ACTION:
                 return new EatAgentAction(agent);
                 break;
+            case ActionNames.BREED_ACTION:
+                return new BreedAgentAction(agent);
+                break;
             default:
                 return new IdleAgentAction(agent);
         }

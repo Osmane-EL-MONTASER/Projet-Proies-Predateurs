@@ -31,14 +31,21 @@ public class IdleAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.0001).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
+        //Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"] + "\n Stamina = " + _agent.Attributes["Stamina"]);
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.00001).ToString();
+        /*if(_agent.Attributes["SpeciesName"].Equals("Grass"))
+            Debug.Log("Idling Grass... " + _agent.Attributes["EnergyNeeds"]);*/
+        if(_agent.Attributes["SpeciesName"].Equals("Grass") && Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) > 0)
+            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.0005).ToString();
+        else
+            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
 
-        if((_agent.AgentMesh != null) && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
+        if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
+        && (_agent.AgentMesh != null) 
+        && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
                 _agent.AgentMesh.SetDestination(_agent.walker());
         
-        if(!_agent.Animation.GetBool("IdleTrigger"))
+        if(!_agent.Attributes["SpeciesName"].Equals("Grass") && !_agent.Animation.GetBool("IdleTrigger"))
             _agent.affecterAnimations();
         //throw new NotImplementedException();
     }

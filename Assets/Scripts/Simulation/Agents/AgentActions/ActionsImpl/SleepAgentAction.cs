@@ -29,7 +29,9 @@ public class SleepAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
+        //Debug.Log("Sleeping ... Stamina = " + _agent.Attributes["Stamina"]);
         _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + 0.001).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
         
         if(!_agent.Animation.GetBool("DeadTrigger"))
             handleAnimation();

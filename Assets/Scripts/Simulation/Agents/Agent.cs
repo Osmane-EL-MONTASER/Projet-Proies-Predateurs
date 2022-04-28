@@ -19,7 +19,7 @@ public class Agent : MonoBehaviour {
     public Animator Animation;
     public Light Fov;
 
-    public Agent AgentCible;
+    public GameObject AgentCible;
     public List<GameObject> AnimauxEnVisuel;
     public List<string> Preys;
 
@@ -34,16 +34,16 @@ public class Agent : MonoBehaviour {
     /// L'arbre de décisions qui permet à l'agent de savoir quoi faire
     /// à chaque instant.
     /// </summary>
-    protected ActionTreeNode<AgentAction> _actionTree;
+    public ActionTreeNode<AgentAction> _actionTree;
 
     /// <summary>
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
     public ActionTreeNode<AgentAction> _currentAction;
 
-    private static bool _isBDDReset = false;
-
     private const string AGENT_RESOURCE_PATH = "./Assets/Resources/Agents/";
+
+    public DBHelper Db;
     
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
@@ -57,25 +57,18 @@ public class Agent : MonoBehaviour {
         Preys = new List<string>();
 
         Attributes = AgentAttributes.GetAttributesDict();
-        Attributes["Health"] = "100";
-        Attributes["Speed"] = AgentMesh.speed.ToString();
         Attributes["SpeciesName"] = gameObject.name;
+        Attributes["Health"] = "100";
+        if(!Attributes["SpeciesName"].Equals("Grass"))
+            Attributes["Speed"] = AgentMesh.speed.ToString();
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
-
-        //TODO: A ENLEVER ICI
-        //Supprimer la BDD si elle existe pour le débogage uniquement !!!!
-        if(!_isBDDReset) {
-            File.Delete("tempDB.db");
-            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-            _isBDDReset = true;
-        }
         
-        DBHelper db = new("Data Source=tempDB.db;Version=3");
-        Preys = db.SelectPreysOf(Attributes["SpeciesName"]);
+        Db = new("Data Source=tempDB.db;Version=3");
+        Preys = Db.SelectPreysOf(Attributes["SpeciesName"]);
 
         //Ajout des données dans l'agent.
-        Dictionary<string, double> data = db.SelectSpeciesData(Attributes["SpeciesName"]);
+        Dictionary<string, double> data = Db.SelectSpeciesData(Attributes["SpeciesName"]);
         foreach(KeyValuePair<string, double> entry in data)
             Attributes[entry.Key] = entry.Value.ToString();
         
@@ -86,10 +79,9 @@ public class Agent : MonoBehaviour {
         _actionTree = ActionTreeParser.ParseStringActionTree(strATN, this);
         _currentAction = _actionTree;
 
-        Debug.Log(ActionTreeParser.CondTextToBool(_currentAction.TransitionsCond[0], this));
-
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
-        Attributes["Ad"] = (0.1).ToString(); // a changer dans la bdd
+        Attributes["Ad"] = (1.0).ToString(); // a changer dans la bdd
+        Attributes["MaxEnergyNeeds"] = (1.0).ToString();
     }
 
     /// <summary>
@@ -120,7 +112,7 @@ public class Agent : MonoBehaviour {
             i++;
         }
 
-        if(_currentAction.Parent != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
+        if(_currentAction.Parent != null && _currentAction.ParentTransition != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
             _currentAction = _currentAction.Parent;
         
     } 
@@ -137,17 +129,16 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary>    
     void Update() {
-        changeAction();
-        _currentAction.Action.update();
-        
         System.Double newValue;
 
         // si l'agent est en vie, on peut lui appliquer des comportements.
         if(bool.Parse(Attributes["IsAlive"])) {
+            changeAction();
+            _currentAction.Action.update();
         
-        //affecterAnimations();
+            //affecterAnimations();
 
-        testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
+            testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
             // si l'agent est en digestion
             if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
@@ -163,17 +154,21 @@ public class Agent : MonoBehaviour {
                 newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
                 Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
             */
-    
-            AnimauxEnVisuel = animauxDansFov();
-            affecterComportement();
+
+            if(!Attributes["SpeciesName"].Equals("Grass")){
+                AnimauxEnVisuel = animauxDansFov();
+                affecterComportement();
+            }
+                
             //effectuerComportement();
         }    
         else {
-            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 0.5;
+            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 5;
             Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
-
-                if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) // si la carcasse est presque vide.
+                // si la carcasse est presque vide.
+                if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) {
                     Destroy(this.gameObject); // on détruit l'objet.
+                }
         }
 
         /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
@@ -183,6 +178,7 @@ public class Agent : MonoBehaviour {
         }*/
 
         //_currentAction.update();
+    
     }
 
 
@@ -264,8 +260,8 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
-    protected void testMort(){
-        if (Convert.ToDouble(Attributes["EnergyNeeds"]) >= Convert.ToDouble(Attributes["MaxEnergyNeeds"])) {
+    protected void testMort() {
+        if (Convert.ToDouble(Attributes["EnergyNeeds"]) >= Convert.ToDouble(Attributes["MaxEnergyNeeds"]) && !Attributes["SpeciesName"].Equals("Grass")) {
             Attributes["IsAlive"] = "false";
             Attributes["DeathCause"] = "Mort de faim.";
         }
@@ -285,8 +281,7 @@ public class Agent : MonoBehaviour {
             Attributes["DeathCause"] = "Mort de vieillesse.";
         }
 
-        if (bool.Parse(Attributes["IsAlive"])==false)
-        {
+        if (bool.Parse(Attributes["IsAlive"])==false) {
             AgentMesh.speed = 0.0f;
             AgentMesh.isStopped = true;
             Attributes["Speed"] = (0.0).ToString();
@@ -298,8 +293,9 @@ public class Agent : MonoBehaviour {
             
             Animation.SetTrigger("DeadTrigger");
 
+            //Mise à jour dans la BDD :
+            Db.SetDeathToAgent(Attributes["Id"], TemporaryDataSaving.CurrentTime, Attributes["DeathCause"]);
         }
-
     }
 
     /// <summary>
