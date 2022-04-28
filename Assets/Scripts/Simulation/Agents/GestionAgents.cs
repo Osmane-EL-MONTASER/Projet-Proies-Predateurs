@@ -63,10 +63,11 @@ public class GestionAgents : MonoBehaviour
                 else if(idAgent == 13) {
                     System.Random rnd = new System.Random();
                     float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
-                    tempGo = Instantiate(Grass, 
-                        new Vector3(randomX, 
-                        Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
-                        randomY), Quaternion.identity);
+                    Vector3 pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
+                    UnityEngine.AI.NavMeshHit hit;
+                    UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 100.0f, 1);
+ 
+                    tempGo = Instantiate(Grass, hit.position , Quaternion.identity);
                 }
                 //else if (idAgent==3)
                 //    tempGo = Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity); // le modèle de l'éléphant est dans la mauvaise direction

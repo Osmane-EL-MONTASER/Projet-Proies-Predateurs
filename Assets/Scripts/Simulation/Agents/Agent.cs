@@ -365,7 +365,7 @@ Debug.Log((Vector3.Distance(hit.point, transform.position)));
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1));
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1))
             finalPosition = hit.position;
 
         return finalPosition;   
