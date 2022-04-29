@@ -16,10 +16,6 @@ namespace TreeEditor {
         public T Action { get { return _action; } set { _action = value; } }
         public List<ActionTreeNode<T>> Children { get { return _children; } set { _children = value; } }
 
-        public ActionTreeNode<T> Parent;
-
-        public string ParentTransition;
-
         public List<string> TransitionsCond { get { return _transitionsCond; } set { _transitionsCond = value; } }
 
         /// <summary>
@@ -83,10 +79,8 @@ namespace TreeEditor {
         public void AddChild(ActionTreeNode<T> childAction) {
             if (_children.Contains(childAction))
                 throw new ArgumentException("Node already contained in ActionTreeNode!");
-            else {
-                childAction.Parent = this;
+            else
                 _children.Add(childAction);
-            }
         }
     }
 }

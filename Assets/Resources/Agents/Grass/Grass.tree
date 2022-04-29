@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><ActionTreeNodeOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Id>0</Id><Action>Idle</Action><Children><ActionTreeNodeOfString><Id>1</Id><Action>Breed</Action><Children /><TransitionsCond /></ActionTreeNodeOfString></Children><TransitionsCond><string>EnergyNeeds &lt;= 0.1
-&lt;-&gt;
-EnergyNeeds &gt;= 0.5</string></TransitionsCond></ActionTreeNodeOfString>

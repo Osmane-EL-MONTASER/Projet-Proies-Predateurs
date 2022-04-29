@@ -92,19 +92,6 @@ public class DBHelper {
         updateRecordCommand.ExecuteReader();
     }
 
-    public void SetDeathToAgent(string agentNum, float deathTime, string deathCause) {
-        IDbCommand updateRecordCommand = _dbConnection.CreateCommand();
-
-        updateRecordCommand.CommandText = "UPDATE AGENT SET agent_death_date = " 
-                                        + deathTime + " WHERE agent_num = '" + agentNum + "';";
-        updateRecordCommand.ExecuteReader();
-        updateRecordCommand.Dispose();
-        updateRecordCommand.CommandText = "UPDATE AGENT SET agent_death_cause = '" 
-                                        + deathCause + "' WHERE agent_num = '" + agentNum + "';";
-        updateRecordCommand.ExecuteReader();
-        updateRecordCommand.Dispose();
-    }
-
     /// <summary>
     /// Fonction qui permet d'insérer un nouveau genre dans
     /// la base de données. Utile lors de l'initialisation de
@@ -312,7 +299,7 @@ public class DBHelper {
         IDbCommand addAgentCommand = _dbConnection.CreateCommand();
 
         addAgentCommand.CommandText = "INSERT OR IGNORE INTO AGENT VALUES('" + agentId + "', '" 
-                                        + agentLabel + "', " + agentBirthDate + ", " + (agentDeathDate == -1.0f ? "NULL" : agentDeathDate) + ", NULL, (SELECT record_num FROM RECORD WHERE ROWID = " + recordNum + "), " + speciesNum + ", " + genderNum + ");";
+                                        + agentLabel + "', " + agentBirthDate + ", " + (agentDeathDate == -1.0f ? "NULL" : agentDeathDate) + ", (SELECT record_num FROM RECORD WHERE ROWID = " + recordNum + "), " + speciesNum + ", " + genderNum + ");";
         addAgentCommand.ExecuteReader();
     }
 
@@ -339,7 +326,7 @@ public class DBHelper {
         addAgentDataCommand.CommandText = "INSERT INTO AGENT_DATA VALUES(" 
                                         + dataTime + ", " + dataHydrationLevel + ", " + dataHungerLevel + ", '"
                                         + dataWorldNum + "', '" + dataAgentNum + "', " + (dataPackNum == -1 ? "NULL" : dataPackNum) + ");";
-
+                                        
         addAgentDataCommand.ExecuteReader();
     }
 

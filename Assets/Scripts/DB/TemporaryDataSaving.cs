@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-
 /// <summary>
 /// Classe qui permet de récupérer les données de
 /// chaque agent de la scène et de les enregistrer
@@ -38,7 +37,7 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// <summary>
     /// Le temps actuel au moment de la sauvegarde.
     /// </summary>
-    public static float CurrentTime;
+    private float _time;
 
     /// <summary>
     /// Le numéro d'enregistrement des mesures.
@@ -51,7 +50,6 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// </summary>
     private DBHelper _dbHelper;
 
-    private static bool _isBDDReset = false;
     /// <summary>
     /// Crée au moment de la création du GameObject de
     /// créer / reset la base de données temporaire.
@@ -60,14 +58,6 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// </summary>
     void Start() {
         string tempPath = "Data Source=tempDB.db;Version=3";
-<<<<<<< HEAD
-=======
-        if(!_isBDDReset) {
-            File.Delete("tempDB.db");
-            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-            _isBDDReset = true;
-        }
->>>>>>> ai-decision-tree
 
         _dbHelper = new DBHelper(tempPath);
         _recordNumber = _dbHelper.AddRecord(0.0f, 0.0f);
@@ -80,7 +70,7 @@ public class TemporaryDataSaving : MonoBehaviour {
             
             _dbHelper.AddAgent(agent.Attributes["Id"], name, .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(name), Convert.ToInt32(agent.Attributes["Gender"]));
         }
-        CurrentTime = .0f;
+        _time = .0f;
     }
 
     /// <summary>
@@ -92,9 +82,9 @@ public class TemporaryDataSaving : MonoBehaviour {
     /// </summary>
     void Update() {
         if(_saveFrequencyAccumulator >= SaveFrequency) {
-            saveAgentData(CurrentTime);
+            saveAgentData(_time);
             _saveFrequencyAccumulator = .0f;
-            CurrentTime += SaveFrequency;
+            _time += SaveFrequency;
         }
 
         _saveFrequencyAccumulator += Time.deltaTime;
@@ -114,12 +104,10 @@ public class TemporaryDataSaving : MonoBehaviour {
     private void saveAgentData(float time) {
         _dbHelper.UpdateRecord(_recordNumber, time);
         foreach (GameObject go in _agentList) {
-            if(go != null) {
-                Agent agent = go.GetComponent<Agent>();
+            Agent agent = go.GetComponent<Agent>();
             string name = agent.Attributes["SpeciesName"].Split('(')[0];
             
             _dbHelper.AddAgentData(time, Convert.ToDouble(agent.Attributes["WaterNeeds"]) / Convert.ToDouble(agent.Attributes["MaxWaterNeeds"]), Convert.ToDouble(agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(agent.Attributes["MaxEnergyNeeds"]), "test", agent.Attributes["Id"], -1);
-            }
         }
     }
 
