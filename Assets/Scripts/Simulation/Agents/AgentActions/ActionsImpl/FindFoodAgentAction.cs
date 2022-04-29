@@ -34,6 +34,7 @@ public class FindFoodAgentAction : AgentAction {
         _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (0.0001 * 4)).ToString();
         _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
         _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + 0.0008).ToString();
+
         chercherAManger();
 
         if(_agent.AgentCible != null) {

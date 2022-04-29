@@ -111,8 +111,8 @@ public class GestionAgents : MonoBehaviour
         //creerAgents(5,2);
         /*creerAgents(5,4);
         creerAgents(5,5);*/
-        creerAgents(10,6);
-        creerAgents(5,13);
+        creerAgents(4,6);
+        creerAgents(15,13);
         /*creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);

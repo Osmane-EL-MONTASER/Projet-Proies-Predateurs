@@ -34,7 +34,6 @@ public class DrinkAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Drinking... " + _agent.Attributes["WaterNeeds"]);
         drink();
         //throw new NotImplementedException();
     }
@@ -64,9 +63,9 @@ public class DrinkAgentAction : AgentAction {
 
         if (eauP == null)
             _agent.AgentMesh.SetDestination(_agent.walker());
-        
-        if (_agent.AgentMesh.destination == _agent.transform.position)
-        {
+
+        //f (_agent.AgentMesh.destination == _agent.transform.position)
+        //{
             RaycastHit hit;
 
             Vector3 direc = eauP.transform.position - _agent.transform.position;
@@ -75,13 +74,13 @@ public class DrinkAgentAction : AgentAction {
 
             if (Physics.Raycast(new Vector3(eauP.transform.position.x, eauP.transform.position.y +1.0f, eauP.transform.position.z), direc, out hit, Mathf.Infinity)) 
             {
-                
                 UnityEngine.AI.NavMeshHit hitNM;
-                if (UnityEngine.AI.NavMesh.SamplePosition(hit.point, out hitNM, 100.0f, 1))          
+                if (UnityEngine.AI.NavMesh.SamplePosition(hit.point, out hitNM, 100.0f, 1)) {      
                     _agent.AgentMesh.SetDestination(hitNM.position);
+                }
             }
-        }
-        else if ((eauP != null) && (Vector3.Distance(_agent.AgentMesh.destination, _agent.transform.position)<=5.0f)) {
+        //}
+        if ((eauP != null) && (Vector3.Distance(_agent.AgentMesh.destination, _agent.transform.position)<=5.0f)) {
             //Si l'agent est assez proche du point d'eau...
 
             _agent.AgentMesh.isStopped = true; //Il s'arrête
