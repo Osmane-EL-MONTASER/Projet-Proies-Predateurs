@@ -31,10 +31,7 @@ public class MenuTransition : MonoBehaviour {
     /// Type d'un nouvel agent.
     /// </summary>
      public string newAgentType;
-    void Start() {
 
-    }
-    
     /// <summary>
     /// Fonction qui cache et qui affiche un menu au clique.
     /// 
@@ -54,9 +51,10 @@ public class MenuTransition : MonoBehaviour {
         parent.SetActive(false);
         newScene.SetActive(true);
 
-        if(newScene.name.Contains(SceneNames.SIMULATION_SCENE))
+        if(newScene.name.Contains(SceneNames.SIMULATION_SCENE)) {
             toogleCamera(true);
-        else
+            GameObject.Find("GestionAgents").GetComponent<GestionAgents>().enabled = true;
+        } else
             toogleCamera(false);
 
         if(newScene.name == "Panel New Agent Panel Config"){
@@ -65,6 +63,7 @@ public class MenuTransition : MonoBehaviour {
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image").GetComponent<Image>().sprite = gameObject.GetComponent<Image>().sprite;
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image/Text").GetComponent<TextMeshProUGUI>().text = gameObject.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text;
         }
+
     }
 
     /// <summary>
@@ -89,6 +88,7 @@ public class MenuTransition : MonoBehaviour {
                 MeteoSimulationPanel.SetActive(true);
 
                 GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
+                GameObject.Find("Player").GetComponent<TemporaryDataSaving>().enabled = true;
             }
             
         }

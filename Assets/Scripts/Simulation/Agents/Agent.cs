@@ -82,7 +82,6 @@ public class Agent : MonoBehaviour {
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
         Attributes["Ad"] = (1.0).ToString(); // a changer dans la bdd
         Attributes["MaxEnergyNeeds"] = (1.0).ToString();
-        AgentMesh.SetDestination(transform.position);
     }
 
     /// <summary>

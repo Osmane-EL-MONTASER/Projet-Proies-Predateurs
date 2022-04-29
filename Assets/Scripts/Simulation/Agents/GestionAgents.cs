@@ -32,6 +32,7 @@ public class GestionAgents : MonoBehaviour
     public GameObject Lizard;
     public GameObject Racoon;
     public GameObject Tortoise;
+    public GameObject Grass;
 
     /// <summary>
     /// Constructeur du singleton GestionAgents.
@@ -50,7 +51,7 @@ public class GestionAgents : MonoBehaviour
     /// </summary> 
     public void creerAgents(int nombre, int idAgent)
     {
-        if ((idAgent <=12)&&(idAgent>0))
+        if ((idAgent <=13)&&(idAgent>0))
             for (int i = 0 ; i < nombre ; i++)
             {
                 GameObject tempGo = null;
@@ -59,6 +60,20 @@ public class GestionAgents : MonoBehaviour
                     tempGo = Instantiate(Wolf, new Vector3(435f, 1f, 330f), Quaternion.identity);
                 else if (idAgent==2)
                     tempGo = Instantiate(Iguana, new Vector3(445f, 1f, 310f), Quaternion.identity);
+                else if(idAgent == 13) {
+                    System.Random rnd = new System.Random();
+
+                    Vector3 pos;
+                    UnityEngine.AI.NavMeshHit hit;
+                    do
+                    {
+                        float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
+                        pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
+                    } while (!UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 10.0f, 1));
+
+ 
+                    tempGo = Instantiate(Grass, hit.position , Quaternion.identity);
+                }
                 //else if (idAgent==3)
                 //    tempGo = Instantiate(Elephant, new Vector3(445f, 1f, 310f), Quaternion.identity); // le modèle de l'éléphant est dans la mauvaise direction
                 else if (idAgent==4)
@@ -96,7 +111,8 @@ public class GestionAgents : MonoBehaviour
         //creerAgents(5,2);
         /*creerAgents(5,4);
         creerAgents(5,5);*/
-        creerAgents(7,6);
+        creerAgents(4,6);
+        creerAgents(15,13);
         /*creerAgents(5,7);
         creerAgents(5,8);
         creerAgents(5,9);

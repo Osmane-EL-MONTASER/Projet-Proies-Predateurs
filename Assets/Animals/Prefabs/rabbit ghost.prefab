@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: -7091176410942378111}
   m_Layer: 0
   m_Name: rabbit ghost
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
