@@ -32,14 +32,15 @@ public class IdleAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"] + "\n Stamina = " + _agent.Attributes["Stamina"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.00001).ToString();
         /*if(_agent.Attributes["SpeciesName"].Equals("Grass"))
             Debug.Log("Idling Grass... " + _agent.Attributes["EnergyNeeds"]);*/
         if(_agent.Attributes["SpeciesName"].Equals("Grass") && Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) > 0)
             _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.0005).ToString();
-        else
-            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
-
+        else {
+            _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ActionNames.STAMINA_FACTOR).ToString();
+            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
+            _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
+        }
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
         && (_agent.AgentMesh != null) 
         && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 

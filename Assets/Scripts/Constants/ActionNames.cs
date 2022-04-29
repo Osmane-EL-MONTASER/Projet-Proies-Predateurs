@@ -11,4 +11,9 @@ public static class ActionNames {
     public const string CHOOSE_PREY_ACTION = "Choose Prey";
     public const string SLEEP_ACTION = "Sleep";
     public const string BREED_ACTION = "Breed";
+    public const string DRINK_ACTION = "Drink Water";
+
+    public const double ENERGY_FACTOR = 0.00005;
+    public const double WATER_FACTOR = 0.00009;
+    public const double STAMINA_FACTOR = 0.00001;
 }

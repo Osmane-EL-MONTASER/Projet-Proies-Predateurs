@@ -155,7 +155,7 @@ public class Agent : MonoBehaviour {
                 Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
             */
 
-            if(!Attributes["SpeciesName"].Equals("Grass")){
+            if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
                 AnimauxEnVisuel = animauxDansFov();
                 affecterComportement();
             }
@@ -349,9 +349,8 @@ public class Agent : MonoBehaviour {
                     AgentMesh.SetDestination(hitNM.position);
             }
         }
-        else if ((eauP != null) && (Vector3.Distance(AgentMesh.destination, transform.position)<=5.0f)) //Si l'agent est assez proche du point d'eau...
-
-        {                     
+        else if ((eauP != null) && (Vector3.Distance(AgentMesh.destination, transform.position)<=5.0f)) {
+            //Si l'agent est assez proche du point d'eau...
 
             AgentMesh.isStopped = true; //Il s'arrête
 

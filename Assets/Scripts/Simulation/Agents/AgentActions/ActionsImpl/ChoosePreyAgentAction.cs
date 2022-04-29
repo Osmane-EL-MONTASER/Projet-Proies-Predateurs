@@ -32,8 +32,9 @@ public class ChoosePreyAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Chasing prey...  EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - 0.0001).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ActionNames.STAMINA_FACTOR).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
         
         if(Convert.ToDouble(_agent.Attributes["Stamina"]) < 0.25) {
             _agent.ForceChangeAction(_agent._actionTree, "<->\nStamina >= 1");
@@ -42,7 +43,6 @@ public class ChoosePreyAgentAction : AgentAction {
 
         if(_agent.AgentCible == null 
             || _agent.AgentCible.GetComponent<Agent>() == null) {
-            Debug.Log("FORCED");
             _agent.ForceChangeAction(_agent._actionTree, _agent._actionTree.ParentTransition);
             return;
         }
@@ -58,10 +58,6 @@ public class ChoosePreyAgentAction : AgentAction {
     /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
     private void chasser() {
-        if(_agent.AgentCible == null || _agent.AgentCible.GetComponent<Agent>() == null) {
-            _agent.ForceChangeAction(_agent._currentAction.Parent.Parent, _agent._currentAction.Parent.ParentTransition);
-            Debug.Log("NULL");
-        }   
         Agent animalTemp = _agent.AgentCible.GetComponent<Agent>();
 
         float dist = Vector3.Distance(_agent.transform.position, _agent.AgentCible.transform.position);
@@ -104,12 +100,11 @@ public class ChoosePreyAgentAction : AgentAction {
             // ajouter une condition pour les agents ayant le trait : chasse en meute
             for (int i = 0 ; i < _agent.AnimauxEnVisuel.Count ; i++)
             {
-                Agent animalTemp2 = _agent.AnimauxEnVisuel[i].GetComponent<Agent>();
-                if (( _agent.Attributes["SpeciesName"] == animalTemp2.Attributes["SpeciesName"] ) && ( animalTemp2.AgentCible == null ))
-                {
-                    animalTemp2.AgentCible = _agent.AgentCible;
+                if(_agent.AnimauxEnVisuel[i] != null) {
+                    Agent animalTemp2 = _agent.AnimauxEnVisuel[i].GetComponent<Agent>();
+                    if (( _agent.Attributes["SpeciesName"] == animalTemp2.Attributes["SpeciesName"] ) && ( animalTemp2.AgentCible == null ))
+                        animalTemp2.AgentCible = _agent.AgentCible;
                 }
-                    
             }
         }
 

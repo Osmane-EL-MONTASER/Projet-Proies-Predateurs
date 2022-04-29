@@ -34,7 +34,8 @@ public class BreedAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        Debug.Log("Breeding... " + _agent.Attributes["EnergyNeeds"]);
+        if(!_agent.Attributes["SpeciesName"].Equals("Grass"))
+            Debug.Log("Breeding Wolf or Rabbit");
         breed();
         //throw new NotImplementedException();
     }
@@ -57,6 +58,16 @@ public class BreedAgentAction : AgentAction {
                 randomY), Quaternion.identity);
             go.name = "Grass";
             _child = go;
+        }else if(!_agent.Attributes["SpeciesName"].Equals("Grass") && _child == null) {
+            System.Random rnd = new System.Random();
+            float randomX = rnd.Next((int)_agent.transform.position.x - 1, (int)_agent.transform.position.x + 1);
+            float randomY = rnd.Next((int)_agent.transform.position.z - 1, (int)_agent.transform.position.z + 1);
+            GameObject go = GameObject.Instantiate(_agent.gameObject, 
+                new Vector3(randomX, 
+                Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
+                randomY), Quaternion.identity);
+            go.name = go.name.Split("(")[0];
+            _child = go;
         } else if(_child != null) {
             Agent child = _child.GetComponent<Agent>();
             string name = child.Attributes["SpeciesName"].Split('(')[0];
@@ -65,8 +76,9 @@ public class BreedAgentAction : AgentAction {
                 child.Db.AddAgent(child.Attributes["Id"], name, .0f, -1.0f, 0, child.Db.SelectSpeciesId(name), Convert.ToInt32(child.Attributes["Gender"]));
             }).Start();
             
-            child.Attributes["EnergyNeeds"] = "1.0";
-            _agent.Attributes["EnergyNeeds"] = "1.0";
+            child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
+            _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
+            _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
             _child = null;
         }
     }
