@@ -44,6 +44,7 @@ public class AgentManager : MonoBehaviour {
     public  GameObject Lizard;
     public  GameObject Racoon;
     public  GameObject Tortoise;
+    public  GameObject Grass;
 
     /// <summary>
     /// Les différents préfabs des agents fantôme contenue dans le singleton.
@@ -99,6 +100,7 @@ public class AgentManager : MonoBehaviour {
        AgentList.Add(Lizard);
        AgentList.Add(Racoon);
        AgentList.Add(Tortoise);
+       AgentList.Add(Grass);
     }
 
     /// <summary>
@@ -145,14 +147,14 @@ public class AgentManager : MonoBehaviour {
     /// 
     /// Fait par AVERTY Pierre le 03/04/2022.
     /// </summary>
-        public static AgentManager Instance {
-            get {
-                if (instance==null) {
-                    instance = new AgentManager();
-                }
-                return instance;
+    public static AgentManager Instance {
+        get {
+            if (instance==null) {
+                instance = new AgentManager();
             }
+            return instance;
         }
+    }
 
     /// <summary>
     /// Méthode qui s'assure que le singleton n'est pas supprimé.

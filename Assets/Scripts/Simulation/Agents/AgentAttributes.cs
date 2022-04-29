@@ -46,7 +46,7 @@ public static class AgentAttributes {
         _attributes.Add("Health", "0");
         _attributes.Add("MaxHealth", "0");
         _attributes.Add("IsAlive", "true");
-        _attributes.Add("Stamina", "0");
+        _attributes.Add("Stamina", "1");
         _attributes.Add("MaxStamina", "0");
         _attributes.Add("DeathCause", "");
         _attributes.Add("SpeciesName", "");

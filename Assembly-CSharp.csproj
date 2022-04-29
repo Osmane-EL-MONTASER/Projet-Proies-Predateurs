@@ -85,7 +85,11 @@
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherTransitions\CloudyToSunnyTransition.cs" />
     <Compile Include="Assets\Scripts\GUI\WeatherEvents.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\CodeMonkey\Utils\UI_TextComplex.cs" />
+=======
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\SleepAgentAction.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\Scripts\Simulation\Worlds\World.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\Button_Sprite.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -106,18 +110,27 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_BarMultiple.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\Scripts\GUI\SceneLoader.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\Scripts\Camera\PlayerMovements.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\CodeMonkey\Utils\World_Mesh.cs" />
+=======
+    <Compile Include="Assets\Scripts\Constants\ActionNames.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\Scripts\GUI\AgentEvents.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Bar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraUtils\SmoothCameraRotation.cs" />
     <Compile Include="Assets\Scripts\Constants\UINames.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\CodeMonkey\Utils\FunctionUpdater.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\FunctionTimer.cs" />
+=======
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\ChoosePreyAgentAction.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\WindGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Simulation\DayNightCycle\LightningManager.cs" />
@@ -125,16 +138,24 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\GUI\MenuTransition.cs" />
     <Compile Include="Assets\Scripts\Simulation\DayNightCycle\LightningPresets.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\IdleAgentAction.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_Sprite.cs" />
     <Compile Include="Assets\Scripts\GUI\AfficherMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\GUI\QuitterSimulation.cs" />
+=======
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\IdleAgentAction.cs" />
+    <Compile Include="Assets\Scripts\GUI\AfficherMenu.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionTreeStructure\ActionTreeParser.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\Scripts\Simulation\Weather\Weather.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\DB\DBInit.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\GUI\QuitterSimulation.cs" />
     <Compile Include="Assets\Scripts\Camera\BasicCamera.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\FogGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -144,16 +165,25 @@
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\PositionRendererSorter.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\ProceduralWeatherGeneration\Precipitation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\EatAgentAction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherUpdate\WeatherUpdateProperty.cs" />
     <Compile Include="Assets\Scripts\GUI\FenetreGraphe.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\GUI\SceneLoader.cs" />
+=======
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\FindFoodAgentAction.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\Scripts\DB\DBHelper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Simulation\Weather\WeatherUpdate\WeatherObjectUpdater.cs" />
     <Compile Include="Assets\Scripts\Camera\AgentCamera.cs" />
     <Compile Include="Assets\Scripts\Simulation\Agents\AddSimulationAgent.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
+=======
+    <Compile Include="Assets\Scripts\Simulation\Agents\AgentActions\ActionsImpl\BreedAgentAction.cs" />
+>>>>>>> ai-decision-tree
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\GUI\SetBiome.cs" />
     <Compile Include="Assets\CodeMonkey\CMDebug.cs" />
@@ -952,6 +982,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{AAA384B8-B155-CE65-9B0E-8AADCC9B3369}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{5FB1F4C5-A5C7-A6EA-DC08-1729396F4DDA}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
