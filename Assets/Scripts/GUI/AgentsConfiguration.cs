@@ -40,30 +40,77 @@ public class AgentsConfiguration : MonoBehaviour
     /// Type d'agent séléctionné.
     /// </summary>
     private string _selectedAgentType;
+
+    /// <summary>
+    /// Santé des agents.
+    /// </summary>
     private double _health;
+    
+    /// <summary>
+    /// Stamina des agents.
+    /// </summary>
     private double _staminaMax;
+
+    
+    /// <summary>
+    /// Durée de vie max des agents.
+    /// </summary>
     private double _timeToLive;
+
+    
+    /// <summary>
+    /// Vitesse max des agents.
+    /// </summary>
     private double _maxSpeed;
+
+    /// <summary>
+    /// Nombre d'agents.
+    /// </summary>
     private int _numAgents;
-    private bool _isFocused;
+
+    /// <summary>
+    /// Panneau de configuration des agents.
+    /// </summary>
+    public GameObject settings;
+
+    /// <summary>
+    /// Bouton de validation.
+    /// </summary>
+    public Button button;
 
 
     void Start(){
-        _isFocused = false;
-
         _health = 0.0;
         _maxSpeed = 0.0;
         _maxSpeed = 0.0;
         _numAgents = 0;
         _timeToLive = 0.0;
+
+        button.onClick.AddListener((arg) => AgentManager.Instance.initializationAgents(_health, _maxSpeed, _staminaMax, _timeToLive, _numAgents));
     }
+
+    /// <summary>
+    /// Fonction qui permet l'affichage des paramètres que l'on va modifié 
+    /// et qui leur ajoute un listener pour pouvoir les modifier. 
+    ///
+    /// Fait par Pierre AVERTY le 17/04/2022 et modifiée le 29/04/2022.
+    /// </summary>
     public void onClick(){
+        settings.SetActive(true);
+        TMP_Text title = settings.transform.Find("Texte \"Paramètres\"").gameObject.GetComponent<TMP_Text>();
+
+        inputHealth.onEndEdit.RemoveAllListeners();
+        inputMaxSpeed.onEndEdit.RemoveAllListeners();
+        inputMaxStamina.onEndEdit.RemoveAllListeners();
+        inputNumAgents.onEndEdit.RemoveAllListeners();
+        inputTimeToLive.onEndEdit.RemoveAllListeners();
+
         inputHealth.text = _health.ToString();
         inputMaxSpeed.text = _maxSpeed.ToString();
         inputMaxStamina.text = _staminaMax.ToString();
         inputNumAgents.text = _numAgents.ToString();
         inputTimeToLive.text = _timeToLive.ToString();
-        
+
         inputHealth.onEndEdit.AddListener((arg) => setHealth());
         inputMaxStamina.onEndEdit.AddListener((arg) => setMaxStamina());
         inputMaxSpeed.onEndEdit.AddListener((arg) => setMaxSpeed());
@@ -71,6 +118,7 @@ public class AgentsConfiguration : MonoBehaviour
         inputTimeToLive.onEndEdit.AddListener((arg) => setTimeToLive());
         
         _selectedAgentType = gameObject.name;
+        title.text = "Paramètres " + _selectedAgentType + " :"; 
         
         Debug.Log(_selectedAgentType);
     }

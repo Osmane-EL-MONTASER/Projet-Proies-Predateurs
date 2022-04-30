@@ -113,15 +113,33 @@ public class AgentManager : MonoBehaviour {
     
        ghost = Instantiate(ghost, new Vector3(0f, 0f, 0f), Quaternion.identity);
     } 
+
+    /// <summary>
+    /// Méthode qui gère l'ajout d'un nouvel agent suite à la configuration.
+    /// 
+    /// Fait par AVERTY Pierre le 29/04/2022.
+    /// </summary>
+    ///
+    /// <param name="health">Santé de l'agent.</param>
+    /// <param name="maxSpeed">Vitesse de l'agent maximum.</param>
+    /// <param name="staminaMax">Stamina de l'agent maximum.</param>
+    /// <param name="timeToLive">Durée de vie de l'agent.</param>
+    /// <param name="n">Nombre d'agents.</param>
+    public void initializationAgents(double health, double maxSpeed, double staminaMax, double timeToLive, double n){
+        
+    } 
     
     /// <summary>
     /// Méthode qui gère l'ajout d'un nouvel agent dans la simulation.
     /// 
     /// Fait par AVERTY Pierre le 17/04/2022.
     /// </summary>
+    ///
+    /// <param name="coor">Coordonées de l'agent.</param>
     public void newAgentInSim(Vector3 coor){
        GameObject agent = instanciateAgent();        
        coor.y = 1f;
+
        agent = Instantiate(agent, coor, Quaternion.identity);
     } 
 
