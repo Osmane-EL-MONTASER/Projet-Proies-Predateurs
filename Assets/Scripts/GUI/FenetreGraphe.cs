@@ -79,10 +79,7 @@ public class FenetreGraphe : MonoBehaviour
 	private Func<float, string> getAxisLabelY;
 
 
-	private void Awake()
-	{
-
-
+	private void Awake() {
 		instance = this;
 		_graphContainer = transform.Find("_graphContainer").GetComponent<RectTransform>();
 		_labelTemplateX = _graphContainer.Find("_labelTemplateX").GetComponent<RectTransform>();
@@ -92,16 +89,11 @@ public class FenetreGraphe : MonoBehaviour
 		_tooltipGameObject = _graphContainer.Find("tooltip").gameObject;
 		_gameObjectList = new List<GameObject>();
 
-
-		
-
-
-
 		//valeur a afficher le graphe (penser a prendre compteur agent)
-		List<int> valueList = new List<int>() { 4, 7, 9, 8, 11, 2, 4, 8, 1, 4, 9, 12, 1, 2, 6 };
+		List<int> valueList = new List<int>() { 4, 7, 9, 8, 4, 7, 9, 8, 4, 7, 9, 8,4, 7, 9, 8 ,4, 7, 9, 8,4, 7, 9, 8,4, 7, 9, 8,4, 7, 9, 8,4, 7, 9, 8 };
 		IGraphVisual lineGraphVisual = new LineGraphVisual(_graphContainer, _dotSprite, Color.green, new Color(1, 1, 1, .5f));
 		IGraphVisual barGraphVisual = new BarChartVisual(_graphContainer, Color.green, .8f);
-		ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Prédateur " + (_i + 1), (float _f) => Mathf.RoundToInt(_f) + ""); // utile pour placer nb agent en y et en x le temps
+		ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "" + (_i + 1), (float _f) => Mathf.RoundToInt(_f) + ""); // utile pour placer nb agent en y et en x le temps
 
 
 		/// <summary>
@@ -253,12 +245,12 @@ public class FenetreGraphe : MonoBehaviour
 		/// <summary>
 		/// Cela permet de régler la largeur du graphe en fonction du nombre de valeurs en ordonnées et ainsi éviter d'avoir des valeurs en dehors du _graphContainer
 		/// </summary>
-		float graphWidth = _graphContainer.sizeDelta.x;
+		float graphWidth = _graphContainer.sizeDelta.x / 2;
 
 		/// <summary>
 		/// Cela permet de régler la hauteur du graphe en fonction du nombre de valeurs en abscisses et ainsi éviter d'avoir des valeurs en dehors du _graphContainer
 		/// </summary>
-		float graphHeight = _graphContainer.sizeDelta.y;
+		float graphHeight = _graphContainer.sizeDelta.y / 2;
 
 
 		float yMaximum = valueList[0]; //ecart entre valeur y genre la ta 0 puis 100 puis 200 si = 100f

@@ -51,7 +51,7 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// Modifiée par EL MONTASER Osmane le 17/04/2022.
     /// </summary> 
-    protected void initialisation() {
+    public void initialisation() {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
         AnimauxEnVisuel = new List<GameObject>();
         Preys = new List<string>();
@@ -59,7 +59,7 @@ public class Agent : MonoBehaviour {
         Attributes = AgentAttributes.GetAttributesDict();
         Attributes["SpeciesName"] = gameObject.name;
         Attributes["Health"] = "100";
-        if(!Attributes["SpeciesName"].Equals("Grass"))
+        if(!Attributes["SpeciesName"].Equals("Grass") && AgentMesh != null)
             Attributes["Speed"] = AgentMesh.speed.ToString();
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
         Attributes["Id"] = Guid.NewGuid().ToString();
@@ -294,7 +294,7 @@ public class Agent : MonoBehaviour {
             Animation.SetTrigger("DeadTrigger");
 
             //Mise à jour dans la BDD :
-            Db.SetDeathToAgent(Attributes["Id"], TemporaryDataSaving.CurrentTime, Attributes["DeathCause"]);
+            Db.SetDeathToAgent(Attributes["Id"], DataUpdater.CurrentTime, Attributes["DeathCause"]);
         }
     }
 
@@ -322,7 +322,7 @@ public class Agent : MonoBehaviour {
         listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject indexAnimal in listeAnimaux)
         {
-            if (Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
+            if (indexAnimal != null && Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
                 if ((((Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range) //si l'animal est dans la portée de vue
                 && (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2))) //  et si l'animal est dans l'angle de vue
                 || ((Vector3.Distance(transform.position, indexAnimal.transform.position)<10.0f))) // ou si l'animal est très proche

@@ -34,8 +34,6 @@ public class BreedAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        if(!_agent.Attributes["SpeciesName"].Equals("Grass"))
-            Debug.Log("Breeding Wolf or Rabbit");
         breed();
         //throw new NotImplementedException();
     }
@@ -72,9 +70,9 @@ public class BreedAgentAction : AgentAction {
             Agent child = _child.GetComponent<Agent>();
             string name = child.Attributes["SpeciesName"].Split('(')[0];
             
-            new Thread(() => {
+            /*new Thread(() => {
                 child.Db.AddAgent(child.Attributes["Id"], name, .0f, -1.0f, 0, child.Db.SelectSpeciesId(name), Convert.ToInt32(child.Attributes["Gender"]));
-            }).Start();
+            }).Start();*/
             
             child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
             _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";

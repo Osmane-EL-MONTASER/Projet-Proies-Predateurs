@@ -54,6 +54,7 @@ public class MenuTransition : MonoBehaviour {
         if(newScene.name.Contains(SceneNames.SIMULATION_SCENE)) {
             toogleCamera(true);
             GameObject.Find("GestionAgents").GetComponent<GestionAgents>().enabled = true;
+            GameObject.Find("Player").GetComponent<DataUpdater>().enabled = true;
         } else
             toogleCamera(false);
 
@@ -88,7 +89,6 @@ public class MenuTransition : MonoBehaviour {
                 MeteoSimulationPanel.SetActive(true);
 
                 GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
-                GameObject.Find("Player").GetComponent<TemporaryDataSaving>().enabled = true;
             }
             
         }
