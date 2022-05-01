@@ -117,16 +117,34 @@ public class AgentManager : MonoBehaviour {
     /// <summary>
     /// Méthode qui gère l'ajout d'un nouvel agent suite à la configuration.
     /// 
-    /// Fait par AVERTY Pierre le 29/04/2022.
+    /// Fait par AVERTY Pierre le 30/04/2022 basé sur une ancienne méthode faite par Greg Demirdjian.
     /// </summary>
     ///
+    /// <param name="type">type de l'agent.</param>
     /// <param name="health">Santé de l'agent.</param>
     /// <param name="maxSpeed">Vitesse de l'agent maximum.</param>
     /// <param name="staminaMax">Stamina de l'agent maximum.</param>
     /// <param name="timeToLive">Durée de vie de l'agent.</param>
     /// <param name="n">Nombre d'agents.</param>
-    public void initializationAgents(double health, double maxSpeed, double staminaMax, double timeToLive, double n){
+    public void initializationAgents(string type, double health, double maxSpeed, double staminaMax, double timeToLive, double n){
+        for(int i = 0; i < n; i++){
+            System.Random rnd = new System.Random();
+            GameObject agent = instanciateAgent();
+
+            newAgentType = type;
+
+            Vector3 pos;
+            UnityEngine.AI.NavMeshHit hit;
+            do {
+                float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
+                pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
+            } while (!UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 10.0f, 1));
+
         
+            agent = Instantiate(agent, hit.position , Quaternion.identity);
+            agent.name = agent.name.Replace("(Clone)","");
+            GameObject script = agent.GetComponent<Agent>();
+        }
     } 
     
     /// <summary>
@@ -158,6 +176,8 @@ public class AgentManager : MonoBehaviour {
     /// Fait par AVERTY Pierre le 17/04/2022.
     /// </summary>
     public GameObject instanciateAgent(){
+        Debug.Log(newAgentType);
+
        return AgentList.Find(el => el.name.ToUpper()  == newAgentType.ToUpper());
     } 
     /// <summary>

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.08650407, g: 0.082264245, b: 0.11294627, a: 1}
+  m_IndirectSpecularColor: {r: 0.086672455, g: 0.08240336, b: 0.11293149, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15834,7 +15834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &577240613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15923,7 +15923,7 @@ GameObject:
   - component: {fileID: 584112070}
   - component: {fileID: 584112073}
   m_Layer: 5
-  m_Name: Lapin
+  m_Name: Rabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15945,10 +15945,10 @@ RectTransform:
   m_Father: {fileID: 1636263087}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 65, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &584112070
 MonoBehaviour:
@@ -24278,7 +24278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &825590681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25809,7 +25809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Foug\xE8re"
+  m_text: Herbe
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -35766,10 +35766,10 @@ RectTransform:
   m_Father: {fileID: 1636263087}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 195, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1041779233
 MonoBehaviour:
@@ -38319,10 +38319,10 @@ RectTransform:
   m_Father: {fileID: 1495971539}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 65, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1115845661
 MonoBehaviour:
@@ -44420,7 +44420,7 @@ MonoBehaviour:
   Lizard: {fileID: 471858089086765123, guid: a2d304195d71248459245005bf635c84, type: 3}
   Racoon: {fileID: 6606307546370012650, guid: 8984ee2a03a23d24e80997c359b6a8d9, type: 3}
   Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703, type: 3}
-  Grass: {fileID: 0}
+  Grass: {fileID: 1782398106950529116, guid: e76e968505e49fa40a068031326e979a, type: 3}
   WolfGhost: {fileID: 2523255196501607929, guid: fe6028c1e79157e41963ac4b9495e6cc, type: 3}
   IguanaGhost: {fileID: 3378407786352617407, guid: 83095679e3df57748925ae24a7dca0ac, type: 3}
   ElephantGhost: {fileID: 5831572678247044766, guid: a77110893ca338149bd786d74e7dc670, type: 3}
@@ -49320,7 +49320,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -73.99296, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -59426,7 +59426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1861408669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64962,7 +64962,7 @@ GameObject:
   - component: {fileID: 2075811328}
   - component: {fileID: 2075811327}
   m_Layer: 5
-  m_Name: "Foug\xE8re"
+  m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65455,10 +65455,10 @@ RectTransform:
   m_Father: {fileID: 1495971539}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 195, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2082001718
 MonoBehaviour:

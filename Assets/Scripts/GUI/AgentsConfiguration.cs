@@ -85,8 +85,6 @@ public class AgentsConfiguration : MonoBehaviour
         _maxSpeed = 0.0;
         _numAgents = 0;
         _timeToLive = 0.0;
-
-        button.onClick.AddListener((arg) => AgentManager.Instance.initializationAgents(_health, _maxSpeed, _staminaMax, _timeToLive, _numAgents));
     }
 
     /// <summary>
@@ -98,7 +96,8 @@ public class AgentsConfiguration : MonoBehaviour
     public void onClick(){
         settings.SetActive(true);
         TMP_Text title = settings.transform.Find("Texte \"Paramètres\"").gameObject.GetComponent<TMP_Text>();
-
+        title.text = "Paramètre " + _selectedAgentType + " :";
+        
         inputHealth.onEndEdit.RemoveAllListeners();
         inputMaxSpeed.onEndEdit.RemoveAllListeners();
         inputMaxStamina.onEndEdit.RemoveAllListeners();
@@ -118,9 +117,10 @@ public class AgentsConfiguration : MonoBehaviour
         inputTimeToLive.onEndEdit.AddListener((arg) => setTimeToLive());
         
         _selectedAgentType = gameObject.name;
-        title.text = "Paramètres " + _selectedAgentType + " :"; 
-        
-        Debug.Log(_selectedAgentType);
+        AgentManager.Instance.newAgentType = _selectedAgentType;
+
+        button.onClick.AddListener(() => AgentManager.Instance.initializationAgents(_selectedAgentType, _health, _maxSpeed, _staminaMax, _timeToLive, _numAgents));
+
     }
 
     /// <summary>
