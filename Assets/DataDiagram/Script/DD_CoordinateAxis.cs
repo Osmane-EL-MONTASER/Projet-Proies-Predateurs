@@ -5,6 +5,10 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+//canger le cadre rectangulaire
+
 public class DD_CoordinateRectChangeEventArgs : EventArgs {
 
     public Rect viewRectInPixel;
@@ -14,6 +18,9 @@ public class DD_CoordinateRectChangeEventArgs : EventArgs {
         viewRectInPixel = newRect;
     }
 }
+
+
+//canger le l'echelle 
 
 public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 
@@ -40,15 +47,31 @@ public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
     }
 }
 
+
+
+/// <summary>
+/// Classe qui permet de 
+/// et qui depend de la classe DD_DrawGraphic
+/// </summary>
+
 public class DD_CoordinateAxis : DD_DrawGraphic {
 
-#region const value
+
+    /*
+     * Ici y a que des valeurs const
+     */
+
     private static readonly string MARK_TEXT_BASE_NAME = "MarkText";
     private static readonly string LINES_BASE_NAME = "Line";
     private static readonly string COORDINATE_RECT = "CoordinateRect";
     private const float INCH_PER_CENTIMETER = 0.3937008f;
-    private readonly float[] MarkIntervalTab = { 1, 2, 5 };//c#中数组不支持const
-#endregion
+
+
+    /// <summary>
+    /// Tableau
+    /// </summary>
+    private readonly float[] MarkIntervalTab = { 1, 2, 5 };//tableau supporte pas float
+
 
 #region property
     /// <summary>
@@ -68,12 +91,12 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     private GameObject m_LinesPreb = null;
 
     /// <summary>
-    /// 坐标轴字体的预设，提前load，提升性能
+    /// 坐标轴字体的预设，提前load，提升性能 
     /// </summary>
     private GameObject m_MarkTextPreb = null;
 
     /// <summary>
-    /// 所有存在于该坐标系中的折线列表
+    /// Variable de type liste qui recupère toutes les listes qui existent
     /// </summary>
     private List<GameObject> m_LineList = new List<GameObject>();
 
@@ -83,34 +106,34 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     //private Rect m_CoordinatePixelRect = new Rect();
 
     /// <summary>
-    /// 坐标轴缩放的速度
+    /// Varaible de type Vector2 qui gere la vitesse du zoom en fonction des scrolls
     /// </summary>
     private Vector2 m_ZoomSpeed = new Vector2(1, 1);
 
     /// <summary>
-    /// 坐标轴移动的速度
+    /// Variable de type Vector2 qui gere la vitesse des mouvements sur le graphe
     /// </summary>
     private Vector2 m_MoveSpeed = new Vector2(1, 1);
 
     /// <summary>
-    /// 坐标轴最大可伸缩范围，以坐标轴为单位
+    /// 坐标轴最大可伸缩范围，以坐标轴为单位 ou La plage maximale extensible des axes de coordonnées, en termes d'axes.
     /// Y轴的通过长宽比例计算获得
     /// </summary>
     private float m_CoordinateAxisMaxWidth = 100;
     private float m_CoordinateAxisMinWidth = 0.1f;
 
     /// <summary>
-    /// 矩形框式坐标轴线条粗细
+    /// Variable de type float représentant l'épaisseur de la ligne 
     /// </summary>
     private float m_RectThickness = 2;
 
     /// <summary>
-    /// 矩形框式坐标轴背景颜色
+    /// Variable de type Color qui permet de mettre la couleur de fond en noir
     /// </summary>
     private Color m_BackgroundColor = new Color(0, 0, 0, 0.5f);
 
     /// <summary>
-    /// 矩形框式坐标标记线颜色
+    /// Variable de type Color qui permet de régler la couleur des points
     /// </summary>
     private Color m_MarkColor = new Color(0.8f, 0.8f, 0.8f, 1);
 
@@ -121,10 +144,6 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     /// </summary>
     private List<GameObject> m_MarkHorizontalTexts = new List<GameObject>();
 
-    /// <summary>
-    /// 矩形框式坐标轴左侧坐标值字符的宽度
-    /// </summary>
-    //private float m_MinMarkTextWidth = 30;
 
     /// <summary>
     /// 坐标轴字体的高度，以像素为单位
@@ -487,7 +506,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
         rectTransform.anchorMax = new Vector2(0, 0);
         //设置轴心为左下角
         rectTransform.pivot = new Vector2(0, 0);
-        //设置轴心相对锚点的位置
+        //Position de l'axe par rapport au point d'anchrage
         rectTransform.anchoredPosition = rect.position;
         //设置控件大小
         rectTransform.sizeDelta = rect.size;
@@ -624,11 +643,14 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
         //DrawAxis(vh);
         DrawRectCoordinate(vh);
     }
-
+    /*
+    Méthode permettant d'entrée une donnée sur le graphe
+    */
     public void InputPoint(GameObject line, Vector2 point) {
 
         line.GetComponent<DD_Lines>().AddPoint(CoordinateToPixel(point));
     }
+
 
     public GameObject AddLine(string name) {
         
@@ -649,7 +671,9 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
         return m_LineList[m_LineList.Count - 1];
     }
-
+    /*
+     * regarde si une courbe est supprimé ou pas
+     */
     public bool RemoveLine(GameObject line) {
 
         if (null == line)

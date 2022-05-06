@@ -7,7 +7,7 @@ using UnityEngine;
 
 /// <summary>
 /// Classe reprise par Bilal HAMICHE pour le prototype. 
-/// 
+/// Elle permet de créer le menu qui affiche le graphe
 /// </summary>
 public class DD_Menu : MonoBehaviour {
 
@@ -46,6 +46,10 @@ public class DD_Menu : MonoBehaviour {
             Debug.LogError("AddDataDiagram : Erreur de chargement de DataDiagram!");
             return;
         }
+        /// <summary>
+        /// Variable de type GameObject 
+        /// 
+        /// </summary>
 
         GameObject dataDiagram;
         if (null != parent)

@@ -143,7 +143,11 @@ public class DD_MoveEventArgs : EventArgs {
         }
     }
 }
+/// <summary>
+/// 
+/// </summary>
 
+  
 public class DD_PreDestroyLineEventArgs : EventArgs {
 
     GameObject m_Line = null;
@@ -391,9 +395,20 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
         return false;
     }
+    /*
+     * Line : The specified Line Chart entity, as returned by the AddLine () 
+     * method.
+     * Point : point.x is the scaling value of the curve on the x-axis, which is 1 if 
+        there is no scaling, point.y is the input data value.
+    */
 
+    /// <summary>
+    /// Cette méthode permet d'entrée une donnée sur le graphe
+    /// 
+    /// </summary>
+    /// <param name="line"> Le graphe de la méthode </param>
+    /// <param name="point"></param>
 
-    // Cette méthode permet d'entrée une donnée sur une courbe
     public void InputPoint(GameObject line, Vector2 point) {
 
         DD_CoordinateAxis coordinate = m_CoordinateAxis.GetComponent<DD_CoordinateAxis>();
@@ -432,9 +447,8 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     /// <summary>
     /// Cette méthode permet de créer une nouvelle courbe, elle retourne une varaible de type GameObject
     /// qui est la nouvelle courbe du graphe
-    /// name
-    /// color
-    /// 
+    /// <param name="name"> Le nom de la nouvelle courbe </param>
+    /// <param name="color"> La couleur de la nouvelle courbe et du bouton de cette meme courbe </param>
     /// </summary>
     public GameObject AddLine(string name, Color color) {
 
