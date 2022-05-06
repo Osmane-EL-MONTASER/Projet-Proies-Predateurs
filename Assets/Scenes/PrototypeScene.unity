@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.087335646, g: 0.0829708, b: 0.11278081, a: 1}
+  m_IndirectSpecularColor: {r: 0.08731139, g: 0.08294803, b: 0.11277628, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1311,8 +1311,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
 --- !u!4 &41997229 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
   m_PrefabInstance: {fileID: 41997228}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &45861897
@@ -4507,8 +4506,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
 --- !u!4 &158968972 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   m_PrefabInstance: {fileID: 158968971}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &167522157
@@ -22511,8 +22509,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
 --- !u!4 &766555606 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
   m_PrefabInstance: {fileID: 766555605}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &767081470
@@ -24683,20 +24680,16 @@ MonoBehaviour:
   ListeAgents: []
   Wolf: {fileID: 2599620566178990602, guid: 1215f19235f80dd4db8bedc26d5750d1, type: 3}
   Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
-  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8,
-    type: 3}
-  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696,
-    type: 3}
+  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8, type: 3}
+  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696, type: 3}
   Snake: {fileID: 3314495111141517837, guid: 14cc87fbec9906b4ca5b1d898d97f302, type: 3}
   Rabbit: {fileID: 5629308956239689694, guid: 1549bdb1a50a7ff4f92562bd5a806022, type: 3}
   Zebra: {fileID: 3037339202061222097, guid: c7508a1b85bba0d40a5e7d2c57d59dc6, type: 3}
   Tiger: {fileID: 2123733424373943783, guid: fbed4605863dacd448f467c348cc28d6, type: 3}
-  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173,
-    type: 3}
+  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173, type: 3}
   Lizard: {fileID: 471858089086765123, guid: a2d304195d71248459245005bf635c84, type: 3}
   Racoon: {fileID: 6606307546370012650, guid: 8984ee2a03a23d24e80997c359b6a8d9, type: 3}
-  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703,
-    type: 3}
+  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703, type: 3}
   Grass: {fileID: 1782398106950529116, guid: e76e968505e49fa40a068031326e979a, type: 3}
 --- !u!4 &825590682
 Transform:
@@ -29923,10 +29916,10 @@ RectTransform:
   m_Father: {fileID: 2102812631}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 65, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992284844
 MonoBehaviour:
@@ -29971,11 +29964,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 992284845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [{m_Target: {fileID: 992284847}, m_TargetAssemblyTypeName: 'AgentsConfiguration,
-            Assembly-CSharp', m_MethodName: onClick, m_Mode: 1, m_Arguments: {m_ObjectArgument: {
-              fileID: 0}, m_ObjectArgumentAssemblyTypeName: 'UnityEngine.Object, UnityEngine',
-            m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: '', m_BoolArgument: 0},
-          m_CallState: 2}]
+      m_Calls:
+      - m_Target: {fileID: 992284847}
+        m_TargetAssemblyTypeName: AgentsConfiguration, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &992284845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37483,8 +37484,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
 --- !u!4 &1079831112 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013213224824, guid: a649302f8407dd9469e2c5b67b4a0674, type: 3}
   m_PrefabInstance: {fileID: 1079831111}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1082002772
@@ -39889,7 +39889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1143197864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43917,7 +43917,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45075,45 +45075,29 @@ MonoBehaviour:
   newAgentType: 
   Wolf: {fileID: 2599620566178990602, guid: 1215f19235f80dd4db8bedc26d5750d1, type: 3}
   Iguana: {fileID: 3378407786352617407, guid: 76556dc456232444782f7c2340f0df01, type: 3}
-  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8,
-    type: 3}
-  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696,
-    type: 3}
+  Elephant: {fileID: 5831572678247044766, guid: a11a02bff930955418e8f0a8093b1ee8, type: 3}
+  Pingouin: {fileID: 6688501803559112382, guid: aabfa5f4ec6b0fa4da52efe8877df696, type: 3}
   Snake: {fileID: 3314495111141517837, guid: 14cc87fbec9906b4ca5b1d898d97f302, type: 3}
   Lapin: {fileID: 5629308956239689694, guid: 1549bdb1a50a7ff4f92562bd5a806022, type: 3}
   Zebra: {fileID: 3037339202061222097, guid: c7508a1b85bba0d40a5e7d2c57d59dc6, type: 3}
   Tiger: {fileID: 2123733424373943783, guid: fbed4605863dacd448f467c348cc28d6, type: 3}
-  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173,
-    type: 3}
+  Alligator: {fileID: 7957575247893313404, guid: a63bb79d64e4f3e4e8fe1cab80b30173, type: 3}
   Lizard: {fileID: 471858089086765123, guid: a2d304195d71248459245005bf635c84, type: 3}
   Racoon: {fileID: 6606307546370012650, guid: 8984ee2a03a23d24e80997c359b6a8d9, type: 3}
-  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703,
-    type: 3}
+  Tortoise: {fileID: 3368139539167071956, guid: 5cde284578eb4c6489714af56269b703, type: 3}
   Grass: {fileID: 1782398106950529116, guid: e76e968505e49fa40a068031326e979a, type: 3}
-  WolfGhost: {fileID: 2523255196501607929, guid: fe6028c1e79157e41963ac4b9495e6cc,
-    type: 3}
-  IguanaGhost: {fileID: 3378407786352617407, guid: 83095679e3df57748925ae24a7dca0ac,
-    type: 3}
-  ElephantGhost: {fileID: 5831572678247044766, guid: a77110893ca338149bd786d74e7dc670,
-    type: 3}
-  PingouinGhost: {fileID: 6688501803559112382, guid: c9c18bc13d0cc0f43b3a8242b66dad55,
-    type: 3}
-  SnakeGhost: {fileID: 3314495111141517837, guid: 0c5f8404d110d6a45a40f20fd77078bb,
-    type: 3}
-  LapinGhost: {fileID: 5629308956239689694, guid: ae0d2b1f1692ee740b54572d288fcde6,
-    type: 3}
-  ZebraGhost: {fileID: 3037339202061222097, guid: 990bc8c945dac2d4f85da9d7f0abf5dd,
-    type: 3}
-  TigerGhost: {fileID: 2123733424373943783, guid: 73c9a4673933bc14a934f904587c7d26,
-    type: 3}
-  AlligatorGhost: {fileID: 7957575247893313404, guid: 66301528e7db4d64195a18c050e3dc9f,
-    type: 3}
-  LizardGhost: {fileID: 471858089086765123, guid: 2bccdc4a2102eca47abd9a968c1c23e8,
-    type: 3}
-  RacoonGhost: {fileID: 6606307546370012650, guid: f0f6f39b6eef2f14e8542795b53220ed,
-    type: 3}
-  TortoiseGhost: {fileID: 3368139539167071956, guid: 720790b587deafc48b7622edebac753d,
-    type: 3}
+  WolfGhost: {fileID: 2523255196501607929, guid: fe6028c1e79157e41963ac4b9495e6cc, type: 3}
+  IguanaGhost: {fileID: 3378407786352617407, guid: 83095679e3df57748925ae24a7dca0ac, type: 3}
+  ElephantGhost: {fileID: 5831572678247044766, guid: a77110893ca338149bd786d74e7dc670, type: 3}
+  PingouinGhost: {fileID: 6688501803559112382, guid: c9c18bc13d0cc0f43b3a8242b66dad55, type: 3}
+  SnakeGhost: {fileID: 3314495111141517837, guid: 0c5f8404d110d6a45a40f20fd77078bb, type: 3}
+  LapinGhost: {fileID: 5629308956239689694, guid: ae0d2b1f1692ee740b54572d288fcde6, type: 3}
+  ZebraGhost: {fileID: 3037339202061222097, guid: 990bc8c945dac2d4f85da9d7f0abf5dd, type: 3}
+  TigerGhost: {fileID: 2123733424373943783, guid: 73c9a4673933bc14a934f904587c7d26, type: 3}
+  AlligatorGhost: {fileID: 7957575247893313404, guid: 66301528e7db4d64195a18c050e3dc9f, type: 3}
+  LizardGhost: {fileID: 471858089086765123, guid: 2bccdc4a2102eca47abd9a968c1c23e8, type: 3}
+  RacoonGhost: {fileID: 6606307546370012650, guid: f0f6f39b6eef2f14e8542795b53220ed, type: 3}
+  TortoiseGhost: {fileID: 3368139539167071956, guid: 720790b587deafc48b7622edebac753d, type: 3}
 --- !u!1 &1301128542
 GameObject:
   m_ObjectHideFlags: 0
@@ -46909,8 +46893,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
 --- !u!4 &1377064490 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000011339693244, guid: f94554303b4f7094ea5e12fe79985529,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000011339693244, guid: f94554303b4f7094ea5e12fe79985529, type: 3}
   m_PrefabInstance: {fileID: 1377064489}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1378682828
@@ -50446,8 +50429,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
 --- !u!4 &1500358460 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010352536618, guid: 5d10ae558efe6a64d96e5b4d02ec6792,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000010352536618, guid: 5d10ae558efe6a64d96e5b4d02ec6792, type: 3}
   m_PrefabInstance: {fileID: 1500358459}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1503744778
@@ -54924,8 +54906,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
 --- !u!4 &1629314555 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013308252972, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   m_PrefabInstance: {fileID: 1629314554}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1631901867
@@ -65957,10 +65938,10 @@ RectTransform:
   m_Father: {fileID: 2102812631}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 195, y: -40}
+  m_SizeDelta: {x: 110, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075811327
 MonoBehaviour:
@@ -66005,11 +65986,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075811328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [{m_Target: {fileID: 2075811330}, m_TargetAssemblyTypeName: 'AgentsConfiguration,
-            Assembly-CSharp', m_MethodName: onClick, m_Mode: 1, m_Arguments: {m_ObjectArgument: {
-              fileID: 0}, m_ObjectArgumentAssemblyTypeName: 'UnityEngine.Object, UnityEngine',
-            m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: '', m_BoolArgument: 0},
-          m_CallState: 2}]
+      m_Calls:
+      - m_Target: {fileID: 2075811330}
+        m_TargetAssemblyTypeName: AgentsConfiguration, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2075811328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67142,9 +67131,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2102812632
 MonoBehaviour:
