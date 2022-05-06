@@ -172,10 +172,6 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
     private GameObject m_CoordinateAxis;
     private GameObject lineButtonsContent;
-    //private List<GameObject> m_LineButtonList = new List<GameObject>();
-
-    //private Vector3 m_MousePos = Vector3.zero;
-    //private bool m_IsMouseLeftButtonDown = false;
 
     // 创建一个委托，返回类型为void，两个参数
     public delegate void RectChangeHandler(object sender, DD_RectChangeEventArgs e);
@@ -189,10 +185,12 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     public event PreDestroyLineHandler PreDestroyLineEvent;
 
     #region config
+
+    //Nombre maximal de courbe affiché sur le graphe en meme temps
     public int maxLineNum = 5;
 
     #region used in DD_Lines
-    //每条线最多能存储的数据个数
+    //Nombre maximal de point sur la meme courbe, si cette valeur est dépassé, la valeur la plus ancienne est supprimée
     public int m_MaxPointNum = 65535;
     #endregion
 
@@ -201,23 +199,32 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     /// <summary>
     /// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
     /// </summary>
+    /// The distance between two scales when drawing the coordinate scale
     public float m_CentimeterPerMark = 1f;
 
     /// <summary>
     /// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
     /// x轴长度单位为“秒”，物理长度单位为“公分”
     /// </summary>
+    /// //Centimeter Per Coord Unit x： Conversion coefficient of x-axis data value
+    /// and coordinate scale in initial state.You can change the Scale Value for the
+    //x-axis by changing this value.
+
     public float m_CentimeterPerCoordUnitX = 1f;
 
     /// <summary>
     /// 标准y轴上每单位长度对应的物理长度（未缩放状态下）
     /// y轴长度单位为“米”，物理长度单位为“公分”
     /// </summary>
+    ///   Centimeter Per Coord Unit y： Conversion coefficient of y-axis data value
+   /// and coordinate scale in initial state.You can change the Scale Value for the
+   /// y-axis by changing this valu
     public float m_CentimeterPerCoordUnitY = 1f;
     #endregion
 
     #endregion
 
+    //Verifie si Rect est pas null
     public Rect? rect {
         get {
             RectTransform rectT = gameObject.GetComponent<RectTransform>();
@@ -358,8 +365,6 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
             return false;
         }
 
-        //button.name = string.Format("Button{0}", line.name);
-        //button.GetComponent<Image>().color = lines.color;
         button.GetComponent<DD_LineButton>().line = line;
 
         return true;
@@ -387,6 +392,8 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         return false;
     }
 
+
+    // Cette méthode permet d'entrée une donnée sur une courbe
     public void InputPoint(GameObject line, Vector2 point) {
 
         DD_CoordinateAxis coordinate = m_CoordinateAxis.GetComponent<DD_CoordinateAxis>();
@@ -421,6 +428,14 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         return line;
     }
 
+
+    /// <summary>
+    /// Cette méthode permet de créer une nouvelle courbe, elle retourne une varaible de type GameObject
+    /// qui est la nouvelle courbe du graphe
+    /// name
+    /// color
+    /// 
+    /// </summary>
     public GameObject AddLine(string name, Color color) {
 
         GameObject line = AddLine(name);

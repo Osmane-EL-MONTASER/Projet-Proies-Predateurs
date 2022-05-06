@@ -114,25 +114,6 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     /// </summary>
     private Color m_MarkColor = new Color(0.8f, 0.8f, 0.8f, 1);
 
-    ///// <summary>
-    ///// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerMark = 1f;
-
-    ///// <summary>
-    ///// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
-    ///// x轴长度单位为“秒”，物理长度单位为“公分”
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerCoordUnitX = 0.2f;
-
-    ///// <summary>
-    ///// 标准y轴上每单位长度对应的物理长度（未缩放状态下）
-    ///// y轴长度单位为“米”，物理长度单位为“公分”
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerCoordUnitY = 0.1f;
 
     /// <summary>
     /// 存放所有的刻度值文字对象的列表

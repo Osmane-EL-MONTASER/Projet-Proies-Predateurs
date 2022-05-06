@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+//reprise et modifie par bilal hamiche permet ajout des valeurs proies, predateurs autotrophes
+//
+//exemplel avec nos valeur ici
+
 public class Sample : MonoBehaviour {
 
     List<GameObject> lineList = new List<GameObject>();
