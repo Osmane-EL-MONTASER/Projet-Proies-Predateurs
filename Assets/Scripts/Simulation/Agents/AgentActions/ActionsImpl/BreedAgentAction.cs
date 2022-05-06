@@ -55,7 +55,7 @@ public class BreedAgentAction : AgentAction {
             System.Random rnd = new System.Random();
             float randomX = rnd.Next((int)_agent.transform.position.x - 5, (int)_agent.transform.position.x + 5);
             float randomY = rnd.Next((int)_agent.transform.position.z - 5, (int)_agent.transform.position.z + 5);
-            GameObject go = GameObject.Instantiate(GameObject.Find("GestionAgents").GetComponent<GestionAgents>().Grass, 
+            GameObject go = GameObject.Instantiate(GameObject.Find("AgentManager").GetComponent<AgentManager>().Grass, 
                 new Vector3(randomX, 
                 Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
                 randomY), Quaternion.identity);
