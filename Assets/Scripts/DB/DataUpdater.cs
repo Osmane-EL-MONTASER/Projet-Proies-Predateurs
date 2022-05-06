@@ -174,15 +174,15 @@ public class DataUpdater : MonoBehaviour {
         _agentList = getAllGOAgents();
 
         foreach (Agent agent in _agentList) {
-                if(agent != null && bool.Parse(agent.Attributes["IsAlive"])) {
-                    string name = agent.Attributes["SpeciesName"].Split('(')[0];
-                    if(Array.Exists(predators, n => n.Equals(name)))
-                        predCounter++;
-                    if(Array.Exists(preys, n => n.Equals(name)))
-                        preyCounter++;
-                    if(Array.Exists(autotrophs, n => n.Equals(name)))
-                        autotrophCounter++;
-                }
+            if(agent != null && bool.Parse(agent.Attributes["IsAlive"])) {
+                string name = agent.Attributes["SpeciesName"].Split('(')[0];
+                if(Array.Exists(predators, n => n.Equals(name)))
+                    predCounter++;
+                if(Array.Exists(preys, n => n.Equals(name)))
+                    preyCounter++;
+                if(Array.Exists(autotrophs, n => n.Equals(name)))
+                    autotrophCounter++;
+            }
         }
         
         oldPredCounter = predCounter;
@@ -202,11 +202,11 @@ public class DataUpdater : MonoBehaviour {
                 _agentToAddMutex.ReleaseMutex();
             }
 
-            foreach(Agent agent in _agentList) {
-                if(agent != null) {
-                    _dbHelper.AddAgentData(time, Convert.ToDouble(agent.Attributes["WaterNeeds"]) / Convert.ToDouble(agent.Attributes["MaxWaterNeeds"]), Convert.ToDouble(agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(agent.Attributes["MaxEnergyNeeds"]), "test", agent.Attributes["Id"], -1);
+            for(int i = _agentList.Count - 1; i >= 0; i--) {
+                if(_agentList[i] != null) {
+                    _dbHelper.AddAgentData(time, Convert.ToDouble(_agentList[i].Attributes["WaterNeeds"]) / Convert.ToDouble(_agentList[i].Attributes["MaxWaterNeeds"]), Convert.ToDouble(_agentList[i].Attributes["EnergyNeeds"]) / Convert.ToDouble(_agentList[i].Attributes["MaxEnergyNeeds"]), "test", _agentList[i].Attributes["Id"], -1);
                 } else 
-                    _agentList.Remove(agent);
+                    _agentList.Remove(_agentList[i]);
             }
         }).Start();
     }

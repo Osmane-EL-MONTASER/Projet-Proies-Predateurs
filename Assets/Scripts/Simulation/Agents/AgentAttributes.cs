@@ -36,6 +36,7 @@ public static class AgentAttributes {
         _attributes.Add("Gender", "0");
         _attributes.Add("IsPregnant", "false");
         _attributes.Add("GestationPeriod", "0");
+        _attributes.Add("GestationTimer", "0");
         _attributes.Add("Age", "0");
         _attributes.Add("MaturityAge", "0");
         _attributes.Add("MaxAge", "0");
@@ -50,6 +51,7 @@ public static class AgentAttributes {
         _attributes.Add("MaxStamina", "0");
         _attributes.Add("DeathCause", "");
         _attributes.Add("SpeciesName", "");
+        _attributes.Add("LitterMax", "1");
         _attributes.Add("Id", "");
         _attributes.Add("Ad", "0");
 

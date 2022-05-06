@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading;
+using System.Linq;
 
 /// <summary>
 /// Classe qui permet de déterminer toutes les
@@ -17,6 +18,9 @@ using System.Threading;
 public class BreedAgentAction : AgentAction {
 
     private GameObject _child;
+
+    private GameObject _mate;
+
     private Vector3 oldLocalScale;
 
     /// <summary>
@@ -59,23 +63,24 @@ public class BreedAgentAction : AgentAction {
             oldLocalScale = go.transform.localScale;
             go.transform.localScale = new Vector3(0, 0, 0);
             _child = go;
-        }else if(!_agent.Attributes["SpeciesName"].Equals("Grass")) {
-            _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
-            _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
+        } else if(!_agent.Attributes["SpeciesName"].Equals("Grass")) {
+            _mate = _agent.GetMate();
+            if(_mate == null)
+                findMate(_agent);
+            else if(_mate != null) {
+                _agent.AgentMesh.SetDestination(_mate.GetComponent<Agent>().transform.position);
+                if(!(_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
+                    Debug.Log("Now breeding...");
+                    
+                    if(_agent.Attributes["Gender"].Equals("2"))
+                        _agent.Attributes["IsPregnant"] = "true";
+
+                    _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
+                    _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
+                    _mate = null;
+                }
+            }
         } 
-        /*
-            System.Random rnd = new System.Random();
-            float randomX = rnd.Next((int)_agent.transform.position.x - 1, (int)_agent.transform.position.x + 1);
-            float randomY = rnd.Next((int)_agent.transform.position.z - 1, (int)_agent.transform.position.z + 1);
-            GameObject go = GameObject.Instantiate(_agent.gameObject, 
-                new Vector3(randomX, 
-                Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
-                randomY), Quaternion.identity);
-            go.name = go.name.Split("(")[0];
-            oldLocalScale = go.transform.localScale;
-            go.transform.localScale = new Vector3(0, 0, 0);
-            _child = go;
-        */
         if(_child != null) {
             Agent child;
             if((_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.25)
@@ -95,6 +100,23 @@ public class BreedAgentAction : AgentAction {
             _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
             _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
             _child = null;
+        }
+    }
+
+    private void findMate(Agent agent) {
+        if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
+            && (_agent.AgentMesh != null) 
+            && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
+            _agent.AgentMesh.SetDestination(_agent.walker());
+        }
+        IEnumerable<GameObject> possibleMates = from candidate in _agent.animauxDansFov()
+                            where candidate.GetComponent<Agent>().Attributes["SpeciesName"].Equals(_agent.Attributes["SpeciesName"]) && candidate.GetComponent<Agent>().Attributes["Gender"].Equals(_agent.Attributes["Gender"])
+                            select candidate;
+    
+        if(possibleMates.Count() != 0) {
+            Debug.Log("Found a " + _agent.Attributes["SpeciesName"] + " to mate with!");
+            possibleMates.First().GetComponent<Agent>().SetMate(_agent.gameObject);
+            _agent.SetMate(possibleMates.First());
         }
     }
 

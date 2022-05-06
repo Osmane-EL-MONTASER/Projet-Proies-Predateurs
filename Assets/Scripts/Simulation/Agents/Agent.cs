@@ -44,7 +44,13 @@ public class Agent : MonoBehaviour {
     private const string AGENT_RESOURCE_PATH = "./Assets/Resources/Agents/";
 
     public DBHelper Db;
-    
+
+    /// <summary>
+    /// Une référence à l'agent avec lequel il veut actuellement
+    /// se reproduire.
+    /// </summary>
+    private GameObject _mate;
+
     /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
     ///
@@ -127,6 +133,10 @@ public class Agent : MonoBehaviour {
     /// </summary>    
     void Update() {
         if(Attributes != null) {
+
+            if(bool.Parse(Attributes["IsPregnant"]))
+                updatePregnancy();
+
             Attributes["Speed"] = (168f / ActionNames.TimeSpeed).ToString();
             if(float.Parse(Attributes["Speed"]) != AgentMesh.speed)
                 AgentMesh.speed = float.Parse(Attributes["Speed"]);
@@ -155,7 +165,7 @@ public class Agent : MonoBehaviour {
                     Attributes["EnergyNeeds"] = newValue.ToString();
                 */
 
-                newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime;
+                newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime * ActionNames.TimeSpeed;
                 Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
 
                 if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
@@ -181,6 +191,32 @@ public class Agent : MonoBehaviour {
             }*/
 
             //_currentAction.update();
+        }
+    }
+
+    private void updatePregnancy() {
+        Attributes["GestationTimer"] = (Convert.ToDouble(Attributes["GestationTimer"]) + Time.deltaTime / ActionNames.TimeSpeed).ToString();
+
+        if(Convert.ToDouble(Attributes["GestationTimer"]) >= Convert.ToDouble(Attributes["GestationPeriod"])) {
+            //ACCOUCHEMENT
+            System.Random rnd = new System.Random();
+            float randomX = rnd.Next((int)transform.position.x - 1, (int)transform.position.x + 1);
+            float randomY = rnd.Next((int)transform.position.z - 1, (int)transform.position.z + 1);
+            int nbChildren = rnd.Next(1, int.Parse(Attributes["LitterMax"]));
+            for(int i = 0; i < nbChildren; i++) {
+                GameObject go = GameObject.Instantiate(gameObject, 
+                    new Vector3(randomX, 
+                    Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
+                    randomY), Quaternion.identity);
+                go.name = go.name.Split("(")[0];
+                go.transform.localScale = go.transform.localScale * 0.5f;
+                go.GetComponent<Agent>().initialisation();
+                go.GetComponent<Agent>().Attributes["EnergyNeeds"] = "0.0";
+                go.GetComponent<Agent>().Attributes["Stamina"] = "0.38";
+            }
+            Debug.Log(nbChildren + " born!");
+            Attributes["IsPregnant"] = "false";
+            Attributes["GestationTimer"] = "0";
         }
     }
 
@@ -321,7 +357,7 @@ public class Agent : MonoBehaviour {
     ///
     /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
-    List<GameObject> animauxDansFov()
+    public List<GameObject> animauxDansFov()
     {
         List<GameObject> listeAnimauxEnVisuel = new List<GameObject>(); ;
         GameObject[] listeAnimaux;
@@ -339,4 +375,11 @@ public class Agent : MonoBehaviour {
         return listeAnimauxEnVisuel;
     }
 
+    public void SetMate(GameObject mate) {
+        _mate = mate;
+    }
+
+    public GameObject GetMate() {
+        return _mate;
+    }
 }

@@ -208,14 +208,36 @@ public class DBHelper {
                                              "species_max_energy_needs, species_max_speed, species_gestation_period," +
                                              "species_maturity_age, species_max_age, species_digestion_time, " + 
                                              "species_prey_consumption_time, species_range, species_max_health," +
-                                             "species_damage FROM SPECIES WHERE species_label = '" + speciesLabel + "';";
+                                             "species_damage, species_litter_max FROM SPECIES WHERE species_label = '" + speciesLabel + "';";
         IDataReader rdr = selectSpeciesIdCommand.ExecuteReader();
         while(rdr.Read())
-            for(int i = 0; i < 11; i++)
+            for(int i = 0; i < 13; i++)
                 speciesData.Add(getSelectedSpeciesDataString(i), rdr.GetDouble(i));
 
         return speciesData;
     }
+
+    public void UpdateSpeciesData(int speciesNum, double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
+    double MaxHealth, double MaxStamina, int LitterMax) {
+         IDbCommand updateSpeciesCommand = _dbConnection.CreateCommand();
+
+        updateSpeciesCommand.CommandText = "UPDATE SPECIES SET species_carcass_energy_contribution = " 
+                                        + CarcassEnergyContribution + ", species_max_water_needs = " 
+                                        + MaxWaterNeeds + ", species_max_energy_needs = " 
+                                        + MaxEnergyNeeds + ", species_max_speed = " 
+                                        + MaxSpeed + ", species_gestation_period = " 
+                                        + GestationPeriod + ", species_maturity_age = " 
+                                        + MaturityAge + ", species_max_age = " 
+                                        + MaxAge + ", species_digestion_time = " 
+                                        + DigestionTime + ", species_prey_consumption_time = " 
+                                        + PreyConsumptionTime + ", species_max_health = " 
+                                        + MaxHealth + ", species_damage = " 
+                                        + MaxStamina + ", species_litter_max = " 
+                                        + LitterMax
+                                        + " WHERE species_num = '" + speciesNum + "';";
+        updateSpeciesCommand.ExecuteReader();
+        updateSpeciesCommand.Dispose();
+     }
 
     private string getSelectedSpeciesDataString(int index) {
         switch (index) {
@@ -254,6 +276,9 @@ public class DBHelper {
                 break;
             case 11:
                 return "Ad";
+                break;
+            case 12:
+                return "LitterMax";
                 break;
             default:
                 return "Unkown";
