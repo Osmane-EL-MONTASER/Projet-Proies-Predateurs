@@ -155,15 +155,8 @@ public class AgentManager : MonoBehaviour {
             // Agent script = agent.GetComponent<Agent>();
             // Dictionary<string, string> Attributes = AgentAttributes.GetAttributesDict();
             
-            // Attributes["Health"] = health.ToString();
-            // Attributes["SpeciesName"] = type;
-            // Attributes["MaxStamina"] = staminaMax.ToString();
-            // Attributes["MaxSpeed"] = maxSpeed.ToString();
-            // Attributes["MaxAge"] = timeToLive.ToString();
-            
             // script.Attributes = Attributes;
-            // Debug.Log(script.Attributes);
-            
+            // Debug.Log(script.Attributes);   
         }
     } 
     
@@ -198,45 +191,6 @@ public class AgentManager : MonoBehaviour {
     public GameObject instanciateAgent(){
        return AgentList.Find(el => el.name.ToUpper()  == newAgentType.ToUpper());
     } 
-
-    /// <summary>
-    /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
-    ///
-    /// Fait par Greg Demirdjian le 12/03/2022.
-    /// Modifiée par EL MONTASER Osmane le 17/04/2022 et Pierre Averty le 06/05/2022.
-    /// </summary> 
-    // private void initialization() {
-    //     Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-    //     AnimauxEnVisuel = new List<GameObject>();
-    //     Preys = new List<string>();
-
-    //     Attributes = AgentAttributes.GetAttributesDict();
-    //     Attributes["SpeciesName"] = gameObject.name;
-    //     Attributes["Health"] = "100";
-    //     if(!Attributes["SpeciesName"].Equals("Grass") && AgentMesh != null)
-    //         Attributes["Speed"] = AgentMesh.speed.ToString();
-    //     Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
-    //     Attributes["Id"] = Guid.NewGuid().ToString();
-        
-    //     Db = new("Data Source=tempDB.db;Version=3");
-    //     Preys = Db.SelectPreysOf(Attributes["SpeciesName"]);
-
-    //     //Ajout des données dans l'agent.
-    //     Dictionary<string, double> data = Db.SelectSpeciesData(Attributes["SpeciesName"]);
-    //     foreach(KeyValuePair<string, double> entry in data)
-    //         Attributes[entry.Key] = entry.Value.ToString();
-        
-    //     ActionTreeNode<string> strATN = 
-    //         ActionTreeParser.ReadFromXmlFile<ActionTreeNode<string>>(AGENT_RESOURCE_PATH +
-    //          Attributes["SpeciesName"] + "/" + Attributes["SpeciesName"] + ".tree");
-
-    //     _actionTree = ActionTreeParser.ParseStringActionTree(strATN, this);
-    //     _currentAction = _actionTree;
-
-    //     Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
-    //     Attributes["Ad"] = (1.0).ToString(); // a changer dans la bdd
-    //     Attributes["MaxEnergyNeeds"] = (1.0).ToString();
-    // }
 
     /// <summary>
     /// Méthode qui crée l'instance du singleton et si elle existe déjà, la retourne.
