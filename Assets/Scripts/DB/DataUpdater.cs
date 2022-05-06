@@ -31,6 +31,12 @@ public class DataUpdater : MonoBehaviour {
     private List<Agent> _agentList;
 
     /// <summary>
+    /// La liste des agents à ajouter dans la base
+    /// de données à la prochaine mise à jour.
+    /// </summary>
+    private List<Agent> _agentsToAdd;
+
+    /// <summary>
     /// Le temps écoulé depuis la dernière mise à
     /// jour du script.
     /// </summary>
@@ -81,6 +87,12 @@ public class DataUpdater : MonoBehaviour {
     /// </summary>
     public DD_DataDiagram AgentGraph;
 
+    /// <summary>
+    /// Mutex pour accéder à la liste des agents à ajouter
+    /// depuis un autre thread.
+    /// </summary>
+    private Mutex _agentToAddMutex = new Mutex();
+
 
     /// <summary>
     /// Crée au moment de la création du GameObject de
@@ -100,6 +112,7 @@ public class DataUpdater : MonoBehaviour {
         _recordNumber = _dbHelper.AddRecord(0.0f, 0.0f);
 
         _agentList = getAllGOAgents();
+        _agentsToAdd = new();
         
         foreach(Agent agent in _agentList) {
             if(agent.Attributes == null)
@@ -177,7 +190,19 @@ public class DataUpdater : MonoBehaviour {
         oldAutotrophCounter = autotrophCounter;
 
         new Thread(() => {
-            foreach (Agent agent in _agentList) {
+            if(_agentToAddMutex.WaitOne()) {
+                for(int i = _agentsToAdd.Count - 1; i >= 0; i--) {
+                    if(_agentsToAdd[i] != null) {
+                        Debug.Log("Adding NEW AGENT TO DATABASE!");
+                        _dbHelper.AddAgent(_agentsToAdd[i].Attributes["Id"], _agentsToAdd[i].Attributes["SpeciesName"], .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(_agentsToAdd[i].Attributes["SpeciesName"]), Convert.ToInt32(_agentsToAdd[i].Attributes["Gender"]));
+                    }
+                    _agentsToAdd.RemoveAt(i);
+                }
+
+                _agentToAddMutex.ReleaseMutex();
+            }
+
+            foreach(Agent agent in _agentList) {
                 if(agent != null) {
                     _dbHelper.AddAgentData(time, Convert.ToDouble(agent.Attributes["WaterNeeds"]) / Convert.ToDouble(agent.Attributes["MaxWaterNeeds"]), Convert.ToDouble(agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(agent.Attributes["MaxEnergyNeeds"]), "test", agent.Attributes["Id"], -1);
                 } else 
@@ -199,7 +224,13 @@ public class DataUpdater : MonoBehaviour {
     /// </summary>
     /// <param name="agent"></param>
     public void AddNewAgent(Agent agent) {
-
+        new Thread(() => {
+            if(_agentToAddMutex.WaitOne()) {
+                _agentsToAdd.Add(agent);
+                _agentToAddMutex.ReleaseMutex();
+            }        
+        }).Start();
+        
     }
 
     /// <summary>

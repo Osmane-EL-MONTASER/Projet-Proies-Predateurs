@@ -126,57 +126,58 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary>    
     void Update() {
-        System.Double newValue;
+        if(Attributes != null) {
+            System.Double newValue;
 
-        // si l'agent est en vie, on peut lui appliquer des comportements.
-        if(bool.Parse(Attributes["IsAlive"])) {
-            changeAction();
-            _currentAction.Action.update();
-        
-            //affecterAnimations();
-
-            testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
-
-            // si l'agent est en digestion
-            if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
-                newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
-                Attributes["RemainingDigestionTime"] = newValue.ToString();
-            }   
+            // si l'agent est en vie, on peut lui appliquer des comportements.
+            if(bool.Parse(Attributes["IsAlive"])) {
+                changeAction();
+                _currentAction.Action.update();
             
-            /*
-                newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
-                Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
-                newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
-                Attributes["EnergyNeeds"] = newValue.ToString();
-            */
+                //affecterAnimations();
 
-            newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime;
-            Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
+                testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
-            if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
-                AnimauxEnVisuel = animauxDansFov();
-                affecterComportement();
-            }
+                // si l'agent est en digestion
+                if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
+                    newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
+                    Attributes["RemainingDigestionTime"] = newValue.ToString();
+                }   
                 
-            //effectuerComportement();
-        }    
-        else {
-            newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 5;
-            Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
-                // si la carcasse est presque vide.
-                if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) {
-                    Destroy(this.gameObject); // on détruit l'objet.
+                /*
+                    newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
+                    Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
+                    newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
+                    Attributes["EnergyNeeds"] = newValue.ToString();
+                */
+
+                newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime;
+                Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
+
+                if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
+                    AnimauxEnVisuel = animauxDansFov();
+                    affecterComportement();
                 }
+                    
+                //effectuerComportement();
+            }    
+            else {
+                newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 5;
+                Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
+                    // si la carcasse est presque vide.
+                    if (Convert.ToDouble(Attributes["CarcassEnergyContribution"])<2.0) {
+                        Destroy(this.gameObject); // on détruit l'objet.
+                    }
+            }
+
+            /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
+                //Animation.SetBool("Running",true);
+                //Animation.SetBool("Idle2",true);
+                AgentMesh.SetDestination(walker());
+            }*/
+
+            //_currentAction.update();
         }
-
-        /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
-            //Animation.SetBool("Running",true);
-            //Animation.SetBool("Idle2",true);
-            AgentMesh.SetDestination(walker());
-        }*/
-
-        //_currentAction.update();
-    
     }
 
 

@@ -97,12 +97,10 @@ public class DBHelper {
 
         updateRecordCommand.CommandText = "UPDATE AGENT SET agent_death_date = " 
                                         + deathTime + " WHERE agent_num = '" + agentNum + "';";
-        Debug.Log(updateRecordCommand.CommandText);
         updateRecordCommand.ExecuteReader();
         updateRecordCommand.Dispose();
         updateRecordCommand.CommandText = "UPDATE AGENT SET agent_death_cause = '" 
                                         + deathCause + "' WHERE agent_num = '" + agentNum + "';";
-        Debug.Log(updateRecordCommand.CommandText);
         updateRecordCommand.ExecuteReader();
         updateRecordCommand.Dispose();
     }

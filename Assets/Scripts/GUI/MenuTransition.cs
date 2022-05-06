@@ -54,7 +54,7 @@ public class MenuTransition : MonoBehaviour {
 
         if(newScene.name.Contains(SceneNames.SIMULATION_SCENE)) {
             toogleCamera(true);
-            GameObject.Find("GestionAgents").GetComponent<GestionAgents>().enabled = true;
+            GameObject.Find("AgentManager").GetComponent<AgentManager>().enabled = true;
             GameObject.Find("Player").GetComponent<DataUpdater>().enabled = true;
             GraphPanel.SetActive(true);
         } else

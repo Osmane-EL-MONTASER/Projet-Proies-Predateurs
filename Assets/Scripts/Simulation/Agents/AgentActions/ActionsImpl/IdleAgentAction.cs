@@ -46,7 +46,6 @@ public class IdleAgentAction : AgentAction {
         && (_agent.AgentMesh != null) 
         && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
                 _agent.AgentMesh.SetDestination(_agent.walker());
-            Debug.Log("Setting destination");
         }
         
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") && !_agent.Animation.GetBool("WalkTrigger"))

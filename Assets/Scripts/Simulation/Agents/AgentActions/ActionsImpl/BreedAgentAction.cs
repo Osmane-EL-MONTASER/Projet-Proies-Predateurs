@@ -36,7 +36,6 @@ public class BreedAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         breed();
-        Debug.Log("Breeding");
         //throw new NotImplementedException();
     }
 
@@ -82,13 +81,11 @@ public class BreedAgentAction : AgentAction {
                 string name = child.Attributes["SpeciesName"].Split('(')[0];
                 child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.0";
                 Debug.Log("Successfully breeding!");
+                GameObject.Find("Player").GetComponent<DataUpdater>().AddNewAgent(child);
             } else {
                 GameObject.Destroy(_child);
                 Debug.Log("Failed breeding!");
             }
-            /*new Thread(() => {
-                child.Db.AddAgent(child.Attributes["Id"], name, .0f, -1.0f, 0, child.Db.SelectSpeciesId(name), Convert.ToInt32(child.Attributes["Gender"]));
-            }).Start();*/
             
             _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
             _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
