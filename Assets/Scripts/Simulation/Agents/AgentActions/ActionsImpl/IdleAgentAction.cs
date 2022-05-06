@@ -31,23 +31,34 @@ public class IdleAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
-        //Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"] + "\n Stamina = " + _agent.Attributes["Stamina"]);
+        /*if(!_agent.Attributes["SpeciesName"].Equals("Grass"))
+            Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"] + "\n Stamina = " + _agent.Attributes["Stamina"]);*/
         /*if(_agent.Attributes["SpeciesName"].Equals("Grass"))
             Debug.Log("Idling Grass... " + _agent.Attributes["EnergyNeeds"]);*/
         if(_agent.Attributes["SpeciesName"].Equals("Grass") && Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) > 0)
             _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.0005).ToString();
         else {
-            _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ActionNames.STAMINA_FACTOR).ToString();
+            _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ActionNames.STAMINA_FACTOR).ToString();
             _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
             _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
         }
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
         && (_agent.AgentMesh != null) 
-        && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
+        && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
                 _agent.AgentMesh.SetDestination(_agent.walker());
+            Debug.Log("Setting destination");
+        }
         
-        if(!_agent.Attributes["SpeciesName"].Equals("Grass") && !_agent.Animation.GetBool("IdleTrigger"))
-            _agent.affecterAnimations();
+        if(!_agent.Attributes["SpeciesName"].Equals("Grass") && !_agent.Animation.GetBool("WalkTrigger"))
+            handleAnimation();
         //throw new NotImplementedException();
+    }
+
+    private void handleAnimation() {
+        _agent.Animation.SetTrigger("WalkTrigger");
+        _agent.Animation.ResetTrigger("DeadTrigger");
+        _agent.Animation.ResetTrigger("AttackTrigger");
+        _agent.Animation.ResetTrigger("EatTrigger");
+        _agent.Animation.ResetTrigger("IdleTrigger");
     }
 }

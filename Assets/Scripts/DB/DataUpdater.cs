@@ -102,7 +102,8 @@ public class DataUpdater : MonoBehaviour {
         _agentList = getAllGOAgents();
         
         foreach(Agent agent in _agentList) {
-            agent.initialisation();
+            if(agent.Attributes == null)
+                agent.initialisation();
             string name = agent.gameObject.name;
             
             _dbHelper.AddAgent(agent.Attributes["Id"], name, .0f, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(name), Convert.ToInt32(agent.Attributes["Gender"]));
@@ -159,9 +160,8 @@ public class DataUpdater : MonoBehaviour {
         string[] autotrophs = {"Grass"}; 
         _agentList = getAllGOAgents();
 
-        new Thread(() => {
-            foreach (Agent agent in _agentList) {
-                if(agent != null) {
+        foreach (Agent agent in _agentList) {
+                if(agent != null && bool.Parse(agent.Attributes["IsAlive"])) {
                     string name = agent.Attributes["SpeciesName"].Split('(')[0];
                     if(Array.Exists(predators, n => n.Equals(name)))
                         predCounter++;
@@ -169,15 +169,20 @@ public class DataUpdater : MonoBehaviour {
                         preyCounter++;
                     if(Array.Exists(autotrophs, n => n.Equals(name)))
                         autotrophCounter++;
-                    
+                }
+        }
+        
+        oldPredCounter = predCounter;
+        oldPreyCounter = preyCounter;
+        oldAutotrophCounter = autotrophCounter;
+
+        new Thread(() => {
+            foreach (Agent agent in _agentList) {
+                if(agent != null) {
                     _dbHelper.AddAgentData(time, Convert.ToDouble(agent.Attributes["WaterNeeds"]) / Convert.ToDouble(agent.Attributes["MaxWaterNeeds"]), Convert.ToDouble(agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(agent.Attributes["MaxEnergyNeeds"]), "test", agent.Attributes["Id"], -1);
                 } else 
                     _agentList.Remove(agent);
             }
-
-            oldPredCounter = predCounter;
-            oldPreyCounter = preyCounter;
-            oldAutotrophCounter = autotrophCounter;
         }).Start();
     }
 

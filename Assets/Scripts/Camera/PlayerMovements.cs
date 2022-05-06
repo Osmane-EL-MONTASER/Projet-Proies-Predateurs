@@ -57,7 +57,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(0, 1, 0);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + tempVect);
-                RainParticles.GetComponent<Transform>().Translate(Vector3.up * Time.deltaTime * CameraSpeed, Space.World);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.up * Time.deltaTime * CameraSpeed, Space.World);
                 _lastTranslation = Vector3.up * Time.deltaTime * CameraSpeed;
             }
                 
@@ -66,7 +66,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(0, -1, 0);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + tempVect);
-                RainParticles.GetComponent<Transform>().Translate(Vector3.down * Time.deltaTime * CameraSpeed, Space.World);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.down * Time.deltaTime * CameraSpeed, Space.World);
                 _lastTranslation = Vector3.down * Time.deltaTime * CameraSpeed;
             }
                 
@@ -75,7 +75,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(-1, 0, 0);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + PlayerBody.transform.TransformDirection(tempVect));
-                RainParticles.GetComponent<Transform>().Translate(Vector3.left * Time.deltaTime * CameraSpeed, PlayerBody);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.left * Time.deltaTime * CameraSpeed, PlayerBody);
                 _lastRelativeToTransform = PlayerBody;
                 _lastTranslation = Vector3.left * Time.deltaTime * CameraSpeed;
             }
@@ -85,7 +85,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(1, 0, 0);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + PlayerBody.transform.TransformDirection(tempVect));
-                RainParticles.GetComponent<Transform>().Translate(Vector3.right * Time.deltaTime * CameraSpeed, PlayerBody);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.right * Time.deltaTime * CameraSpeed, PlayerBody);
                 _lastRelativeToTransform = PlayerBody;
                 _lastTranslation = Vector3.right * Time.deltaTime * CameraSpeed;
             }
@@ -95,7 +95,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(0, 0, -1);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + PlayerBody.transform.TransformDirection(tempVect));
-                RainParticles.GetComponent<Transform>().Translate(Vector3.back * Time.deltaTime * CameraSpeed, PlayerBody);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.back * Time.deltaTime * CameraSpeed, PlayerBody);
                 _lastRelativeToTransform = PlayerBody;
                 _lastTranslation = Vector3.back * Time.deltaTime * CameraSpeed;
             }
@@ -105,7 +105,7 @@ public class PlayerMovements : MonoBehaviour {
                 Vector3 tempVect = new Vector3(0, 0, 1);
                 tempVect = tempVect.normalized * Time.deltaTime * CameraSpeed;
                 RigidBodyC.MovePosition(transform.position + PlayerBody.transform.TransformDirection(tempVect));
-                RainParticles.GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * CameraSpeed, PlayerBody);
+                //RainParticles.GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * CameraSpeed, PlayerBody);
                 _lastRelativeToTransform = PlayerBody;
                 _lastTranslation = Vector3.forward * Time.deltaTime * CameraSpeed;
             }

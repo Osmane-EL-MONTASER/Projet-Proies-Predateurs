@@ -17,6 +17,7 @@ using System.Threading;
 public class BreedAgentAction : AgentAction {
 
     private GameObject _child;
+    private Vector3 oldLocalScale;
 
     /// <summary>
     /// Permet d'initialiser l'attribut _agent.
@@ -35,6 +36,7 @@ public class BreedAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         breed();
+        Debug.Log("Breeding");
         //throw new NotImplementedException();
     }
 
@@ -55,6 +57,8 @@ public class BreedAgentAction : AgentAction {
                 Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
                 randomY), Quaternion.identity);
             go.name = "Grass";
+            oldLocalScale = go.transform.localScale;
+            go.transform.localScale = new Vector3(0, 0, 0);
             _child = go;
         }else if(!_agent.Attributes["SpeciesName"].Equals("Grass") && _child == null) {
             System.Random rnd = new System.Random();
@@ -65,17 +69,28 @@ public class BreedAgentAction : AgentAction {
                 Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)),
                 randomY), Quaternion.identity);
             go.name = go.name.Split("(")[0];
+            oldLocalScale = go.transform.localScale;
+            go.transform.localScale = new Vector3(0, 0, 0);
             _child = go;
         } else if(_child != null) {
-            Agent child = _child.GetComponent<Agent>();
-            string name = child.Attributes["SpeciesName"].Split('(')[0];
-            
+            Agent child;
+            if((_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.25)
+                || (!_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.4)) {
+                child = _child.GetComponent<Agent>();
+                _child.transform.localScale = oldLocalScale;
+                child.initialisation();
+                string name = child.Attributes["SpeciesName"].Split('(')[0];
+                child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.0";
+                Debug.Log("Successfully breeding!");
+            } else {
+                GameObject.Destroy(_child);
+                Debug.Log("Failed breeding!");
+            }
             /*new Thread(() => {
                 child.Db.AddAgent(child.Attributes["Id"], name, .0f, -1.0f, 0, child.Db.SelectSpeciesId(name), Convert.ToInt32(child.Attributes["Gender"]));
             }).Start();*/
             
-            child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
-            _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
+            _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
             _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
             _child = null;
         }

@@ -55,15 +55,15 @@ Stamina  &lt; 0.4</string>
         <string />
         <string>Stamina &lt;= 0.35
 &lt;-&gt;
-Stamina == 1</string>
+Stamina >= 1</string>
         <string>WaterNeeds &gt;= 0.6
 &lt;-&gt;
 WaterNeeds &lt;= 0.1</string>
-        <string>Stamina &gt;= 0.8
-EnergyNeeds &gt;= 0.6
+        <string>Stamina &gt;= 0.85
+EnergyNeeds &lt;= 0.05
 
 &lt;-&gt;
 
-Stamina  &lt; 0.4</string>
+Stamina  &lt; 0.45</string>
     </TransitionsCond>
 </ActionTreeNodeOfString>

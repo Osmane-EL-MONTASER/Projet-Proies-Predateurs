@@ -201,19 +201,19 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     /// <summary>
     /// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
     /// </summary>
-    public float m_CentimeterPerMark = 1f;
+    public float m_CentimeterPerMark = 2f;
 
     /// <summary>
     /// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
     /// x轴长度单位为“秒”，物理长度单位为“公分”
     /// </summary>
-    public float m_CentimeterPerCoordUnitX = 1f;
+    public float m_CentimeterPerCoordUnitX = 2f;
 
     /// <summary>
     /// 标准y轴上每单位长度对应的物理长度（未缩放状态下）
     /// y轴长度单位为“米”，物理长度单位为“公分”
     /// </summary>
-    public float m_CentimeterPerCoordUnitY = 1f;
+    public float m_CentimeterPerCoordUnitY = 2f;
     #endregion
 
     #endregion

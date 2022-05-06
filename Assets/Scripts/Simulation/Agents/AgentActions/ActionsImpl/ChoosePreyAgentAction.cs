@@ -32,7 +32,7 @@ public class ChoosePreyAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Chasing prey...  EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ActionNames.STAMINA_FACTOR).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ActionNames.STAMINA_FACTOR).ToString();
         _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
         _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
         
@@ -68,11 +68,13 @@ public class ChoosePreyAgentAction : AgentAction {
 
             if (bool.Parse(animalTemp.Attributes["IsAlive"])) // si la cible est en vie
             {
+                attackAnimation();
                 animalTemp.Attributes["Health"] = (Convert.ToDouble(animalTemp.Attributes["Health"]) - Convert.ToDouble(_agent.Attributes["Ad"])).ToString(); //l'agent attaque la cible
                 // rajotuer les anim si dispo
             }
             else if (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) >= 10.0)
             {
+                eatAnimation();
                 animalTemp.Attributes["CarcassEnergyContribution"] = (Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) - 0.5).ToString();
                 _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - 0.5).ToString();
                 if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) < 0.0)
@@ -83,11 +85,13 @@ public class ChoosePreyAgentAction : AgentAction {
         {
             _agent.AgentMesh.SetDestination(_agent.AgentCible.transform.position);
             _agent.AgentMesh.isStopped = false;
+            walkAnimation();
         }
 
         if ((Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0) || (Convert.ToDouble(_agent.Attributes["EnergyNeeds"])<=0.0))
         {
             _agent.AgentMesh.isStopped = false;
+            walkAnimation();
             _agent.AnimauxEnVisuel.Remove(_agent.AgentCible);
             _agent.AgentCible = null;
             if ((Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) <= 0.25)&&(_agent.Attributes["IsHungry"]=="true"))
@@ -108,5 +112,27 @@ public class ChoosePreyAgentAction : AgentAction {
             }
         }
 
+    }
+
+    private void attackAnimation() {
+        if(!_agent.Animation.GetBool("AttackTrigger")) {
+            _agent.Animation.ResetTrigger("IdleTrigger");
+            _agent.Animation.SetTrigger("AttackTrigger");
+        }
+    }
+
+    private void eatAnimation() {
+        if(!_agent.Animation.GetBool("EatTrigger")) {
+            _agent.Animation.ResetTrigger("AttackTrigger");
+            _agent.Animation.SetTrigger("EatTrigger");
+        }
+    }
+
+    private void walkAnimation() {
+        if(!_agent.Animation.GetBool("WalkTrigger")) {
+            _agent.Animation.SetTrigger("WalkTrigger");
+            _agent.Animation.ResetTrigger("AttackTrigger");
+            _agent.Animation.ResetTrigger("EatTrigger");
+        }
     }
 }

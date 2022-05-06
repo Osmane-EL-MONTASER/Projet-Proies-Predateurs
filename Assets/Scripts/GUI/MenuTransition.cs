@@ -21,11 +21,12 @@ public class MenuTransition : MonoBehaviour {
     /// <summary>
     /// Le menu d'ajout d'agents en simulation.
     /// </summary>
-     public GameObject AgentSimulationPanel;
+    public GameObject AgentSimulationPanel;
     /// <summary>
     /// Le menu d'ajout d'effets environnementaux en simulation.
     /// </summary>
-     public GameObject MeteoSimulationPanel;
+    public GameObject MeteoSimulationPanel;
+    public GameObject GraphPanel;
 
     /// <summary>
     /// Type d'un nouvel agent.
@@ -55,6 +56,7 @@ public class MenuTransition : MonoBehaviour {
             toogleCamera(true);
             GameObject.Find("GestionAgents").GetComponent<GestionAgents>().enabled = true;
             GameObject.Find("Player").GetComponent<DataUpdater>().enabled = true;
+            GraphPanel.SetActive(true);
         } else
             toogleCamera(false);
 

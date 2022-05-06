@@ -90,12 +90,9 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 12/03/2022.
     /// </summary> 
     void Start() {
-
         AgentMesh = gameObject.GetComponent<NavMeshAgent>();
         Animation = gameObject.GetComponent<Animator>();
         Fov = gameObject.GetComponent<Light>();
-
-        initialisation();
     }
 
     protected void changeAction() {
@@ -151,9 +148,10 @@ public class Agent : MonoBehaviour {
                 Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
                 newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
                 Attributes["EnergyNeeds"] = newValue.ToString();
-                newValue = Convert.ToDouble(Attributes["Age"]) + 0.00001;
-                Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
             */
+
+            newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime;
+            Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
 
             if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
                 AnimauxEnVisuel = animauxDansFov();
@@ -279,27 +277,30 @@ public class Agent : MonoBehaviour {
         if (Convert.ToDouble(Attributes["Age"]) >= Convert.ToDouble(Attributes["MaxAge"])) {
             Attributes["IsAlive"] = "false";
             Attributes["DeathCause"] = "Mort de vieillesse.";
+            
+            Debug.Log(Attributes["SpeciesName"] + " died at the age of " + Attributes["Age"]);
         }
 
         if (bool.Parse(Attributes["IsAlive"])==false) {
-            AgentMesh.speed = 0.0f;
-            AgentMesh.isStopped = true;
-            Attributes["Speed"] = (0.0).ToString();
+            if(!Attributes["SpeciesName"].Equals("Grass")) {
+                AgentMesh.speed = 0.0f;
+                AgentMesh.isStopped = true;
+                Attributes["Speed"] = (0.0).ToString();
 
-            Animation.ResetTrigger("AttackTrigger");
-            Animation.ResetTrigger("IdleTrigger");
-            Animation.ResetTrigger("WalkTrigger");
-            Animation.ResetTrigger("EatTrigger");
-            
-            Animation.SetTrigger("DeadTrigger");
-
+                Animation.ResetTrigger("AttackTrigger");
+                Animation.ResetTrigger("IdleTrigger");
+                Animation.ResetTrigger("WalkTrigger");
+                Animation.ResetTrigger("EatTrigger");
+                
+                Animation.SetTrigger("DeadTrigger");
+            }
             //Mise à jour dans la BDD :
             Db.SetDeathToAgent(Attributes["Id"], DataUpdater.CurrentTime, Attributes["DeathCause"]);
         }
     }
 
     public Vector3 walker() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 50;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 
@@ -322,7 +323,7 @@ public class Agent : MonoBehaviour {
         listeAnimaux = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject indexAnimal in listeAnimaux)
         {
-            if (indexAnimal != null && Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
+            if (indexAnimal.GetComponent<Agent>().Attributes != null && Attributes != null && Attributes["Id"] != indexAnimal.GetComponent<Agent>().Attributes["Id"]) // on vérifie que l'on ne teste pas sur le meme agent
                 if ((((Vector3.Distance(transform.position, indexAnimal.transform.position) <= Fov.range) //si l'animal est dans la portée de vue
                 && (Vector3.Angle(transform.forward, indexAnimal.transform.position - transform.position) <= Fov.spotAngle / 2))) //  et si l'animal est dans l'angle de vue
                 || ((Vector3.Distance(transform.position, indexAnimal.transform.position)<10.0f))) // ou si l'animal est très proche

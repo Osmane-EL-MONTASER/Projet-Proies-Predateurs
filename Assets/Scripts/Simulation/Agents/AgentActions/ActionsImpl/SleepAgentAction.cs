@@ -30,19 +30,23 @@ public class SleepAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Sleeping ... Stamina = " + _agent.Attributes["Stamina"]);
+
+        if(_agent.AgentMesh.destination != _agent.transform.position)
+            _agent.AgentMesh.SetDestination(_agent.transform.position);
+
         _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ActionNames.STAMINA_FACTOR).ToString();
         _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
         _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
         
-        if(!_agent.Animation.GetBool("DeadTrigger"))
+        if(!_agent.Animation.GetBool("IdleTrigger"))
             handleAnimation();
     }
 
     private void handleAnimation() {
         _agent.Animation.ResetTrigger("WalkTrigger");
-        _agent.Animation.SetTrigger("DeadTrigger");
+        _agent.Animation.ResetTrigger("DeadTrigger");
         _agent.Animation.ResetTrigger("AttackTrigger");
         _agent.Animation.ResetTrigger("EatTrigger");
-        _agent.Animation.ResetTrigger("IdleTrigger");
+        _agent.Animation.SetTrigger("IdleTrigger");
     }
 }
