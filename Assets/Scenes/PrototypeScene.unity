@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.086672455, g: 0.08240336, b: 0.11293149, a: 1}
+  m_IndirectSpecularColor: {r: 239.4158, g: 212.10692, b: 322.4893, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -28550,7 +28550,7 @@ GameObject:
   - component: {fileID: 973711406}
   - component: {fileID: 973711409}
   m_Layer: 5
-  m_Name: InputField Vitesse du temps
+  m_Name: InputField Nombre d'agents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29269,6 +29269,7 @@ GameObject:
   - component: {fileID: 992284846}
   - component: {fileID: 992284845}
   - component: {fileID: 992284844}
+  - component: {fileID: 992284847}
   m_Layer: 5
   m_Name: Algues
   m_TagString: Untagged
@@ -29292,10 +29293,10 @@ RectTransform:
   m_Father: {fileID: 2102812631}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 65, y: -40}
-  m_SizeDelta: {x: 110, y: 60}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992284844
 MonoBehaviour:
@@ -29340,7 +29341,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 992284845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 992284847}
+        m_TargetAssemblyTypeName: AgentsConfiguration, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &992284845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29379,6 +29392,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992284842}
   m_CullTransparentMesh: 1
+--- !u!114 &992284847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992284842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHealth: {fileID: 0}
+  inputMaxStamina: {fileID: 0}
+  inputTimeToLive: {fileID: 0}
+  inputMaxSpeed: {fileID: 0}
+  inputNumAgents: {fileID: 0}
+  settings: {fileID: 1141819464}
+  button: {fileID: 774079420}
 --- !u!1 &995771742
 GameObject:
   m_ObjectHideFlags: 0
@@ -39232,7 +39264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1143197864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43254,7 +43286,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -64961,6 +64993,7 @@ GameObject:
   - component: {fileID: 2075811329}
   - component: {fileID: 2075811328}
   - component: {fileID: 2075811327}
+  - component: {fileID: 2075811330}
   m_Layer: 5
   m_Name: Grass
   m_TagString: Untagged
@@ -64984,10 +65017,10 @@ RectTransform:
   m_Father: {fileID: 2102812631}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 195, y: -40}
-  m_SizeDelta: {x: 110, y: 60}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075811327
 MonoBehaviour:
@@ -65032,7 +65065,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075811328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2075811330}
+        m_TargetAssemblyTypeName: AgentsConfiguration, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2075811328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65071,6 +65116,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075811325}
   m_CullTransparentMesh: 1
+--- !u!114 &2075811330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075811325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHealth: {fileID: 0}
+  inputMaxStamina: {fileID: 0}
+  inputTimeToLive: {fileID: 0}
+  inputMaxSpeed: {fileID: 0}
+  inputNumAgents: {fileID: 0}
+  settings: {fileID: 1141819464}
+  button: {fileID: 774079420}
 --- !u!1 &2076867138
 GameObject:
   m_ObjectHideFlags: 0
@@ -66146,9 +66210,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -17}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2102812632
 MonoBehaviour:
