@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.08731139, g: 0.08294803, b: 0.11277628, a: 1}
+  m_IndirectSpecularColor: {r: 0.08680901, g: 0.08251488, b: 0.112903595, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30027,11 +30027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHealth: {fileID: 0}
-  inputMaxStamina: {fileID: 0}
-  inputTimeToLive: {fileID: 0}
-  inputMaxSpeed: {fileID: 0}
-  inputNumAgents: {fileID: 0}
+  inputHealth: {fileID: 1192244988}
+  inputMaxStamina: {fileID: 877392074}
+  inputTimeToLive: {fileID: 821992980}
+  inputMaxSpeed: {fileID: 1812129601}
+  inputNumAgents: {fileID: 973711406}
   settings: {fileID: 1141819464}
   button: {fileID: 774079420}
 --- !u!1 &995771742
@@ -66049,11 +66049,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHealth: {fileID: 0}
-  inputMaxStamina: {fileID: 0}
-  inputTimeToLive: {fileID: 0}
-  inputMaxSpeed: {fileID: 0}
-  inputNumAgents: {fileID: 0}
+  inputHealth: {fileID: 1192244988}
+  inputMaxStamina: {fileID: 877392074}
+  inputTimeToLive: {fileID: 821992980}
+  inputMaxSpeed: {fileID: 1812129601}
+  inputNumAgents: {fileID: 973711406}
   settings: {fileID: 1141819464}
   button: {fileID: 774079420}
 --- !u!1 &2076867138
