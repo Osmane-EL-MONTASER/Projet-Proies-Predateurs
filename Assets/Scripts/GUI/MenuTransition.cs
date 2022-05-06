@@ -28,6 +28,8 @@ public class MenuTransition : MonoBehaviour {
     public GameObject MeteoSimulationPanel;
     public GameObject GraphPanel;
 
+    public GameObject SimSpeedPanel;
+
     /// <summary>
     /// Type d'un nouvel agent.
     /// </summary>
@@ -57,6 +59,7 @@ public class MenuTransition : MonoBehaviour {
             GameObject.Find("AgentManager").GetComponent<AgentManager>().enabled = true;
             GameObject.Find("Player").GetComponent<DataUpdater>().enabled = true;
             GraphPanel.SetActive(true);
+            SimSpeedPanel.SetActive(true);
         } else
             toogleCamera(false);
 

@@ -32,9 +32,9 @@ public class ChoosePreyAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Chasing prey...  EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ActionNames.STAMINA_FACTOR).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ActionNames.ENERGY_FACTOR).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ActionNames.WATER_FACTOR).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (ActionNames.STAMINA_FACTOR / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
         
         if(Convert.ToDouble(_agent.Attributes["Stamina"]) < 0.25) {
             _agent.ForceChangeAction(_agent._actionTree, "<->\nStamina >= 1");

@@ -127,6 +127,10 @@ public class Agent : MonoBehaviour {
     /// </summary>    
     void Update() {
         if(Attributes != null) {
+            Attributes["Speed"] = (168f / ActionNames.TimeSpeed).ToString();
+            if(float.Parse(Attributes["Speed"]) != AgentMesh.speed)
+                AgentMesh.speed = float.Parse(Attributes["Speed"]);
+
             System.Double newValue;
 
             // si l'agent est en vie, on peut lui appliquer des comportements.

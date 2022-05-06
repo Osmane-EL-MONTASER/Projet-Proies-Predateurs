@@ -31,9 +31,9 @@ public class FindFoodAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (0.0001 * 4)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + 0.0005).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + 0.0008).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ((ActionNames.STAMINA_FACTOR * 4) / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
 
         chercherAManger();
 
@@ -58,7 +58,7 @@ public class FindFoodAgentAction : AgentAction {
             if((_agent.AgentMesh != null) && (_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) 
                 _agent.AgentMesh.SetDestination(_agent.walker());// il se déplace 
             if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
-                _agent.AgentMesh.speed = 0.75f * (float)Convert.ToDouble(_agent.Attributes["MaxSpeed"]); // il se déplace plus vite
+                _agent.AgentMesh.speed = 0.75f * (float)Convert.ToDouble(_agent.Attributes["MaxSpeed"]) * ActionNames.TimeSpeed; // il se déplace plus vite
         }
         else // si l'agent voit des animaux 
         {

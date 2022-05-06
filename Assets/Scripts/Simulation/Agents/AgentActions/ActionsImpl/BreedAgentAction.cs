@@ -59,7 +59,11 @@ public class BreedAgentAction : AgentAction {
             oldLocalScale = go.transform.localScale;
             go.transform.localScale = new Vector3(0, 0, 0);
             _child = go;
-        }else if(!_agent.Attributes["SpeciesName"].Equals("Grass") && _child == null) {
+        }else if(!_agent.Attributes["SpeciesName"].Equals("Grass")) {
+            _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
+            _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
+        } 
+        /*
             System.Random rnd = new System.Random();
             float randomX = rnd.Next((int)_agent.transform.position.x - 1, (int)_agent.transform.position.x + 1);
             float randomY = rnd.Next((int)_agent.transform.position.z - 1, (int)_agent.transform.position.z + 1);
@@ -71,7 +75,8 @@ public class BreedAgentAction : AgentAction {
             oldLocalScale = go.transform.localScale;
             go.transform.localScale = new Vector3(0, 0, 0);
             _child = go;
-        } else if(_child != null) {
+        */
+        if(_child != null) {
             Agent child;
             if((_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.25)
                 || (!_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.4)) {
@@ -91,5 +96,23 @@ public class BreedAgentAction : AgentAction {
             _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
             _child = null;
         }
+    }
+
+    /// <summary>
+    /// Savoir si l'agent en question est en capacité
+    /// de se reproduire. Cela afin d'éviter que des
+    /// animaux enceintes ne se reproduisent ainsi
+    /// que les animaux n'ayant pas la majorité
+    /// sexuelle.
+    /// La monogamie est activée par défaut.
+    /// 
+    /// Fait par EL MONTASER Osmane le 06/05/2022.
+    /// </summary>
+    /// <param name="agent">
+    /// 
+    /// </param>
+    /// <returns></returns>
+    private bool isBreedingReady(Agent agent) {
+        return false;
     }
 }

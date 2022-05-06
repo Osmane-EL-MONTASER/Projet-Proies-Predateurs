@@ -112,7 +112,7 @@ public class Precipitation : MonoBehaviour {
     /// </summary>
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = PrecipitationSpeed;
+        _timeAccumulator = PrecipitationSpeed / ActionNames.TimeSpeed;
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
@@ -125,7 +125,7 @@ public class Precipitation : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 19/03/2022.
     /// </summary>
     void Update() {
-        _timeAccumulator += Time.deltaTime;
+        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
         if(!_alreadyApplied && _timeAccumulator >= PrecipitationSpeed && Monitor.TryEnter(_applyNoiseLock)) {
             XOrg += PrecipitationOffsetX;
             YOrg += PrecipitationOffsetY;

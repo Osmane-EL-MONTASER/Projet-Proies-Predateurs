@@ -130,14 +130,14 @@ public class WindGenerator : MonoBehaviour {
 
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = WindSpeed;
+        _timeAccumulator = WindSpeed / ActionNames.TimeSpeed;
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
     }
 
     void Update() {
-        _timeAccumulator += Time.deltaTime;
+        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
         
         if(!_alreadyApplied && _timeAccumulator >= WindSpeed && Monitor.TryEnter(_applyNoiseLock)) {
             XOrg += WindOffsetX;

@@ -130,14 +130,14 @@ public class FogGenerator : MonoBehaviour {
 
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = FogSpeed;
+        _timeAccumulator = FogSpeed / ActionNames.TimeSpeed;
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
     }
 
     void Update() {
-        _timeAccumulator += Time.deltaTime;
+        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
         applyFogValues();
         
         if(!_alreadyApplied && _timeAccumulator >= FogSpeed && Monitor.TryEnter(_applyNoiseLock)) {

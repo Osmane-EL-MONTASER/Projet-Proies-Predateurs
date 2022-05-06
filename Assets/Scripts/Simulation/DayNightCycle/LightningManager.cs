@@ -17,7 +17,7 @@ public class LightningManager : MonoBehaviour {
     /// <summary>
     /// L'heure actuelle dans le monde de la simulation.
     /// </summary>
-    [SerializeField, Range(0, 240)] private float _timeOfDay;
+    [SerializeField, Range(0, 1)] private float _timeOfDay;
 
     /// <summary>
     /// Pour faire avancer le temps dans le cycle jour /
@@ -31,10 +31,10 @@ public class LightningManager : MonoBehaviour {
 
         if(Application.isPlaying) {
             _timeOfDay += Time.deltaTime;
-            _timeOfDay %= 240;
-            UpdateLightning(_timeOfDay / 240f);
+            _timeOfDay %= 1 * ActionNames.TimeSpeed;
+            UpdateLightning(_timeOfDay / (1f * ActionNames.TimeSpeed));
         } else
-            UpdateLightning(_timeOfDay / 240f);
+            UpdateLightning(_timeOfDay / (1f * ActionNames.TimeSpeed));
     }
 
     /// <summary>
