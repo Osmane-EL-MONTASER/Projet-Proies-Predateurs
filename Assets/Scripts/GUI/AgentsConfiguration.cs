@@ -118,7 +118,7 @@ public class AgentsConfiguration : MonoBehaviour
         
         _selectedAgentType = gameObject.name;
         AgentManager.Instance.newAgentType = _selectedAgentType;
-
+        
         button.onClick.AddListener(() => AgentManager.Instance.initializationAgents(_selectedAgentType, _health, _maxSpeed, _staminaMax, _timeToLive, _numAgents));
 
     }
