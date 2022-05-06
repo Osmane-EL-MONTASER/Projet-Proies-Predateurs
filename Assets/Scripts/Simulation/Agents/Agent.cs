@@ -137,9 +137,11 @@ public class Agent : MonoBehaviour {
             if(bool.Parse(Attributes["IsPregnant"]))
                 updatePregnancy();
 
-            Attributes["Speed"] = (168f / ActionNames.TimeSpeed).ToString();
-            if(float.Parse(Attributes["Speed"]) != AgentMesh.speed)
+            Attributes["Speed"] = (400f / ActionNames.TimeSpeed).ToString();
+            if(AgentMesh != null && float.Parse(Attributes["Speed"]) != AgentMesh.speed) {
                 AgentMesh.speed = float.Parse(Attributes["Speed"]);
+                AgentMesh.acceleration = float.Parse(Attributes["Speed"]);
+            }
 
             System.Double newValue;
 
@@ -213,6 +215,7 @@ public class Agent : MonoBehaviour {
                 go.GetComponent<Agent>().initialisation();
                 go.GetComponent<Agent>().Attributes["EnergyNeeds"] = "0.0";
                 go.GetComponent<Agent>().Attributes["Stamina"] = "0.38";
+                GameObject.Find("Player").GetComponent<DataUpdater>().AddNewAgent(go.GetComponent<Agent>());
             }
             Debug.Log(nbChildren + " born!");
             Attributes["IsPregnant"] = "false";
