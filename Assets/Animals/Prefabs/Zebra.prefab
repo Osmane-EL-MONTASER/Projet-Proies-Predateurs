@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &629843574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629843575}
+  m_Layer: 0
+  m_Name: Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &629843575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629843574}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 2.35, z: -2.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2408611362965690987}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &125483778580466272
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +737,7 @@ GameObject:
   - component: {fileID: -2859561708412614165}
   - component: {fileID: -523522984485842565}
   - component: {fileID: -5354803159182836018}
+  - component: {fileID: 107089873}
   m_Layer: 0
   m_Name: Zebra
   m_TagString: Animal
@@ -727,6 +759,7 @@ Transform:
   m_Children:
   - {fileID: 3207759927350420265}
   - {fileID: 7339211474252340404}
+  - {fileID: 629843575}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -784,6 +817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AgentMesh: {fileID: 0}
+  Animation: {fileID: 0}
+  Fov: {fileID: 0}
+  AgentCible: {fileID: 0}
+  AnimauxEnVisuel: []
+  Preys: []
 --- !u!108 &-523522984485842565
 Light:
   m_ObjectHideFlags: 0
@@ -968,6 +1007,19 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!65 &107089873
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037339202061222097}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2.3143222, z: 3.1789627}
+  m_Center: {x: 0, y: 0.84283996, z: 0.089481324}
 --- !u!1 &3326488914999115104
 GameObject:
   m_ObjectHideFlags: 0
