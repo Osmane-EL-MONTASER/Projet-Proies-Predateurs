@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 /// <summary>
 /// Singleton de Gestion des Global des Agents
@@ -28,6 +29,8 @@ public class AgentManager : MonoBehaviour {
     /// Type du nouvel agent qui va être ajouté.
     /// </summary>
     public string newAgentType;
+
+    private static bool _isBDDReset = false;
 
 
     /// <summary>
@@ -133,10 +136,19 @@ public class AgentManager : MonoBehaviour {
         //         InstanceList.Remove(agent);    
         //     }
         // }
-        Debug.Log(type);
+        string tempPath = "Data Source=tempDB.db;Version=3";
+        if(!_isBDDReset) {
+            File.Delete("tempDB.db");
+            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
+            _isBDDReset = true;
+        }
+
+        DBHelper _dbHelper = new (tempPath);
+
         for(int i = 0; i < n; i++){
             System.Random rnd = new System.Random();
             GameObject agent = instanciateAgent();
+
 
             newAgentType = type;
 
@@ -152,11 +164,7 @@ public class AgentManager : MonoBehaviour {
             InstanceList.Add(agent);
 
             agent.name = agent.name.Replace("(Clone)","");
-            // Agent script = agent.GetComponent<Agent>();
-            // Dictionary<string, string> Attributes = AgentAttributes.GetAttributesDict();
             
-            // script.Attributes = Attributes;
-            // Debug.Log(script.Attributes);   
         }
     } 
     
