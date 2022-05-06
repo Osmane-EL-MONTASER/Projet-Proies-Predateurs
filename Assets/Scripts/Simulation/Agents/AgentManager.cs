@@ -143,7 +143,7 @@ public class AgentManager : MonoBehaviour {
         
             agent = Instantiate(agent, hit.position , Quaternion.identity);
             agent.name = agent.name.Replace("(Clone)","");
-            GameObject script = agent.GetComponent<Agent>();
+            //GameObject script = agent.GetComponent<Agent>();
         }
     } 
     
