@@ -14,6 +14,11 @@ public class AgentsConfiguration : MonoBehaviour
     /// <summary>
     /// Input de la santé.
     /// </summary>
+    public TMP_Text title;
+
+    /// <summary>
+    /// Input de la santé.
+    /// </summary>
     public TMP_InputField inputHealth;
 
     /// <summary>
@@ -95,8 +100,7 @@ public class AgentsConfiguration : MonoBehaviour
     /// </summary>
     public void onClick(){
         settings.SetActive(true);
-        TMP_Text title = settings.transform.Find("Texte \"Paramètres\"").gameObject.GetComponent<TMP_Text>();
-        title.text = "Paramètre " + _selectedAgentType + " :";
+        title.text = "Paramètres " + _selectedAgentType + " :";
         
         inputHealth.onEndEdit.RemoveAllListeners();
         inputMaxSpeed.onEndEdit.RemoveAllListeners();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.08680901, g: 0.08251488, b: 0.112903595, a: 1}
+  m_IndirectSpecularColor: {r: 0.09506512, g: 0.09605509, b: 0.15256238, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16437,6 +16437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 430584059}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
@@ -30027,6 +30028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 1489618029}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
@@ -36532,6 +36534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 430584059}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
@@ -39031,6 +39034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 430584059}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
@@ -39806,7 +39810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1141819465
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60462,6 +60466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 0}
   inputHealth: {fileID: 0}
   inputMaxStamina: {fileID: 0}
   inputTimeToLive: {fileID: 0}
@@ -66049,6 +66054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 1489618029}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
@@ -66495,6 +66501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71d0f2a0b66b040b70de08bb6c0dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 430584059}
   inputHealth: {fileID: 1192244988}
   inputMaxStamina: {fileID: 877392074}
   inputTimeToLive: {fileID: 821992980}
