@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 2794060534905564011}
   - component: {fileID: 2743236036873117730}
   - component: {fileID: 7539595280049250743}
+  - component: {fileID: -7241370171987584065}
   m_Layer: 0
   m_Name: Wolf2
   m_TagString: Animal
@@ -205,18 +206,18 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 400
-  m_Acceleration: 400
+  m_Speed: 8
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.7
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &2309852780336554908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +440,19 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!65 &-7241370171987584065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2599620566178990602}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &2599620566178990604
 GameObject:
   m_ObjectHideFlags: 0

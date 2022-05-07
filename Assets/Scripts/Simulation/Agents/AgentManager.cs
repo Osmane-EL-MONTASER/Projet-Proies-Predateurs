@@ -143,7 +143,7 @@ public class AgentManager : MonoBehaviour {
             Vector3 pos;
             UnityEngine.AI.NavMeshHit hit;
             do {
-                float randomX = rnd.Next(0, 1000), randomY = rnd.Next(0, 1000);
+                float randomX = rnd.Next(150, 1000), randomY = rnd.Next(150, 1000);
                 pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
             } while (!UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 10.0f, 1));
 

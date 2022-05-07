@@ -31,9 +31,9 @@ public class FindFoodAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ((ActionNames.STAMINA_FACTOR * 4) / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
 
         chercherAManger();
 
@@ -50,8 +50,7 @@ public class FindFoodAgentAction : AgentAction {
     /// 
     /// Fait par Greg Demirdjian le 03/04/2022.
     /// </summary> 
-    private void chercherAManger()
-    {
+    private void chercherAManger() {
         _agent.AnimauxEnVisuel.RemoveAll(n => n == null || n == null);
         if(_agent.AnimauxEnVisuel.Count == 0) // s'il n'y a pas d'animaux que l'agent voit
         {

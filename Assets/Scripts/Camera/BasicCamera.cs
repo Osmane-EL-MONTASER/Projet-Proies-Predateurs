@@ -24,6 +24,12 @@ public class BasicCamera : MonoBehaviour {
     /// </summary>
     private float _xRotation = 0f;
 
+    GameObject AgentStatsGUI;
+
+    Ray ray;
+    RaycastHit hit;
+        
+
     /// <summary>
     /// La fonction exécutée au démarrage.
     /// 
@@ -34,6 +40,11 @@ public class BasicCamera : MonoBehaviour {
         Cursor.lockState = CursorLockMode.None;
     }
 
+    void Awake() {
+        AgentStatsGUI = GameObject.Find("AgentStatsPanel");
+        AgentStatsGUI.SetActive(false);
+    }
+
     /// <summary>
     /// La fonction exécutée à chaque tick.
     /// 
@@ -41,6 +52,16 @@ public class BasicCamera : MonoBehaviour {
     /// </summary>
     void Update() {
         HandleMouseControl();
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(Physics.Raycast(ray, out hit)) {
+            if(Input.GetMouseButtonDown(0)) {
+                if(hit.collider.gameObject.name != "Terrain") {
+                    GameObject.Find("AgentManager").GetComponent<AgentStatsGUIUpdater>().AgentToTrack = hit.collider.gameObject.GetComponent<Agent>();
+                    AgentStatsGUI.SetActive(true);
+                }
+            }
+        }
     }
 
     /// <summary>

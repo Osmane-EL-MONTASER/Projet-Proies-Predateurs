@@ -62,7 +62,7 @@ public class WindGenerator : MonoBehaviour {
     /// La vitesse à laquelle la map de vent
     /// s'acutalise dans le monde.
     /// </summary>
-    public float WindSpeed = 0.25f;
+    public float WindSpeed = 1.5f;
 
     /// <summary>
     /// La distance parcourue par le vent à

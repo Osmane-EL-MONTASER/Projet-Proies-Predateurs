@@ -34,9 +34,9 @@ public class SleepAgentAction : AgentAction {
         if(_agent.AgentMesh.destination != _agent.transform.position)
             _agent.AgentMesh.SetDestination(_agent.transform.position);
 
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + ((ActionNames.STAMINA_FACTOR * 16) / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR * 2)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
         
         if(!_agent.Animation.GetBool("IdleTrigger"))
             handleAnimation();

@@ -36,11 +36,11 @@ public class IdleAgentAction : AgentAction {
         /*if(_agent.Attributes["SpeciesName"].Equals("Grass"))
             Debug.Log("Idling Grass... " + _agent.Attributes["EnergyNeeds"]);*/
         if(_agent.Attributes["SpeciesName"].Equals("Grass") && Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) > 0)
-            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) - (0.0005 / ActionNames.TimeSpeed)).ToString();
+            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR * 0.1f)).ToString();
         else {
-            _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (ActionNames.STAMINA_FACTOR / ActionNames.TimeSpeed)).ToString();
-            _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
-            _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
+            _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
         }
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
         && (_agent.AgentMesh != null) 

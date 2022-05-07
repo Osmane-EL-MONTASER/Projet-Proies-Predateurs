@@ -62,7 +62,7 @@ public class FogGenerator : MonoBehaviour {
     /// La vitesse à laquelle la map de brouillard
     /// s'acutalise dans le monde.
     /// </summary>
-    public float FogSpeed = 0.25f;
+    public float FogSpeed = 2.5f;
 
     /// <summary>
     /// La distance parcourue par le brouillard à

@@ -32,14 +32,9 @@ public class ChoosePreyAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         //Debug.Log("Chasing prey...  EnergyNeeds = " + _agent.Attributes["EnergyNeeds"]);
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (ActionNames.STAMINA_FACTOR / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (ActionNames.ENERGY_FACTOR / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (ActionNames.WATER_FACTOR / ActionNames.TimeSpeed)).ToString();
-        
-        if(Convert.ToDouble(_agent.Attributes["Stamina"]) < 0.25) {
-            _agent.ForceChangeAction(_agent._actionTree, "<->\nStamina >= 1");
-            return;
-        }
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
 
         if(_agent.AgentCible == null 
             || _agent.AgentCible.GetComponent<Agent>() == null) {
@@ -88,7 +83,7 @@ public class ChoosePreyAgentAction : AgentAction {
             walkAnimation();
         }
 
-        if ((Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 10.0) || (Convert.ToDouble(_agent.Attributes["EnergyNeeds"])<=0.0))
+        if ((Convert.ToDouble(animalTemp.Attributes["CarcassEnergyContribution"]) < 1.0) || (Convert.ToDouble(_agent.Attributes["EnergyNeeds"])<=0.0))
         {
             _agent.AgentMesh.isStopped = false;
             walkAnimation();

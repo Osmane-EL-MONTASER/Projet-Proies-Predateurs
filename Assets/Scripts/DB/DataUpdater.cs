@@ -193,7 +193,6 @@ public class DataUpdater : MonoBehaviour {
             if(_agentToAddMutex.WaitOne()) {
                 for(int i = _agentsToAdd.Count - 1; i >= 0; i--) {
                     if(_agentsToAdd[i] != null) {
-                        Debug.Log("Adding NEW AGENT TO DATABASE!");
                         _dbHelper.AddAgent(_agentsToAdd[i].Attributes["Id"], _agentsToAdd[i].Attributes["SpeciesName"], CurrentTime, -1.0f, _recordNumber, _dbHelper.SelectSpeciesId(_agentsToAdd[i].Attributes["SpeciesName"]), Convert.ToInt32(_agentsToAdd[i].Attributes["Gender"]));
                     }
                     _agentsToAdd.RemoveAt(i);

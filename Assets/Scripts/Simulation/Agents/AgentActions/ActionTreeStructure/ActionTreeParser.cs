@@ -50,6 +50,7 @@ public static class ActionTreeParser {
             return false;
 
         string[] delimiters = new [] { "<=", ">=", "<" , ">", "==", "!=" };
+        string[] conjunctions = new [] { "||", "&&" };
         bool result = true;
         string condition1, condition2, conditionTemp;
         string[] conditionSplit = condition.Split("<->");
@@ -62,29 +63,36 @@ public static class ActionTreeParser {
         else
             conditionTemp = conditionSplit[0];
 
-        using(StringReader reader = new StringReader(conditionTemp)) {
-            string line;
-            //Pour chaque condition séparée par une ligne.
-            while((line = reader.ReadLine()) != null) {
-                line = line.Replace(" ", "");
-                string[] splited = line.Split(delimiters, StringSplitOptions.None);
-                
-                if(line.Contains("<=")) 
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) <= Convert.ToDouble(splited[1]);
-                else if(line.Contains(">="))
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) >= Convert.ToDouble(splited[1]);
-                else if(line.Contains(">"))
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) > Convert.ToDouble(splited[1]);
-                else if(line.Contains("<"))
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) < Convert.ToDouble(splited[1]);
-                else if(line.Contains("=="))
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) == Convert.ToDouble(splited[1]);
-                else if(line.Contains("!="))
-                    result = result && Convert.ToDouble(agent.Attributes[splited[0]]) != Convert.ToDouble(splited[1]);
+        conditionTemp = conditionTemp.Replace(" ", "");
+        conditionTemp = conditionTemp.Replace("\n", "");
+        string[] subConditions = conditionTemp.Split("||");
+
+        foreach(var subCondition in subConditions) {
+            string[] finalConditions = subCondition.Split("&&");
+            bool tempResult = true;
+            
+            foreach(var finalCondition in finalConditions) {
+                string[] splited = finalCondition.Split(delimiters, StringSplitOptions.None);
+            
+                if(finalCondition.Contains("<=")) 
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) <= Convert.ToDouble(splited[1]);
+                else if(finalCondition.Contains(">="))
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) >= Convert.ToDouble(splited[1]);
+                else if(finalCondition.Contains(">"))
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) > Convert.ToDouble(splited[1]);
+                else if(finalCondition.Contains("<"))
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) < Convert.ToDouble(splited[1]);
+                else if(finalCondition.Contains("=="))
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) == Convert.ToDouble(splited[1]);
+                else if(finalCondition.Contains("!="))
+                    tempResult = tempResult && Convert.ToDouble(agent.Attributes[splited[0]]) != Convert.ToDouble(splited[1]);
             }
+            
+            if(tempResult)
+                return true;
         }
         
-        return result;
+        return false;
     }
 
     /// <summary>

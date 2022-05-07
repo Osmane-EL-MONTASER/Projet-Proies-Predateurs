@@ -136,11 +136,12 @@ public class Agent : MonoBehaviour {
 
             if(bool.Parse(Attributes["IsPregnant"]))
                 updatePregnancy();
-
-            Attributes["Speed"] = (400f / ActionNames.TimeSpeed).ToString();
-            if(AgentMesh != null && float.Parse(Attributes["Speed"]) != AgentMesh.speed) {
+            
+            if(AgentMesh != null) {
+                Attributes["Speed"] = ((float.Parse(Attributes["MaxSpeed"]) * ActionNames.DAY_DURATION) / ActionNames.TimeSpeed).ToString();
                 AgentMesh.speed = float.Parse(Attributes["Speed"]);
                 AgentMesh.acceleration = float.Parse(Attributes["Speed"]);
+                AnimauxEnVisuel = animauxDansFov();
             }
 
             System.Double newValue;
@@ -155,29 +156,16 @@ public class Agent : MonoBehaviour {
                 testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie
 
                 // si l'agent est en digestion
-                if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
-                    newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
-                    Attributes["RemainingDigestionTime"] = newValue.ToString();
-                }   
-                
                 /*
-                    newValue = Convert.ToDouble(Attributes["WaterNeeds"]) + 0.00015;
-                    Attributes["WaterNeeds"] = newValue.ToString(); // on augmente les besoins hydriques et énergétiques de l'agent.
-                    newValue = Convert.ToDouble(Attributes["EnergyNeeds"]) + 0.0001;
-                    Attributes["EnergyNeeds"] = newValue.ToString();
-                */
-
-                newValue = Convert.ToDouble(Attributes["Age"]) + Time.deltaTime * ActionNames.TimeSpeed;
+                    if(Convert.ToDouble(Attributes["RemainingDigestionTime"]) > 0) {
+                        newValue = Convert.ToDouble(Attributes["RemainingDigestionTime"]) - 0.2;
+                        Attributes["RemainingDigestionTime"] = newValue.ToString();
+                    }  
+                */ 
+                
+                newValue = Convert.ToDouble(Attributes["Age"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed)) / 86400;
                 Attributes["Age"] = newValue.ToString(); // on augmente l'âge de l'agent.
-
-                if(!Attributes["SpeciesName"].Equals("Grass") && AnimauxEnVisuel != null){
-                    AnimauxEnVisuel = animauxDansFov();
-                    affecterComportement();
-                }
-                    
-                //effectuerComportement();
-            }    
-            else {
+            } else {
                 newValue = Convert.ToDouble(Attributes["CarcassEnergyContribution"]) - Time.deltaTime * 5;
                 Attributes["CarcassEnergyContribution"] = newValue.ToString(); // la carcasse se déteriore et perd en apport énergétique.
                     // si la carcasse est presque vide.
@@ -185,14 +173,6 @@ public class Agent : MonoBehaviour {
                         Destroy(this.gameObject); // on détruit l'objet.
                     }
             }
-
-            /*if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance)) {
-                //Animation.SetBool("Running",true);
-                //Animation.SetBool("Idle2",true);
-                AgentMesh.SetDestination(walker());
-            }*/
-
-            //_currentAction.update();
         }
     }
 
@@ -217,12 +197,10 @@ public class Agent : MonoBehaviour {
                 go.GetComponent<Agent>().Attributes["Stamina"] = "0.38";
                 GameObject.Find("Player").GetComponent<DataUpdater>().AddNewAgent(go.GetComponent<Agent>());
             }
-            Debug.Log(nbChildren + " born!");
             Attributes["IsPregnant"] = "false";
             Attributes["GestationTimer"] = "0";
         }
     }
-
 
     /// <summary>
     /// affecterAnimations : affecte la bonne animation (si dispo) à l'agent
@@ -254,48 +232,7 @@ public class Agent : MonoBehaviour {
             Animation.ResetTrigger("IdleTrigger");
             Animation.ResetTrigger("AttackTrigger");
         }
-
-
-
     }
-
-
-    /// <summary>
-    /// affecterComportement : teste si les variables de comportemnts doivent être changées.
-    ///
-    /// Fait par Greg Demirdjian le 12/03/2022.
-    /// </summary> 
-    protected void affecterComportement() {
-        // si l'agent est à 50% de ses besoins hydriques max.
-        if(Convert.ToDouble(Attributes["WaterNeeds"]) / Convert.ToDouble(Attributes["MaxWaterNeeds"]) > 0.50) 
-            Attributes["IsThirsty"] = "true";
-        
-        // si l'agent est à 70% de ses besoins énergétiques max.
-        if(Convert.ToDouble(Attributes["EnergyNeeds"]) / Convert.ToDouble(Attributes["MaxEnergyNeeds"]) > 0.70) 
-            Attributes["IsHungry"] = "true";
-        
-        //si l'agent dépasse l'age de maturation.
-        if((Convert.ToDouble(Attributes["Age"]) >= Convert.ToDouble(Attributes["MaturityAge"])) && (bool.Parse(Attributes["IsAdult"]) == false)) 
-            Attributes["IsAdult"] = "true";
-    } 
-
-    
-    /// <summary>
-    /// effectuerComportement : lance les fonctions de comportement si ceux-ci sont actifs.
-    ///
-    /// Fait par Greg Demirdjian le 13/03/2022.
-    /// </summary> 
-    protected void effectuerComportement() {
-       /* if (_enFuite)
-            Fuite();
-        else if (bool.Parse(Attributes["IsThirsty"]))
-            Boire();
-        else*/  
-        if((AgentMesh != null) && (AgentMesh.remainingDistance <= AgentMesh.stoppingDistance))
-            AgentMesh.SetDestination(walker());
-
-    }
-    
 
     /// <summary>
     /// testMort : teste si l'agent est mort.
@@ -303,26 +240,36 @@ public class Agent : MonoBehaviour {
     /// Fait par Greg Demirdjian le 13/03/2022.
     /// </summary> 
     protected void testMort() {
-        if (Convert.ToDouble(Attributes["EnergyNeeds"]) >= Convert.ToDouble(Attributes["MaxEnergyNeeds"]) && !Attributes["SpeciesName"].Equals("Grass")) {
-            Attributes["IsAlive"] = "false";
-            Attributes["DeathCause"] = "Mort de faim.";
-        }
+        if(Attributes["SpeciesName"].Equals("Grass")) {
+            if (Convert.ToDouble(Attributes["Health"]) <= 0) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "A succombé à ses blessures.";
+            }
 
-        if (Convert.ToDouble(Attributes["WaterNeeds"]) >= Convert.ToDouble(Attributes["MaxWaterNeeds"])) {
-            Attributes["IsAlive"] = "false";
-            Attributes["DeathCause"] = "Mort de soif.";
-        }
+            if (Convert.ToDouble(Attributes["Age"]) >= Convert.ToDouble(Attributes["MaxAge"])) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "Mort de vieillesse.";
+            }
+        } else {
+            if (Convert.ToDouble(Attributes["EnergyNeeds"]) >= Convert.ToDouble(Attributes["MaxEnergyNeeds"]) && !Attributes["SpeciesName"].Equals("Grass")) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "Mort de faim.";
+            }
 
-        if (Convert.ToDouble(Attributes["Health"]) <= 0) {
-            Attributes["IsAlive"] = "false";
-            Attributes["DeathCause"] = "A succombé à ses blessures.";
-        }
+            if (Convert.ToDouble(Attributes["WaterNeeds"]) >= 1) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "Mort de soif.";
+            }
 
-        if (Convert.ToDouble(Attributes["Age"]) >= Convert.ToDouble(Attributes["MaxAge"])) {
-            Attributes["IsAlive"] = "false";
-            Attributes["DeathCause"] = "Mort de vieillesse.";
-            
-            Debug.Log(Attributes["SpeciesName"] + " died at the age of " + Attributes["Age"]);
+            if (Convert.ToDouble(Attributes["Health"]) <= 0) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "A succombé à ses blessures.";
+            }
+
+            if (Convert.ToDouble(Attributes["Age"]) >= Convert.ToDouble(Attributes["MaxAge"])) {
+                Attributes["IsAlive"] = "false";
+                Attributes["DeathCause"] = "Mort de vieillesse.";
+            }
         }
 
         if (bool.Parse(Attributes["IsAlive"])==false) {
@@ -384,5 +331,9 @@ public class Agent : MonoBehaviour {
 
     public GameObject GetMate() {
         return _mate;
+    }
+
+    public string GetCurrentAction() {
+        return _currentAction.Action.GetType().Name;
     }
 }

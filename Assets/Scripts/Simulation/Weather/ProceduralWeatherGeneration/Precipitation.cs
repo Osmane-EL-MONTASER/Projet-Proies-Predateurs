@@ -56,7 +56,7 @@ public class Precipitation : MonoBehaviour {
     /// La vitesse à laquelle la map de 
     /// précipitations s'acutalise dans le monde.
     /// </summary>
-    public float PrecipitationSpeed = 0.25f;
+    public float PrecipitationSpeed = 0.5f;
 
     public float PrecipitationOffsetX = 0.25f;
 

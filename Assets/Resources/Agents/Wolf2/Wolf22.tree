@@ -15,7 +15,8 @@
                 </ActionTreeNodeOfString>
             </Children>
             <TransitionsCond>
-                <string>&lt;-&gt;EnergyNeeds&lt;0.5</string>
+                <string>&lt;-&gt;
+Stamina&lt;=0.05||EnergyNeeds&lt;0.5</string>
             </TransitionsCond>
         </ActionTreeNodeOfString>
         <ActionTreeNodeOfString>
@@ -38,15 +39,15 @@
         </ActionTreeNodeOfString>
     </Children>
     <TransitionsCond>
-        <string>EnergyNeeds&gt;=0.5
+        <string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&gt;=0.5
 &lt;-&gt;
-EnergyNeeds&lt;0.5</string>
-        <string>Stamina&lt;=0.05
+Stamina&lt;=0.05||EnergyNeeds&lt;0.5</string>
+        <string>Stamina&lt;=0.1
 &lt;-&gt;
-Stamina&gt;=1||EnergyNeeds&gt;0.6</string>
+Stamina&gt;=1||EnergyNeeds&gt;0.8</string>
         <string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&lt;=0.15
 &lt;-&gt;
-Stamina&lt;=0.05||EnergyNeeds&gt;0.5</string>
+Stamina&lt;=0.05||EnergyNeeds&lt;0.5</string>
         <string>Stamina&gt;0.25&amp;&amp;WaterNeeds&gt;=0.5
 &lt;-&gt;
 Stamina&lt;=0.05||WaterNeeds&lt;0.5</string>

@@ -40,6 +40,9 @@ public class BreedAgentAction : AgentAction {
     /// </summary>
     public override void update() {
         breed();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
         //throw new NotImplementedException();
     }
 
@@ -69,13 +72,12 @@ public class BreedAgentAction : AgentAction {
                 findMate(_agent);
             else if(_mate != null) {
                 _agent.AgentMesh.SetDestination(_mate.GetComponent<Agent>().transform.position);
-                if(!(_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
-                    Debug.Log("Now breeding...");
+                if((_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)) {
                     
                     if(_agent.Attributes["Gender"].Equals("2"))
                         _agent.Attributes["IsPregnant"] = "true";
 
-                    _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
+                    _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.5";
                     _agent.Attributes["Stamina"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.38";
                     _mate = null;
                 }
@@ -90,11 +92,9 @@ public class BreedAgentAction : AgentAction {
                 child.initialisation();
                 string name = child.Attributes["SpeciesName"].Split('(')[0];
                 child.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : "0.0";
-                Debug.Log("Successfully breeding!");
                 GameObject.Find("Player").GetComponent<DataUpdater>().AddNewAgent(child);
             } else {
                 GameObject.Destroy(_child);
-                Debug.Log("Failed breeding!");
             }
             
             _agent.Attributes["EnergyNeeds"] = _agent.Attributes["SpeciesName"].Equals("Grass") ? "1.0" : _agent.Attributes["EnergyNeeds"];
@@ -110,11 +110,10 @@ public class BreedAgentAction : AgentAction {
             _agent.AgentMesh.SetDestination(_agent.walker());
         }
         IEnumerable<GameObject> possibleMates = from candidate in _agent.animauxDansFov()
-                            where candidate.GetComponent<Agent>().Attributes["SpeciesName"].Equals(_agent.Attributes["SpeciesName"]) && candidate.GetComponent<Agent>().Attributes["Gender"].Equals(_agent.Attributes["Gender"])
+                            where candidate.GetComponent<Agent>().Attributes["SpeciesName"].Equals(_agent.Attributes["SpeciesName"]) && !candidate.GetComponent<Agent>().Attributes["Gender"].Equals(_agent.Attributes["Gender"])
                             select candidate;
     
         if(possibleMates.Count() != 0) {
-            Debug.Log("Found a " + _agent.Attributes["SpeciesName"] + " to mate with!");
             possibleMates.First().GetComponent<Agent>().SetMate(_agent.gameObject);
             _agent.SetMate(possibleMates.First());
         }
