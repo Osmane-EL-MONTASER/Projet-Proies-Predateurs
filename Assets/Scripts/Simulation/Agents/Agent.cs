@@ -39,7 +39,7 @@ public class Agent : MonoBehaviour {
     /// <summary>
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
-<<<<<<< Updated upstream
+
     public ActionTreeNode<AgentAction> _currentAction;
 
     private const string AGENT_RESOURCE_PATH = "./Assets/Resources/Agents/";
@@ -115,7 +115,7 @@ public class Agent : MonoBehaviour {
 
         if(_currentAction.Parent != null && _currentAction.ParentTransition != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
             _currentAction = _currentAction.Parent;
-=======
+
     //protected TreeEditor.ActionTreeNode<AgentAction> _currentAction;
 
    // protected static bool _isBDDReset = false;
@@ -141,7 +141,7 @@ public class Agent : MonoBehaviour {
             //DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
           //  _isBDDReset = true;
         //}
->>>>>>> Stashed changes
+
         
     } 
     public void ForceChangeAction(ActionTreeNode<AgentAction> newAction, string transition) {

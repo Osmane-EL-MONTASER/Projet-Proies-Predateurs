@@ -210,9 +210,9 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     /// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
     /// x轴长度单位为“秒”，物理长度单位为“公分”
     /// </summary>
-    /// //Centimeter Per Coord Unit x： Conversion coefficient of x-axis data value
+    /// Centimeter Per Coord Unit x： Conversion coefficient of x-axis data value
     /// and coordinate scale in initial state.You can change the Scale Value for the
-    //x-axis by changing this value.
+    ///x-axis by changing this value.
 
     public float m_CentimeterPerCoordUnitX = 1f;
 
