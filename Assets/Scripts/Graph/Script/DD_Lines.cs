@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DD_Lines : DD_DrawGraphic {
 
     //[SerializeField]
-    //数据折线的粗细
+    //Variable de type float qui gère l'épaisseur des courbes
     private float m_Thickness = 5;
 
     //[SerializeField]
@@ -33,7 +33,7 @@ public class DD_Lines : DD_DrawGraphic {
         get { return m_IsShow; }
         set {
             if(value != m_IsShow) {
-                ///触发OnPopulateMesh的更新
+                ///Met à jour OnPopulateMesh
                 UpdateGeometry();
             }
 
@@ -64,14 +64,14 @@ public class DD_Lines : DD_DrawGraphic {
             Debug.Log(this + "null == localrt || parentrt");
         }
 
-        //设置锚点为左下角
+        //Le point d'ancrage est dans le coin inférieur gauche
         localrt.anchorMin = Vector2.zero;
         localrt.anchorMax = new Vector2(1, 1);
-        //设置轴心为左下角
+        //Positionne l'axe dans le coin inférieur gauche
         localrt.pivot = Vector2.zero;
         //设置轴心的坐标为坐标系区域的左下角
         localrt.anchoredPosition = Vector2.zero;
-        //设置平铺的margin为0
+        //Défini la marge à 0
         localrt.sizeDelta = Vector2.zero;
 
         if(null != m_Coordinate) {
@@ -89,7 +89,7 @@ public class DD_Lines : DD_DrawGraphic {
 
         m_CurIsShow = m_IsShow;
 
-        ///触发OnPopulateMesh的更新
+        ///Met à jour OnPopulateMesh
         UpdateGeometry();
     }
 

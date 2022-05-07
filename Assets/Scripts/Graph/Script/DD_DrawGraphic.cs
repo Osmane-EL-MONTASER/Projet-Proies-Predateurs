@@ -27,6 +27,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         return 0;
     }
 
+    ///Empeche de diviser par 0
     private Vector2? CalcHorizontalCutPoint(Vector2 p1, Vector2 p2, float y) {
 
         ///避免零除以零
@@ -186,7 +187,7 @@ public class DD_DrawGraphic : MaskableGraphic {
 
     protected void DrawTriangle(VertexHelper vh, Vector2 points, 
         Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1) {
-        ///暂时只画正三角形
+        ///Des triangle sont dessinés provisoirement
         float edge = (thickness / 3) * 2;
     
         Vector2 point1st = new Vector2((points.x + Mathf.Sin(Mathf.Deg2Rad * rotate) * edge) * scaleX,
@@ -208,7 +209,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawHorizontalSegmet(vh, point4th, point1st, color, thickness);
     }
 
-    ///暂时只画正三角形
+    ///Des triangle sont dessinés provisoirement
     public static float GetTriangleCentreDis(float thickness) {
 
         return (thickness / 3);

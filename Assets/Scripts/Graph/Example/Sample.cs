@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Classe reprise et modifié par HAMICHE Bilal le 30/04, elle permet d'ajouter le
+/// nombre de proies, predateurs et autotrophes dans la simulation en
+/// temps réel sur le graphe.
+/// </summary>
 public class Sample : MonoBehaviour {
 
     List<GameObject> lineList = new List<GameObject>();
@@ -28,13 +34,17 @@ public class Sample : MonoBehaviour {
     void Start () {
         GameObject dd = GameObject.Find("DataDiagram");
         if(null == dd) {
-            Debug.LogWarning("can not find a gameobject of DataDiagram");
+            Debug.LogWarning("Impossible de trouver un gameobject de DataDiagram");
             return;
         }
         m_DataDiagram = dd.GetComponent<DD_DataDiagram>();
 
         m_DataDiagram.PreDestroyLineEvent += (s, e) => { lineList.Remove(e.line); };
 
+
+        ///<summary>
+        /// Ajoute les noms associés à chacune des courbes
+        /// </summary>
         AddALine("Prédateurs");
         AddALine("Proies");
         AddALine("Autotrophes");

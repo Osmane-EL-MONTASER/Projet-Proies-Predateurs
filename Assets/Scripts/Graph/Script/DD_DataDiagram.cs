@@ -189,10 +189,12 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     public event PreDestroyLineHandler PreDestroyLineEvent;
 
     #region config
+    //Nombre maximal de courbe affiché sur le graphe en meme temps
     public int maxLineNum = 5;
 
     #region used in DD_Lines
-    //每条线最多能存储的数据个数
+    
+    //Nombre maximal de point sur la meme courbe, si cette valeur est dépassé, la valeur la plus ancienne est supprimée
     public int m_MaxPointNum = 65535;
     #endregion
 
@@ -200,6 +202,7 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     #region used in DD_CoordinateAxis
     /// <summary>
     /// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
+    /// The distance between two scales when drawing the coordinate scale
     /// </summary>
     public float m_CentimeterPerMark = 2f;
 
@@ -218,6 +221,7 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
     #endregion
 
+    //Verifie si Rect est pas null
     public Rect? rect {
         get {
             RectTransform rectT = gameObject.GetComponent<RectTransform>();
@@ -387,6 +391,13 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         return false;
     }
 
+
+    /// <summary>
+    /// Cette méthode permet d'entrée une donnée sur le graphe
+    /// </summary>
+    /// <param name="line"> The specified Line Chart entity, as returned by the AddLine ()  method</param>
+    /// <param name="point">Point : point.x is the scaling value of the curve on the x-axis, which is 1 if 
+    /// there is no scaling, point.y is the input data value</param>
     public void InputPoint(GameObject line, Vector2 point) {
 
         DD_CoordinateAxis coordinate = m_CoordinateAxis.GetComponent<DD_CoordinateAxis>();
@@ -421,6 +432,12 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         return line;
     }
 
+    /// <summary>
+    /// Cette méthode permet de créer une nouvelle courbe, elle retourne une varaible de type GameObject
+    /// qui est la nouvelle courbe du graphe
+    /// <param name="name"> Le nom de la nouvelle courbe </param>
+    /// <param name="color"> La couleur de la nouvelle courbe et du bouton de cette meme courbe </param>
+    /// </summary>
     public GameObject AddLine(string name, Color color) {
 
         GameObject line = AddLine(name);

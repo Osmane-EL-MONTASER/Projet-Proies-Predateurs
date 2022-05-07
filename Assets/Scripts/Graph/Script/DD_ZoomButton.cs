@@ -3,10 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe reprise par HAMICHE Bilal, elle per
+/// </summary>
 public class ZoomButtonClickEventArgs : EventArgs {
 
 }
 
+
+/// <summary>
+/// Classe reprise par HAMICHE Bilal, elle permet de zoomer
+/// </summary>
 public class DD_ZoomButton : MonoBehaviour {
 
     private DD_DataDiagram m_DataDiagram;

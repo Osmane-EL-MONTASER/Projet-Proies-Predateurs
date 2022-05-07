@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//permet de changer le cadre rectangulaire
 public class DD_CoordinateRectChangeEventArgs : EventArgs {
 
     public Rect viewRectInPixel;
@@ -15,6 +17,7 @@ public class DD_CoordinateRectChangeEventArgs : EventArgs {
     }
 }
 
+//permet de changer le l'echelle
 public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 
     public float scaleX;
@@ -40,17 +43,25 @@ public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
     }
 }
 
+/// <summary>
+/// Classe qui permet de 
+/// et qui depend de la classe DD_DrawGraphic
+/// </summary>
 public class DD_CoordinateAxis : DD_DrawGraphic {
 
-#region const value
+
+    /*
+ * Ici y a que des valeurs const
+ */
+    #region const value
     private static readonly string MARK_TEXT_BASE_NAME = "MarkText";
     private static readonly string LINES_BASE_NAME = "Line";
     private static readonly string COORDINATE_RECT = "CoordinateRect";
     private const float INCH_PER_CENTIMETER = 0.3937008f;
-    private readonly float[] MarkIntervalTab = { 1, 2, 5 };//c#中数组不支持const
-#endregion
+    private readonly float[] MarkIntervalTab = { 1, 2, 5 };//tableau supporte pas float
+    #endregion
 
-#region property
+    #region property
     /// <summary>
     /// 数据表格入口类
     /// </summary>
@@ -73,7 +84,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     private GameObject m_MarkTextPreb = null;
 
     /// <summary>
-    /// 所有存在于该坐标系中的折线列表
+    /// Variable de type liste qui recupère toutes les listes qui existent
     /// </summary>
     private List<GameObject> m_LineList = new List<GameObject>();
 
@@ -83,56 +94,37 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     //private Rect m_CoordinatePixelRect = new Rect();
 
     /// <summary>
-    /// 坐标轴缩放的速度
+    /// Variable de type Vector2 qui gere la vitesse du zoom en fonction des scrolls
     /// </summary>
     private Vector2 m_ZoomSpeed = new Vector2(1, 1);
 
     /// <summary>
-    /// 坐标轴移动的速度
+    /// Variable de type Vector2 qui gere la vitesse des mouvements sur le graphe
     /// </summary>
     private Vector2 m_MoveSpeed = new Vector2(1, 1);
 
     /// <summary>
-    /// 坐标轴最大可伸缩范围，以坐标轴为单位
+    /// 坐标轴最大可伸缩范围，以坐标轴为单位 ou ou La plage maximale extensible des axes de coordonnées, en termes d'axes.
     /// Y轴的通过长宽比例计算获得
     /// </summary>
     private float m_CoordinateAxisMaxWidth = 100;
     private float m_CoordinateAxisMinWidth = 0.1f;
 
     /// <summary>
-    /// 矩形框式坐标轴线条粗细
+    /// Variable de type float représentant l'épaisseur de la ligne 
     /// </summary>
     private float m_RectThickness = 2;
 
     /// <summary>
-    /// 矩形框式坐标轴背景颜色
+    /// Variable de type Color qui permet de mettre la couleur de fond en noir
     /// </summary>
     private Color m_BackgroundColor = new Color(0, 0, 0, 0.5f);
 
     /// <summary>
-    /// 矩形框式坐标标记线颜色
+    /// Variable de type Color qui permet de régler la couleur des points
     /// </summary>
     private Color m_MarkColor = new Color(0.8f, 0.8f, 0.8f, 1);
 
-    ///// <summary>
-    ///// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerMark = 1f;
-
-    ///// <summary>
-    ///// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
-    ///// x轴长度单位为“秒”，物理长度单位为“公分”
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerCoordUnitX = 0.2f;
-
-    ///// <summary>
-    ///// 标准y轴上每单位长度对应的物理长度（未缩放状态下）
-    ///// y轴长度单位为“米”，物理长度单位为“公分”
-    ///// </summary>
-    //[SerializeField]
-    //private float m_CentimeterPerCoordUnitY = 0.1f;
 
     /// <summary>
     /// 存放所有的刻度值文字对象的列表
