@@ -32,8 +32,6 @@ public class PlayerMovements : MonoBehaviour {
     private bool isCollision = false;
 
     private Vector3 oldPos;
-
-    private GameObject followedAgent;
     
     void Start() {
 
@@ -112,28 +110,5 @@ public class PlayerMovements : MonoBehaviour {
                 _lastTranslation = Vector3.forward * Time.deltaTime * CameraSpeed;
             }
         }
-
-        if ((Input.GetKey(KeyCode.Z))||(Input.GetKey(KeyCode.Q))||(Input.GetKey(KeyCode.S))||(Input.GetKey(KeyCode.D))||(Input.GetKey("space"))||(Input.GetKey(KeyCode.LeftShift)))
-            followedAgent = null;
-
-        if ((Input.GetMouseButtonUp(0))&&(followedAgent == null))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit)) // you can also only accept hits to some layer and put your selectable units in this layer
-            {
-                if(hit.collider.tag == "Animal")
-                {
-                    GameObject temp = hit.transform.gameObject;
-                    followedAgent = temp.transform.Find("Cam").gameObject; // if using custom type, cast the result to type here
-                } 
-            }
-        }
-        else if (followedAgent != null)
-        {
-            PlayerBody.position = followedAgent.transform.position;
-            PlayerBody.rotation = followedAgent.transform.rotation;
-        }
     }
-
 }

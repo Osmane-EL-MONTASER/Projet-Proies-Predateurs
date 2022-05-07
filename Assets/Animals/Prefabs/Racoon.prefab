@@ -195,37 +195,6 @@ Transform:
   m_Father: {fileID: 3624830236944098627}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1825543997498585819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5094419950677984857}
-  m_Layer: 0
-  m_Name: Cam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5094419950677984857
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825543997498585819}
-  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 0.7, z: -1.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5829207244204257104}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &2067902689408620412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +971,6 @@ GameObject:
   - component: {fileID: 2052174145512507474}
   - component: {fileID: -5857574268733522935}
   - component: {fileID: 7032524636757927226}
-  - component: {fileID: 4211175618308850552}
   m_Layer: 0
   m_Name: Racoon
   m_TagString: Animal
@@ -1028,7 +996,6 @@ Transform:
   - {fileID: 5767285751474584280}
   - {fileID: 2932245686785683853}
   - {fileID: 7775329106076633383}
-  - {fileID: 5094419950677984857}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1086,12 +1053,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 0}
-  Animation: {fileID: 0}
-  Fov: {fileID: 0}
-  AgentCible: {fileID: 0}
-  AnimauxEnVisuel: []
-  Preys: []
 --- !u!108 &-5857574268733522935
 Light:
   m_ObjectHideFlags: 0
@@ -1276,19 +1237,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!65 &4211175618308850552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606307546370012650}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.85354084, z: 1}
-  m_Center: {x: 0, y: 0.13510913, z: 0}
 --- !u!1 &6682597421333362588
 GameObject:
   m_ObjectHideFlags: 0
