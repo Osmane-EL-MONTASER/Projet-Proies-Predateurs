@@ -16,8 +16,8 @@ public class DD_Menu : MonoBehaviour {
 		
 	}
 
-    ///如果要让Hierarchy里面的Gameobject通过鼠标右键单击
-    ///弹出对话框中出现该选项,则需要将该选项加入到"GameObject"目录下
+    
+    
     [MenuItem("GameObject/UI/DataDiagram")]
     public static void AddDataDiagramInGameObject() {
 
