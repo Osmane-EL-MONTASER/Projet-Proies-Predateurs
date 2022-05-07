@@ -130,7 +130,8 @@ public class AgentManager : MonoBehaviour {
     /// <param name="staminaMax">Stamina de l'agent maximum.</param>
     /// <param name="timeToLive">Durée de vie de l'agent.</param>
     /// <param name="n">Nombre d'agents.</param>
-    public void initializationAgents(string type, double health, double maxSpeed, double staminaMax, double timeToLive, double n){
+    public void initializationAgents(string type,  double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
+    double MaxHealth, double MaxStamina, int LitterMax, int n){
         // foreach(GameObject agent in InstanceList){
         //     if(agent.GetComponent<Agent>().Attributes["SpeciesName"].Equals(type)){
         //         InstanceList.Remove(agent);    
@@ -144,6 +145,7 @@ public class AgentManager : MonoBehaviour {
         }
 
         DBHelper _dbHelper = new (tempPath);
+        int id = _dbHelper.SelectSpeciesId(type);
 
         for(int i = 0; i < n; i++){
             System.Random rnd = new System.Random();
@@ -163,8 +165,7 @@ public class AgentManager : MonoBehaviour {
             agent = Instantiate(agent, hit.position , Quaternion.identity);
             InstanceList.Add(agent);
 
-            agent.name = agent.name.Replace("(Clone)","");
-            
+            agent.name = agent.name.Replace("(Clone)","");            
         }
     } 
     

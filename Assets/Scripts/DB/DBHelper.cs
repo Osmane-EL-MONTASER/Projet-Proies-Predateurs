@@ -235,6 +235,7 @@ public class DBHelper {
                                         + MaxStamina + ", species_litter_max = " 
                                         + LitterMax
                                         + " WHERE species_num = '" + speciesNum + "';";
+        Debug.Log(updateSpeciesCommand.CommandText);
         updateSpeciesCommand.ExecuteReader();
         updateSpeciesCommand.Dispose();
      }
