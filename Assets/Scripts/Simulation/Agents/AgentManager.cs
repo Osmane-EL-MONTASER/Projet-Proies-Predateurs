@@ -130,7 +130,7 @@ public class AgentManager : MonoBehaviour {
     /// <param name="n">Nombre d'agents.</param>
     public void initializationAgents(string type,  double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
     double MaxHealth, double MaxStamina, double AttackDamage, int LitterMax, int n){
-        
+        Debug.Log(type);
 
         for(int i = 0; i < InstanceList.Count;i++){
             if(InstanceList[i] != null)
@@ -145,7 +145,7 @@ public class AgentManager : MonoBehaviour {
         int id = _dbHelper.SelectSpeciesId(type);
         new Thread(() => {_dbHelper.UpdateSpeciesData(id, CarcassEnergyContribution, MaxWaterNeeds, MaxEnergyNeeds, MaxSpeed, GestationPeriod, MaturityAge, MaxAge, DigestionTime, PreyConsumptionTime, MaxHealth, MaxStamina, AttackDamage, LitterMax); }).Start();
 
-        for(int i = 0; i < n + 1; i++){
+        for(int i = 0; i < n; i++){
             System.Random rnd = new System.Random();
             GameObject agent = instanciateAgent();
 

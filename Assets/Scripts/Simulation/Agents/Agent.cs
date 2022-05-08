@@ -24,7 +24,7 @@ public class Agent : MonoBehaviour {
     public List<string> Preys;
 
     /// <summary>
-    /// Tous les attributs de l'agent sont stockés à l'intérieur
+    /// Tous les attributs ze l'agent sont stockés à l'intérieur
     /// de ce dictionnaire afin de pouvoir y accéder via les arbres
     /// de décisions notamment.
     /// </summary>
