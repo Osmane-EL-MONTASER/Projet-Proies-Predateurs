@@ -5,6 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+/// <summary>
+/// Classe reprise par HAMICHE Bilal permettant de 
+/// </summary>
 public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     private GameObject m_Line;
@@ -25,17 +30,6 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
 	// Use this for initialization
 	void Start () {
-
-        //if ((null == m_Label) || (null == m_Label.GetComponent<Text>())) {
-        //    m_Label = null;
-        //}
-
-        //try {
-        //    m_Label.GetComponent<Text>().text = m_Line.GetComponent<DD_Lines>().lineName;
-        //    m_Label.GetComponent<Text>().color = m_Line.GetComponent<DD_Lines>().color;
-        //} catch {
-        //    m_Label.GetComponent<Text>().color = Color.white;
-        //}
         
     }
 	
@@ -68,8 +62,7 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData) {
 
-        ///子物体（叠加在该物体上的物体）的消息也会监听到
-        ///这里不希望响应子物体的鼠标进入消息，所以只响应本物体的该消息
+        
         if (eventData.pointerCurrentRaycast.gameObject != gameObject)
             return;
 
@@ -88,10 +81,6 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerExit(PointerEventData eventData) {
 
-        ///离开区域事件不用判断
-        ///而且eventData.pointerCurrentRaycast.gameObject的值为鼠标离开后所触碰的物体
-        //if (eventData.pointerCurrentRaycast.gameObject != gameObject)
-        //    return;
 
         if (null == m_Label)
             return;

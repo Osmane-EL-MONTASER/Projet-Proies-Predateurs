@@ -345,7 +345,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
         ChangeRect(m_CoordinateRectT.rect);
 
-        ///触发OnPopulateMesh的更新
+        ///Met à jour OnPopulateMesh
         UpdateGeometry();
     }
 
@@ -357,7 +357,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
         ChangeScale(e.ZoomX, e.ZoomY);
 
-        ///触发OnPopulateMesh的更新
+        ///Met à jour OnPopulateMesh
         UpdateGeometry();
     }
 
@@ -379,14 +379,12 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
         if (null != CoordinateeZeroPointChangeEvent)
             CoordinateeZeroPointChangeEvent(this, 
                 new DD_CoordinateZeroPointChangeEventArgs(CoordinateToPixel(dis)));
-        
-        ///触发OnPopulateMesh的更新
+
+        ///Met à jour OnPopulateMesh
         UpdateGeometry();
     }
 
-    //private void OnMoveEnd(object sender, EventArgs e) {
-    //    ///暂时没用
-    //}
+
 
     private Vector2 CoordinateToPixel(Vector2 coordPoint) {
 

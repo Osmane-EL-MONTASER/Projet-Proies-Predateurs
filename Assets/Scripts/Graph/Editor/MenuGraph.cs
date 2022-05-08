@@ -9,7 +9,7 @@ using UnityEngine;
 /// Classe reprise par Bilal HAMICHE pour le prototype. 
 /// Elle permet de créer le menu contenant le graphe
 /// </summary>
-public class MenuGraph : MonoBehaviour {
+public class DD_Menu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {

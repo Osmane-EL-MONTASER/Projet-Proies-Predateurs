@@ -12,10 +12,10 @@ public class DD_Lines : DD_DrawGraphic {
 
     //[SerializeField]
     private bool m_IsShow = true;
-    private bool m_CurIsShow = true;//用来判断是否触发UpdateGeometry();
+    private bool m_CurIsShow = true;//Permet de savoir s'il faut executer UpdateGeometry();
 
     private List<Vector2> PointList = new List<Vector2>();
-    //private const int MaxPointNum = 65535;
+    
     private int CurStartPointSN = 0;
 
     private DD_DataDiagram m_DataDiagram = null;

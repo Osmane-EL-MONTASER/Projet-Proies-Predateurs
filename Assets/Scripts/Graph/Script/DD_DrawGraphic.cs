@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class DD_DrawGraphic : MaskableGraphic {
 
     private int IsPointHorizontalInRect(Vector2 p, Rect rect) {
@@ -27,11 +29,10 @@ public class DD_DrawGraphic : MaskableGraphic {
         return 0;
     }
 
-    ///Empeche de diviser par 0
     private Vector2? CalcHorizontalCutPoint(Vector2 p1, Vector2 p2, float y) {
 
-        ///避免零除以零
-        if(p2.y == p1.y)
+        ///Empeche de diviser par 0
+        if (p2.y == p1.y)
             return new Vector2?(new Vector2(p2.x, p2.y));
 
         float x = ((y - p1.y) / (p2.y - p1.y)) * (p2.x - p1.x);
@@ -187,7 +188,7 @@ public class DD_DrawGraphic : MaskableGraphic {
 
     protected void DrawTriangle(VertexHelper vh, Vector2 points, 
         Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1) {
-        ///Des triangle sont dessinés provisoirement
+        ///Des triangles sont dessinés provisoirement
         float edge = (thickness / 3) * 2;
     
         Vector2 point1st = new Vector2((points.x + Mathf.Sin(Mathf.Deg2Rad * rotate) * edge) * scaleX,
@@ -209,7 +210,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawHorizontalSegmet(vh, point4th, point1st, color, thickness);
     }
 
-    ///Des triangle sont dessinés provisoirement
+    ///Des triangles sont dessinés provisoirement
     public static float GetTriangleCentreDis(float thickness) {
 
         return (thickness / 3);
