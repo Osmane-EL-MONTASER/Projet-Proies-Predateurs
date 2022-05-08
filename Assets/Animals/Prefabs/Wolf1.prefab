@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &380903708355040354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6550276254888538999}
+  m_Layer: 0
+  m_Name: Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6550276254888538999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380903708355040354}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 1, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2904742144307846979}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &530326650156970500
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +398,7 @@ GameObject:
   - component: {fileID: 9128685684434830649}
   - component: {fileID: 3936609867476856493}
   - component: {fileID: 8565026657809264896}
+  - component: {fileID: 1218806678}
   m_Layer: 0
   m_Name: Wolf1
   m_TagString: Animal
@@ -391,6 +423,7 @@ Transform:
   - {fileID: 3999596817843372700}
   - {fileID: 1166091071579526988}
   - {fileID: 7971643698685221538}
+  - {fileID: 6550276254888538999}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -428,6 +461,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AgentMesh: {fileID: 0}
+  Animation: {fileID: 0}
+  Fov: {fileID: 0}
+  AgentCible: {fileID: 0}
+  AnimauxEnVisuel: []
+  Preys: []
 --- !u!95 &9128685684434830649
 Animator:
   serializedVersion: 4
@@ -632,6 +671,19 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!65 &1218806678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523255196501607929}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.4589161, z: 2.0165203}
+  m_Center: {x: 0, y: 0.58223695, z: 0.23250327}
 --- !u!1 &2624668704608338577
 GameObject:
   m_ObjectHideFlags: 0
