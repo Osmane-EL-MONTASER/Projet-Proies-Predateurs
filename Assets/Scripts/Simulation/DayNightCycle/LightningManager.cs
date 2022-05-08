@@ -15,7 +15,7 @@ public class LightningManager : MonoBehaviour {
     [SerializeField] private Light _moonLight;
     [SerializeField] private LightningPresets _preset;
 
-    private GameObject _DayStatsText;
+    public GameObject DayStatsText;
 
     private int _days;
 
@@ -50,11 +50,7 @@ public class LightningManager : MonoBehaviour {
         string minuteText = minute < 10 ? "0" + minute.ToString() : minute.ToString();
         
         string day = _days.ToString();
-        _DayStatsText.GetComponent<TMPro.TextMeshProUGUI>().text = hourText + ":" + minuteText + " Jour " + day;
-    }
-
-    private void Awake() {
-        _DayStatsText = GameObject.Find("DayStatsText");
+        DayStatsText.GetComponent<TMPro.TextMeshProUGUI>().text = hourText + ":" + minuteText + " Jour " + day;
     }
 
     /// <summary>
