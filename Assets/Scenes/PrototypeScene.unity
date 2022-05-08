@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0869239, g: 0.082616925, b: 0.11288333, a: 1}
+  m_IndirectSpecularColor: {r: 0.0866701, g: 0.082404315, b: 0.112936735, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29192,7 +29192,21 @@ MonoBehaviour:
   predatorsPanel: {fileID: 767081470}
   preysPanel: {fileID: 1082002772}
   autotrophsPanel: {fileID: 543433308}
-  spriteList: []
+  template: {fileID: 1649304527}
+  parent: {fileID: 1446382058}
+  spriteList:
+  - {fileID: 21300000, guid: 299f8ca80ef5f1f44a44f5661b3e3cbb, type: 3}
+  - {fileID: 21300000, guid: 8336d42bb36c75140a010780e31c4fe3, type: 3}
+  - {fileID: 21300000, guid: 3b6471d80bab2bf43b9c48101904fb9a, type: 3}
+  - {fileID: 21300000, guid: 5bfa55a51db03dc4597eb805cfb27ea2, type: 3}
+  - {fileID: 21300000, guid: 0f41ef1f1bb20ed4ea147b1224b930a1, type: 3}
+  - {fileID: 21300000, guid: 16fbec95dc73a5644b427ac94a5bab99, type: 3}
+  - {fileID: 21300000, guid: 26938f3a61856814d87151819985a034, type: 3}
+  - {fileID: 21300000, guid: 5456c4e130c522a419d9d9013fdd8e2a, type: 3}
+  - {fileID: 21300000, guid: fad42643e25dd9448974b0bfaa588b45, type: 3}
+  - {fileID: 21300000, guid: 72e9ecd12ff1a384fbe6e7829a3f273c, type: 3}
+  - {fileID: 21300000, guid: 44a9d11fef4c4e54da408aa83eb05c55, type: 3}
+  - {fileID: 21300000, guid: 361dba3f39a5e8b4cad8487ae4d9398b, type: 3}
 --- !u!1 &864584089
 GameObject:
   m_ObjectHideFlags: 0
@@ -45111,7 +45125,18 @@ MonoBehaviour:
   predatorsPanel: {fileID: 767081470}
   preysPanel: {fileID: 1082002772}
   autotrophsPanel: {fileID: 543433308}
-  spriteList: []
+  template: {fileID: 653776194}
+  parent: {fileID: 1584957266}
+  spriteList:
+  - {fileID: 21300000, guid: 2898443f3aba1c54eb3e40782f383f9a, type: 3}
+  - {fileID: 21300000, guid: 7f5baef92494e1f44be71700a78acdde, type: 3}
+  - {fileID: 21300000, guid: bf4909ed88f125e4bb4d6d19de2c359a, type: 3}
+  - {fileID: 21300000, guid: ca25912fe58823e49a01fc7522389220, type: 3}
+  - {fileID: 21300000, guid: d74035c5a40c43d469994ea0e274c7e2, type: 3}
+  - {fileID: 21300000, guid: b1c3f90e5b2355a4e8eef25b0c80970f, type: 3}
+  - {fileID: 21300000, guid: b51d8bab5717e6947a8bebfa679abcc0, type: 3}
+  - {fileID: 21300000, guid: f161b124a46399b4182b34458517bf3b, type: 3}
+  - {fileID: 21300000, guid: dd4d3b59466b46a40b680d88480c567a, type: 3}
 --- !u!1 &1171628322
 GameObject:
   m_ObjectHideFlags: 0
@@ -48016,7 +48041,12 @@ MonoBehaviour:
   predatorsPanel: {fileID: 767081470}
   preysPanel: {fileID: 1082002772}
   autotrophsPanel: {fileID: 543433308}
-  spriteList: []
+  template: {fileID: 2119255173}
+  parent: {fileID: 627948507}
+  spriteList:
+  - {fileID: 21300000, guid: 28574bb220c580c4e998592ac3ddaefd, type: 3}
+  - {fileID: 21300000, guid: 63985a5947a69f44c930fd5b55540a47, type: 3}
+  - {fileID: 21300000, guid: 7edfb1fdd3799474e8b6dd8661109efd, type: 3}
 --- !u!1 &1240946362
 GameObject:
   m_ObjectHideFlags: 0
