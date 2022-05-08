@@ -90,6 +90,7 @@ public class AgentManager : MonoBehaviour {
        GhostList.Add(LizardGhost);
        GhostList.Add(RacoonGhost);
        GhostList.Add(TortoiseGhost);
+       GhostList.Add(TigerGhost);
 
        AgentList.Add(Wolf);
        AgentList.Add(Iguana);
@@ -102,6 +103,7 @@ public class AgentManager : MonoBehaviour {
        AgentList.Add(Lizard);
        AgentList.Add(Racoon);
        AgentList.Add(Tortoise);
+       AgentList.Add(Tiger);
        AgentList.Add(Grass);
     }
 
@@ -130,7 +132,6 @@ public class AgentManager : MonoBehaviour {
     /// <param name="n">Nombre d'agents.</param>
     public void initializationAgents(string type,  double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
     double MaxHealth, double MaxStamina, double AttackDamage, int LitterMax, int n){
-        
 
         for(int i = 0; i < InstanceList.Count;i++){
             if(InstanceList[i] != null)
@@ -149,7 +150,6 @@ public class AgentManager : MonoBehaviour {
             System.Random rnd = new System.Random();
             GameObject agent = instanciateAgent();
 
-
             newAgentType = type;
 
             Vector3 pos;
@@ -159,7 +159,6 @@ public class AgentManager : MonoBehaviour {
                 pos = new Vector3(randomX, Terrain.activeTerrain.SampleHeight(new Vector3(randomX, 1f, randomY)), randomY);
             } while (!UnityEngine.AI.NavMesh.SamplePosition(pos, out hit, 10.0f, 1));
 
-        
             agent = Instantiate(agent, hit.position , Quaternion.identity);
             InstanceList.Add(agent);
 

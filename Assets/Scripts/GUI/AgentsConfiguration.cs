@@ -253,7 +253,6 @@ public class AgentsConfiguration : MonoBehaviour
 
         string tempPath = "Data Source=tempDB.db;Version=3";
         DBHelper _dbHelper = new (tempPath);
-        Debug.Log(_selectedAgentType);
         Dictionary<string,double> data = _dbHelper.SelectSpeciesData(_selectedAgentType);
 
         _carcassEnergyContribution = data["CarcassEnergyContribution"];
@@ -270,7 +269,10 @@ public class AgentsConfiguration : MonoBehaviour
         _attackDamage = data["Ad"];
         _litterMax = (int) data["LitterMax"];
         _numAgents = 0;
-        
+
+        if(button!=null)
+            button.onClick.RemoveAllListeners();
+            
         health.onEndEdit.RemoveAllListeners();
         carcassEnergyContribution.onEndEdit.RemoveAllListeners();
         maxWaterNeeds.onEndEdit.RemoveAllListeners();
