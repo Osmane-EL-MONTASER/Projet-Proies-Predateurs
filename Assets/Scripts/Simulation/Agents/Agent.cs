@@ -39,7 +39,6 @@ public class Agent : MonoBehaviour {
     /// <summary>
     /// L'action courante que l'agent est en train de réaliser.
     /// </summary>
-
     public ActionTreeNode<AgentAction> _currentAction;
 
     private const string AGENT_RESOURCE_PATH = "./Assets/Resources/Agents/";
@@ -131,33 +130,6 @@ public class Agent : MonoBehaviour {
 
         if(_currentAction.Parent != null && _currentAction.ParentTransition != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
             _currentAction = _currentAction.Parent;
-
-    //protected TreeEditor.ActionTreeNode<AgentAction> _currentAction;
-
-   // protected static bool _isBDDReset = false;
-    
-//    /// <summary>
-//    /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
-//    ///
-//    /// Fait par Greg Demirdjian le 12/03/2022.
-//    /// </summary> 
-//    protected void initialisation() {
-//        AnimauxEnVisuel = new List<GameObject>();
-//        preys = new List<string>();
-
-//        Attributes = AgentAttributes.GetAttributesDict();
-//        Attributes["Health"] = "100";
-//        Attributes["Speed"] = AgentMesh.speed.ToString();
-//        Attributes["SpeciesName"] = gameObject.name;
-//        Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
-//        Attributes["Id"] = Guid.NewGuid().ToString();
-
-        //if(!_isBDDReset) {
-          //  File.Delete("tempDB.db");
-            //DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-          //  _isBDDReset = true;
-        //}
-
         
     } 
     public void ForceChangeAction(ActionTreeNode<AgentAction> newAction, string transition) {
