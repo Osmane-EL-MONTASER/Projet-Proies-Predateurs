@@ -31,9 +31,9 @@ public class FindFoodAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.STAMINA_FACTOR)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.ENERGY_FACTOR)).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.DAY_DURATION / ActionNames.TimeSpeed) * ActionNames.WATER_FACTOR)).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.WATER_FACTOR)).ToString();
 
         chercherAManger();
 
@@ -57,9 +57,7 @@ public class FindFoodAgentAction : AgentAction {
             if((_agent.AgentMesh != null) && (!_agent.AgentMesh.pathPending 
             && _agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance 
             && (!_agent.AgentMesh.hasPath || _agent.AgentMesh.velocity.sqrMagnitude == 0f))) 
-                _agent.walker();// il se déplace 
-            if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
-                _agent.AgentMesh.speed = 0.75f * (float)Convert.ToDouble(_agent.Attributes["MaxSpeed"]) * ActionNames.TimeSpeed; // il se déplace plus vite
+                _agent.walker();// il se déplace
         }
         else // si l'agent voit des animaux 
         {
@@ -72,7 +70,7 @@ public class FindFoodAgentAction : AgentAction {
                     for (int j = 0; j < _agent.Preys.Count; j++)
                     {
                         Agent animalTemp = _agent.AnimauxEnVisuel[i].GetComponent<Agent>();
-                        if (_agent.Preys[j] == animalTemp.Attributes["SpeciesName"]) // si l'ID de l'animal fait partie des ID des proies de l'agent.
+                        if (_agent.Preys[j].Equals(animalTemp.Attributes["SpeciesName"])) // si l'ID de l'animal fait partie des ID des proies de l'agent.
                             rangDistMin = i; // on retient son rang dans la liste des animaux en visuel.
                     }
                 }

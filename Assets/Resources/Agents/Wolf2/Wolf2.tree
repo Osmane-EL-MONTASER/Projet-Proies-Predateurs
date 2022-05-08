@@ -1,9 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?><ActionTreeNodeOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Id>0</Id><Action>Idle</Action><Children><ActionTreeNodeOfString><Id>1</Id><Action>Find Food</Action><Children><ActionTreeNodeOfString><Id>2</Id><Action>Choose Prey</Action><Children /><TransitionsCond /></ActionTreeNodeOfString></Children><TransitionsCond><string>&lt;-&gt;EnergyNeeds&lt;0.5</string></TransitionsCond></ActionTreeNodeOfString><ActionTreeNodeOfString><Id>3</Id><Action>Sleep</Action><Children /><TransitionsCond /></ActionTreeNodeOfString><ActionTreeNodeOfString><Id>4</Id><Action>Breed</Action><Children /><TransitionsCond /></ActionTreeNodeOfString><ActionTreeNodeOfString><Id>5</Id><Action>Drink Water</Action><Children /><TransitionsCond /></ActionTreeNodeOfString></Children><TransitionsCond><string>EnergyNeeds&gt;=0.5
+<?xml version="1.0" encoding="utf-8"?>
+<ActionTreeNodeOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Id>0</Id>
+    <Action>Idle</Action>
+    <Children>
+        <ActionTreeNodeOfString>
+            <Id>1</Id>
+            <Action>Find Food</Action>
+            <Children>
+                <ActionTreeNodeOfString>
+                    <Id>2</Id>
+                    <Action>Choose Prey</Action>
+                    <Children />
+                    <TransitionsCond />
+                </ActionTreeNodeOfString>
+            </Children>
+            <TransitionsCond>
+                <string>EnergyNeeds==-1&lt;-&gt;EnergyNeeds==-1</string>
+            </TransitionsCond>
+        </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>3</Id>
+            <Action>Sleep</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>4</Id>
+            <Action>Breed</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
+        <ActionTreeNodeOfString>
+            <Id>5</Id>
+            <Action>Drink Water</Action>
+            <Children />
+            <TransitionsCond />
+        </ActionTreeNodeOfString>
+    </Children>
+    <TransitionsCond>
+        <string>EnergyNeeds&gt;=0.5
 &lt;-&gt;
-EnergyNeeds&lt;0.5</string><string>Stamina&lt;=0.05
+EnergyNeeds&lt;0.5</string>
+        <string>Stamina&lt;=0.05
 &lt;-&gt;
-Stamina&gt;=1||EnergyNeeds&gt;0.6||WaterNeeds&gt;0.6</string><string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&lt;=0.15
+Stamina&gt;=1||EnergyNeeds&gt;0.6||WaterNeeds&gt;0.6</string>
+        <string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&lt;=0.15
 &lt;-&gt;
-Stamina&lt;=0.05||EnergyNeeds&gt;0.5</string><string>WaterNeeds&gt;=0.5
+Stamina&lt;=0.05||EnergyNeeds&gt;0.5</string>
+        <string>WaterNeeds&gt;=0.5
 &lt;-&gt;
-Stamina&lt;=0.05||WaterNeeds&lt;0.5</string></TransitionsCond></ActionTreeNodeOfString>
+Stamina&lt;=0.05||WaterNeeds&lt;0.5</string>
+    </TransitionsCond>
+</ActionTreeNodeOfString>

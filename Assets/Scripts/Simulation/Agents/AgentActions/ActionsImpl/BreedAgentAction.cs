@@ -39,6 +39,10 @@ public class BreedAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
+        if(Convert.ToDouble(_agent.Attributes["Age"]) < Convert.ToDouble(_agent.Attributes["MaturityAge"])) {
+            _agent.ForceChangeAction(_agent._actionTree, _agent._actionTree.ParentTransition);
+            return;
+        }
         breed();
         _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.STAMINA_FACTOR)).ToString();
         _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.ENERGY_FACTOR)).ToString();
@@ -86,7 +90,7 @@ public class BreedAgentAction : AgentAction {
         if(_child != null) {
             Agent child;
             if((_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.25)
-                || (!_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.6)) {
+                || (!_child.name.Equals("Rabbit") && new System.Random().NextDouble() > 0.7)) {
                 child = _child.GetComponent<Agent>();
                 _child.transform.localScale = oldLocalScale;
                 child.initialisation();

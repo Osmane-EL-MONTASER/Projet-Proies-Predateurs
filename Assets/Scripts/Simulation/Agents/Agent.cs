@@ -128,9 +128,9 @@ public class Agent : MonoBehaviour {
             i++;
         }
 
-        if(_currentAction.Parent != null && _currentAction.ParentTransition != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true))
+        if(_currentAction.Parent != null && _currentAction.ParentTransition != null && ActionTreeParser.CondTextToBool(_currentAction.ParentTransition, this, true)) {
             _currentAction = _currentAction.Parent;
-        
+        }
     } 
     public void ForceChangeAction(ActionTreeNode<AgentAction> newAction, string transition) {
         newAction.Parent = _currentAction;
