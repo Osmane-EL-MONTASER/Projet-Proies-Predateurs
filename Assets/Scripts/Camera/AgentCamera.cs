@@ -129,14 +129,14 @@ public class AgentCamera : MonoBehaviour {
         _oldHeight = transform.position.y;
         
         _cameraRotationScript = new SmoothCameraRotation(startRotation: transform.eulerAngles.x, targetRotation: 90f, rotationSpeed: 100f);
-        _cameraTranslationScript = new SmoothCameraTranslation(startTranslation: transform.position.y, targetTranslation: 400f, translationSpeed: 400f);
+        _cameraTranslationScript = new SmoothCameraTranslation(startTranslation: transform.position.y, targetTranslation: 25f, translationSpeed: 25f);
     }
 
     /// <summary>
     /// Permet d'actualiser la position de la caméra suivant
     /// la transition à réaliser.
     /// 
-    /// Fait par EL MONTASER Osmane le 12/03/2022 et modifiée par AVERTY Pierre le 16/04/2022.
+/// Fait par EL MONTASER Osmane le 12/03/20p22 et modifiée par AVERTY Pierre le 16/04/2022.
     /// </summary>
     private void makeTransition() {
         float nextRotation = _cameraRotationScript.GetNextRotation();
@@ -153,7 +153,7 @@ public class AgentCamera : MonoBehaviour {
             if(_transitionType) {
                 _isTransitionFinished = true;
                 Camera.GetComponent<Camera>().orthographic = true;
-                Camera.GetComponent<Camera>().orthographicSize = 400f;
+                Camera.GetComponent<Camera>().orthographicSize = 25f;
             }
             else
                 _isExitTransitionFinished = true;

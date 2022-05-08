@@ -177,6 +177,14 @@ public class AgentsConfiguration : MonoBehaviour
 
     public Sprite[] spriteList;
 
+    public bool inSim;
+
+    /// <summary>
+    /// Référence à la caméra afin de changer la vue basique
+    /// en la vue d'ajout d'agent.
+    /// </summary>
+    public GameObject Camera;
+
 
 
 
@@ -193,7 +201,7 @@ public class AgentsConfiguration : MonoBehaviour
         string titleText = gameObject.name;
         if(title != null)
             title.text = "Paramètres " + Regex.Replace(titleText, "[0-9]", "") + " :";
-
+        
         if(gameObject.name.Contains("Panel")){
             Dictionary<string,string> datas = _dbHelper.SelectSpeciesInfo();
             foreach(KeyValuePair<string,string> entry in datas){
@@ -214,7 +222,7 @@ public class AgentsConfiguration : MonoBehaviour
             if(gameObject.name.Contains("2")){
                 Destroy(gameObject.transform.Find("Prédateurs/Container/Template").gameObject);
                 Destroy(gameObject.transform.Find("Proies/Container/Template").gameObject);
-            } else {
+            } else if (gameObject.name.Contains("3")) {
                 Destroy(gameObject.transform.Find("Autotrophes/Container/Template").gameObject);
             }
 
@@ -270,9 +278,12 @@ public class AgentsConfiguration : MonoBehaviour
         _litterMax = (int) data["LitterMax"];
         _numAgents = 0;
 
+        if(inSim)
+            _numAgents = 1;
+
         if(button!=null)
             button.onClick.RemoveAllListeners();
-            
+
         health.onEndEdit.RemoveAllListeners();
         carcassEnergyContribution.onEndEdit.RemoveAllListeners();
         maxWaterNeeds.onEndEdit.RemoveAllListeners();
@@ -318,10 +329,62 @@ public class AgentsConfiguration : MonoBehaviour
         inputNumAgents.onEndEdit.AddListener((arg) => setNumAgents());
         attackDamage.onEndEdit.AddListener((arg) => setAttackDamage());
 
-        if(button != null)
+        if(button != null && !inSim)
             button.onClick.AddListener(() => AgentManager.Instance.initializationAgents(_selectedAgentType,  _carcassEnergyContribution, _maxWaterNeeds, _maxEnergyNeeds, _maxSpeed, _gestationPeriod, _maturityAge, _maxAge, _digestionTime, _preyConsumptionTime,
     _maxHealth, _maxStamina, _attackDamage, _litterMax, _numAgents));
+
+        if(inSim){
+            foreach(Sprite sprite in spriteList){
+                if(sprite.name == _selectedAgentType){
+                    settings.transform.Find("Image").gameObject.GetComponent<Image>().sprite = sprite;
+                }
+            }
+
+
+    
+             if(button !=null)
+                  button.onClick.AddListener(() => addInSim());
+        }
     }
+
+    private void addInSim(){
+        if(_numAgents == 0){
+            settings.SetActive(false);
+        } else {
+            settings.SetActive(false);
+            var MainCamera = ConfigCamera.Instance.CurrentCamera;
+            MainCamera.GetComponent<AgentCamera>().EnterAgentLook();
+            
+            Dictionary<string, string> Attributes = AgentAttributes.GetAttributesDict();
+
+            Attributes["CarcassEnergyContribution"] = _carcassEnergyContribution.ToString();
+            Attributes["MaxWaterNeeds"] = _maxWaterNeeds.ToString();
+            Attributes["MaxEnergyNeeds"] = _maxEnergyNeeds.ToString();
+            Attributes["MaxSpeed"] = _maxSpeed.ToString();
+            Attributes["GestationPeriod"] = _gestationPeriod.ToString();
+            Attributes["MaturityAge"] = _maturityAge.ToString();
+            Attributes["MaxAge"] = _maxAge.ToString();
+            Attributes["DigestionTime"] = _digestionTime.ToString();
+            Attributes["PreyConsumptionTime"] = _preyConsumptionTime.ToString();
+            Attributes["MaxHealth"] = _maxHealth.ToString();
+            Attributes["MaxStamina"] = _maxStamina.ToString();
+            Attributes["Ad"] = _attackDamage.ToString();
+            Attributes["LitterMax"] = _litterMax.ToString();
+            
+
+            AgentManager.Instance.newGhostInSim(_numAgents, Attributes);
+
+
+            if(MainCamera.GetComponent<BasicCamera>().enabled != true) {
+                MainCamera.GetComponent<BasicCamera>().enabled = true;
+                GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = true;
+            } else {
+                MainCamera.GetComponent<BasicCamera>().enabled = false;
+                GameObject.Find("Player").GetComponent<PlayerMovements>().enabled = false;
+            }
+        }
+    }
+
     /// <summary>
     /// Fait par AVERTY Pierre le 07/05/2022.
     /// </summary>

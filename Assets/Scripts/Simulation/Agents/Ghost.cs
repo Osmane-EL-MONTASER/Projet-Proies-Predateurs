@@ -11,6 +11,10 @@ public class Ghost : MonoBehaviour {
 private GameObject _camera;
 private Vector3 _worldPosition;
 
+public Dictionary<string, string> Attributes;
+
+public int n;
+
 
 /// <summary>
 /// Méthode qui s'active à l'initialisation du script.
@@ -19,6 +23,7 @@ private Vector3 _worldPosition;
 /// </summary>
     void Start() {
         _camera = ConfigCamera.Instance.CurrentCamera;
+        Debug.Log(n);
     }
 
 /// <summary>
@@ -27,22 +32,23 @@ private Vector3 _worldPosition;
 /// Fait par AVERTY Pierre le 10/04/2022 et modifiée le 17/04/2022
 /// </summary> 
     void Update() {
-        Plane plane = new Plane(Vector3.up, -100f);
-        float distance;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+           
+            _worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _worldPosition.y = Terrain.activeTerrain.SampleHeight(_worldPosition);
 
-        if (plane.Raycast(ray, out distance)) {
-                _worldPosition = ray.GetPoint(distance);
-        }
+            transform.position = _worldPosition;
 
-        transform.position = _worldPosition;
-        transform.localScale = new Vector3(1f,1f,1f);
+            if(Input.GetMouseButtonDown(0)){
+                AgentManager.Instance.newAgentInSim(_worldPosition, Attributes);
 
-        if(Input.GetMouseButtonDown(0)){
-            AgentManager.Instance.newAgentInSim(_worldPosition);
-            _camera.GetComponent<AgentCamera>().ExitAgentLook();
-            Destroy(gameObject);
-        }
+                n--;
+            }
+            if(n == 0){
+                _camera.GetComponent<AgentCamera>().ExitAgentLook();
+                Destroy(gameObject);
+            }
+                
     }
 
 }

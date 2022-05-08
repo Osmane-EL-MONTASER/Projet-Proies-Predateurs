@@ -39,7 +39,7 @@ public class AgentManager : MonoBehaviour {
     public  GameObject Elephant;
     public  GameObject Pingouin;
     public  GameObject Snake;
-    public  GameObject Lapin;
+    public  GameObject Rabbit;
     public  GameObject Zebra;
     public  GameObject Tiger;
     public  GameObject Alligator;
@@ -56,7 +56,7 @@ public class AgentManager : MonoBehaviour {
     public  GameObject ElephantGhost;
     public  GameObject PingouinGhost;
     public  GameObject SnakeGhost;
-    public  GameObject LapinGhost;
+    public  GameObject RabbitGhost;
     public  GameObject ZebraGhost;
     public  GameObject TigerGhost;
     public  GameObject AlligatorGhost;
@@ -84,7 +84,7 @@ public class AgentManager : MonoBehaviour {
        GhostList.Add(ElephantGhost);
        GhostList.Add(PingouinGhost);
        GhostList.Add(SnakeGhost);
-       GhostList.Add(LapinGhost);
+       GhostList.Add(RabbitGhost);
        GhostList.Add(ZebraGhost);
        GhostList.Add(AlligatorGhost);
        GhostList.Add(LizardGhost);
@@ -97,7 +97,7 @@ public class AgentManager : MonoBehaviour {
        AgentList.Add(Elephant);
        AgentList.Add(Pingouin);
        AgentList.Add(Snake);
-       AgentList.Add(Lapin);
+       AgentList.Add(Rabbit);
        AgentList.Add(Zebra);
        AgentList.Add(Alligator);
        AgentList.Add(Lizard);
@@ -112,9 +112,10 @@ public class AgentManager : MonoBehaviour {
     /// 
     /// Fait par AVERTY Pierre le 03/04/2022.
     /// </summary>
-    public void newGhostInSim(){
+    public void newGhostInSim(int n, Dictionary<string, string> Attributes){
        GameObject ghost = instanciateGhost();        
-    
+       ghost.GetComponent<Ghost>().n = n;
+       ghost.GetComponent<Ghost>().Attributes = Attributes;
        ghost = Instantiate(ghost, new Vector3(0f, 0f, 0f), Quaternion.identity);
     } 
 
@@ -173,12 +174,15 @@ public class AgentManager : MonoBehaviour {
     /// </summary>
     ///
     /// <param name="coor">Coordonées de l'agent.</param>
-    public void newAgentInSim(Vector3 coor){
+    public void newAgentInSim(Vector3 coor, Dictionary<string, string> Attributes){
        GameObject agent = instanciateAgent();        
-       coor.y = 1f;
+       coor.y = Terrain.activeTerrain.SampleHeight(coor);
 
        agent = Instantiate(agent, coor, Quaternion.identity);
+       agent.name = agent.name.Replace("(Clone)","");
+       agent.GetComponent<Agent>().Attributes = Attributes;
     } 
+    
 
     /// <summary>
     /// Méthode qui instancie un fantôme.
@@ -186,7 +190,7 @@ public class AgentManager : MonoBehaviour {
     /// Fait par AVERTY Pierre le 03/04/2022.
     /// </summary>
     public GameObject instanciateGhost(){
-       return GhostList.Find(el => el.name  == newAgentType +" ghost");
+       return GhostList.Find(el => el.name  == newAgentType.ToLower() +" ghost");
     } 
 
     /// <summary>
