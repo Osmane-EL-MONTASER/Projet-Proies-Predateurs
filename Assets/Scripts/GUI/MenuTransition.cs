@@ -60,6 +60,7 @@ public class MenuTransition : MonoBehaviour {
 
         if(newScene.name == "Panel New Agent Panel Config"){
             AgentManager.Instance.newAgentType = gameObject.name;
+            Debug.Log(gameObject.name);
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image").GetComponent<Image>().sprite = gameObject.GetComponent<Image>().sprite;
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image/Text").GetComponent<TextMeshProUGUI>().text = gameObject.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text;
         }
