@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal, elle permet 
+/// Classe reprise par HAMICHE Bilal le 29/04, elle permet 
 /// Seuls les rectangles sont gérés par RectTransform.
 /// 0 est le point d'angle inférieur gauche et 2 le point d'angle supérieur droit.
 /// Comme il s'agit d'un rectangle, les valeurs maximale et minimale doivent se produire à ces deux points.
@@ -96,6 +96,10 @@ public class DD_RectChangeEventArgs : EventArgs {
     }
 }
 
+
+/// <summary>
+/// Classe reprise par HAMICHE Bilal le 29/04, elle per
+/// </summary>
 public class DD_ZoomEventArgs : EventArgs {
 
     private float _zoomX;
@@ -173,7 +177,9 @@ public class DD_PreDestroyLineEventArgs : EventArgs {
         get { return m_Line; }
     }
 }
-
+/// <summary>
+/// 
+/// </summary>
 public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
     private readonly Vector2 MinRectSize = new Vector2(100, 80);

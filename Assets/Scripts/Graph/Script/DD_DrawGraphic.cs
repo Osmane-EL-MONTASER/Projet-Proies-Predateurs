@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal le 29/04, elle permet de créer les courbes sur le graphe.
+/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype,
+/// elle permet de créer les courbes sur le graphe.
 /// </summary>
 public class DD_DrawGraphic : MaskableGraphic {
 
@@ -234,7 +235,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawHorizontalSegmet(vh, point4th, point1st, color, thickness);
     }
 
-    ///Des triangles sont dessinés provisoirement
+    ///Des triangles sont tracés provisoirement
     public static float GetTriangleCentreDis(float thickness) {
 
         return (thickness / 3);

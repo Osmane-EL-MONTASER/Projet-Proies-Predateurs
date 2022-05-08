@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype, elle permet de gérer les évènements liés au zoom
+/// Classe reprise et modifiée par HAMICHE Bilal le 29/04 pour le prototype,
+/// elle permet de gérer les évenements liés au zoom
 /// </summary>
 public class ZoomButtonClickEventArgs : EventArgs {
 
@@ -12,7 +13,8 @@ public class ZoomButtonClickEventArgs : EventArgs {
 
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal, elle permet de zoomer
+/// Classe reprise et modifiée par HAMICHE Bilal le 29/04, 
+/// elle permet de zoomer sur le graphe
 /// </summary>
 public class DD_ZoomButton : MonoBehaviour {
 

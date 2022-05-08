@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Classe reprise et modifié par HAMICHE Bilal le 30/04, elle permet d'ajouter le
+/// Classe reprise et modifié par HAMICHE Bilal le 05/05 pour le prototype, elle permet d'ajouter le
 /// nombre de proies, predateurs et autotrophes dans la simulation en
 /// temps réel sur le graphe.
 /// </summary>
@@ -62,7 +62,7 @@ public class Sample : MonoBehaviour {
     }
 
     /// <summary>
-    /// Méthode permettant de générer des courbes aléatoirement pour tester le graphe
+    /// Méthode permettant de générer des courbes de façon aléatoire pour tester le graphe
     /// </summary>
     private void ContinueInput(float f) {
 

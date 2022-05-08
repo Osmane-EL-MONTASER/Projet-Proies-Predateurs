@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-//permet de changer le cadre rectangulaire
 
 /// <summary>
 /// Classe reprise par HAMICHE Bilal le 30/04, elle permet de modifier
@@ -22,20 +21,19 @@ public class DD_CoordinateRectChangeEventArgs : EventArgs {
     }
 }
 
-//permet de changer le l'echelle
 /// <summary>
-/// Classe reprise par HAMICHE Bilal le 30/04, elle permet de modifier 
+/// Classe reprise par HAMICHE Bilal le 30/04 pour le prototype, elle permet de modifier 
 /// les valeurs en abscisses et en ordonnées en fonction des événements 
 /// </summary>
 public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 
     /// <summary>
-    /// Varaible de type float qui désigne les valeurs en abscisses
+    /// Variable de type float qui désigne les valeurs en abscisses
     /// </summary>
 
     public float scaleX;
     /// <summary>
-    /// Varaible de type float qui désigne les valeurs en abscisses
+    /// Variable de type float qui désigne les valeurs en abscisses
     /// </summary>
     public float scaleY;
 
@@ -52,7 +50,7 @@ public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 }
 
 /// <summary>
-/// Classe qui Changer l'événement de coordonnées zéro de la zone de visualisation actuelle
+/// Classe qui permet de modifier les événements de la zone de observation actuelle
 /// </summary>
 public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
 
@@ -65,7 +63,7 @@ public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
 }
 
 /// <summary>
-/// Classe qui permet de 
+/// Classe qui permet de éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé
 /// et qui depend de la classe DD_DrawGraphic
 /// </summary>
 public class DD_CoordinateAxis : DD_DrawGraphic {
@@ -535,12 +533,12 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// 实例化一个UI控件时调用了graphic rebuild操作，而OnPopulateMesh（）ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé
-    /// 函数是在graphic rebuild操作中被调用的，所以若在OnPopulateMesh（）
-    /// 中创建一个新的UI控件时系统会提示错误：graphic rebuild操作被循环调用了
-    /// 所以这里需要使用协程操作（IEnumerator）
-    /// 在进入协程操作后，必须立即执行yield return new WaitForSeconds(0);
-    /// 使当前协程暂时退出，让graphic rebuild操作先执行
+    /// L'opération de reconstruction graphique est appelée lorsqu'un contrôle d'interface utilisateur est instancié, et que la fonction OnPopulateMesh()
+    /// la fonction est appelée pendant l'opération de reconstruction du graphique, donc si un nouveau contrôle d'interface utilisateur est créé dans OnPopulateMesh()
+    /// crée un nouveau contrôle d'interface utilisateur, une erreur sera levée : l'opération de reconstruction du graphique est appelée dans une boucle.
+    /// Donc ici vous devez utiliser une opération simultanée (IEnumerator)
+    /// Immédiatement après l'entrée dans une opération concurrente, le yield doit être exécuté return new WaitForSeconds(0) ;
+    /// Faire sortir temporairement le processus concurrent actuel, permettant à l'opération de reconstruction graphique d'être exécutée en premier.
     /// </summary>
     /// <param name="marksVals"></param>
     /// <param name="marksPixel"></param>
@@ -611,10 +609,9 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// 每次运行前先查询当前坐标下是否已经实例化了刻度值文本UI控件 ou
-    /// Vérifiez si le contrôle d'interface utilisateur de texte à l'échelle a été instancié à la coordonnée actuelle avant chaque exécution.
-    /// 如果已经存在，则先加入队列以待使用 ou S'il existe déjà, il est ajouté à la file d'attente pour être utilisé en premier.
-    /// transform是一个迭代类型，可以迭代出其所有Child节点
+    /// Méthode qui vérifie si le contrôle d'interface utilisateur de texte à l'échelle a été instancié
+    /// à la coordonnée actuelle avant chaque exécution.
+    /// Dans le cas où, il existe déjà, il est ajouté à la file d'attente pour être utilisé en premier.
     /// </summary>
     /// <param name="markTexts"></param>
     private void FindExistMarkText(List<GameObject> markTexts) {
@@ -640,8 +637,10 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     /// Cette méthode permet d'entrée une donnée sur le graphe
     /// </summary>
     /// <param name="line"> La courbe retournée par la méthode AddLine() </param>
-    /// <param name="point">point.x est la valeur de mise à l'échelle de la courbe sur l'axe des abscisses, qui vaut 1 si 
-    /// il n'y a pas de mise à l'échelle, point.y est la valeur de la donnée d'entrée</param>
+    /// <param name="point">
+    /// point.x est la valeur de mise à l'échelle de la courbe sur l'axe des abscisses, qui vaut 1 si 
+    /// il n'y a pas de mise à l'échelle, point.y est la valeur de la donnée d'entrée
+    /// </param>
     public void InputPoint(GameObject line, Vector2 point) {
 
         line.GetComponent<DD_Lines>().AddPoint(CoordinateToPixel(point));

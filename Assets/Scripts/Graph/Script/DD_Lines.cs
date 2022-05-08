@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal le 29/04, elle est utilisée pour gérer les courbes sur le graphe
+/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype,
+/// elle est utilisée pour gérer les courbes sur le graphe
 /// </summary>
 public class DD_Lines : DD_DrawGraphic {
 
