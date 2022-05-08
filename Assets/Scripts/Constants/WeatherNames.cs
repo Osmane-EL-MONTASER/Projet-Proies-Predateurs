@@ -21,7 +21,7 @@ public static class WeatherNames {
     public static Color THUNDERSTORM_COLOR = Color.green;
     public static Color STORM_COLOR = Color.blue;
     public static Color DROUGHT_COLOR = Color.yellow;
-    public static Color RAIN_COLOR = new Color(0f, 255f, 255f);
+    public static Color RAIN_COLOR = Color.blue;
 
     //Toutes les transitions possibles.
     public const int CLOUDY_TO_SUNNY_TRANSITION = 0;

@@ -27,8 +27,7 @@ public class MenuTransition : MonoBehaviour {
     /// </summary>
     public GameObject MeteoSimulationPanel;
     public GameObject GraphPanel;
-
-    public GameObject SimSpeedPanel;
+    public GameObject SimInfosPanel;
 
     /// <summary>
     /// Type d'un nouvel agent.
@@ -58,8 +57,13 @@ public class MenuTransition : MonoBehaviour {
             toogleCamera(true);
             GameObject.Find("AgentManager").GetComponent<AgentManager>().enabled = true;
             GameObject.Find("Player").GetComponent<DataUpdater>().enabled = true;
+            GameObject.Find("Player").GetComponent<WeatherZoning>().enabled = true;
+            GameObject.Find("Player").GetComponent<WindGenerator>().enabled = true;
+            GameObject.Find("Player").GetComponent<Precipitation>().enabled = true;
+            GameObject.Find("Player").GetComponent<FogGenerator>().enabled = true;
+            GameObject.Find("Player").GetComponent<LightningManager>().enabled = true;
             GraphPanel.SetActive(true);
-            SimSpeedPanel.SetActive(true);
+            SimInfosPanel.SetActive(true);
         } else
             toogleCamera(false);
 

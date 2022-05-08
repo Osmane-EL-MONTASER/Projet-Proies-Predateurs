@@ -123,7 +123,6 @@ public class WeatherObjectUpdater : MonoBehaviour {
         GameObject newObject;
         newObject = (GameObject)Instantiate(Resources.Load(terrainData.treePrototypes[treeToKill.prototypeIndex].prefab.name + " Falling"));
         _deadTrees.Add((newObject, newObject.GetComponent<Renderer>().bounds.size.y));
-            
         newObject.transform.position = normalizedPosition;
     }
 

@@ -130,14 +130,14 @@ public class WindGenerator : MonoBehaviour {
 
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = WindSpeed / ActionNames.TimeSpeed;
+        _timeAccumulator = WindSpeed * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
     }
 
     void Update() {
-        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
+        _timeAccumulator += Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
         
         if(!_alreadyApplied && _timeAccumulator >= WindSpeed && Monitor.TryEnter(_applyNoiseLock)) {
             XOrg += WindOffsetX;
@@ -164,10 +164,10 @@ public class WindGenerator : MonoBehaviour {
         if(_noiseTabMutex.WaitOne()) {
             for(int i = 0; i < MapHeight; i++) {
                 for(int j = 0; j < MapWidth; j++) {
-                    if(_noiseTab[j, i] >= 0.5f)
-                        WeatherZoningScript.AddWeatherAtZone(j, i, new Wind(WeatherZoningScript.GameObjects[j, i], _noiseTab[j, i]));
+                    WeatherZoningScript.AddWeatherAtZone(j, i, new Wind(WeatherZoningScript.GameObjects[j, i], _noiseTab[j, i]));
                 }
             }
+            _noiseTabMutex.ReleaseMutex();
         }
     }
 

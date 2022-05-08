@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Classe qui permet de gérer le cycle jour
@@ -14,10 +15,14 @@ public class LightningManager : MonoBehaviour {
     [SerializeField] private Light _moonLight;
     [SerializeField] private LightningPresets _preset;
 
+    private GameObject _DayStatsText;
+
+    private int _days;
+
     /// <summary>
     /// L'heure actuelle dans le monde de la simulation.
     /// </summary>
-    [SerializeField, Range(0, 1)] private float _timeOfDay;
+    [SerializeField, Range(0, ActionNames.DAY_DURATION)] private float _timeOfDay;
 
     /// <summary>
     /// Pour faire avancer le temps dans le cycle jour /
@@ -30,11 +35,26 @@ public class LightningManager : MonoBehaviour {
             return;
 
         if(Application.isPlaying) {
-            _timeOfDay += Time.deltaTime;
-            _timeOfDay %= 1 * ActionNames.TimeSpeed;
-            UpdateLightning(_timeOfDay / (1f * ActionNames.TimeSpeed));
+            _timeOfDay += Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
+            if(_timeOfDay >= ActionNames.DAY_DURATION)
+                _days++;
+            _timeOfDay %= ActionNames.DAY_DURATION;
+            UpdateLightning(_timeOfDay / ActionNames.DAY_DURATION);
         } else
-            UpdateLightning(_timeOfDay / (1f * ActionNames.TimeSpeed));
+            UpdateLightning(_timeOfDay / ActionNames.DAY_DURATION);
+        
+        double hour = Math.Floor(_timeOfDay / 3600) % 24;
+        string hourText = hour < 10 ? "0" + hour.ToString() : hour.ToString();
+
+        double minute = Math.Floor(_timeOfDay / 60) % 60;
+        string minuteText = minute < 10 ? "0" + minute.ToString() : minute.ToString();
+        
+        string day = _days.ToString();
+        _DayStatsText.GetComponent<TMPro.TextMeshProUGUI>().text = hourText + ":" + minuteText + " Jour " + day;
+    }
+
+    private void Awake() {
+        _DayStatsText = GameObject.Find("DayStatsText");
     }
 
     /// <summary>

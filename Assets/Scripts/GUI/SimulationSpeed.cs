@@ -16,13 +16,13 @@ public class SimulationSpeed : MonoBehaviour {
     public void OnValueChanged() {
         if(!InputSimulationSpeed.GetComponent<TMP_InputField>().text.Equals("")
             && InputSimulationSpeed.GetComponent<TMP_InputField>().text.IndexOfAny(new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' }) != -1)
-            ActionNames.TimeSpeed = float.Parse(InputSimulationSpeed.GetComponent<TMP_InputField>().text.TrimStart('0'));
+            ActionNames.TimeSpeed = ActionNames.DAY_DURATION * float.Parse(InputSimulationSpeed.GetComponent<TMP_InputField>().text.TrimStart('0'));
     }
 
     public void OnEditEnd() {
         if(InputSimulationSpeed.GetComponent<TMP_InputField>().text.Equals(""))
             InputSimulationSpeed.GetComponent<TMP_InputField>().text = "24";
         
-        ActionNames.TimeSpeed = float.Parse(InputSimulationSpeed.GetComponent<TMP_InputField>().text);
+        ActionNames.TimeSpeed = ActionNames.DAY_DURATION * float.Parse(InputSimulationSpeed.GetComponent<TMP_InputField>().text);
     }
 }

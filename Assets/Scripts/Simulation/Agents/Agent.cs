@@ -52,6 +52,17 @@ public class Agent : MonoBehaviour {
     private GameObject _mate;
 
     /// <summary>
+    /// Permet de récupérer depuis combien de temps nous avons pas
+    /// vérifier si l'agent était bloqué.
+    /// </summary>
+    private float _lastWalkerUpdateAcc;
+
+    /// <summary>
+    /// La dernière position avant la dernière mise à jour.
+    /// </summary>
+    private Vector3 _lastPositionUpdate;
+
+    /// <summary>
     /// Initialise toutes les valeurs des attributs et récupère les infos de l'agent
     ///
     /// Fait par Greg Demirdjian le 12/03/2022.
@@ -64,7 +75,6 @@ public class Agent : MonoBehaviour {
 
         Attributes = AgentAttributes.GetAttributesDict();
         Attributes["SpeciesName"] = gameObject.name;
-        Attributes["Health"] = "100";
         if(!Attributes["SpeciesName"].Equals("Grass") && AgentMesh != null)
             Attributes["Speed"] = AgentMesh.speed.ToString();
         Attributes["Gender"] = (new System.Random().Next(2) + 1).ToString();
@@ -88,6 +98,9 @@ public class Agent : MonoBehaviour {
         Attributes["CarcassEnergyContribution"] = (200.0).ToString(); // a changer dans la bdd
         Attributes["Ad"] = (1.0).ToString(); // a changer dans la bdd
         Attributes["MaxEnergyNeeds"] = (1.0).ToString();
+        Attributes["Health"] = Attributes["MaxHealth"];
+        _lastPositionUpdate = transform.position;
+        _lastWalkerUpdateAcc = 0.0f;
     }
 
     /// <summary>
@@ -138,10 +151,20 @@ public class Agent : MonoBehaviour {
                 updatePregnancy();
             
             if(AgentMesh != null) {
-                Attributes["Speed"] = ((float.Parse(Attributes["MaxSpeed"]) * ActionNames.DAY_DURATION) / ActionNames.TimeSpeed).ToString();
+                Attributes["Speed"] = ((float.Parse(Attributes["MaxSpeed"]) * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION))).ToString();
                 AgentMesh.speed = float.Parse(Attributes["Speed"]);
                 AgentMesh.acceleration = float.Parse(Attributes["Speed"]);
                 AnimauxEnVisuel = animauxDansFov();
+                _lastWalkerUpdateAcc += (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * Time.deltaTime;
+
+                //Vérifier si l'agent cherche à atteindre une destination impraticable.
+                if(_lastWalkerUpdateAcc >= 5.0f && !(AgentMesh.remainingDistance >= 0.0f)) {
+                    //Si l'agent est resté à la même position depuis 5 secondes.
+                    if(Vector3.Distance(AgentMesh.destination, _lastPositionUpdate) <= AgentMesh.speed)
+                        AgentMesh.destination = transform.position;
+                    _lastWalkerUpdateAcc = 0.0f;
+                    _lastPositionUpdate = transform.position;
+                }
             }
 
             System.Double newValue;
@@ -291,7 +314,9 @@ public class Agent : MonoBehaviour {
     }
 
     public Vector3 walker() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 100;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 250;
+        /*System.Random rnd = new();
+        Vector3 randomDirection = new(rnd.Next(200, 800), 0f, rnd.Next(200, 800));*/
         randomDirection += transform.position;
         Vector3 finalPosition = Vector3.zero;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using System;
 
 /// <summary>
 /// Classe permettant de créer la carte de pré-
@@ -56,7 +57,7 @@ public class Precipitation : MonoBehaviour {
     /// La vitesse à laquelle la map de 
     /// précipitations s'acutalise dans le monde.
     /// </summary>
-    public float PrecipitationSpeed = 0.5f;
+    public float PrecipitationSpeed = 1f;
 
     public float PrecipitationOffsetX = 0.25f;
 
@@ -112,7 +113,7 @@ public class Precipitation : MonoBehaviour {
     /// </summary>
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = PrecipitationSpeed / ActionNames.TimeSpeed;
+        _timeAccumulator = PrecipitationSpeed * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
@@ -125,7 +126,7 @@ public class Precipitation : MonoBehaviour {
     /// Fait par EL MONTASER Osmane le 19/03/2022.
     /// </summary>
     void Update() {
-        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
+        _timeAccumulator += Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
         if(!_alreadyApplied && _timeAccumulator >= PrecipitationSpeed && Monitor.TryEnter(_applyNoiseLock)) {
             XOrg += PrecipitationOffsetX;
             YOrg += PrecipitationOffsetY;
@@ -156,11 +157,14 @@ public class Precipitation : MonoBehaviour {
     public float GetPrecipitationAt(int x, int y) {
         float value = .0f;
 
-        if(_noiseTabMutex.WaitOne()) {
-            value = _noiseTab[x, y];
-            _noiseTabMutex.ReleaseMutex();
+        try {
+            if(_noiseTabMutex.WaitOne()) {
+                value = _noiseTab[x, y];
+                _noiseTabMutex.ReleaseMutex();
+            }
+        } catch(Exception e) {
+            return 0.0f;
         }
-
         return value;
     }
 

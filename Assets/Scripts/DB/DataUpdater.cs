@@ -138,7 +138,7 @@ public class DataUpdater : MonoBehaviour {
             CurrentTime += SaveFrequency;
         }
 
-        _saveFrequencyAccumulator += (Time.deltaTime / ActionNames.TimeSpeed);
+        _saveFrequencyAccumulator += (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION));
     }
 
     //TEMP

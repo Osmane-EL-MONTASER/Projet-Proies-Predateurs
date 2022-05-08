@@ -130,14 +130,14 @@ public class FogGenerator : MonoBehaviour {
 
     void Start() {
         _alreadyApplied = true;
-        _timeAccumulator = FogSpeed / ActionNames.TimeSpeed;
+        _timeAccumulator = FogSpeed * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
 
         _t1 = new Thread(calcNoise);
         _t1.Start();
     }
 
     void Update() {
-        _timeAccumulator += Time.deltaTime / ActionNames.TimeSpeed;
+        _timeAccumulator += Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION);
         applyFogValues();
         
         if(!_alreadyApplied && _timeAccumulator >= FogSpeed && Monitor.TryEnter(_applyNoiseLock)) {
@@ -172,9 +172,14 @@ public class FogGenerator : MonoBehaviour {
             fog.tint.overrideState = true;
             float intensity = .0f;
             
-            if(_noiseTabMutex.WaitOne()) {
-                intensity = _noiseTab[xPosGrid, yPosGrid];
-                _noiseTabMutex.ReleaseMutex();
+            
+            try {
+                if(_noiseTabMutex.WaitOne()) {
+                    intensity = _noiseTab[xPosGrid, yPosGrid];
+                    _noiseTabMutex.ReleaseMutex();
+                }
+            } catch(Exception e) {
+                intensity = 0.0f;
             }
             
             if(intensity < 0.3f)

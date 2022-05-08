@@ -99,6 +99,12 @@ public class WeatherZoning : MonoBehaviour {
     private Mutex _worldZonesMutex = new Mutex();
 
     /// <summary>
+    /// Une référence au texte du panel pour la
+    /// météo.
+    /// </summary>
+    private GameObject WeatherStatsText;
+
+    /// <summary>
     /// Ici je lance la fonction de pré-chargement des
     /// arbres par zones pour pouvoir y accéder très
     /// facilement plus tard.
@@ -153,8 +159,13 @@ public class WeatherZoning : MonoBehaviour {
     private void updatePlayerPosition() {
         int xPosGrid = (int)Math.Floor(transform.position.x / SquareSize);
         int yPosGrid = (int)Math.Floor(transform.position.z / SquareSize);
+        string windText = "";
+        string weatherText = "";
+        
 
         float precipitationValue = GetComponent<Precipitation>().GetPrecipitationAt(xPosGrid, yPosGrid);
+        Wind w = (Wind)_worldZones[xPosGrid, yPosGrid].Find(weather => weather.GetType().ToString().Equals("Wind"));
+        float windValue = w != null ? w.GetIntensity() : .0f;
         VolumeProfile profile = VolumeToEdit.sharedProfile;
 
         if (!profile.TryGet<VolumetricClouds>(out var clouds))
@@ -169,6 +180,7 @@ public class WeatherZoning : MonoBehaviour {
 
             GameObject.Find("RainParticles").GetComponent<ParticleSystem>().Stop();
             RainyGround.GetComponent<DecalProjector>().enabled = false;
+            weatherText = "Ensoleillé";
         } else {
             if(_currentTransitionType != WeatherNames.SUNNY_TO_CLOUDY_TRANSITION) {
                 _currentWeatherTransition = new SunnyToCloudyTransition();
@@ -179,7 +191,19 @@ public class WeatherZoning : MonoBehaviour {
             var emission = GameObject.Find("RainParticles").GetComponent<ParticleSystem>().emission;
             emission.rateOverTime = (float)(Math.Exp((precipitationValue - 0.5f) / 0.45) - 1) * 1000;
             RainyGround.GetComponent<DecalProjector>().enabled = true;
+
+            //On peut s'amuser à interpréter différentes intensités de pluie grâce au Perlin Noise
+            if(precipitationValue < 0.75)
+                weatherText = "Pluie faible";
+            else 
+                weatherText = "Pluie Forte";
         }
+
+        windText = Math.Floor(((windValue * 100f) / 0.75f)).ToString() + " km/h";
+
+        //Mise à jour du panel
+        if(WeatherStatsText.GetComponent<TMPro.TextMeshProUGUI>() != null)
+            WeatherStatsText.GetComponent<TMPro.TextMeshProUGUI>().text = "Météo : " + weatherText + "\nVent : " + windText;
     }
 
     /// <summary>
@@ -333,8 +357,10 @@ public class WeatherZoning : MonoBehaviour {
         TerrainData terrainData = TerrainToEdit.terrainData;
 
         foreach(TreeInstance tree in terrainData.treeInstances) {
-            (int, int) gridCoordinates = getZoneCoordinatesFromRawPosition(tree.position);
-            GameObjects[gridCoordinates.Item1, gridCoordinates.Item2].Add(tree);
+            if(terrainData.treePrototypes[tree.prototypeIndex].prefab.tag.Equals("Tree")) {
+                (int, int) gridCoordinates = getZoneCoordinatesFromRawPosition(tree.position);
+                GameObjects[gridCoordinates.Item1, gridCoordinates.Item2].Add(tree);
+            }
         }
     }
 
@@ -364,5 +390,10 @@ public class WeatherZoning : MonoBehaviour {
         gridCoordinates.Item2 = (int)Math.Floor(normalizedPosition.z / SquareSize);
 
         return gridCoordinates;
+    }
+
+    private void Awake() {
+        WeatherStatsText = GameObject.Find("WeatherStatsText");
+        GameObject.Find("SimulationInfo").SetActive(false);
     }
 }

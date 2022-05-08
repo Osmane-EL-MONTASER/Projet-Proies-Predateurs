@@ -2,8 +2,8 @@
 &lt;-&gt;
 EnergyNeeds&lt;0.5</string><string>Stamina&lt;=0.05
 &lt;-&gt;
-Stamina&gt;=1||EnergyNeeds&gt;0.6</string><string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&lt;=0.15
+Stamina&gt;=1||EnergyNeeds&gt;0.6||WaterNeeds&gt;0.6</string><string>Stamina&gt;0.45&amp;&amp;EnergyNeeds&lt;=0.15
 &lt;-&gt;
-Stamina&lt;=0.05||EnergyNeeds&gt;0.5</string><string>Stamina&gt;0.25&amp;&amp;WaterNeeds&gt;=0.5
+Stamina&lt;=0.05||EnergyNeeds&gt;0.5</string><string>WaterNeeds&gt;=0.5
 &lt;-&gt;
 Stamina&lt;=0.05||WaterNeeds&lt;0.5</string></TransitionsCond></ActionTreeNodeOfString>

@@ -33,10 +33,10 @@ public class AgentStatsGUIUpdater : MonoBehaviour {
             = "Espèce : " + AgentToTrack.Attributes["SpeciesName"];
 
             GameObject.Find("Age").GetComponent<TMPro.TextMeshProUGUI>().text 
-            = "Age : " + Math.Round(Convert.ToDouble(AgentToTrack.Attributes["Age"]), 3);
+            = "Age : " + Math.Round(Convert.ToDouble(AgentToTrack.Attributes["Age"]), 3) + " jours";
 
             GameObject.Find("Sex").GetComponent<TMPro.TextMeshProUGUI>().text 
-            = "Sexe : " + AgentToTrack.Attributes["Gender"];
+            = "Sexe : " + (AgentToTrack.Attributes["Gender"].Equals("1") ? "Mâle" : "Femelle");
 
             GameObject.Find("Icon").GetComponent<RawImage>().texture = PrefabUtility.GetIconForGameObject(AgentToTrack.gameObject);
 
@@ -47,7 +47,7 @@ public class AgentStatsGUIUpdater : MonoBehaviour {
             = float.Parse(AgentToTrack.Attributes["Health"]) / float.Parse(AgentToTrack.Attributes["MaxHealth"]);
 
             GameObject.Find("StaminaText").GetComponent<TMPro.TextMeshProUGUI>().text 
-            = Math.Round(Convert.ToDouble(AgentToTrack.Attributes["Stamina"]), 3) + " / " + "1";
+            = 100 * Math.Round(Convert.ToDouble(AgentToTrack.Attributes["Stamina"]), 3) + " %";
             GameObject.Find("StaminaBar").GetComponent<Slider>().value 
             = float.Parse(AgentToTrack.Attributes["Stamina"]);
 
@@ -55,12 +55,12 @@ public class AgentStatsGUIUpdater : MonoBehaviour {
             = "Action : " + AgentToTrack.GetCurrentAction();
             
             GameObject.Find("HungerText").GetComponent<TMPro.TextMeshProUGUI>().text 
-            = Math.Round(Convert.ToDouble(AgentToTrack.Attributes["EnergyNeeds"]), 3) + " / " + "1";
+            = 100 * Math.Round(Convert.ToDouble(AgentToTrack.Attributes["EnergyNeeds"]), 3) + " %";
             GameObject.Find("HungerBar").GetComponent<Slider>().value 
             = float.Parse(AgentToTrack.Attributes["EnergyNeeds"]);
 
             GameObject.Find("ThirstinessText").GetComponent<TMPro.TextMeshProUGUI>().text 
-            = Math.Round(Convert.ToDouble(AgentToTrack.Attributes["WaterNeeds"]), 3) + " / " + "1";
+            = 100 * Math.Round(Convert.ToDouble(AgentToTrack.Attributes["WaterNeeds"]), 3) + " %";
             GameObject.Find("ThirstinessBar").GetComponent<Slider>().value 
             = float.Parse(AgentToTrack.Attributes["WaterNeeds"]);
 

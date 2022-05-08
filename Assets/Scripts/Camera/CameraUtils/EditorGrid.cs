@@ -157,10 +157,10 @@ class EditorGrid : MonoBehaviour {
             //Si la case est dans la grille et qu'elle n'a pas été déjà coloriée.
             if(hoveredSquareIndex >= 0 && hoveredSquareIndex < _grid.Count()) {
                 if(Input.GetMouseButton(0)) {
-                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.color = _selectedSquareMaterial.color;
+                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.SetColor("_BaseColor", _selectedSquareMaterial.color);
                     _lastHoveredSquare = null;
                 } else if(Input.GetMouseButton(1)) {
-                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.color = GridMaterial.color;
+                    _grid[hoveredSquareIndex].GetComponent<Renderer>().material.SetColor("_BaseColor", GridMaterial.color);
                     _lastHoveredSquare = null;
                 } else if(_grid[hoveredSquareIndex].GetComponent<Renderer>().material.color == GridMaterial.color) {
                     _grid[hoveredSquareIndex].GetComponent<Renderer>().material = _selectedSquareMaterial;

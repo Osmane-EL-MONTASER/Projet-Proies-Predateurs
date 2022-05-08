@@ -34,9 +34,9 @@ public class DrinkAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 17/04/2022.
     /// </summary>
     public override void update() {
-        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - ((Time.deltaTime * ActionNames.STAMINA_FACTOR) / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + ((Time.deltaTime * ActionNames.ENERGY_FACTOR) / ActionNames.TimeSpeed)).ToString();
-        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + ((Time.deltaTime * ActionNames.WATER_FACTOR) / ActionNames.TimeSpeed)).ToString();
+        _agent.Attributes["Stamina"] = (Convert.ToDouble(_agent.Attributes["Stamina"]) - (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.STAMINA_FACTOR)).ToString();
+        _agent.Attributes["EnergyNeeds"] = (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) + (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.ENERGY_FACTOR)).ToString();
+        _agent.Attributes["WaterNeeds"] = (Convert.ToDouble(_agent.Attributes["WaterNeeds"]) + (Time.deltaTime * (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * ActionNames.WATER_FACTOR)).ToString();
         drink();
         //throw new NotImplementedException();
     }
@@ -78,8 +78,7 @@ public class DrinkAgentAction : AgentAction {
             if (Physics.Raycast(new Vector3(eauP.transform.position.x, eauP.transform.position.y +1.0f, eauP.transform.position.z), direc, out hit, Mathf.Infinity)) 
             {
                 UnityEngine.AI.NavMeshHit hitNM;
-                if (UnityEngine.AI.NavMesh.SamplePosition(hit.point, out hitNM, 100.0f, 1)) {   
-                    Debug.Log(hitNM.position);   
+                if (UnityEngine.AI.NavMesh.SamplePosition(hit.point, out hitNM, 100.0f, 1)) {
                     _agent.AgentMesh.SetDestination(hitNM.position);
                 }
             }

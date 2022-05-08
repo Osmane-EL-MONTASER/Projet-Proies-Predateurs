@@ -13,8 +13,8 @@ public static class ActionNames {
     public const string BREED_ACTION = "Breed";
     public const string DRINK_ACTION = "Drink Water";
 
-    public const double ENERGY_FACTOR = 2.0 / 86400;
-    public const double WATER_FACTOR = 1.5 / 86400;
+    public const double ENERGY_FACTOR = 0.5 / 86400;
+    public const double WATER_FACTOR = 0.5 / 86400;
     public const double STAMINA_FACTOR = 1.0 / 86400;
 
     public static float TimeSpeed = 86400f;
