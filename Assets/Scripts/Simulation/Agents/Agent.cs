@@ -146,7 +146,6 @@ public class Agent : MonoBehaviour {
     /// </summary>    
     void Update() {
         if(Attributes != null) {
-
             if(bool.Parse(Attributes["IsPregnant"]))
                 updatePregnancy();
             
@@ -173,7 +172,6 @@ public class Agent : MonoBehaviour {
             if(bool.Parse(Attributes["IsAlive"])) {
                 changeAction();
                 _currentAction.Action.update();
-            
                 //affecterAnimations();
 
                 testMort(); // teste si l'agent est en vie ou mort. modifie la variable EnVie

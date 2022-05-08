@@ -42,6 +42,9 @@ public class MenuTransition : MonoBehaviour {
     /// A refactoriser (overwrite la classe avec un bool)
     /// <param name="newScene">Nouvelle scène qui sera affichée.</param>
     public void OnClick(GameObject newScene) {
+        if(newScene.name.Contains("Quitter"))
+            Application.Quit();
+
         if(!parent)
             parent = gameObject.transform.parent.gameObject;
 

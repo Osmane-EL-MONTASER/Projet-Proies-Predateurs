@@ -21,7 +21,10 @@ public class IdleAgentAction : AgentAction {
     /// <param name="agent">
     /// L'agent sur lequel l'action est réalisée.
     /// </param>
-    public IdleAgentAction(Agent agent) : base(agent) { }
+    public IdleAgentAction(Agent agent) : base(agent) { 
+
+        Debug.Log(" Tiger " + _agent.Attributes["SpeciesName"]);
+    }
 
     /// <summary>
     /// Dans cet fonction, il est vérifié si l'agent
@@ -31,6 +34,7 @@ public class IdleAgentAction : AgentAction {
     /// Fait par EL MONTASER Osmane le 10/04/2022.
     /// </summary>
     public override void update() {
+        Debug.Log(" Tiger " + _agent.Attributes["SpeciesName"]);
         /*if(!_agent.Attributes["SpeciesName"].Equals("Grass"))
             Debug.Log("Idling... EnergyNeeds = " + _agent.Attributes["EnergyNeeds"] + "\n Stamina = " + _agent.Attributes["Stamina"]);*/
         /*if(_agent.Attributes["SpeciesName"].Equals("Grass"))
