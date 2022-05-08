@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal permettant de 
+/// Classe reprise et modifiée par HAMICHE Bilal le 06/05, elle permet de gérer les
+/// évenements liés aux boutons pour les courbes et la fenetre
 /// </summary>
 public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
@@ -38,6 +39,11 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 		
 	}
 
+
+    /// <summary>
+    /// Méthode permettant d'ajouter les labels en fonction des noms de lignes
+    /// </summary>
+    /// <param name="lines"> Variable de type DD_Lines qui représente les courbes sur le graphe</param>
     private void SetLabel(DD_Lines lines) {
 
         if ((null == m_Label) || (null == m_Label.GetComponent<Text>())) {
@@ -52,6 +58,10 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    /// <summary>
+    /// Méthode permettant d'ajouter les boutons des lignes en fonction des noms de lignes
+    /// </summary>
+    /// <param name="lines"> Les courbes sur le graphes</param>
     public void SetLineButton(DD_Lines lines) {
 
         name = string.Format("Button{0}", lines.gameObject.name);
@@ -60,6 +70,13 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         SetLabel(lines);
     }
 
+
+
+    /// <summary>
+    /// Méthode permettant d'afficher du texte lorsque l'on passe la souris sur un bouton
+    /// </summary>
+    /// <param name="eventData"> Variable de type PointerEventData qui permet de
+    /// détecter si le pointeur de la souris est sur le bouton </param>
     public void OnPointerEnter(PointerEventData eventData) {
 
         
@@ -79,6 +96,11 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         m_Label.SetActive(true);
     }
 
+    /// <summary>
+    /// Méthode permettant de cacher les labels lorsque l'on enleve la souris du bouton
+    /// </summary>
+    /// <param name="eventData"> Variable de type PointerEventData qui permet de
+    /// détecter si la souris est sur le bouton </param>
     public void OnPointerExit(PointerEventData eventData) {
 
 
@@ -89,6 +111,10 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         m_Label.SetActive(false);
     }
 
+    /// <summary>
+    /// Methode permettant d'augmenter ou de réduire ou/et d'afficher ou de masquer les courbes 
+    /// lors d'un clic sur les boutons correspondant
+    /// </summary>
     public void OnButtonClick() {
 
         if (true == Input.GetKey(KeyCode.LeftControl)) {
@@ -109,17 +135,9 @@ public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    public void OnButtonClickWithCtrl() {
-
-        if(true == Input.GetKey(KeyCode.LeftControl)) {
-            try {
-                transform.GetComponentInParent<DD_DataDiagram>().DestroyLine(m_Line);
-            } catch (NullReferenceException) {
-                Debug.LogWarning("OnButtonClickWithCtrl throw a NullReferenceException");
-            }
-        }
-    }
-
+    /// <summary>
+    /// Méthode qui permet de supprimer un label si il existe plus
+    /// </summary>
     public void DestroyLineButton() {
 
         if(null != m_Label)

@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-
+/// <summary>
+/// Classe reprise par HAMICHE Bilal, elle permet de créer les courbes sur le graphe.
+/// </summary>
 public class DD_DrawGraphic : MaskableGraphic {
 
     private int IsPointHorizontalInRect(Vector2 p, Rect rect) {
@@ -65,6 +67,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         return ret;
     }
 
+
     private void HorizontalCut(List<Vector2> points, Rect range) {
 
         int flag = 0;
@@ -93,7 +96,9 @@ public class DD_DrawGraphic : MaskableGraphic {
 
         return true;
     }
-
+    /// <summary>
+    /// Méthode permettant de dessiner le rectangle du graphe
+    /// </summary>
     protected void DrawRectang(VertexHelper vh, Vector2 point1st,
     Vector2 point2nd, Vector2 point3rd, Vector2 point4th, Color color) {
 
@@ -117,7 +122,9 @@ public class DD_DrawGraphic : MaskableGraphic {
 
         vh.AddUIVertexQuad(verts);
     }
-
+    /// <summary>
+    /// Méthode permettant de dessiner les points sur le graphe
+    /// </summary>
     protected void DrawPoint(VertexHelper vh, Vector2 point, 
         Color color, float thickness, float scaleX = 1, float scaleY = 1) {
 
@@ -160,7 +167,9 @@ public class DD_DrawGraphic : MaskableGraphic {
             DrawHorizontalSegmet(vh, points[i], points[i + 1], color, thickness);
         }
     }
-
+    /// <summary>
+    /// Méthode permettant de dessiner les lignes horizontales du graphe
+    /// </summary>
     protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness, Rect range) {
 
         if (points.Count < 2)
@@ -185,7 +194,9 @@ public class DD_DrawGraphic : MaskableGraphic {
             i++;
         }
     }
-
+    /// <summary>
+    /// Méthode permettant de dessiner les triangles sur le graphe
+    /// </summary>
     protected void DrawTriangle(VertexHelper vh, Vector2 points, 
         Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1) {
         ///Des triangles sont dessinés provisoirement

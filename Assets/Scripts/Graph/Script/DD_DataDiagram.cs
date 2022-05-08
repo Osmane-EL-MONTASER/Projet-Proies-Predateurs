@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// RectTransform中只处理矩形
-/// 0为左下角点，2位右上角点
-/// 由于为矩形，故最大值及最小值必定出现在此两点上
-/// 
-/// 里面所有的Rect rect，以父窗口右下角为参考物
-/// rect.position为本物体的左下角点相对于父窗口左下角点的偏移
+/// Classe reprise par HAMICHE Bilal, elle permet 
+/// Seuls les rectangles sont gérés par RectTransform.
+/// 0 est le point d'angle inférieur gauche et 2 le point d'angle supérieur droit.
+/// Comme il s'agit d'un rectangle, les valeurs maximale et minimale doivent se produire à ces deux points.
+/// Tous les rectangles Rect à l'intérieur, avec le coin inférieur droit de la fenêtre parent comme référence.
+/// rect.position est le décalage du coin inférieur gauche de cet objet par rapport au coin inférieur gauche de la fenêtre parent.
 /// </summary>
 public class DD_CalcRectTransformHelper {
 
@@ -70,10 +70,9 @@ public class DD_CalcRectTransformHelper {
     }
 
     /// <summary>
-    /// 返回的Rect为本窗口的Rect
-    /// Rect的position为本窗口的左下角相对于父窗口的左下角偏移值
+    /// La position du Rect est le coin inférieur gauche de cette fenêtre par rapport au coin inférieur gauche de la fenêtre parent.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Le Rect retourné est le Rect de cette fenêtre.</returns>
     public static Rect CalcLocalRect(Vector2 anchorMin, Vector2 anchorMax, Vector2 parentSize, 
         Vector2 pivot, Vector2 anchorPosition, Rect rectInRT) {
 
@@ -144,10 +143,19 @@ public class DD_MoveEventArgs : EventArgs {
     }
 }
 
+/// <summary>
+/// Classe permettant de gérer les évenement lié à la suppression d'une courbe
+/// </summary>
 public class DD_PreDestroyLineEventArgs : EventArgs {
 
     GameObject m_Line = null;
 
+    /// <summary>
+    /// Constructeur de la classe DD_PreDestroyLineEventArgs
+    /// permettant de généré un événement avant qu'une courbe
+    /// soit détruite, et cette événement indiquera quellle courbe sera détruite.
+    /// </summary>
+    /// <param name="line">Variable de type GameObject désignant la courbe a détruire</param>
     public DD_PreDestroyLineEventArgs(GameObject line) {
 
         m_Line = null;
@@ -172,17 +180,14 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
     private GameObject m_CoordinateAxis;
     private GameObject lineButtonsContent;
-    //private List<GameObject> m_LineButtonList = new List<GameObject>();
 
-    //private Vector3 m_MousePos = Vector3.zero;
-    //private bool m_IsMouseLeftButtonDown = false;
 
-    // 创建一个委托，返回类型为void，两个参数
+    // Créer un délégué avec un type de retour de void et deux paramètres
     public delegate void RectChangeHandler(object sender, DD_RectChangeEventArgs e);
     public delegate void ZoomHandler(object sender, DD_ZoomEventArgs e);
     public delegate void MoveHandler(object sender, DD_MoveEventArgs e);
     public delegate void PreDestroyLineHandler(object sender, DD_PreDestroyLineEventArgs e);
-    // 将创建的委托和特定事件关联,在这里特定的事件为KeyDown
+    
     public event RectChangeHandler RectChangeEvent;
     public event ZoomHandler ZoomEvent;
     public event MoveHandler MoveEvent;
@@ -201,27 +206,27 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     //为了避免需要在CoordinateAxis中进行设置，所以移到这里，本来应该是在CoordinateAxis内
     #region used in DD_CoordinateAxis
     /// <summary>
-    /// 矩形框式坐标轴刻度的间距，以公分（CM）为单位
-    /// The distance between two scales when drawing the coordinate scale
+    /// 矩形框式坐标轴刻度的间距，以公分（CM）为单位 ééééééééééééééééééééééééééééééééééééééééééééé
+    /// La distance entre deux valeurs en ordonnées 
     /// </summary>
     public float m_CentimeterPerMark = 2f;
 
     /// <summary>
-    /// 标准x轴上每单位长度对应的物理长度（未缩放状态下）
-    /// x轴长度单位为“秒”，物理长度单位为“公分”
+    /// Longueur physique par unité de longueur sur l'axe des abscisses standard (non échelonné)
+    /// Longueur de l'axe des abscisses en "secondes", longueur physique en "centimètres".
     /// </summary>
     public float m_CentimeterPerCoordUnitX = 2f;
 
     /// <summary>
-    /// 标准y轴上每单位长度对应的物理长度（未缩放状态下）
-    /// y轴长度单位为“米”，物理长度单位为“公分”
+    /// Longueur physique par unité de longueur sur l'axe des ordonnées standard (non échelonné)
+    /// Longueur physique de l'axe des ordonnées "centimètres".
     /// </summary>
     public float m_CentimeterPerCoordUnitY = 2f;
     #endregion
 
     #endregion
 
-    //Verifie si Rect est pas null
+    //Verifie avant si Rect existr
     public Rect? rect {
         get {
             RectTransform rectT = gameObject.GetComponent<RectTransform>();
@@ -295,6 +300,11 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         MoveEvent(this, new DD_MoveEventArgs(eventData.delta.x, eventData.delta.y));
     }
 
+    /// <summary>
+    /// Méthode permettant de faire défiler la fenetr lorsque l'on bouge la molette de la souris
+    /// </summary>
+    /// <param name="eventData"> Variable de type PointerEventData qui vérifie si le pointeur de la souris
+    /// est sur la fenetre </param>
     public void OnScroll(PointerEventData eventData) {
         
         if (true == Input.GetMouseButton(0)) {
@@ -310,15 +320,19 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
         foreach (Transform t in lineButtonsContent.transform) {
             if (line == t.gameObject.GetComponent<DD_LineButton>().line) {
-                //t.gameObject.GetComponent<Image>().color = color;
+            
                 t.gameObject.GetComponent<DD_LineButton>().line = line;
                 return;
             }
         }
     }
-
+    /// <summary>
+    /// Méthode permettant d'attribuer une couleur pour une courbe donnée
+    /// </summary>
+    /// <param name="line">Variable de type GameObject désignant la courbe</param>
+    /// <param name="color">Variable de type Color représenant la couleur que l'on souhaite attribuer à la courbe</param>
     private void SetLineColor(GameObject line, Color color) {
-
+        //Vérifie que la courbe existe bien
         if (null == line) {
             //Debug.logger(this.ToString() + " SetLineColor error : null == line");
             return;
@@ -335,6 +349,12 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
         SetLineButtonColor(line, color);
     }
 
+
+    /// <summary>
+    /// Méthode permettant de vérifier sd'ajouter un ou des bouton(s) pour le/les courbes présentes sur le grapheééééééééééééééééééééééééééééééééé
+    /// </summary>
+    /// <param name="line"> Varaible de type GameObject qui représente la corube </param>
+    /// <returns></returns>
     private bool AddLineButton(GameObject line) {
 
         if (null == lineButtonsContent) {
@@ -362,15 +382,18 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
             return false;
         }
 
-        //button.name = string.Format("Button{0}", line.name);
-        //button.GetComponent<Image>().color = lines.color;
         button.GetComponent<DD_LineButton>().line = line;
 
         return true;
     }
 
+    /// <summary>
+    /// Classe permettant de vérifier si un boutton lié à une courbe est supprimé ou non
+    /// </summary>
+    /// <param name="line"> Variable de type GameObject désignant la courbe</param>
+    /// <returns></returns>
     private bool DestroyLineButton(GameObject line) {
-
+        //Vérifie si le bouton existe ou pas
         if (null == lineButtonsContent) {
             Debug.Log(this + "AddLineButton Error : null == lineButtonsContent");
             return false;
@@ -395,14 +418,15 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
     /// <summary>
     /// Cette méthode permet d'entrée une donnée sur le graphe
     /// </summary>
-    /// <param name="line"> The specified Line Chart entity, as returned by the AddLine ()  method</param>
-    /// <param name="point">Point : point.x is the scaling value of the curve on the x-axis, which is 1 if 
-    /// there is no scaling, point.y is the input data value</param>
+    /// <param name="line"> La courbe retournée par la méthode AddLine() </param>
+    /// <param name="point">point.x est la valeur de mise à l'échelle de la courbe sur l'axe des abscisses, qui vaut 1 si 
+    /// il n'y a pas de mise à l'échelle, point.y est la valeur de la donnée d'entrée</param>
     public void InputPoint(GameObject line, Vector2 point) {
 
         DD_CoordinateAxis coordinate = m_CoordinateAxis.GetComponent<DD_CoordinateAxis>();
         coordinate.InputPoint(line, point);
     }
+
 
     public GameObject AddLine(string name) {
 
@@ -415,9 +439,6 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
         if(coordinate.lineNum != lineButtonsContent.transform.childCount) {
             print("coordinate.lineNum != m_LineButtonList.Count");
-            ///check this 
-            ///...
-            ///check this
         }
             
         GameObject line = coordinate.AddLine(name);
@@ -434,7 +455,7 @@ public class DD_DataDiagram : MonoBehaviour , IScrollHandler, IDragHandler {
 
     /// <summary>
     /// Cette méthode permet de créer une nouvelle courbe, elle retourne une varaible de type GameObject
-    /// qui est la nouvelle courbe du graphe
+    /// qui est la nouvelle courbe du graphe.
     /// <param name="name"> Le nom de la nouvelle courbe </param>
     /// <param name="color"> La couleur de la nouvelle courbe et du bouton de cette meme courbe </param>
     /// </summary>

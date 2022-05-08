@@ -8,9 +8,5 @@ public class DD_LineButtonsContent : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	//void Update () {
-		
-	//}
+
 }

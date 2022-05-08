@@ -23,6 +23,11 @@ public class DD_CoordinateScaleChangeEventArgs : EventArgs {
     public float scaleX;
     public float scaleY;
 
+    /// <summary>
+    /// Constructeur de la classe DD_CoordinateScaleChangeEventArgs permettant de créer les objets scaleX et scaleY
+    /// </summary>
+    /// <param name="scaleX">Variable de type float qui représente les valeurs en ordonées</param>
+    /// <param name="scaleY">Variable de type float qui représente les valeurs en abscisses</param>
     public DD_CoordinateScaleChangeEventArgs(float scaleX, float scaleY) : base() {
 
         this.scaleX = scaleX;
@@ -31,7 +36,7 @@ public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 }
 
 /// <summary>
-/// 改变当前观察区域的坐标零点事件
+/// Classe qui Changer l'événement de coordonnées zéro de la zone de visualisation actuelle
 /// </summary>
 public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
 
@@ -50,9 +55,9 @@ public class DD_CoordinateZeroPointChangeEventArgs : EventArgs {
 public class DD_CoordinateAxis : DD_DrawGraphic {
 
 
-    /*
- * Ici y a que des valeurs const
- */
+     /// <summary>
+     /// Toutes les constantes utilisées
+     /// </summary>
     #region const value
     private static readonly string MARK_TEXT_BASE_NAME = "MarkText";
     private static readonly string LINES_BASE_NAME = "Line";
@@ -62,24 +67,18 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     #endregion
 
     #region property
-    /// <summary>
-    /// 数据表格入口类
-    /// </summary>
+   
     //[SerializeField]
     private DD_DataDiagram m_DataDiagram = null;
-
-    /// <summary>
-    /// 实际折线绘制区域,以像素为单位
-    /// </summary>
     private RectTransform m_CoordinateRectT = null;
 
     /// <summary>
-    /// 折线的预设，提前load，提升性能
+    /// Préréglage des lignes de pliage, cela permet d'améliorer les performances
     /// </summary>
     private GameObject m_LinesPreb = null;
 
     /// <summary>
-    /// 坐标轴字体的预设，提前load，提升性能
+    /// Préréglage des polices des axes,  cela permet d'améliorer les performances
     /// </summary>
     private GameObject m_MarkTextPreb = null;
 
@@ -88,10 +87,6 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     /// </summary>
     private List<GameObject> m_LineList = new List<GameObject>();
 
-    /// <summary>
-    /// 坐标轴显示区域范围，以像素为单位
-    /// </summary>
-    //private Rect m_CoordinatePixelRect = new Rect();
 
     /// <summary>
     /// Variable de type Vector2 qui gere la vitesse du zoom en fonction des scrolls
@@ -104,8 +99,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     private Vector2 m_MoveSpeed = new Vector2(1, 1);
 
     /// <summary>
-    /// 坐标轴最大可伸缩范围，以坐标轴为单位 ou ou La plage maximale extensible des axes de coordonnées, en termes d'axes.
-    /// Y轴的通过长宽比例计算获得
+    /// Intervalle maximal extensible des axes des ordonnées
     /// </summary>
     private float m_CoordinateAxisMaxWidth = 100;
     private float m_CoordinateAxisMinWidth = 0.1f;
@@ -127,33 +121,21 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
 
     /// <summary>
-    /// 存放所有的刻度值文字对象的列表
-    /// 每次缩放时只对其进行调整，不再进行创建和销毁
+    /// Liste contenant les objets textes
     /// </summary>
     private List<GameObject> m_MarkHorizontalTexts = new List<GameObject>();
 
-    /// <summary>
-    /// 矩形框式坐标轴左侧坐标值字符的宽度
-    /// </summary>
-    //private float m_MinMarkTextWidth = 30;
 
     /// <summary>
-    /// 坐标轴字体的高度，以像素为单位
-    /// 坐标轴字体的宽度等于坐标系与控件左边留白区域宽度
+    /// Hauteur de la police de l'axe des ordonnées en pixels
     /// </summary>
     private float m_MinMarkTextHeight = 20;
 
-    /// <summary>
-    /// 矩形框式坐标轴刻度的间距，以屏幕像素单位
-    /// </summary>
+ 
     private float m_PixelPerMark {
         get { return INCH_PER_CENTIMETER * m_DataDiagram.m_CentimeterPerMark * Screen.dpi; }
     }
 
-    /// <summary>
-    /// point表示坐标轴刻度值的零点位置
-    /// size表示坐标轴初始设置时的刻度值，所有输入点都以该值为基准转化为像素值
-    /// </summary>
     private Rect m_CoordinateAxisRange {
         get {
             try {
@@ -169,8 +151,8 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// point表示当前观察区域坐标轴刻度值的零点位置，用于实现坐标轴移动
-    /// size表示相对于m_CoordinateAxisRange.size的缩放系数
+    /// Indique la position du point zéro de la valeur de l'échelle de la zone d'observation actuelle 
+    /// et est utilisé pour réaliser le mouvement de l'axe.
     /// </summary>
     private Rect m_CoordinateAxisViewRange = new Rect(1, 1, 1, 1);
 
@@ -197,8 +179,8 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// point表示当前观察区域坐标轴刻度值的零点位置，用于实现坐标轴移动,以像素为单位
-    /// size表示相对于m_CoordinateAxisRange.size的缩放系数
+    /// Le point indique la position zéro de la valeur de
+    /// l'échelle de la zone de visualisation actuelle et est utilisé pour déplacer les axes.
     /// </summary>
     public Rect coordinateAxisViewRangeInPixel {
         get {
@@ -237,7 +219,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     public delegate void CoordinateRectChangeHandler(object sender, DD_CoordinateRectChangeEventArgs e);
     public delegate void CoordinateScaleChangeHandler(object sender, DD_CoordinateScaleChangeEventArgs e);
     public delegate void CoordinateZeroPointChangeHandler(object sender, DD_CoordinateZeroPointChangeEventArgs e);
-    // 将创建的委托和特定事件关联,在这里特定的事件为KeyDown
+
     public event CoordinateRectChangeHandler CoordinateRectChangeEvent;
     public event CoordinateScaleChangeHandler CoordinateScaleChangeEvent;
     public event CoordinateZeroPointChangeHandler CoordinateeZeroPointChangeEvent;
@@ -270,18 +252,17 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
             Debug.Log(this + "," + e);
         }
 
-        ///检查当前是否已经存在刻度值文本UI控件
+
         FindExistMarkText(m_MarkHorizontalTexts);
 
         GameObject parent = gameObject.transform.parent.gameObject;
         Rect parentRect = parent.GetComponent<RectTransform>().rect;
 
-        ///计算坐标轴观察区域的大小，以刻度为单位，初始默认与初始坐标区域范围相同
-        //m_CoordinateAxisViewRange = new Rect(m_CoordinateAxisRange);
+        
         m_CoordinateAxisViewRange.position = m_CoordinateAxisRange.position;
         m_CoordinateAxisViewRange.size = new Vector2(1, 1);
 
-        ///添加事件响应
+        ///Ajout une réponse à un évènement
         m_DataDiagram.RectChangeEvent += OnRectChange;
         m_DataDiagram.ZoomEvent += OnZoom;
         m_DataDiagram.MoveEvent += OnMove;
@@ -312,6 +293,13 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
                 newRect.size)));
     }
 
+
+
+    /// <summary>
+    /// Cette méthode permet de changer les valeurs présentes dans l'axe des abscisses et des ordonnées en fonction du zoom
+    /// </summary>
+    /// <param name="ZoomX">Varaible de type float désignant la valeur du zoom sur l'axe des abscisses</param>
+    /// <param name="ZoomY">Varaible de type float désignant la valeur du zoom sur l'axe des ordonnées</param>
     private void ChangeScale(float ZoomX, float ZoomY) {
 
         Vector2 rangeSize = m_CoordinateAxisRange.size;
@@ -426,8 +414,6 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
     private float CeilingFormat(float markLevel, float Val) {
 
-        /// + (markLevel / 100)防止除法时精度丢失，但可能引入不精确性
-        //return Mathf.CeilToInt((Val + (markLevel / 100)) / markLevel) * markLevel;
         return Mathf.CeilToInt(Val / markLevel) * markLevel;
     }
 
@@ -451,7 +437,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     private float MarkValToPixel(float markVal, float startViewMarkVal, 
         float endViewMarkVal, float stratCoordPixelVal, float endCoordPixelVal) {
 
-        ///判断小于等于是为了避免差值为零，造成零除以零的问题
+        
         if ((endViewMarkVal <= startViewMarkVal) || (markVal <= startViewMarkVal))
             return stratCoordPixelVal;
 
@@ -491,14 +477,13 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
             return;
         }
 
-        //设置锚点为左下角
+        //Le coin inférieur gauche est le point d'ancrage
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
-        //设置轴心为左下角
+        //L'axe est dans le coin inférieur gauche
         rectTransform.pivot = new Vector2(0, 0);
-        //设置轴心相对锚点的位置
+        //Défini la postion de l'axe par rapport au point d'ancrage
         rectTransform.anchoredPosition = rect.position;
-        //设置控件大小
         rectTransform.sizeDelta = rect.size;
 
         text.text = str;
@@ -532,7 +517,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// 实例化一个UI控件时调用了graphic rebuild操作，而OnPopulateMesh（）
+    /// 实例化一个UI控件时调用了graphic rebuild操作，而OnPopulateMesh（）ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé
     /// 函数是在graphic rebuild操作中被调用的，所以若在OnPopulateMesh（）
     /// 中创建一个新的UI控件时系统会提示错误：graphic rebuild操作被循环调用了
     /// 所以这里需要使用协程操作（IEnumerator）
@@ -608,8 +593,9 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     }
 
     /// <summary>
-    /// 每次运行前先查询当前坐标下是否已经实例化了刻度值文本UI控件
-    /// 如果已经存在，则先加入队列以待使用
+    /// 每次运行前先查询当前坐标下是否已经实例化了刻度值文本UI控件 ou
+    /// Vérifiez si le contrôle d'interface utilisateur de texte à l'échelle a été instancié à la coordonnée actuelle avant chaque exécution.
+    /// 如果已经存在，则先加入队列以待使用 ou S'il existe déjà, il est ajouté à la file d'attente pour être utilisé en premier.
     /// transform是一个迭代类型，可以迭代出其所有Child节点
     /// </summary>
     /// <param name="markTexts"></param>
@@ -629,11 +615,15 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     protected override void OnPopulateMesh(VertexHelper vh) {
 
         vh.Clear();
-        
-        //DrawAxis(vh);
         DrawRectCoordinate(vh);
     }
 
+    /// <summary>
+    /// Cette méthode permet d'entrée une donnée sur le graphe
+    /// </summary>
+    /// <param name="line"> La courbe retournée par la méthode AddLine() </param>
+    /// <param name="point">point.x est la valeur de mise à l'échelle de la courbe sur l'axe des abscisses, qui vaut 1 si 
+    /// il n'y a pas de mise à l'échelle, point.y est la valeur de la donnée d'entrée</param>
     public void InputPoint(GameObject line, Vector2 point) {
 
         line.GetComponent<DD_Lines>().AddPoint(CoordinateToPixel(point));

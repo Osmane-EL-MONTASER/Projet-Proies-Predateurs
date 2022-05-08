@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Classe reprise par HAMICHE Bilal permettant de gérer les courbes sur le graphe
+/// </summary>
 public class DD_Lines : DD_DrawGraphic {
 
     //[SerializeField]
@@ -69,7 +73,7 @@ public class DD_Lines : DD_DrawGraphic {
         localrt.anchorMax = new Vector2(1, 1);
         //Positionne l'axe dans le coin inférieur gauche
         localrt.pivot = Vector2.zero;
-        //设置轴心的坐标为坐标系区域的左下角
+        //Positionne les coordonnées de l'axe dans le coin inférieur gauche 
         localrt.anchoredPosition = Vector2.zero;
         //Défini la marge à 0
         localrt.sizeDelta = Vector2.zero;
@@ -79,7 +83,7 @@ public class DD_Lines : DD_DrawGraphic {
             m_Coordinate.CoordinateScaleChangeEvent += OnCoordinateScaleChange;
             m_Coordinate.CoordinateeZeroPointChangeEvent += OnCoordinateZeroPointChange;
         }
-        //m_ViewRect.Set(0, 0, m_Rect.width, m_Rect.height);
+
     }
 
     private void Update() {
@@ -102,6 +106,7 @@ public class DD_Lines : DD_DrawGraphic {
 
         return (x / m_Coordinate.coordinateAxisViewRangeInPixel.width);
     }
+
 
     private float ScaleY(float y) {
 
