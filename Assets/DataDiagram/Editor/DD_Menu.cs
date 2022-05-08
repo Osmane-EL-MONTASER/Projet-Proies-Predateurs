@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
-/// <summary>
-/// Classe reprise par Bilal HAMICHE pour le prototype. 
-/// Elle permet de créer le menu qui affiche le graphe
-/// </summary>
 public class DD_Menu : MonoBehaviour {
 
     // Use this for initialization
@@ -21,6 +16,8 @@ public class DD_Menu : MonoBehaviour {
 		
 	}
 
+    ///如果要让Hierarchy里面的Gameobject通过鼠标右键单击
+    ///弹出对话框中出现该选项,则需要将该选项加入到"GameObject"目录下
     [MenuItem("GameObject/UI/DataDiagram")]
     public static void AddDataDiagramInGameObject() {
 
@@ -34,7 +31,7 @@ public class DD_Menu : MonoBehaviour {
         if ((null == parent) || (null == parent.GetComponentInParent<Canvas>())) {
             Canvas canvas = FindObjectOfType<Canvas>();
             if(null == canvas) {
-                Debug.LogError("AddDataDiagram : Impossible de trouver un canvas dans la scene!");
+                Debug.LogError("AddDataDiagram : can not find a canvas in scene!");
                 return;
             } else {
                 parent = FindObjectOfType<Canvas>().gameObject;
@@ -43,13 +40,9 @@ public class DD_Menu : MonoBehaviour {
         
         GameObject prefab = Resources.Load("Prefabs/DataDiagram") as GameObject;
         if (null == prefab) {
-            Debug.LogError("AddDataDiagram : Erreur de chargement de DataDiagram!");
+            Debug.LogError("AddDataDiagram : Load DataDiagram Error!");
             return;
         }
-        /// <summary>
-        /// Variable de type GameObject 
-        /// 
-        /// </summary>
 
         GameObject dataDiagram;
         if (null != parent)
@@ -58,7 +51,7 @@ public class DD_Menu : MonoBehaviour {
             dataDiagram = Instantiate(prefab);
 
         if(null == dataDiagram) {
-            Debug.LogError("AddDataDiagram : Erreur lors de l'instanciation de DataDiagram");
+            Debug.LogError("AddDataDiagram : Instantiate DataDiagram Error!");
             return;
         }
 
