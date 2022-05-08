@@ -31,11 +31,6 @@ public class MenuTransition : MonoBehaviour {
     public GameObject SimSpeedPanel;
 
     /// <summary>
-    /// Type d'un nouvel agent.
-    /// </summary>
-     public string newAgentType;
-
-    /// <summary>
     /// Fonction qui cache et qui affiche un menu au clique.
     /// 
     /// Si la prochaine scène se trouve être la simulation,
@@ -64,8 +59,8 @@ public class MenuTransition : MonoBehaviour {
             toogleCamera(false);
 
         if(newScene.name == "Panel New Agent Panel Config"){
-            AgentManager.Instance.newAgentType = newAgentType;
-
+            AgentManager.Instance.newAgentType = gameObject.name;
+            Debug.Log(gameObject.name);
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image").GetComponent<Image>().sprite = gameObject.GetComponent<Image>().sprite;
             GameObject.Find("Canvas/Panel New Agent Panel Config/Image/Text").GetComponent<TextMeshProUGUI>().text = gameObject.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text;
         }

@@ -145,7 +145,7 @@ public class AgentManager : MonoBehaviour {
         int id = _dbHelper.SelectSpeciesId(type);
         new Thread(() => {_dbHelper.UpdateSpeciesData(id, CarcassEnergyContribution, MaxWaterNeeds, MaxEnergyNeeds, MaxSpeed, GestationPeriod, MaturityAge, MaxAge, DigestionTime, PreyConsumptionTime, MaxHealth, MaxStamina, AttackDamage, LitterMax); }).Start();
 
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n + 1; i++){
             System.Random rnd = new System.Random();
             GameObject agent = instanciateAgent();
 
