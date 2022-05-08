@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DD_Lines : DD_DrawGraphic {
 
     //[SerializeField]
-    //Variable de type float qui gère l'épaisseur des courbes
+    //数据折线的粗细
     private float m_Thickness = 5;
 
     //[SerializeField]
@@ -33,7 +33,7 @@ public class DD_Lines : DD_DrawGraphic {
         get { return m_IsShow; }
         set {
             if(value != m_IsShow) {
-                ///Met à jour OnPopulateMesh
+                ///触发OnPopulateMesh的更新
                 UpdateGeometry();
             }
 
@@ -64,14 +64,14 @@ public class DD_Lines : DD_DrawGraphic {
             Debug.Log(this + "null == localrt || parentrt");
         }
 
-        //设置锚点为左下角 ou Définir le point d'ancrage dans le coin inférieur gauche (en mode le debut c'est en bas a gauche c'est la ou ca commence)
+        //设置锚点为左下角
         localrt.anchorMin = Vector2.zero;
         localrt.anchorMax = new Vector2(1, 1);
-        //设置轴心为左下角 ou Positionne l'axe dans le coin inférieur gauche
+        //设置轴心为左下角
         localrt.pivot = Vector2.zero;
         //设置轴心的坐标为坐标系区域的左下角
         localrt.anchoredPosition = Vector2.zero;
-        //Défini la marge à 0
+        //设置平铺的margin为0
         localrt.sizeDelta = Vector2.zero;
 
         if(null != m_Coordinate) {
@@ -79,7 +79,7 @@ public class DD_Lines : DD_DrawGraphic {
             m_Coordinate.CoordinateScaleChangeEvent += OnCoordinateScaleChange;
             m_Coordinate.CoordinateeZeroPointChangeEvent += OnCoordinateZeroPointChange;
         }
-
+        //m_ViewRect.Set(0, 0, m_Rect.width, m_Rect.height);
     }
 
     private void Update() {
@@ -89,11 +89,10 @@ public class DD_Lines : DD_DrawGraphic {
 
         m_CurIsShow = m_IsShow;
 
-        //Met à jour OnPopulateMesh
+        ///触发OnPopulateMesh的更新
         UpdateGeometry();
     }
 
-    //Gere l'axe des abscisse
     private float ScaleX(float x) {
 
         if (null == m_Coordinate) {
@@ -104,7 +103,6 @@ public class DD_Lines : DD_DrawGraphic {
         return (x / m_Coordinate.coordinateAxisViewRangeInPixel.width);
     }
 
-    //Gere l'axe des abscisse
     private float ScaleY(float y) {
 
         if (null == m_Coordinate) {
