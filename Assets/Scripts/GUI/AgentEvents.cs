@@ -28,11 +28,7 @@ public class AgentEvents : MonoBehaviour {
     /// </summary>
     public GameObject autotrophsPanel;
 
-    public GameObject template;
-    public Transform parent;
     public Sprite[] spriteList;
-
-    private List<GameObject> templateList;
 
     /// <summary>
     /// Exécutée au début afin de cacher par défaut tous les panels
@@ -40,8 +36,6 @@ public class AgentEvents : MonoBehaviour {
     /// Fait par AVERTY Pierre le 13/03/2022.
     /// </summary>
     public void Start() {
-        templateList = new();
-        templateList.Add(template);
         preysPanel.SetActive(true);
         preysPanel.GetComponent<CanvasGroup>().alpha = 0;
         autotrophsPanel.SetActive(false);
@@ -73,7 +67,7 @@ public class AgentEvents : MonoBehaviour {
 
                 foreach(KeyValuePair<string,string> entry in datas){
                     if(entry.Value.Equals("prey")){
-                        processTemplates(entry.Key, preysPanel);
+                        processTemplates(preysPanel.transform.Find("ContentProies/ScrollView/ViewPort/Content"),"ContentProies/ScrollView/ViewPort/Content/Template", entry.Key, preysPanel);
                     }
                 }
                 if(!preysPanel.active ^ preysPanel.GetComponent<CanvasGroup>().alpha == 0){
@@ -90,10 +84,9 @@ public class AgentEvents : MonoBehaviour {
     
                 foreach(KeyValuePair<string,string> entry in datas){
                     if(entry.Value.Equals("predator")){
-                        processTemplates(entry.Key, predatorsPanel);
+                        processTemplates(predatorsPanel.transform.Find("ContentProies/Scroll View/ViewPort/Content"),"ContentProies/Scroll View/ViewPort/Content/Template", entry.Key, predatorsPanel);
                     }
                 }
-                
                 if(!predatorsPanel.active ^ predatorsPanel.GetComponent<CanvasGroup>().alpha == 0){
                     predatorsPanel.GetComponent<CanvasGroup>().alpha = 1;
                     predatorsPanel.SetActive(true);
@@ -109,10 +102,9 @@ public class AgentEvents : MonoBehaviour {
 
                 foreach(KeyValuePair<string,string> entry in datas){
                     if(entry.Value.Equals("autotroph")){
-                        processTemplates(entry.Key, autotrophsPanel);
+                        processTemplates(autotrophsPanel.transform.Find("ContentProies/Scroll View/ViewPort/Content"),"ContentProies/Scroll View/ViewPort/Content/Template", entry.Key, autotrophsPanel);
                     }
                 }
-                Destroy(template);
                 if(!autotrophsPanel.active  ^ autotrophsPanel.GetComponent<CanvasGroup>().alpha == 0){
                     autotrophsPanel.GetComponent<CanvasGroup>().alpha = 1;
                     autotrophsPanel.SetActive(true);
@@ -130,10 +122,10 @@ public class AgentEvents : MonoBehaviour {
                 predatorsPanel.SetActive(false);
                 break;
         }
-        template.SetActive(false);
     }
-    private void processTemplates(string name, GameObject panel){
-        GameObject duplicate = template;
+    private void processTemplates(Transform parent, string path, string name, GameObject panel){
+        GameObject duplicate = panel.transform.Find(path).gameObject;
+        Debug.Log(parent);
         duplicate = Instantiate(duplicate, parent);
         duplicate.name = name;
         Image image = duplicate.GetComponent<Image>();
@@ -147,7 +139,6 @@ public class AgentEvents : MonoBehaviour {
         foreach(Behaviour component in duplicate.GetComponents(typeof(Behaviour))){
             component.enabled = true;
         }
-        templateList.Add(duplicate);
     }
 }
 
