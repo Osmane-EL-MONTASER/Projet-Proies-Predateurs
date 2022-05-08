@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,3 +16,4 @@ public class QuitterSimulation : MonoBehaviour
 		Debug.Log("Fin de la simulation");
 	}
 }
+

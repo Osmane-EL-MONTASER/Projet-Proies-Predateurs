@@ -161,9 +161,9 @@ public class DataUpdater : MonoBehaviour {
         AgentGraph.InputPoint(AutotrophsLine, new Vector2(1, oldAutotrophCounter));
 
         //TEMPORAIRE
-        string[] predators = {"Wolf2", "Tiger", "alligator"};
-        string[] preys = {"Rabbit", "Racoon", "Zebra"};
-        string[] autotrophs = {"Grass"};
+        string[] predators = {"Wolf2"};
+        string[] preys = {"Rabbit"};
+        string[] autotrophs = {"Grass"}; 
         _agentList = getAllGOAgents();
 
         foreach (Agent agent in _agentList) {
