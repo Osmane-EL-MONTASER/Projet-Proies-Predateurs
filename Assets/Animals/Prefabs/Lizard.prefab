@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1877285570
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1877285571}
-  m_Layer: 0
-  m_Name: Cam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1877285571
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877285570}
-  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 992956590176408313}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &76669899258605411
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +78,6 @@ GameObject:
   - component: {fileID: 6755747462092293782}
   - component: {fileID: 5142077606707833883}
   - component: {fileID: -313532900998390926}
-  - component: {fileID: 7372160695007954764}
   m_Layer: 0
   m_Name: Lizard
   m_TagString: Animal
@@ -133,7 +101,6 @@ Transform:
   - {fileID: 6230655547312664355}
   - {fileID: 6327206506199001027}
   - {fileID: 2613594668286616254}
-  - {fileID: 1877285571}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,12 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AgentMesh: {fileID: 0}
-  Animation: {fileID: 0}
-  Fov: {fileID: 0}
-  AgentCible: {fileID: 0}
-  AnimauxEnVisuel: []
-  Preys: []
 --- !u!108 &5142077606707833883
 Light:
   m_ObjectHideFlags: 0
@@ -381,19 +342,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!65 &7372160695007954764
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471858089086765123}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20, y: 12.000871, z: 20}
-  m_Center: {x: 0, y: 3.9995646, z: 0}
 --- !u!1 &671720622713095604
 GameObject:
   m_ObjectHideFlags: 0

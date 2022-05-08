@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1125945615
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1125945616}
-  m_Layer: 0
-  m_Name: Cam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1125945616
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125945615}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.38, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6604028406809594916}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &158551213488754720
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +748,6 @@ GameObject:
   - component: {fileID: 967548480259326818}
   - component: {fileID: 766269099289786615}
   - component: {fileID: 7689458738357354215}
-  - component: {fileID: 394120210}
   m_Layer: 0
   m_Name: Elephant2
   m_TagString: Animal
@@ -801,7 +769,6 @@ Transform:
   m_Children:
   - {fileID: 6619967601316580141}
   - {fileID: 8910355276179851723}
-  - {fileID: 1125945616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -838,11 +805,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AgentMesh: {fileID: 967548480259326818}
+  Ter: {fileID: 0}
   Animation: {fileID: 956474013423785566}
-  Fov: {fileID: 766269099289786615}
   AgentCible: {fileID: 0}
   AnimauxEnVisuel: []
-  Preys: []
+  Fov: {fileID: 766269099289786615}
+  preys: []
 --- !u!195 &967548480259326818
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1049,19 +1017,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!65 &394120210
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5831572678247044766}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 3.2311494, z: 5}
-  m_Center: {x: 0, y: 0.8844253, z: 0}
 --- !u!1 &5839753184902337788
 GameObject:
   m_ObjectHideFlags: 0
