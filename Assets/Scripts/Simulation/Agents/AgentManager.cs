@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System.Threading;
 
 /// <summary>
 /// Singleton de Gestion des Global des Agents
@@ -28,7 +30,6 @@ public class AgentManager : MonoBehaviour {
     /// Type du nouvel agent qui va être ajouté.
     /// </summary>
     public string newAgentType;
-
 
     /// <summary>
     /// Les différents préfabs des agents contenue dans le singleton.
@@ -127,16 +128,27 @@ public class AgentManager : MonoBehaviour {
     /// <param name="staminaMax">Stamina de l'agent maximum.</param>
     /// <param name="timeToLive">Durée de vie de l'agent.</param>
     /// <param name="n">Nombre d'agents.</param>
-    public void initializationAgents(string type, double health, double maxSpeed, double staminaMax, double timeToLive, double n){
-        // foreach(GameObject agent in InstanceList){
-        //     if(agent.GetComponent<Agent>().Attributes["SpeciesName"].Equals(type)){
-        //         InstanceList.Remove(agent);    
-        //     }
-        // }
-        Debug.Log(type);
+    public void initializationAgents(string type,  double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
+    double MaxHealth, double MaxStamina, double AttackDamage, int LitterMax, int n){
+        
+
+        for(int i = 0; i < InstanceList.Count;i++){
+            if(InstanceList[i] != null)
+                if(InstanceList[i].GetComponent<Agent>().name == type){
+                    Destroy(InstanceList[i]); 
+                }
+        }
+    
+        string tempPath = "Data Source=tempDB.db;Version=3";
+
+        DBHelper _dbHelper = new (tempPath);
+        int id = _dbHelper.SelectSpeciesId(type);
+        new Thread(() => {_dbHelper.UpdateSpeciesData(id, CarcassEnergyContribution, MaxWaterNeeds, MaxEnergyNeeds, MaxSpeed, GestationPeriod, MaturityAge, MaxAge, DigestionTime, PreyConsumptionTime, MaxHealth, MaxStamina, AttackDamage, LitterMax); }).Start();
+
         for(int i = 0; i < n; i++){
             System.Random rnd = new System.Random();
             GameObject agent = instanciateAgent();
+
 
             newAgentType = type;
 
@@ -151,12 +163,7 @@ public class AgentManager : MonoBehaviour {
             agent = Instantiate(agent, hit.position , Quaternion.identity);
             InstanceList.Add(agent);
 
-            agent.name = agent.name.Replace("(Clone)","");
-            // Agent script = agent.GetComponent<Agent>();
-            // Dictionary<string, string> Attributes = AgentAttributes.GetAttributesDict();
-            
-            // script.Attributes = Attributes;
-            // Debug.Log(script.Attributes);   
+            agent.name = agent.name.Replace("(Clone)","");            
         }
     } 
     

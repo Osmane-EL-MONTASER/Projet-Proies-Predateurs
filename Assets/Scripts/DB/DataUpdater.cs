@@ -58,8 +58,6 @@ public class DataUpdater : MonoBehaviour {
     /// </summary>
     private DBHelper _dbHelper;
 
-    private static bool _isBDDReset = false;
-
     /// <summary>
     /// Correspond à une liste de points valués
     /// formant la courbe du nombre de prédateurs
@@ -102,11 +100,6 @@ public class DataUpdater : MonoBehaviour {
     /// </summary>
     void Start() {
         string tempPath = "Data Source=tempDB.db;Version=3";
-        if(!_isBDDReset) {
-            File.Delete("tempDB.db");
-            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-            _isBDDReset = true;
-        }
 
         _dbHelper = new DBHelper(tempPath);
         _recordNumber = _dbHelper.AddRecord(0.0f, 0.0f);
