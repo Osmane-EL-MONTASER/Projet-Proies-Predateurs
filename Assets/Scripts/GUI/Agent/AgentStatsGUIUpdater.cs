@@ -38,8 +38,6 @@ public class AgentStatsGUIUpdater : MonoBehaviour {
             GameObject.Find("Sex").GetComponent<TMPro.TextMeshProUGUI>().text 
             = "Sexe : " + (AgentToTrack.Attributes["Gender"].Equals("1") ? "Mâle" : "Femelle");
 
-            GameObject.Find("Icon").GetComponent<RawImage>().texture = PrefabUtility.GetIconForGameObject(AgentToTrack.gameObject);
-
             GameObject.Find("HPText").GetComponent<TMPro.TextMeshProUGUI>().text 
             = Math.Round(Convert.ToDouble(AgentToTrack.Attributes["Health"]), 3) + " / " 
                 + Math.Round(Convert.ToDouble(AgentToTrack.Attributes["MaxHealth"]), 3);
