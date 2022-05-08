@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Classe qui gère le panneau de configuration des agents.
@@ -70,6 +72,11 @@ public class AgentsConfiguration : MonoBehaviour
     /// Input de l'energie max.
     /// </summary>
     public TMP_InputField maxStamina;
+
+    /// <summary>
+    /// Input des dégats d'attaque.
+    /// </summary>
+    public TMP_InputField attackDamage;
 
     /// <summary>
     /// Input du nombre de porée max.
@@ -142,6 +149,11 @@ public class AgentsConfiguration : MonoBehaviour
     private double _maxStamina;
 
     /// <summary>
+    /// Dégats d'attaque.
+    /// </summary>
+    private double _attackDamage;
+
+    /// <summary>
     /// Portée max d'un agent.
     /// </summary>
     private int _litterMax;
@@ -161,12 +173,72 @@ public class AgentsConfiguration : MonoBehaviour
     /// </summary>
     public Button button;
 
-    // private static bool _isBDDReset = false;
+    private static bool _isBDDReset = false;
+
+    public Sprite[] spriteList;
+
+
 
 
     void Start(){
+        string tempPath = "Data Source=tempDB.db;Version=3";
+        if(!_isBDDReset) {
+            File.Delete("tempDB.db");
+            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
+            _isBDDReset = true;
+        }
+
+        DBHelper _dbHelper = new(tempPath);
+
+        string titleText = gameObject.name;
+        if(title != null)
+            title.text = "Paramètres " + Regex.Replace(titleText, "[0-9]", "") + " :";
+
+        if(gameObject.name.Contains("Panel")){
+            Dictionary<string,string> datas = _dbHelper.SelectSpeciesInfo();
+            foreach(KeyValuePair<string,string> entry in datas){
+               switch(entry.Value){
+                    case "predator":
+                        if(gameObject.name.Contains("2"))
+                            processTemplates(gameObject.transform.Find("Prédateurs/Container"), "Prédateurs/Container/Template", entry.Key);
+                        break;
+                    case "prey":
+                        if(gameObject.name.Contains("2"))
+                            processTemplates(gameObject.transform.Find("Proies/Container"), "Proies/Container/Template", entry.Key);
+                        break;
+                    case "autotroph":
+                        if(!gameObject.name.Contains("2"))
+                            processTemplates(gameObject.transform.Find("Autotrophes/Container"), "Autotrophes/Container/Template", entry.Key);
+                        break;
+               }
+            if(gameObject.name.Contains("2")){
+                Destroy(gameObject.transform.Find("Prédateurs/Container/Template").gameObject);
+                Destroy(gameObject.transform.Find("Proies/Container/Template").gameObject);
+            } else {
+                Destroy(gameObject.transform.Find("Autotrophes/Container/Template").gameObject);
+            }
+
+            }
+        }
     }
 
+    private void processTemplates(Transform parent, string path, string name){
+        GameObject duplicate = gameObject.transform.Find(path).gameObject;
+        Debug.Log(parent);
+        duplicate = Instantiate(duplicate, parent);
+        duplicate.name = name;
+        Image image = duplicate.GetComponent<Image>();
+        GameObject child = duplicate.transform.Find("Text (TMP)").gameObject;
+        foreach(Sprite sprite in spriteList){
+            if(sprite.name == name)
+                image.sprite = sprite;
+        }
+        child.GetComponent<TMP_Text>().text = Regex.Replace(name, "[0-9]", "");
+        child.GetComponent<TMP_Text>().enabled = true;
+        foreach(Behaviour component in duplicate.GetComponents(typeof(Behaviour))){
+            component.enabled = true;
+        }
+    }
     /// <summary>
     /// Fonction qui permet l'affichage des paramètres que l'on va modifié 
     /// et qui leur ajoute un listener pour pouvoir les modifier. 
@@ -175,31 +247,29 @@ public class AgentsConfiguration : MonoBehaviour
     /// </summary>
     public void onClick(){
         settings.SetActive(true);
-        title.text = "Paramètres " + _selectedAgentType + " :";
+        _selectedAgentType = gameObject.name;
+        title.text = "Paramètres " + Regex.Replace(_selectedAgentType, "[0-9]", "") + " :";
+        AgentManager.Instance.newAgentType = _selectedAgentType;
 
-        // string tempPath = "Data Source=tempDB.db;Version=3";
-        // if(!_isBDDReset) {
-        //     File.Delete("tempDB.db");
-        //     DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-        //     _isBDDReset = true;
-        // }
+        string tempPath = "Data Source=tempDB.db;Version=3";
+        DBHelper _dbHelper = new (tempPath);
+        Debug.Log(_selectedAgentType);
+        Dictionary<string,double> data = _dbHelper.SelectSpeciesData(_selectedAgentType);
 
-        // DBHelper _dbHelper = new (tempPath);
-        // Dictionary<string,double> data = _dbHelper.SelectSpeciesData(_selectedAgentType);
-
-        // _carcassEnergyContribution = data[""];
-        // _maxWaterNeeds = 0.0;
-        // _maxEnergyNeeds = 0.0;
-        // _maxSpeed = 0.0;
-        // _gestationPeriod = 0.0;
-        // _maturityAge = 0.0;
-        // _maxAge = 0.0;
-        // _digestionTime = 0.0;
-        // _preyConsumptionTime = 0.0;
-        // _maxHealth = 0.0;
-        // _maxStamina = 0.0;
-        // _litterMax = 0;
-        // _numAgents = 0;
+        _carcassEnergyContribution = data["CarcassEnergyContribution"];
+        _maxWaterNeeds = data["MaxWaterNeeds"];
+        _maxEnergyNeeds = data["MaxEnergyNeeds"];
+        _maxSpeed = data["MaxSpeed"];
+        _gestationPeriod = data["GestationPeriod"];
+        _maturityAge = data["MaturityAge"];
+        _maxAge = data["MaxAge"];
+        _digestionTime = data["DigestionTime"];
+        _preyConsumptionTime = data["PreyConsumptionTime"];
+        _maxHealth = data["MaxHealth"];
+        _maxStamina = data["MaxStamina"];
+        _attackDamage = data["Ad"];
+        _litterMax = (int) data["LitterMax"];
+        _numAgents = 0;
         
         health.onEndEdit.RemoveAllListeners();
         carcassEnergyContribution.onEndEdit.RemoveAllListeners();
@@ -214,6 +284,7 @@ public class AgentsConfiguration : MonoBehaviour
         maxStamina.onEndEdit.RemoveAllListeners();
         litterMax.onEndEdit.RemoveAllListeners();
         inputNumAgents.onEndEdit.RemoveAllListeners();
+        attackDamage.onEndEdit.RemoveAllListeners();
 
         health.text = _maxHealth.ToString();
         carcassEnergyContribution.text = _carcassEnergyContribution.ToString();
@@ -228,6 +299,7 @@ public class AgentsConfiguration : MonoBehaviour
         maxStamina.text = _maxStamina.ToString();
         litterMax.text = _litterMax.ToString();
         inputNumAgents.text = _numAgents.ToString();
+        attackDamage.text = _attackDamage.ToString();
 
         health.onEndEdit.AddListener((arg) => setHealth());
         carcassEnergyContribution.onEndEdit.AddListener((arg) => setCarcassEnergy());
@@ -242,13 +314,11 @@ public class AgentsConfiguration : MonoBehaviour
         maxStamina.onEndEdit.AddListener((arg) => setMaxStamina());
         litterMax.onEndEdit.AddListener((arg) => setLitterMax());
         inputNumAgents.onEndEdit.AddListener((arg) => setNumAgents());
-        
-        _selectedAgentType = gameObject.name;
-        AgentManager.Instance.newAgentType = _selectedAgentType;
-        
-        button.onClick.AddListener(() => AgentManager.Instance.initializationAgents(_selectedAgentType,  _carcassEnergyContribution, _maxWaterNeeds, _maxEnergyNeeds, _maxSpeed, _gestationPeriod, _maturityAge, _maxAge, _digestionTime, _preyConsumptionTime,
-    _maxHealth, _maxStamina, _litterMax, _numAgents));
+        attackDamage.onEndEdit.AddListener((arg) => setAttackDamage());
 
+        if(button != null)
+            button.onClick.AddListener(() => AgentManager.Instance.initializationAgents(_selectedAgentType,  _carcassEnergyContribution, _maxWaterNeeds, _maxEnergyNeeds, _maxSpeed, _gestationPeriod, _maturityAge, _maxAge, _digestionTime, _preyConsumptionTime,
+    _maxHealth, _maxStamina, _attackDamage, _litterMax, _numAgents));
     }
     /// <summary>
     /// Fait par AVERTY Pierre le 07/05/2022.
@@ -322,6 +392,13 @@ public class AgentsConfiguration : MonoBehaviour
     /// </summary>
     public void setMaxAge() {
         _maxAge =  double.Parse(maxAge.text);
+    }
+
+    /// <summary>
+    /// Fait par AVERTY Pierre le 07/05/2022.
+    /// </summary>
+    public void setAttackDamage() {
+        _attackDamage =  double.Parse(attackDamage.text);
     }
 
     /// <summary>

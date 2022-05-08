@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Threading;
 
 /// <summary>
 /// Singleton de Gestion des Global des Agents
@@ -29,9 +30,6 @@ public class AgentManager : MonoBehaviour {
     /// Type du nouvel agent qui va être ajouté.
     /// </summary>
     public string newAgentType;
-
-    private static bool _isBDDReset = false;
-
 
     /// <summary>
     /// Les différents préfabs des agents contenue dans le singleton.
@@ -131,21 +129,21 @@ public class AgentManager : MonoBehaviour {
     /// <param name="timeToLive">Durée de vie de l'agent.</param>
     /// <param name="n">Nombre d'agents.</param>
     public void initializationAgents(string type,  double CarcassEnergyContribution, double MaxWaterNeeds, double MaxEnergyNeeds, double MaxSpeed, double GestationPeriod, double MaturityAge, double MaxAge, double DigestionTime, double PreyConsumptionTime,
-    double MaxHealth, double MaxStamina, int LitterMax, int n){
-        // foreach(GameObject agent in InstanceList){
-        //     if(agent.GetComponent<Agent>().Attributes["SpeciesName"].Equals(type)){
-        //         InstanceList.Remove(agent);    
-        //     }
-        // }
-        string tempPath = "Data Source=tempDB.db;Version=3";
-        if(!_isBDDReset) {
-            File.Delete("tempDB.db");
-            DBInit init = new DBInit("Data Source=tempDB.db;Version=3", "./Assets/Scripts/DB/tables_creation.sql");
-            _isBDDReset = true;
+    double MaxHealth, double MaxStamina, double AttackDamage, int LitterMax, int n){
+        
+
+        for(int i = 0; i < InstanceList.Count;i++){
+            if(InstanceList[i] != null)
+                if(InstanceList[i].GetComponent<Agent>().name == type){
+                    Destroy(InstanceList[i]); 
+                }
         }
+    
+        string tempPath = "Data Source=tempDB.db;Version=3";
 
         DBHelper _dbHelper = new (tempPath);
         int id = _dbHelper.SelectSpeciesId(type);
+        new Thread(() => {_dbHelper.UpdateSpeciesData(id, CarcassEnergyContribution, MaxWaterNeeds, MaxEnergyNeeds, MaxSpeed, GestationPeriod, MaturityAge, MaxAge, DigestionTime, PreyConsumptionTime, MaxHealth, MaxStamina, AttackDamage, LitterMax); }).Start();
 
         for(int i = 0; i < n; i++){
             System.Random rnd = new System.Random();
