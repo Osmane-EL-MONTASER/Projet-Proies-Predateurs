@@ -57,7 +57,7 @@ public class FindFoodAgentAction : AgentAction {
             if((_agent.AgentMesh != null) && (!_agent.AgentMesh.pathPending 
             && _agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance 
             && (!_agent.AgentMesh.hasPath || _agent.AgentMesh.velocity.sqrMagnitude == 0f))) 
-                _agent.AgentMesh.SetDestination(_agent.walker());// il se déplace 
+                _agent.walker();// il se déplace 
             if (Convert.ToDouble(_agent.Attributes["EnergyNeeds"]) / Convert.ToDouble(_agent.Attributes["MaxEnergyNeeds"]) > 0.75)// s'il a très faim
                 _agent.AgentMesh.speed = 0.75f * (float)Convert.ToDouble(_agent.Attributes["MaxSpeed"]) * ActionNames.TimeSpeed; // il se déplace plus vite
         }
@@ -85,7 +85,7 @@ public class FindFoodAgentAction : AgentAction {
             {
                 if(_agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance)
                 {
-                    _agent.AgentMesh.SetDestination(_agent.walker());
+                    _agent.walker();
                 }
             }
 

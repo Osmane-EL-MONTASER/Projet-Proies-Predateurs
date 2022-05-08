@@ -47,7 +47,7 @@ public class IdleAgentAction : AgentAction {
         && (!_agent.AgentMesh.pathPending 
             && _agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance 
             && (!_agent.AgentMesh.hasPath || _agent.AgentMesh.velocity.sqrMagnitude == 0f))) {
-                _agent.AgentMesh.SetDestination(_agent.walker());
+                _agent.walker();
         }
         
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") && !_agent.Animation.GetBool("WalkTrigger"))

@@ -65,7 +65,7 @@ public class DrinkAgentAction : AgentAction {
         }
 
         if (eauP == null)
-            _agent.AgentMesh.SetDestination(_agent.walker());
+            _agent.walker();
 
         //f (_agent.AgentMesh.destination == _agent.transform.position)
         //{

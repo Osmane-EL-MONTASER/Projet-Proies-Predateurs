@@ -106,10 +106,8 @@ public class BreedAgentAction : AgentAction {
     private void findMate(Agent agent) {
         if(!_agent.Attributes["SpeciesName"].Equals("Grass") 
             && (_agent.AgentMesh != null) 
-            && (!_agent.AgentMesh.pathPending 
-            && _agent.AgentMesh.remainingDistance <= _agent.AgentMesh.stoppingDistance 
-            && (!_agent.AgentMesh.hasPath || _agent.AgentMesh.velocity.sqrMagnitude == 0f))) {
-            _agent.AgentMesh.SetDestination(_agent.walker());
+            && (!_agent.AgentMesh.pathPending)) {
+            _agent.walker();
         }
         IEnumerable<GameObject> possibleMates = from candidate in _agent.animauxDansFov()
                             where candidate.GetComponent<Agent>().Attributes["SpeciesName"].Equals(_agent.Attributes["SpeciesName"]) && !candidate.GetComponent<Agent>().Attributes["Gender"].Equals(_agent.Attributes["Gender"])

@@ -158,10 +158,10 @@ public class Agent : MonoBehaviour {
                 _lastWalkerUpdateAcc += (ActionNames.TimeSpeed / ActionNames.DAY_DURATION) * Time.deltaTime;
 
                 //Vérifier si l'agent cherche à atteindre une destination impraticable.
-                if(_lastWalkerUpdateAcc >= 5.0f && !(AgentMesh.remainingDistance >= 0.0f)) {
-                    //Si l'agent est resté à la même position depuis 5 secondes.
+                if(_lastWalkerUpdateAcc >= 1.0f && !(AgentMesh.remainingDistance >= 0.0f)) {
+                    //Si l'agent est resté à la même position depuis 1 seconde.
                     if(Vector3.Distance(AgentMesh.destination, _lastPositionUpdate) <= AgentMesh.speed)
-                        AgentMesh.destination = transform.position;
+                        walker();
                     _lastWalkerUpdateAcc = 0.0f;
                     _lastPositionUpdate = transform.position;
                 }
@@ -313,17 +313,21 @@ public class Agent : MonoBehaviour {
         }
     }
 
-    public Vector3 walker() {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 250;
-        /*System.Random rnd = new();
-        Vector3 randomDirection = new(rnd.Next(200, 800), 0f, rnd.Next(200, 800));*/
-        randomDirection += transform.position;
-        Vector3 finalPosition = Vector3.zero;
+    public void walker() {
+        NavMeshPath path = new NavMeshPath();
+        Vector3 randomDirection;
+        Vector3 finalPosition;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1))
-            finalPosition = hit.position;
+        do {
+            randomDirection = UnityEngine.Random.insideUnitSphere * 150;
+            randomDirection += transform.position;
+            finalPosition = Vector3.zero;
 
-        return finalPosition;   
+            if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 100, 1))
+                finalPosition = hit.position;
+        } while(!NavMesh.CalculatePath(transform.position, finalPosition, NavMesh.AllAreas, path));
+
+        AgentMesh.SetDestination(finalPosition);
     }
 
     /// <summary>
