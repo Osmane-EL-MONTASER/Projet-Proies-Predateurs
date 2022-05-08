@@ -286,6 +286,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb03e95c3fe5f4e95d52664837c4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AgentMesh: {fileID: 0}
+  Animation: {fileID: 0}
+  Fov: {fileID: 0}
+  AgentCible: {fileID: 0}
+  AnimauxEnVisuel: []
+  Preys: []
 --- !u!108 &8793662049175571664
 Light:
   m_ObjectHideFlags: 0
@@ -482,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54772f0085973a74cb8cf745b612968d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  n: 1
 --- !u!1 &4214909725217874351
 GameObject:
   m_ObjectHideFlags: 0
