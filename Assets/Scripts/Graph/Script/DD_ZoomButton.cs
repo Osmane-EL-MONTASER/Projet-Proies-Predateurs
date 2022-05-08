@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal pour le prototype, elle permet de gérer les évènements liés au zoom
+/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype, elle permet de gérer les évènements liés au zoom
 /// </summary>
 public class ZoomButtonClickEventArgs : EventArgs {
 

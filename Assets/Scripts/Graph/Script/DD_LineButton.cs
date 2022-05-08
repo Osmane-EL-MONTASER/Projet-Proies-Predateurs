@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Classe reprise et modifiée par HAMICHE Bilal le 06/05, elle permet de gérer les
+/// Classe reprise et modifiée par HAMICHE Bilal le 05/05, elle permet de gérer les
 /// évenements liés aux boutons pour les courbes et la fenetre
 /// </summary>
 public class DD_LineButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {

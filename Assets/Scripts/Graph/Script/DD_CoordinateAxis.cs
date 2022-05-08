@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 
 //permet de changer le cadre rectangulaire
+
+/// <summary>
+/// Classe reprise par HAMICHE Bilal le 30/04, elle permet de modifier
+/// le cadre rectangulaire du graphe en fonction des événements
+/// </summary>
 public class DD_CoordinateRectChangeEventArgs : EventArgs {
 
     public Rect viewRectInPixel;
@@ -18,16 +23,27 @@ public class DD_CoordinateRectChangeEventArgs : EventArgs {
 }
 
 //permet de changer le l'echelle
+/// <summary>
+/// Classe reprise par HAMICHE Bilal le 30/04, elle permet de modifier 
+/// les valeurs en abscisses et en ordonnées en fonction des événements 
+/// </summary>
 public class DD_CoordinateScaleChangeEventArgs : EventArgs {
 
+    /// <summary>
+    /// Varaible de type float qui désigne les valeurs en abscisses
+    /// </summary>
+
     public float scaleX;
+    /// <summary>
+    /// Varaible de type float qui désigne les valeurs en abscisses
+    /// </summary>
     public float scaleY;
 
     /// <summary>
     /// Constructeur de la classe DD_CoordinateScaleChangeEventArgs permettant de créer les objets scaleX et scaleY
     /// </summary>
-    /// <param name="scaleX">Variable de type float qui représente les valeurs en ordonées</param>
-    /// <param name="scaleY">Variable de type float qui représente les valeurs en abscisses</param>
+    /// <param name="scaleX">Variable de type float qui représente les valeurs en abscisses</param>
+    /// <param name="scaleY">Variable de type float qui représente les valeurs en ordonnées</param>
     public DD_CoordinateScaleChangeEventArgs(float scaleX, float scaleY) : base() {
 
         this.scaleX = scaleX;
@@ -112,13 +128,12 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
     /// <summary>
     /// Variable de type Color qui permet de mettre la couleur de fond en noir
     /// </summary>
-    private Color m_BackgroundColor = new Color(0, 0, 0, 0.5f);
+    private Color m_BackgroundColor = new Color(255, 255, 255, 0.5f);
 
     /// <summary>
     /// Variable de type Color qui permet de régler la couleur des points
     /// </summary>
     private Color m_MarkColor = new Color(0.8f, 0.8f, 0.8f, 1);
-
 
     /// <summary>
     /// Liste contenant les objets textes
@@ -180,7 +195,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 
     /// <summary>
     /// Le point indique la position zéro de la valeur de
-    /// l'échelle de la zone de visualisation actuelle et est utilisé pour déplacer les axes.
+    /// l'échelle de la zone d'observation actuelle et est utilisé pour déplacer les axes.
     /// </summary>
     public Rect coordinateAxisViewRangeInPixel {
         get {
@@ -215,7 +230,9 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
 #endregion
 
 #region delegate
-    // 创建一个委托，返回类型为void，两个参数
+    /// <summary>
+    /// Créer un délégué avec un type de retour void et deux paramètres d'entrée
+    /// </summary>
     public delegate void CoordinateRectChangeHandler(object sender, DD_CoordinateRectChangeEventArgs e);
     public delegate void CoordinateScaleChangeHandler(object sender, DD_CoordinateScaleChangeEventArgs e);
     public delegate void CoordinateZeroPointChangeHandler(object sender, DD_CoordinateZeroPointChangeEventArgs e);
@@ -336,6 +353,7 @@ public class DD_CoordinateAxis : DD_DrawGraphic {
         ///Met à jour OnPopulateMesh
         UpdateGeometry();
     }
+
 
     private void OnZoom(object sender, DD_ZoomEventArgs e) {
 

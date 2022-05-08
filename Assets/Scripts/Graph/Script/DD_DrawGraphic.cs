@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Classe reprise par HAMICHE Bilal, elle permet de créer les courbes sur le graphe.
+/// Classe reprise par HAMICHE Bilal le 29/04, elle permet de créer les courbes sur le graphe.
 /// </summary>
 public class DD_DrawGraphic : MaskableGraphic {
 
@@ -97,7 +97,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         return true;
     }
     /// <summary>
-    /// Méthode permettant de dessiner le rectangle du graphe
+    /// Méthode permettant de tracer le rectangle du graphe
     /// </summary>
     protected void DrawRectang(VertexHelper vh, Vector2 point1st,
     Vector2 point2nd, Vector2 point3rd, Vector2 point4th, Color color) {
@@ -123,7 +123,7 @@ public class DD_DrawGraphic : MaskableGraphic {
         vh.AddUIVertexQuad(verts);
     }
     /// <summary>
-    /// Méthode permettant de dessiner les points sur le graphe
+    /// Méthode permettant de tracer les points sur le graphe
     /// </summary>
     protected void DrawPoint(VertexHelper vh, Vector2 point, 
         Color color, float thickness, float scaleX = 1, float scaleY = 1) {
@@ -136,6 +136,9 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
+    /// <summary>
+    /// Méthode permettant de tracer les segments horizontaux sur le graphe
+    /// </summary>
     protected void DrawHorizontalSegmet(VertexHelper vh, Vector2 startPoint, 
         Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1) {
 
@@ -147,6 +150,9 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
+    /// <summary>
+    /// Méthode permettant de tracer les segments verticaux sur le graphe
+    /// </summary>
     protected void DrawVerticalitySegmet(VertexHelper vh, Vector2 startPoint, 
         Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1) {
 
@@ -158,6 +164,9 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
+    /// <summary>
+    /// Méthode permettant de tracer les lignes horizontales du graphe
+    /// </summary>
     protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness) {
                 
         if (points.Count < 2)
@@ -167,8 +176,9 @@ public class DD_DrawGraphic : MaskableGraphic {
             DrawHorizontalSegmet(vh, points[i], points[i + 1], color, thickness);
         }
     }
+
     /// <summary>
-    /// Méthode permettant de dessiner les lignes horizontales du graphe
+    /// Méthode permettant de tracer les lignes horizontales du graphe
     /// </summary>
     protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness, Rect range) {
 
@@ -195,11 +205,11 @@ public class DD_DrawGraphic : MaskableGraphic {
         }
     }
     /// <summary>
-    /// Méthode permettant de dessiner les triangles sur le graphe
+    /// Méthode permettant de tracer les triangles sur le graphe
     /// </summary>
     protected void DrawTriangle(VertexHelper vh, Vector2 points, 
         Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1) {
-        ///Des triangles sont dessinés provisoirement
+        ///Des triangles sont tracés provisoirement
         float edge = (thickness / 3) * 2;
     
         Vector2 point1st = new Vector2((points.x + Mathf.Sin(Mathf.Deg2Rad * rotate) * edge) * scaleX,
@@ -212,6 +222,9 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point3rd, point1st, point2nd, point3rd, color);
     }
 
+    /// <summary>
+    /// Méthode permettant de tracer le cadre rectangulaire du graphe
+    /// </summary>
     protected void DrawRectFrame(VertexHelper vh, Vector2 point1st, Vector2 point2nd, 
         Vector2 point3rd, Vector2 point4th, Color color, float thickness) {
 

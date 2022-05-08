@@ -61,6 +61,9 @@ public class Sample : MonoBehaviour {
         ContinueInput(m_Input);
     }
 
+    /// <summary>
+    /// Méthode permettant de générer des courbes aléatoirement pour tester le graphe
+    /// </summary>
     private void ContinueInput(float f) {
 
         if (null == m_DataDiagram)
@@ -91,6 +94,7 @@ public class Sample : MonoBehaviour {
         AddALine("");
     }
 
+    
     public void OnRectChange() {
 
         if (null == m_DataDiagram)

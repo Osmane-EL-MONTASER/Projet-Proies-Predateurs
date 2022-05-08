@@ -6,8 +6,8 @@ using UnityEngine;
 
 
 /// <summary>
-/// Classe reprise par Bilal HAMICHE pour le prototype. 
-/// Elle permet de créer le menu contenant le graphe
+/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype. 
+/// Elle est utilisée pour le menu contenant le graphe.
 /// </summary>
 public class DD_Menu : MonoBehaviour {
 
