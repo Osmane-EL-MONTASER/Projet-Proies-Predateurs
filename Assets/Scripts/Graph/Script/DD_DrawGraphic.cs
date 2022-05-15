@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DD_DrawGraphic : MaskableGraphic {
 
-    private int IsPointHorizontalInRect(Vector2 p, Rect rect) {
+/// <summary>
+/// Classe reprise par HAMICHE Bilal le 29/04 pour le prototype,
+/// elle permet de créer les courbes sur le graphe.
+/// Cette classe est reprise depuis ce lien https://assetstore.unity.com/packages/tools/gui/dynamic-line-chart-108651
+/// </summary>
+public class DD_DrawGraphic : MaskableGraphic
+{
+
+    private int IsPointHorizontalInRect(Vector2 p, Rect rect)
+    {
 
         if (p.x < rect.x)
             return -1;
@@ -16,7 +24,8 @@ public class DD_DrawGraphic : MaskableGraphic {
         return 0;
     }
 
-    private int IsPointVerticalityInRect(Vector2 p, Rect rect) {
+    private int IsPointVerticalityInRect(Vector2 p, Rect rect)
+    {
 
         if (p.y < rect.y)
             return -1;
@@ -27,34 +36,40 @@ public class DD_DrawGraphic : MaskableGraphic {
         return 0;
     }
 
-    private Vector2? CalcHorizontalCutPoint(Vector2 p1, Vector2 p2, float y) {
+    private Vector2? CalcHorizontalCutPoint(Vector2 p1, Vector2 p2, float y)
+    {
 
-        ///避免零除以零
-        if(p2.y == p1.y)
+        ///Empêche de diviser par 0.
+        if (p2.y == p1.y)
             return new Vector2?(new Vector2(p2.x, p2.y));
 
         float x = ((y - p1.y) / (p2.y - p1.y)) * (p2.x - p1.x);
 
-        return new Vector2 ? (new Vector2(p1.x + x, y));
+        return new Vector2?(new Vector2(p1.x + x, y));
     }
 
-    private int AddHorizontalCutPoints(List<Vector2> points, int sn, float y) {
+    private int AddHorizontalCutPoints(List<Vector2> points, int sn, float y)
+    {
 
         Vector2? left = null;
         Vector2? right = null;
 
         int ret = 0;
 
-        if (sn > 0) {
-            if(null != (left = CalcHorizontalCutPoint(points[sn], points[sn-1], y))) {
+        if (sn > 0)
+        {
+            if (null != (left = CalcHorizontalCutPoint(points[sn], points[sn - 1], y)))
+            {
                 points.Insert(sn, left.Value);
                 sn++;
                 ret++;
             }
         }
 
-        if (sn < (points.Count - 1)) {
-            if(null != (right = CalcHorizontalCutPoint(points[sn], points[sn + 1], y))) {
+        if (sn < (points.Count - 1))
+        {
+            if (null != (right = CalcHorizontalCutPoint(points[sn], points[sn + 1], y)))
+            {
                 points.Insert(sn + 1, right.Value);
                 ret++;
             }
@@ -63,17 +78,23 @@ public class DD_DrawGraphic : MaskableGraphic {
         return ret;
     }
 
-    private void HorizontalCut(List<Vector2> points, Rect range) {
+
+    private void HorizontalCut(List<Vector2> points, Rect range)
+    {
 
         int flag = 0;
 
-        for (int i = 0, j = 0; i < points.Count; i += j, j = 0) {
+        for (int i = 0, j = 0; i < points.Count; i += j, j = 0)
+        {
 
             flag = IsPointVerticalityInRect(points[i], range);
 
-            if (flag > 0) {
+            if (flag > 0)
+            {
                 j = AddHorizontalCutPoints(points, i, range.y + range.height);
-            } else if(flag < 0) {
+            }
+            else if (flag < 0)
+            {
                 j = AddHorizontalCutPoints(points, i, range.y);
             }
 
@@ -81,7 +102,8 @@ public class DD_DrawGraphic : MaskableGraphic {
         }
     }
 
-    protected bool IsPointInRect(Vector2 p, Rect rect) {
+    protected bool IsPointInRect(Vector2 p, Rect rect)
+    {
 
         if (0 != IsPointHorizontalInRect(p, rect))
             return false;
@@ -91,9 +113,12 @@ public class DD_DrawGraphic : MaskableGraphic {
 
         return true;
     }
-
+    /// <summary>
+    /// Méthode permettant de tracer le rectangle du graphe.
+    /// </summary>
     protected void DrawRectang(VertexHelper vh, Vector2 point1st,
-    Vector2 point2nd, Vector2 point3rd, Vector2 point4th, Color color) {
+    Vector2 point2nd, Vector2 point3rd, Vector2 point4th, Color color)
+    {
 
         UIVertex[] verts = new UIVertex[4];
 
@@ -115,9 +140,12 @@ public class DD_DrawGraphic : MaskableGraphic {
 
         vh.AddUIVertexQuad(verts);
     }
-
-    protected void DrawPoint(VertexHelper vh, Vector2 point, 
-        Color color, float thickness, float scaleX = 1, float scaleY = 1) {
+    /// <summary>
+    /// Méthode permettant de tracer les points sur le graphe.
+    /// </summary>
+    protected void DrawPoint(VertexHelper vh, Vector2 point,
+        Color color, float thickness, float scaleX = 1, float scaleY = 1)
+    {
 
         Vector2 point1st = new Vector2((point.x - (thickness / 2)) * scaleX, (point.y - (thickness / 2)) * scaleY);
         Vector2 point2nd = new Vector2((point.x - (thickness / 2)) * scaleX, (point.y + (thickness / 2)) * scaleY);
@@ -127,8 +155,12 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
-    protected void DrawHorizontalSegmet(VertexHelper vh, Vector2 startPoint, 
-        Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1) {
+    /// <summary>
+    /// Méthode permettant de tracer les segments horizontaux sur le graphe.
+    /// </summary>
+    protected void DrawHorizontalSegmet(VertexHelper vh, Vector2 startPoint,
+        Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1)
+    {
 
         Vector2 point1st = new Vector2(startPoint.x * scaleX, (startPoint.y * scaleY) - (thickness / 2));
         Vector2 point2nd = new Vector2(startPoint.x * scaleX, (startPoint.y * scaleY) + (thickness / 2));
@@ -138,8 +170,12 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
-    protected void DrawVerticalitySegmet(VertexHelper vh, Vector2 startPoint, 
-        Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1) {
+    /// <summary>
+    /// Méthode permettant de tracer les segments verticaux sur le graphe.
+    /// </summary>
+    protected void DrawVerticalitySegmet(VertexHelper vh, Vector2 startPoint,
+        Vector2 endPoint, Color color, float thickness, float scaleX = 1, float scaleY = 1)
+    {
 
         Vector2 point1st = new Vector2((startPoint.x * scaleX) - (thickness / 2), startPoint.y * scaleY);
         Vector2 point2nd = new Vector2((endPoint.x * scaleX) - (thickness / 2), endPoint.y * scaleY);
@@ -149,31 +185,43 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point1st, point2nd, point3rd, point4th, color);
     }
 
-    protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness) {
-                
+    /// <summary>
+    /// Méthode permettant de tracer les lignes horizontales du graphe.
+    /// </summary>
+    protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness)
+    {
+
         if (points.Count < 2)
             return;
 
-        for (int i = 0; i < points.Count - 1; i++) {
+        for (int i = 0; i < points.Count - 1; i++)
+        {
             DrawHorizontalSegmet(vh, points[i], points[i + 1], color, thickness);
         }
     }
 
-    protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness, Rect range) {
+    /// <summary>
+    /// Méthode permettant de tracer les lignes horizontales du graphe.
+    /// </summary>
+    protected void DrawHorizontalLine(VertexHelper vh, List<Vector2> points, Color color, float thickness, Rect range)
+    {
 
         if (points.Count < 2)
             return;
 
         HorizontalCut(points, range);
 
-        for (int i = 0; i < points.Count - 1; ) {
+        for (int i = 0; i < points.Count - 1;)
+        {
 
-            if(false == IsPointInRect(points[i], range)) {
+            if (false == IsPointInRect(points[i], range))
+            {
                 points.RemoveAt(i);
                 continue;
             }
 
-            if (false == IsPointInRect(points[i + 1], range)) {
+            if (false == IsPointInRect(points[i + 1], range))
+            {
                 points.RemoveAt(i + 1);
                 i++;
                 continue;
@@ -183,12 +231,15 @@ public class DD_DrawGraphic : MaskableGraphic {
             i++;
         }
     }
-
-    protected void DrawTriangle(VertexHelper vh, Vector2 points, 
-        Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1) {
-        ///暂时只画正三角形
+    /// <summary>
+    /// Méthode permettant de tracer les triangles sur le graphe.
+    /// </summary>
+    protected void DrawTriangle(VertexHelper vh, Vector2 points,
+        Color color, float thickness, float rotate, float scaleX = 1, float scaleY = 1)
+    {
+        ///Des triangles sont tracés provisoirement.
         float edge = (thickness / 3) * 2;
-    
+
         Vector2 point1st = new Vector2((points.x + Mathf.Sin(Mathf.Deg2Rad * rotate) * edge) * scaleX,
             (points.y + Mathf.Cos(Mathf.Deg2Rad * rotate) * edge) * scaleY);
         Vector2 point2nd = new Vector2((points.x + Mathf.Sin(Mathf.Deg2Rad * (rotate + 120)) * edge) * scaleX,
@@ -199,8 +250,12 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawRectang(vh, point3rd, point1st, point2nd, point3rd, color);
     }
 
-    protected void DrawRectFrame(VertexHelper vh, Vector2 point1st, Vector2 point2nd, 
-        Vector2 point3rd, Vector2 point4th, Color color, float thickness) {
+    /// <summary>
+    /// Méthode permettant de tracer le cadre rectangulaire du graphe.
+    /// </summary>
+    protected void DrawRectFrame(VertexHelper vh, Vector2 point1st, Vector2 point2nd,
+        Vector2 point3rd, Vector2 point4th, Color color, float thickness)
+    {
 
         DrawVerticalitySegmet(vh, point1st, point2nd, color, thickness);
         DrawHorizontalSegmet(vh, point2nd, point3rd, color, thickness);
@@ -208,8 +263,9 @@ public class DD_DrawGraphic : MaskableGraphic {
         DrawHorizontalSegmet(vh, point4th, point1st, color, thickness);
     }
 
-    ///暂时只画正三角形
-    public static float GetTriangleCentreDis(float thickness) {
+    ///Des triangles sont tracés provisoirement.
+    public static float GetTriangleCentreDis(float thickness)
+    {
 
         return (thickness / 3);
     }

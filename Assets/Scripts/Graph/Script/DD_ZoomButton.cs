@@ -3,15 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoomButtonClickEventArgs : EventArgs {
+/// <summary>
+/// Classe reprise et modifiée par HAMICHE Bilal le 29/04 pour le prototype,
+/// elle permet de gérer les évenements liés au zoom.
+/// Cette classe est reprise depuis ce lien https://assetstore.unity.com/packages/tools/gui/dynamic-line-chart-108651
+/// </summary>
+public class ZoomButtonClickEventArgs : EventArgs
+{
 
 }
 
-public class DD_ZoomButton : MonoBehaviour {
+
+/// <summary>
+/// Classe reprise et modifiée par HAMICHE Bilal le 29/04, 
+/// elle permet de zoomer sur le graphe.
+/// Cette classe est reprise depuis ce lien https://assetstore.unity.com/packages/tools/gui/dynamic-line-chart-108651
+/// </summary>
+public class DD_ZoomButton : MonoBehaviour
+{
 
     private DD_DataDiagram m_DataDiagram;
 
-    struct RTParam {
+    struct RTParam
+    {
 
         public Transform parent;
         public Rect rect;
@@ -23,17 +37,20 @@ public class DD_ZoomButton : MonoBehaviour {
     public delegate void ZoomButtonClickHandle(object sender, ZoomButtonClickEventArgs args);
     public ZoomButtonClickHandle ZoomButtonClickEvent;
 
-    private void Awake() {
+    private void Awake()
+    {
 
         m_DataDiagram = GetComponentInParent<DD_DataDiagram>();
-        if(null == m_DataDiagram) {
+        if (null == m_DataDiagram)
+        {
             Debug.LogWarning(this + "Awake Error : null == m_DataDiagram");
             return;
         }
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         if (null == m_DataDiagram)
             return;
@@ -44,7 +61,7 @@ public class DD_ZoomButton : MonoBehaviour {
         rt = m_DataDiagram.GetComponent<RectTransform>();
 
         RTparams[0].rect = DD_CalcRectTransformHelper.CalcLocalRect(rt.anchorMin, rt.anchorMax,
-            RTparams[0].parent.GetComponent<RectTransform>().rect.size, rt.pivot, 
+            RTparams[0].parent.GetComponent<RectTransform>().rect.size, rt.pivot,
             rt.anchoredPosition, rt.rect);
 
         RTparams[1].parent = GetComponentInParent<Canvas>().transform;
@@ -53,13 +70,15 @@ public class DD_ZoomButton : MonoBehaviour {
 
         paramSN = 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void OnZoomButton() {
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void OnZoomButton()
+    {
 
         if (null == m_DataDiagram)
             return;
