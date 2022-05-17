@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sample : MonoBehaviour {
+
+/// <summary>
+/// Classe reprise et modifié par HAMICHE Bilal le 05/05 pour le prototype, elle permet d'ajouter le
+/// nombre de proies, predateurs et autotrophes dans la simulation en
+/// temps réel sur le graphe.
+/// Cette classe est reprise depuis ce lien https://assetstore.unity.com/packages/tools/gui/dynamic-line-chart-108651
+/// </summary>
+public class Sample : MonoBehaviour
+{
 
     List<GameObject> lineList = new List<GameObject>();
 
@@ -13,7 +21,8 @@ public class Sample : MonoBehaviour {
     private float m_Input = 0f;
     private float h = 0;
 
-    void AddALine(string label) {
+    void AddALine(string label)
+    {
         if (null == m_DataDiagram)
             return;
 
@@ -25,33 +34,45 @@ public class Sample : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         GameObject dd = GameObject.Find("DataDiagram");
-        if(null == dd) {
-            Debug.LogWarning("can not find a gameobject of DataDiagram");
+        if (null == dd)
+        {
+            Debug.LogWarning("Impossible de trouver un gameobject de DataDiagram");
             return;
         }
         m_DataDiagram = dd.GetComponent<DD_DataDiagram>();
 
         m_DataDiagram.PreDestroyLineEvent += (s, e) => { lineList.Remove(e.line); };
 
+
+        ///<summary>
+        /// Ajoute les noms associés à chacune des courbes
+        /// </summary>
         AddALine("Prédateurs");
         AddALine("Proies");
         AddALine("Autotrophes");
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
 
         m_Input += Time.deltaTime;
         ContinueInput(m_Input);
     }
 
-    private void ContinueInput(float f) {
+    /// <summary>
+    /// Méthode permettant de générer des courbes de façon aléatoire pour tester le graphe.
+    /// </summary>
+    private void ContinueInput(float f)
+    {
 
         if (null == m_DataDiagram)
             return;
@@ -60,28 +81,34 @@ public class Sample : MonoBehaviour {
             return;
 
         float d = 0f;
-        foreach (GameObject l in lineList) {
+        foreach (GameObject l in lineList)
+        {
             m_DataDiagram.InputPoint(l, new Vector2(0.1f,
                 (Mathf.Sin(f + d) + 1f) * 2f));
             d += 1f;
         }
     }
 
-    public void onButton() {
+    public void onButton()
+    {
 
         if (null == m_DataDiagram)
             return;
 
-        foreach (GameObject l in lineList) {
+        foreach (GameObject l in lineList)
+        {
             m_DataDiagram.InputPoint(l, new Vector2(1, Random.value * 4f));
         }
     }
 
-    public void OnAddLine() {
+    public void OnAddLine()
+    {
         AddALine("");
     }
 
-    public void OnRectChange() {
+
+    public void OnRectChange()
+    {
 
         if (null == m_DataDiagram)
             return;
@@ -92,7 +119,8 @@ public class Sample : MonoBehaviour {
         m_DataDiagram.rect = rect;
     }
 
-    public void OnContinueInput() {
+    public void OnContinueInput()
+    {
 
         m_IsContinueInput = !m_IsContinueInput;
 
